@@ -1,4 +1,4 @@
-package com.web.store.config;
+package tw.com.uyayi.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.web.store")
+@ComponentScan("tw.com.uyayi")
 public class WebAppConfig implements WebMvcConfigurer {
 
 	@Bean

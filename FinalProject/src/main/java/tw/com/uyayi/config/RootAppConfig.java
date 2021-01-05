@@ -1,4 +1,4 @@
-package com.web.store.config;
+package tw.com.uyayi.config;
 
 import java.beans.PropertyVetoException;
 import java.util.Properties;
