@@ -21,14 +21,14 @@ public class RootAppConfig {
     @Bean
     public DataSource dataSource() {
         ComboPooledDataSource ds = new ComboPooledDataSource();
-        ds.setUser("Eddie");
+        ds.setUser("Team6");
         ds.setPassword("123456");
         try {
             ds.setDriverClass("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
-        ds.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=JSPDB");
+        ds.setJdbcUrl("jdbc:sqlserver://localhost:1433;databaseName=UYY_DB");
         ds.setInitialPoolSize(4);
         ds.setMaxPoolSize(8);
         return ds;
