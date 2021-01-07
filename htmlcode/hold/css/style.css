@@ -255,6 +255,14 @@ h1, h2, h3, h4, h5, h6 {
   -o-transition: 0.5s;
   transition: 0.5s;
 }
+
+@media screen and (max-width: 500px) {
+  #fh5co-nav ul li a {
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+}
+
 #fh5co-nav ul li a:hover, #fh5co-nav ul li a:focus, #fh5co-nav ul li a:active {
   color: white;
   border-bottom: white 2px solid;
@@ -984,20 +992,14 @@ top: 25px;
 right: 80px;
 color: rgba(255, 255, 255, 0.5);
 border-bottom: none;
-/* background: #cccccc; */
-/* width: 40px;
-height: 20px; */
-/* border-bottom: none !important;
--webkit-transition: 0.5s;
--o-transition: 0.5s;
-transition: 0.5s;
--webkit-border-radius: 100px;
--moz-border-radius: 100px;
--ms-border-radius: 100px;
-border-radius: 100px; */
 display: -moz-inline-stack;
 display: inline-block;
 zoom: 1;
 *display: inline;
-
+}
+@media screen and (max-width: 768px) {
+  .style-logout{
+  top: 50px;
+  right: 25px;
+  }
 }
