@@ -1,5 +1,7 @@
 package tw.com.uyayi.service.impl;
 
-public class ProductServiceImpl {
+import tw.com.uyayi.service.ProductService;
+
+public class ProductServiceImpl implements ProductService {
 
 }

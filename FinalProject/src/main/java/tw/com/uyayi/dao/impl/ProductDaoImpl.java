@@ -1,5 +1,7 @@
 package tw.com.uyayi.dao.impl;
 
-public class ProductDaoImpl {
+import tw.com.uyayi.dao.ProductDao;
+
+public class ProductDaoImpl implements ProductDao {
 
 }
