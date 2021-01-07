@@ -6,4 +6,6 @@ import tw.com.uyayi.model.Products;
 
 public interface ProductDao {
 	List<Products> getAllProducts();
+	
+	List<Products> getProductsByCategory(String productCategoty);
 }
