@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    	
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -46,13 +46,13 @@
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css" >
+	<link rel="stylesheet" href="css/animate.css">
 	<!-- Flexslider -->
-	<link rel="stylesheet" href="css/flexslider.css" >
+	<link rel="stylesheet" href="css/flexslider.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css" >
+	<link rel="stylesheet" href="css/icomoon.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css" >
+	<link rel="stylesheet" href="css/bootstrap.css">
 
 	<link rel="stylesheet" id="theme-switch" href="css/style.css">
 	
@@ -115,123 +115,20 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
-				<li class="animate-box fh5co-active"><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box"><a data-toggle="modal" data-target="#memberModal" >用戶登入</a></li>
-<<<<<<< Updated upstream
-				<li class="animate-box"><a data-toggle="modal" data-target="#clinicModal" >診所登入</a></li>
-				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
-=======
-				<li class="animate-box"><a href="<c:url value='clinicIndex'/>" class="transition">診所服務</a></li>
+				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
+				<li class="animate-box fh5co-active"><a href="#" class="transition">立即預約</a></li>
+				<li class="animate-box"><a href="#" class="transition">預約紀錄</a></li>
+				<li class="animate-box"><a href="#" class="transition">會員資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">商城</a></li>
->>>>>>> Stashed changes
-			</ul>
-
-			<!--開關燈-->
+            </ul>
+			<a href="#" class="transition style-logout">登出</a>
+            <!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
 			</a>
 		</nav>
-		
-		
-
-
-		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes">
-			<div class="container">
-				<div class="fh5co-text-wrap animate-box">
-					<div class="fh5co-intro-text" id="memberI">
-						<h1>U YA YI <span> </span> </h1>
-						<h1>隨時預約你的牙醫</h1>
-					</div>
-				</div>
-			</div>
-			<div class="btn-next animate-box fh5co-learn-more">
-				<a href="#about" >
-					<span>See our service</span>
-					<i class="icon-chevron-down"></i>
-				</a>
-			</div>
-		</header>
-
-		<!--一般用戶LOGIN表單-->
-	<div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-					<form class="loginForm" action="LoginServlet" method="POST" >
-						<h1>一般會員</h1>
-							<div class="usericon">
-								<i class="fas fa-user-circle"></i>
-							</div>
-							<div class="choose">
-								<a href="javascript:void();" class="login default"><h2 >登　入</h2></a>
-								<a href="../memberSignin/MemberSingup.jsp" class="sign"><h2 >註　冊</h2></a>
-							</div>
-								<div class="formcontainer">
-								<div class="container">
-									<label for="uname"><strong>身分證字號</strong></label>
-									<input type="text" placeholder="請輸入身分證字號" name="account" id="uname" required autofocus>
-					
-									<label for="psw"><strong>密　　　碼</strong></label>
-									<input type="password" placeholder="請輸入密碼" name="pwd" id="upsw" required>
-				
-								</div>
-								<button type="submit"><strong>登入</strong></button>
-								<div class="container" >
-									<span ><a href="#" class="link">忘記密碼?</a></span>
-								</div>
-							</div>
-						</form>
-			</div>			
-		</div>
-	</div>		
-
-		
-
-
-
-		<!-- data-colorbg="#8cc53e"  -->
-		<div class="fh5co-project js-fh5co-waypoint" data-bgcolor="" data-next="yes"  >
-			<div class="container" id="about">
-				<div class="fh5co-project-inner row">
-					<div class="fh5co-imgs col-md-8 animate-box" >
-						<div class="img-holder-1 animate-box">
-							<img src="images/hpimg1.jpg" alt="Free HTML5 Bootstrap Template">
-						</div>
-						<!-- <div class="img-holder-2 animate-box">
-							<img src="images/work_1_small.jpg" alt="Free HTML5 Bootstrap Template">
-						</div> -->
-					</div>
-					<div class="fh5co-text col-md-4 animate-box " >
-						<h2>隨時隨地預約牙醫</h2>
-						<p>預約牙醫時總是被告知要等一個月後嗎？在U YA YI上可以根據您希望的時間、地點，找到適合您的牙醫，讓您立刻解決您的牙齒問題。</p>
-						<p><a href="work_1.html" class="btn btn-light btn-outline transition">立刻預約</a></p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- data-colorbg="#FF6138" -->
-		<div class="fh5co-project js-fh5co-waypoint fh5co-reverse" data-colorbg="" data-next="yes">
-			<div class="container">
-				<div class="fh5co-project-inner row">
-					<div class="fh5co-imgs col-md-8 col-md-push-4 animate-box">
-						<div class="img-holder-1 animate-box">
-							<img src="images/hpimg2.jpg" alt="Free HTML5 Bootstrap Template">
-						</div>
-						<!-- <div class="img-holder-2 animate-box">
-							<img src="images/work_2_small.jpg" alt="Free HTML5 Bootstrap Template">
-						</div> -->
-					</div>
-					<div class="fh5co-text col-md-4 col-md-pull-8 animate-box">
-						<h2>透明資訊與診所評價</h2>
-						<p>U YA YI提供完整的診所及醫師資訊，以及使用者們看診過後的實際評價，讓您挑選診所時能多方比較，選擇讓您安心的診所。</p>
-						<p><a href="work_1.html" class="btn btn-light btn-outline transition">View Project</a></p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		
-		<!-- data-colorbg="#2d4059" -->
+   
+    		<!-- data-colorbg="#2d4059" -->
 		<div class="fh5co-project js-fh5co-waypoint" data-colorbg="" data-next="yes">
 			<div class="container">
 				<div class="fh5co-project-inner row">

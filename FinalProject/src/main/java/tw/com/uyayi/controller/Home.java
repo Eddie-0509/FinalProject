@@ -7,9 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Home {
 
 	
-	@GetMapping("/")
+	@GetMapping({"/","/index"})
 	public String index() {
 		return "index";
+	}
+	
+	@GetMapping("/clinicIndex")
+	public String clinicIndex() {
+		return "clinic/clinicIndex";
+	}
+	
+	@GetMapping("/clinicCalendar")
+	public String clinicCalendar() {
+		return "clinic/clinicCalendar";
 	}
 	
 }

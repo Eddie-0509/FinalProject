@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<!-- 請改成給診所看的介紹頁面(診所的HOME)	 -->
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -46,13 +47,13 @@
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css" >
+	<link rel="stylesheet" href="css/animate.css">
 	<!-- Flexslider -->
-	<link rel="stylesheet" href="css/flexslider.css" >
+	<link rel="stylesheet" href="css/flexslider.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css" >
+	<link rel="stylesheet" href="css/icomoon.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css" >
+	<link rel="stylesheet" href="css/bootstrap.css">
 
 	<link rel="stylesheet" id="theme-switch" href="css/style.css">
 	
@@ -104,7 +105,7 @@
 	
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
-
+	
 	</head>
 
 	<body>
@@ -115,32 +116,24 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
-				<li class="animate-box fh5co-active"><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box"><a data-toggle="modal" data-target="#memberModal" >用戶登入</a></li>
-<<<<<<< Updated upstream
-				<li class="animate-box"><a data-toggle="modal" data-target="#clinicModal" >診所登入</a></li>
-				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
-=======
-				<li class="animate-box"><a href="<c:url value='clinicIndex'/>" class="transition">診所服務</a></li>
-				<li class="animate-box"><a href="#" class="transition">商城</a></li>
->>>>>>> Stashed changes
+				<li class="animate-box fh5co-active"><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
+				<li class="animate-box "><a data-toggle="modal" data-target="#clinicModal">診所登入</a></li>
+				<li class="animate-box"><a href="#" class="transition">診所註冊</a></li>
 			</ul>
-
+			
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
 			</a>
 		</nav>
+   
 		
-		
-
-
 		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes">
 			<div class="container">
 				<div class="fh5co-text-wrap animate-box">
-					<div class="fh5co-intro-text" id="memberI">
+					<div class="fh5co-intro-text" id="dentistI">
 						<h1>U YA YI <span> </span> </h1>
-						<h1>隨時預約你的牙醫</h1>
+						<h1>智慧科技增加曝光</h1>
 					</div>
 				</div>
 			</div>
@@ -152,14 +145,15 @@
 			</div>
 		</header>
 
-		<!--一般用戶LOGIN表單-->
-	<div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+		<!--診所用戶LOGIN表單-->
+	<div class="modal fade" id="clinicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 					<form class="loginForm" action="LoginServlet" method="POST" >
-						<h1>一般會員</h1>
+						<h1>診所會員</h1>
 							<div class="usericon">
-								<i class="fas fa-user-circle"></i>
+								<i class="fas fa-clinic-medical"></i>
 							</div>
 							<div class="choose">
 								<a href="javascript:void();" class="login default"><h2 >登　入</h2></a>
@@ -168,11 +162,10 @@
 								<div class="formcontainer">
 								<div class="container">
 									<label for="uname"><strong>身分證字號</strong></label>
-									<input type="text" placeholder="請輸入身分證字號" name="account" id="uname" required autofocus>
-					
+									<input type="text" placeholder="請輸入身分證字號" name="account" id="cname" required autofocus>
+									<br>
 									<label for="psw"><strong>密　　　碼</strong></label>
-									<input type="password" placeholder="請輸入密碼" name="pwd" id="upsw" required>
-				
+									<input type="password" placeholder="請輸入密碼" name="pwd" id="cpsw" required>
 								</div>
 								<button type="submit"><strong>登入</strong></button>
 								<div class="container" >
@@ -182,9 +175,7 @@
 						</form>
 			</div>			
 		</div>
-	</div>		
-
-		
+	</div>
 
 
 
