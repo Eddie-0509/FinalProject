@@ -547,16 +547,16 @@ productPrice int not null,														--商品價格--
 productQuantity int not null,													--商品剩餘數量--
 productStatus nvarchar(10) not null,									--商品上架於否--
 productImage nvarchar(max) not null,									--圖片路徑/API
+productCategory nvarchar(20) not null,									--商品分類--
 productProfile nvarchar(max) not null,											--商品介紹--
 productSpec nvarchar(max) not null										--商品規格--
 );
 
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) 
-values('【德國百靈Oral-B】iO9微震科技電動牙刷',GETDATE(),12990,30,'上架中','???','【德國百靈Oral-B】iO9微震科技電動牙刷-黑色(微磁電動牙刷)','品牌：歐樂B|品名：ORAL-B iO9 微震科技電動牙刷|顏色:黑|本體尺寸(cm)：18*10*26cm|商品重量(g)：900g|產地：本體-德國');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【國際牌】音波電動牙刷',GETDATE(),7290,30,'上架中','???','【國際牌】年度新品音波電動牙刷(EW-DP54-S/A)+櫸木柄、矽膠餐具五件組','本體尺寸：高23.5 x 寬2.9 x 深3.5cm|重量：110g|電壓：100-240V|充電/使用時間：充電1小時，約可連續使用90分鐘 (水平震動下)/45分鐘(W音波震動下)|附件：攜帶盒*1、刷頭放置架*1|產地: 日本(充電座產地：中國)');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【Philips飛利浦】高效空氣動能牙線機/沖牙機',GETDATE(),3880,30,'上架中','???','【Philips 飛利浦】高效空氣動能牙線機/沖牙機(HX8401/03)','型號：HX8401/03|尺寸：24D x14W x9H (cm)|重量：430g|產地：中國');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【Ora2愛樂齒】微觸感牙刷',GETDATE(),299,30,'上架中','???','【Ora2愛樂齒】me微觸感牙刷6支/盒(超軟毛，顏色隨機出貨)','材質:刷毛:尼龍。刷柄:聚乙烯塑膠。耐熱溫度:60度C|包裝入數:6支/盒|產地:日本');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【舒酸定】多元護理+深層潔淨牙膏',GETDATE(),499,30,'上架中','???','【舒酸定】爆殺8入組牙膏-多元護理120g*6+深層潔淨100g*2','品名:舒酸定長效抗敏-多元護理|規格:120g x6入|用途:幫助保護牙齦健康|保存期限:三年|原產地:泰國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【德國百靈Oral-B】iO9微震科技電動牙刷',GETDATE(),12990,30,'上架中','???','電動牙刷','【德國百靈Oral-B】iO9微震科技電動牙刷-黑色(微磁電動牙刷)','品牌：歐樂B|品名：ORAL-B iO9 微震科技電動牙刷|顏色:黑|本體尺寸(cm)：18*10*26cm|商品重量(g)：900g|產地：本體-德國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【國際牌】音波電動牙刷',GETDATE(),7290,30,'上架中','???','電動牙刷','【國際牌】年度新品音波電動牙刷(EW-DP54-S/A)+櫸木柄、矽膠餐具五件組','本體尺寸：高23.5 x 寬2.9 x 深3.5cm|重量：110g|電壓：100-240V|充電/使用時間：充電1小時，約可連續使用90分鐘 (水平震動下)/45分鐘(W音波震動下)|附件：攜帶盒*1、刷頭放置架*1|產地: 日本(充電座產地：中國)');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【Philips飛利浦】高效空氣動能牙線機/沖牙機',GETDATE(),3880,30,'上架中','???','沖牙機','【Philips 飛利浦】高效空氣動能牙線機/沖牙機(HX8401/03)','型號：HX8401/03|尺寸：24D x14W x9H (cm)|重量：430g|產地：中國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【Ora2愛樂齒】微觸感牙刷',GETDATE(),299,30,'上架中','???','牙刷','【Ora2愛樂齒】me微觸感牙刷6支/盒(超軟毛，顏色隨機出貨)','材質:刷毛:尼龍。刷柄:聚乙烯塑膠。耐熱溫度:60度C|包裝入數:6支/盒|產地:日本');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【舒酸定】多元護理+深層潔淨牙膏',GETDATE(),499,30,'上架中','???','牙膏','【舒酸定】爆殺8入組牙膏-多元護理120g*6+深層潔淨100g*2','品名:舒酸定長效抗敏-多元護理|規格:120g x6入|用途:幫助保護牙齦健康|保存期限:三年|原產地:泰國');
 
 --折價券歷史紀錄--
 create table coupon(
