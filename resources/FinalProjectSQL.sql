@@ -420,18 +420,18 @@ memberPhone nvarchar(15)  not null,			--會員電話--
 memberStatus nvarchar(20)  not null			--會員狀態(是否被鎖權限)--
 );
 
-
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberIdNumber,memberAddress,memberPhone,memberStatus) values('Tanjirou@gmail.com.tw','P@ssw0rd123','F123456789','炭治郎','F111111001','台北市信義區信義路一段1號','0911111111','true');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberIdNumber,memberAddress,memberPhone,memberStatus) values('Nezuko@gmail.com.tw','P@ssw0rd123','A123456789','彌豆子','F222222002','新北市板橋區板橋路一段2號','0922222222','true');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberIdNumber,memberAddress,memberPhone,memberStatus) values('Zenitsu@gmail.com.tw','P@ssw0rd123','B123456789','善逸','F111111003','桃園市桃園區桃園路一段3號','0933333333','true');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberIdNumber,memberAddress,memberPhone,memberStatus) values('Inosuke@gmail.com.tw','P@ssw0rd123','C123456789','伊之助','F111111004','新竹市香山區香山路一段4號','0944444444','false');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberIdNumber,memberAddress,memberPhone,memberStatus) values('Kyoujurou@gmail.com.tw','P@ssw0rd123','D123456789','杏壽郎','F111111005','苗栗縣後龍鎮後龍路一段5號','0955555555','true');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberIdNumber,memberAddress,memberPhone,memberStatus) values('Shinobu@gmail.com.tw','P@ssw0rd123','E123456789','蝴蝶忍','F222222006','台中市西屯區西屯路一段6號','0966666666','false');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('admin','admin123','F123456789','admin','台北市信義區信義路三段390號','0266316666','admin');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Tanjirou@gmail.com.tw','P@ssw0rd123','F123456789','炭治郎','台北市信義區信義路一段1號','0911111111','true');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Nezuko@gmail.com.tw','P@ssw0rd123','A123456789','彌豆子','新北市板橋區板橋路一段2號','0922222222','true');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Zenitsu@gmail.com.tw','P@ssw0rd123','B123456789','善逸','桃園市桃園區桃園路一段3號','0933333333','true');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Inosuke@gmail.com.tw','P@ssw0rd123','C123456789','伊之助','新竹市香山區香山路一段4號','0944444444','false');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Kyoujurou@gmail.com.tw','P@ssw0rd123','D123456789','杏壽郎','苗栗縣後龍鎮後龍路一段5號','0955555555','true');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Shinobu@gmail.com.tw','P@ssw0rd123','E123456789','蝴蝶忍','台中市西屯區西屯路一段6號','0966666666','false');
 
 
 --會員初診相關資料--
 create table memberDetails(
-memeberPkId int references member(memberPkId) not null,		--一對一關聯到會員基本資料ID--
+memeberPkId int references member(memberPkId) not null ,		--一對一關聯到會員基本資料ID--
 emergercyContact nvarchar(30) not null,							--緊急聯絡人--
 emergercyNumber nvarchar(15) not null,							--	緊急連絡電話--
 emergercyRelationship nvarchar(10) not null,					--關係欄--
@@ -442,12 +442,12 @@ allergy nvarchar(30) not null,													--過敏原--
 surgery nvarchar(50) not null,												--手術史--
 );
 
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(1,'治郎爸','0911001001','父','true','false','聖母病','','多處骨折手術');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(2,'豆子媽','0922002002','母','false','false','','','咬合矯正');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(3,'善逸妻','0933003003','配偶','false','true','','','結紮');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(4,'之助狗','0944004004','寵物','true','true','神經病','','');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(5,'壽郎弟','0955005005','弟弟','true','false','','便當過敏','');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(6,'香奈乎','0966006006','徒弟','false','false','','硬幣過敏','');
+insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(2,'治郎爸','0911001001','父','true','false','聖母病','','多處骨折手術');
+insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(3,'豆子媽','0922002002','母','false','false','','','咬合矯正');
+insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(4,'善逸妻','0933003003','配偶','false','true','','','結紮');
+insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(5,'之助狗','0944004004','寵物','true','true','神經病','','');
+insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(6,'壽郎弟','0955005005','弟弟','true','false','','便當過敏','');
+insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(7,'香奈乎','0966006006','徒弟','false','false','','硬幣過敏','');
 
 --診所基本資料--
 create table clinic(
@@ -547,11 +547,12 @@ productPrice int not null,														--商品價格--
 productQuantity int not null,													--商品剩餘數量--
 productStatus nvarchar(10) not null,									--商品上架於否--
 productImage nvarchar(max) not null,									--圖片路徑/API
-productProfile nvarchar not null,											--商品介紹--
-productSpec nvarchar(100) not null										--商品規格--
+productProfile nvarchar(max) not null,											--商品介紹--
+productSpec nvarchar(max) not null										--商品規格--
 );
 
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【德國百靈Oral-B】iO9微震科技電動牙刷',GETDATE(),12990,30,'上架中','???','【德國百靈Oral-B】iO9微震科技電動牙刷-黑色(微磁電動牙刷)','品牌：歐樂B|品名：ORAL-B iO9 微震科技電動牙刷|顏色:黑|本體尺寸(cm)：18*10*26cm|商品重量(g)：900g|產地：本體-德國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) 
+values('【德國百靈Oral-B】iO9微震科技電動牙刷',GETDATE(),12990,30,'上架中','???','【德國百靈Oral-B】iO9微震科技電動牙刷-黑色(微磁電動牙刷)','品牌：歐樂B|品名：ORAL-B iO9 微震科技電動牙刷|顏色:黑|本體尺寸(cm)：18*10*26cm|商品重量(g)：900g|產地：本體-德國');
 insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【國際牌】音波電動牙刷',GETDATE(),7290,30,'上架中','???','【國際牌】年度新品音波電動牙刷(EW-DP54-S/A)+櫸木柄、矽膠餐具五件組','本體尺寸：高23.5 x 寬2.9 x 深3.5cm|重量：110g|電壓：100-240V|充電/使用時間：充電1小時，約可連續使用90分鐘 (水平震動下)/45分鐘(W音波震動下)|附件：攜帶盒*1、刷頭放置架*1|產地: 日本(充電座產地：中國)');
 insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【Philips飛利浦】高效空氣動能牙線機/沖牙機',GETDATE(),3880,30,'上架中','???','【Philips 飛利浦】高效空氣動能牙線機/沖牙機(HX8401/03)','型號：HX8401/03|尺寸：24D x14W x9H (cm)|重量：430g|產地：中國');
 insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【Ora2愛樂齒】微觸感牙刷',GETDATE(),299,30,'上架中','???','【Ora2愛樂齒】me微觸感牙刷6支/盒(超軟毛，顏色隨機出貨)','材質:刷毛:尼龍。刷柄:聚乙烯塑膠。耐熱溫度:60度C|包裝入數:6支/盒|產地:日本');
@@ -589,7 +590,3 @@ orderQuantity int,																	--訂購數量--
 
 
 
-
---縣市表資料--
-
---行政區資料--
