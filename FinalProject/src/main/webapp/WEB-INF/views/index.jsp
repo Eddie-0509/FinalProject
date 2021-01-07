@@ -117,13 +117,13 @@
 			<ul>
 				<li class="animate-box fh5co-active"><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a data-toggle="modal" data-target="#memberModal" >用戶登入</a></li>
-
+<<<<<<< Updated upstream
 				<li class="animate-box"><a data-toggle="modal" data-target="#clinicModal" >診所登入</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
-
+=======
 				<li class="animate-box"><a href="<c:url value='clinicIndex'/>" class="transition">診所服務</a></li>
 				<li class="animate-box"><a href="#" class="transition">商城</a></li>
-
+>>>>>>> Stashed changes
 			</ul>
 
 			<!--開關燈-->
