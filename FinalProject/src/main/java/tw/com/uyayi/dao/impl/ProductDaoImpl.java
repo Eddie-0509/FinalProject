@@ -30,4 +30,14 @@ public class ProductDaoImpl implements ProductDao {
 		list = session.createQuery(hql).getResultList();
 		return list;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Products> getProductsByCategory(String productCategoty) {
+		Session session = factory.getCurrentSession();
+		String hql  = "from Products product where product.productCategory = :category";
+		List<Products> list = new ArrayList<>();
+		list = session.createQuery(hql).setParameter("category", productCategoty).getResultList();
+		return list;
+	}
 }
