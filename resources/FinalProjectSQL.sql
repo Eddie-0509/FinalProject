@@ -830,6 +830,7 @@ insert into dentistTime(dentistPkId,timeTablePkId) values	(7,106)
 
 --預約資料表--
 create table appointment(
+appointmentPkId int primary key identity(1,1) not null,
 memeberPkId int references member(memberPkId),								--多對一關連到會員--
 clinicPkId int references clinic(clinicPkId) not null,									--多對一關連到診所--
 dentistPkId int references dentist(dentistPkId) not null,							--多對一關連到醫師--
@@ -845,7 +846,7 @@ arrive nvarchar(10) default 'true'																							--確認是否到診---
 insert into appointment(memeberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
 values (3,1,2,'2020-01-04',37,5,'確定前往')
 insert into appointment(clinicPkId,dentistPkId,patientName,patientIdNumber,patientPhone,appointDate,timeTablePkId,itemPkId,memberReply)
-values (2,7,'2020-01-06',104,4,'未回覆')
+values (2,7,'韓大梠','A128893701','0911-222-351','2020-01-06',104,4,'未回覆')
 
 
 --商城商品--

@@ -284,6 +284,8 @@
 				contentHeight: 500,
 				defaultDate: $('#calendar').fullCalendar('today'), // 起始日期
 				weekends: true, // 顯示星期六跟星期日
+				defaultTimedEventDuration: '00:30:00',
+				forceEventDuration: true,
 				defaultView: "agendaWeek", 
 				minTime: '08:00:00', 
 				maxTime: '22:00:00', 
@@ -382,7 +384,8 @@
 			weekends: true, // 顯示星期六跟星期日
 			editable: true,  // 啟動拖曳調整日期
 			defaultView: "listDay", 
-			defaultEventMinutes:"30",
+			defaultTimedEventDuration: '00:30:00',
+			forceEventDuration: true,
 			minTime: '08:00:00', 
     		maxTime: '22:00:00', 
 			events: [ // 事件

@@ -4,24 +4,34 @@ import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "appointment")
 public class Appointment {
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private  Integer appointmentPkId;
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "Appointmentmember")
-	private  Integer memberPkId;
+    @JoinColumn(name = "memberPkId")
+    @JsonIgnore
+	private  Member member;
     
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "Appointmentclinic")
-    private  Integer clinicPkId;
+    @JoinColumn(name = "clinicPkId")
+    @JsonIgnore
+    private  Clinic clinic;
     
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "Appointmentdentist")
-    private  Integer dentistPkId;
+    @JoinColumn(name = "dentistPkId")
+    @JsonIgnore
+    private  Dentist dentist;
     
 	private  String patientName;
 	private  String patientIdNumber;
@@ -29,11 +39,13 @@ public class Appointment {
 	private  Date  appointDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "AppointmenttimeTable")
-	private  Integer timeTablePkId;
+	@JoinColumn(name = "timeTablePkId")
+	@JsonIgnore
+	private  TimeTable timeTable;
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "Appointmentitem")
-	private  Integer itemPkId; 
+	@JoinColumn(name = "itemPkId")
+	@JsonIgnore
+	private  Item item; 
 	private  String arrive;
 	private  String memberReply;
 	
@@ -41,24 +53,47 @@ public class Appointment {
 		
 	}
 	
-	public Integer getMemberPkId() {
-		return memberPkId;
+
+	public Integer getAppointmentPkId() {
+		return appointmentPkId;
 	}
-	public void setMemberPkId(Integer memberPkId) {
-		this.memberPkId = memberPkId;
+
+
+	public void setAppointmentPkId(Integer appointmentPkId) {
+		this.appointmentPkId = appointmentPkId;
 	}
-	public Integer getClinicPkId() {
-		return clinicPkId;
+
+
+	public Member getMember() {
+		return member;
 	}
-	public void setClinicPkId(Integer clinicPkId) {
-		this.clinicPkId = clinicPkId;
+
+
+	public void setMember(Member member) {
+		this.member = member;
 	}
-	public Integer getDentistPkId() {
-		return dentistPkId;
+
+
+	public Clinic getClinic() {
+		return clinic;
 	}
-	public void setDentistPkId(Integer dentistPkId) {
-		this.dentistPkId = dentistPkId;
+
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
 	}
+
+
+	public Dentist getDentist() {
+		return dentist;
+	}
+
+
+	public void setDentist(Dentist dentist) {
+		this.dentist = dentist;
+	}
+
+
 	public String getPatientName() {
 		return patientName;
 	}
@@ -83,18 +118,27 @@ public class Appointment {
 	public void setAppointDate(Date appointDate) {
 		this.appointDate = appointDate;
 	}
-	public Integer getTimeTablePkId() {
-		return timeTablePkId;
+
+	public TimeTable getTimeTable() {
+		return timeTable;
 	}
-	public void setTimeTablePkId(Integer timeTablePkId) {
-		this.timeTablePkId = timeTablePkId;
+
+
+	public void setTimeTable(TimeTable timeTable) {
+		this.timeTable = timeTable;
 	}
-	public Integer getItemPkId() {
-		return itemPkId;
+
+
+	public Item getItem() {
+		return item;
 	}
-	public void setItemPkId(Integer itemPkId) {
-		this.itemPkId = itemPkId;
+
+
+	public void setItem(Item item) {
+		this.item = item;
 	}
+
+
 	public String getArrive() {
 		return arrive;
 	}
