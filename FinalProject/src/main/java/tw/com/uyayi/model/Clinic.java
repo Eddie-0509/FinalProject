@@ -32,6 +32,7 @@ public class Clinic {
 	private Dist distBean;
 	
 	private String clinicAddress;
+	private String clinicLocation;
 	private Date clinicStartTime;
 	private Date clinicEndTime;
 	private String clinicStatus;
@@ -104,6 +105,15 @@ public class Clinic {
 	public void setClinicAddress(String clinicAddress) {
 		this.clinicAddress = clinicAddress;
 	}
+	
+	public String getClinicLocation() {
+		return clinicLocation;
+	}
+
+	public void setClinicLocation(String clinicLocation) {
+		this.clinicLocation = clinicLocation;
+	}
+
 	public Date getClinicStartTime() {
 		return clinicStartTime;
 	}
