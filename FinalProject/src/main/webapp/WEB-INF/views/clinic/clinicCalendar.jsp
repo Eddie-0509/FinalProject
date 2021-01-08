@@ -113,19 +113,19 @@
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
 	<style>
-		#calender{
+		#monthcalendar,#weekcalendar,#listcalendar,#doctorcalendar{
 			background-color: rgba(202, 204, 206, 0.8);
 			position: relative;
-			height: 'parent';
+/* 			height: 'parent'; */
 			color: black;
 			display: inline-block;
 			width: 1140px;
 			margin: 40px auto;
 			
 		}
-		#calender h2{
-			color: black;
-		}
+/* 		#calender h2{ */
+/* 			color: black; */
+/* 		} */
 		
 
 		.fc-agenda-slots td div {
@@ -139,6 +139,14 @@
 		
 		.fc-unthemed td.fc-today,th.fc-today{
 			background-color:  rgba(202, 204, 206, 0.8);
+		}
+		
+		#calendarbutton{
+			text-align: right;
+
+		}
+		.nav-tabs li a{
+			color: black;
 		}
 	</style>
 
@@ -169,7 +177,22 @@
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
 
-						<div id="calender" class="animate-box"></div>
+							<div id="calendarbutton" class="animate-box">
+								<input type="button" value="MONTH" style="color: black;" id="monthBut"></input>
+								<input type="button" value="WEEK" style="color: black;" id="weekBut"></input>
+								<input type="button" value="LIST" style="color: black;" id="listBut"></input>
+								<input type="button" value="醫師別" style="color: black;" id="doctorBut"></input>
+							</div>
+							<div id="monthcalendar" class="animate-box" style="display: none;"></div>
+							<div id="weekcalendar" class="animate-box" style="display: none;"></div>
+							<div id="listcalendar" class="animate-box" style="display: block;"></div>
+							<div id="doctorcalendar" class="animate-box doctorC" style="display: none;">
+								<ul class="nav nav-tabs">				
+								
+								</ul>
+								<div class="tab-content">
+				
+							</div>
 
 			</div>
 		</div>
@@ -202,14 +225,151 @@
 	
 	
 	<script>
+	var Doctor={"doctor":["王醫師","陳醫師","黃醫師"]};
+	var DocNum = Doctor.doctor.length;
+	var allevents=
+		{"王醫師":
+			[{
+				title: "老王",
+				start: "2021-01-06T14:00:00"
+			},
+			{
+				title: "小黑",
+				start: "2021-01-06T11:30:00"
+			}],
+		"陳醫師":
+			[{
+				title: "阿明",
+				start: "2021-01-06T10:00:00"
+			},
+			{
+				title: "小黑",
+				start: "2021-01-06T18:30:00"
+			}]
+		}
+	// console.log(DocNum)
+	for (let dn=0;dn<DocNum;dn++){
+		let DocName=Doctor.doctor[dn];
+		let hisevents=allevents[DocName];
+
+		//迴圈新增行事曆div
+		$(".tab-content").append('<div id="tab-'+dn+'"class="tab-pane"><div id="doctor'+dn+'"></div></div>');
+		//迴圈新增上面標籤
+		$(".nav-tabs").append('<li class=""><a data-toggle="tab" href="#tab-'+dn+'" class="tab'+dn+'">'+Doctor.doctor[dn]+'</a></li>');
+
+	}
+	//寫不出來QQ
+	// $(".nav-tabs").children("li").eq(0).addClass("active");	
+	// $(".nav-tabs").children("li").eq(0).attr("aria-expanded","true")
+	// // $("#tab-0").attr("aria-expanded","true");
+	// $("#tab-0").addClass("active");
+	// $("#tab-0").addClass("tab-pane")
+	// $("#doctor0").addClass("fc")
+	// $("#doctor0").addClass("fc-unthemed")
+	// $("#doctor0").addClass("fc-ltr")
+	for (let dn=0;dn<DocNum;dn++){
+		let DocName=Doctor.doctor[dn];
+		//  console.log(DocName);
+		let hisevents=allevents[DocName];
+		console.log(hisevents);
+		$('.tab'+dn).on("click",function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+			$("#doctor"+dn).fullCalendar({
+				header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'none'
+				},
+				contentHeight: 500,
+				defaultDate: $('#calendar').fullCalendar('today'), // 起始日期
+				weekends: true, // 顯示星期六跟星期日
+				defaultView: "agendaWeek", 
+				minTime: '08:00:00', 
+				maxTime: '22:00:00', 
+				events: hisevents	
+			});
+		});
+		
+	}	
 	
-		$( "#calender" ).fullCalendar({
+	$("#monthBut").on("click",function(){
+		$("#monthcalendar").css("display","block");
+		$("#weekcalendar").css("display","none");
+		$("#listcalendar").css("display","none");
+		$("#doctorcalendar").css("display","none");
+	});
+	$("#weekBut").on("click",function(){
+		$("#monthcalendar").css("display","none");
+		$("#weekcalendar").css("display","block");
+		$("#listcalendar").css("display","none");
+		$("#doctorcalendar").css("display","none");
+
+	});
+	$("#listBut").on("click",function(){
+		$("#monthcalendar").css("display","none");
+		$("#weekcalendar").css("display","none");
+		$("#listcalendar").css("display","block");
+		$("#doctorcalendar").css("display","none");
+	});
+	$("#doctorBut").on("click",function(){
+		$("#monthcalendar").css("display","none");
+		$("#weekcalendar").css("display","none");
+		$("#listcalendar").css("display","none");
+		$("#doctorcalendar").css("display","block");
+
+	});
+		$( "#monthcalendar" ).fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'none'
+			},
+			contentHeight: 500,
+			defaultDate: $('#calendar').fullCalendar('today'), // 起始日期
+			weekends: true, // 顯示星期六跟星期日
+			editable: true,  // 啟動拖曳調整日期
+			defaultView: "month", 
+			minTime: '08:00:00', 
+    		maxTime: '22:00:00',
+			events: [ // 事件
+				
+				{
+					title: "5",
+					start: "2021-01-06",
+				},
+			
+			]
+		});
+
+		$( "#weekcalendar" ).fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'none'
+			},
+
+			contentHeight: 500,
+			defaultDate: $('#calendar').fullCalendar('today'), // 起始日期
+			weekends: true, // 顯示星期六跟星期日
+			editable: true,  // 啟動拖曳調整日期
+			defaultView: "agendaWeek", 
+			minTime: '08:00:00', 
+    		maxTime: '22:00:00', 
+			events: [ // 事件
+				{ // 事件
+					title: "5",
+					start: "2021-01-06",
+				},
+			]
+		});
+		$("#listcalendar").fullCalendar({
 			// 參數設定[註1]
 			// themeSystem: 'bootstrap4',
 			header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,agendaWeek,agendaDay,listMonth'
+				right: 'none'
 			},
 			// themeSystem: 'bootstrap',
 			// header: { // 頂部排版
@@ -221,49 +381,24 @@
 			defaultDate: $('#calendar').fullCalendar('today'), // 起始日期
 			weekends: true, // 顯示星期六跟星期日
 			editable: true,  // 啟動拖曳調整日期
-			defaultView: "agendaWeek", 
-			minTime: '06:30:00', 
-    		maxTime: '23:30:00', 
+			defaultView: "listDay", 
+			defaultEventMinutes:"30",
+			minTime: '08:00:00', 
+    		maxTime: '22:00:00', 
 			events: [ // 事件
 				{ // 事件
-					title: "陳阿三-根管治療(王承先醫師)",
-					start: "2021-01-06T10:30:00",
-				 	end: "2021-01-06T11:00:00",
+					title: "first",
+					start: "2021-01-07T12:00",
+				 	// end: "2021-01-06",
 
 				},
 				{
-					title: "李宣城-洗牙(張起恆醫師)",
-					start: "2021-01-06T10:30:00",
-				 	end: "2021-01-06T11:00:00",
-				},
-				{
-					title: "李宣城-洗牙(張起恆醫師)",
-					start: "2021-01-06T10:30:00",
-				 	end: "2021-01-06T11:00:00",
+					title: "second",
+					start: "2021-01-07T13:00",
 				}
-				// { // 事件(包含開始時間)
-				// 	title: "中餐",
-				// 	start: "2018-02-12T12:00:00"
-				// },
-				// { // 事件(包含跨日開始時間、結束時間)
-				// 	title: "音樂節",
-				// 	start: "2018-02-07",
-				// 	end: "2018-02-10"
-				// },
-				// { // 事件(包含開始時間、結束時間)
-				// 	title: "會議",
-				// 	start: "2018-02-12T10:30:00",
-				// 	end: "2018-02-12T12:30:00"
-				// },
-				// { // 事件(設定連結)
-				// 	title: "Click for Google",
-				// 	url: "http://google.com/",
-				// 	start: "2018-02-28"
-				// }
 			]
 		});
 
-		$(".fc-event-container .child").remove();
 	</script>
 	
 	</body>
