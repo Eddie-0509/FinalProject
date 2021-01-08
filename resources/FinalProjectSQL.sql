@@ -432,9 +432,9 @@ insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddre
 --會員初診相關資料--
 create table memberDetails(
 memeberPkId int references member(memberPkId) not null ,		--一對一關聯到會員基本資料ID--
-emergercyContact nvarchar(30) not null,							--緊急聯絡人--
-emergercyNumber nvarchar(15) not null,							--	緊急連絡電話--
-emergercyRelationship nvarchar(10) not null,					--關係欄--
+emergencyContact nvarchar(30) not null,							--緊急聯絡人--
+emergencyNumber nvarchar(15) not null,							--	緊急連絡電話--
+emergencyRelationship nvarchar(10) not null,					--關係欄--
 smoke nvarchar(5) not null,													--抽菸史--
 betelNut nvarchar(5) not null,												--檳榔史--
 diseases nvarchar(100) not null,												--重大疾病--
@@ -442,12 +442,12 @@ allergy nvarchar(30) not null,													--過敏原--
 surgery nvarchar(50) not null,												--手術史--
 );
 
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(2,'治郎爸','0911001001','父','true','false','聖母病','','多處骨折手術');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(3,'豆子媽','0922002002','母','false','false','','','咬合矯正');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(4,'善逸妻','0933003003','配偶','false','true','','','結紮');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(5,'之助狗','0944004004','寵物','true','true','神經病','','');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(6,'壽郎弟','0955005005','弟弟','true','false','','便當過敏','');
-insert into memberDetails(memeberPkId,emergercyContact,emergercyNumber,emergercyRelationship,smoke,betelNut,diseases,allergy,surgery) values(7,'香奈乎','0966006006','徒弟','false','false','','硬幣過敏','');
+insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(2,'治郎爸','0911001001','父','true','false','聖母病','','多處骨折手術');
+insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(3,'豆子媽','0922002002','母','false','false','','','咬合矯正');
+insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(4,'善逸妻','0933003003','配偶','false','true','','','結紮');
+insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(5,'之助狗','0944004004','寵物','true','true','神經病','','');
+insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(6,'壽郎弟','0955005005','弟弟','true','false','','便當過敏','');
+insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(7,'香奈乎','0966006006','徒弟','false','false','','硬幣過敏','');
 
 --診所基本資料--
 create table clinic(
@@ -893,6 +893,7 @@ shipAddress nvarchar(max) not null										--收件地址--
 
 --訂單詳細資料--
 create table orderDetails(
+orderDetailPkId int primary key identity(1,1) not null,
 orderPkId int references orders(orderPkId),						--多對一關聯到訂單--
 productPkId int references products(productPkId),			--多對一關聯到產品--
 orderQuantity int,																	--訂購數量--
