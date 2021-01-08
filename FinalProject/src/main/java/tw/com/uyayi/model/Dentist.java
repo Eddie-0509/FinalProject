@@ -22,21 +22,121 @@ public class Dentist {
 	@JoinColumn(name = "clinicPkId")
 	private Clinic clinic;
 	
-	private String DentistName;
+	private String dentistName;
 	
-	private String DentistImage;
+	private String dentistImage;
 	
-	private String DentistGender;
+	private String dentistGender;
 	
 	
 	@OneToMany(mappedBy="dentistBean")
 	private Set<Appointment> appointments;
 	
 	
+	@OneToMany(mappedBy = "dentistBean")
+	private Set<DentistTime> dentistTimes;
 	
+	@OneToMany(mappedBy = "dentistBean")
+	private Set<DentistItem> dentistItems;
 	
 	public Dentist() {
 		
+	}
+
+
+
+	public int getDentistPkId() {
+		return dentistPkId;
+	}
+
+
+
+	public void setDentistPkId(int dentistPkId) {
+		this.dentistPkId = dentistPkId;
+	}
+
+
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+
+
+	public String getDentistName() {
+		return dentistName;
+	}
+
+
+
+	public void setDentistName(String dentistName) {
+		this.dentistName = dentistName;
+	}
+
+
+
+	public String getDentistImage() {
+		return dentistImage;
+	}
+
+
+
+	public void setDentistImage(String dentistImage) {
+		this.dentistImage = dentistImage;
+	}
+
+
+
+	public String getDentistGender() {
+		return dentistGender;
+	}
+
+
+
+	public void setDentistGender(String dentistGender) {
+		this.dentistGender = dentistGender;
+	}
+
+
+
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+
+
+
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
+
+
+	public Set<DentistTime> getDentistTimes() {
+		return dentistTimes;
+	}
+
+
+
+	public void setDentistTimes(Set<DentistTime> dentistTimes) {
+		this.dentistTimes = dentistTimes;
+	}
+
+
+
+	public Set<DentistItem> getDentistItems() {
+		return dentistItems;
+	}
+
+
+
+	public void setDentistItems(Set<DentistItem> dentistItems) {
+		this.dentistItems = dentistItems;
 	}
 
 }

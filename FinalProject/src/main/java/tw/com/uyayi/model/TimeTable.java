@@ -1,5 +1,7 @@
 package tw.com.uyayi.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,15 @@ public class TimeTable {
 	private String weekdays;
 	
 	private String times;
+	
+	@OneToMany(mappedBy = "timeTableBean")
+	private Set<DentistTime> dentistTimes;
+	
+	
+	public TimeTable() {
+		
+	}
+	
 	
 	public Integer getTimeTablePkId() {
 		return timeTablePkId;
@@ -40,6 +51,15 @@ public class TimeTable {
 	public void setTimes(String times) {
 		this.times = times;
 	}
+
+	public Set<DentistTime> getDentistTimes() {
+		return dentistTimes;
+	}
+
+	public void setDentistTimes(Set<DentistTime> dentistTimes) {
+		this.dentistTimes = dentistTimes;
+	}
+
 
 	
 }
