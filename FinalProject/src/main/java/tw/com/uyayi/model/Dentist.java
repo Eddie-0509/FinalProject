@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,11 +35,21 @@ public class Dentist {
 	private Set<Appointment> appointments;
 	
 	
-	@OneToMany(mappedBy = "dentistBean")
-	private Set<DentistTime> dentistTimes;
+	@ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+        name="dentistTime",
+        joinColumns={@JoinColumn(name="dentistPkId")},
+        inverseJoinColumns={@JoinColumn(name="timeTablePkId")}
+    )
+	private Set<TimeTable> timeTables;
 	
-	@OneToMany(mappedBy = "dentistBean")
-	private Set<DentistItem> dentistItems;
+	@ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(
+        name="dentistItem",
+        joinColumns={@JoinColumn(name="dentistPkId")},
+        inverseJoinColumns={@JoinColumn(name="itemPkId")}
+    )
+	private Set<Items> itemsBean;
 	
 	public Dentist() {
 		
@@ -117,26 +129,26 @@ public class Dentist {
 
 
 
-	public Set<DentistTime> getDentistTimes() {
-		return dentistTimes;
+	public Set<TimeTable> getTimeTables() {
+		return timeTables;
 	}
 
 
 
-	public void setDentistTimes(Set<DentistTime> dentistTimes) {
-		this.dentistTimes = dentistTimes;
+	public void setTimeTables(Set<TimeTable> timeTables) {
+		this.timeTables = timeTables;
 	}
 
 
 
-	public Set<DentistItem> getDentistItems() {
-		return dentistItems;
+	public Set<Items> getItemsBean() {
+		return itemsBean;
 	}
 
 
 
-	public void setDentistItems(Set<DentistItem> dentistItems) {
-		this.dentistItems = dentistItems;
+	public void setItemsBean(Set<Items> itemsBean) {
+		this.itemsBean = itemsBean;
 	}
 
 }

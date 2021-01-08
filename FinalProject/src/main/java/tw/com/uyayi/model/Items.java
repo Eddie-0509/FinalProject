@@ -2,11 +2,12 @@ package tw.com.uyayi.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +17,8 @@ public class Items {
 	private  Integer itemPkId;
 	private  String itemName;
 	
-	@OneToMany(mappedBy = "itemsBean")
-	private Set<DentistItem> dentistItems;
+	@ManyToMany(mappedBy = "itemsBean", cascade = CascadeType.ALL)
+	private Set<Dentist> dentists;
 	
 	
 
@@ -41,11 +42,13 @@ public class Items {
 		this.itemName = itemName;
 	}
 
-	public Set<DentistItem> getDentistItems() {
-		return dentistItems;
+	public Set<Dentist> getDentists() {
+		return dentists;
 	}
 
-	public void setDentistItems(Set<DentistItem> dentistItems) {
-		this.dentistItems = dentistItems;
+	public void setDentists(Set<Dentist> dentists) {
+		this.dentists = dentists;
 	}
+
+	
 }

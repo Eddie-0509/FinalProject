@@ -2,10 +2,12 @@ package tw.com.uyayi.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,8 +21,8 @@ public class TimeTable {
 	
 	private String times;
 	
-	@OneToMany(mappedBy = "timeTableBean")
-	private Set<DentistTime> dentistTimes;
+	@ManyToMany(mappedBy = "timeTables",cascade = CascadeType.ALL)
+	private Set<Dentist> dentists;
 	
 	
 	public TimeTable() {
@@ -52,13 +54,17 @@ public class TimeTable {
 		this.times = times;
 	}
 
-	public Set<DentistTime> getDentistTimes() {
-		return dentistTimes;
+
+	public Set<Dentist> getDentists() {
+		return dentists;
 	}
 
-	public void setDentistTimes(Set<DentistTime> dentistTimes) {
-		this.dentistTimes = dentistTimes;
+
+	public void setDentists(Set<Dentist> dentists) {
+		this.dentists = dentists;
 	}
+
+	
 
 
 	
