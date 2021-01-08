@@ -21,7 +21,7 @@ public class SignUpServiceImpl implements SignUpService {
 	public List<City> getAllCity() {
 		return signUpDao.getAllCity();
 	}
-
+	@Transactional
 	@Override
 	public List<Dist> getDist(int cityPkId) {
 		return signUpDao.getDist(cityPkId);

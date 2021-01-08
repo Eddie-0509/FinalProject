@@ -26,9 +26,10 @@ public class SignUpController {
 		return "clinic/clinicSignUp";
 	}
 	
-	@GetMapping(path = "/getDist")
-	public @ResponseBody List<Dist> getDist(@PathVariable("cityPkId") int cityPkId) {
-		List<Dist> dists= signUpService.getDist(cityPkId);
+	@GetMapping(path = "/getDist", produces = "application/json")
+	public @ResponseBody List<Dist> getDist(@RequestParam("cityPkId") String cityPkId) {
+		int cityId = Integer.valueOf(cityPkId);
+		List<Dist> dists= signUpService.getDist(cityId);
 		return dists;
 	}
 }

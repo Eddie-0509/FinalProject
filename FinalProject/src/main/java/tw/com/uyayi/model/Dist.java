@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="dist")
 public class Dist {
@@ -21,11 +23,11 @@ public class Dist {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int distPkId;
 	private String distName;
-	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cityPkId")
 	private City cityBean;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="distBean")
 	private Set<Clinic> clinics = new LinkedHashSet<Clinic>();
 	

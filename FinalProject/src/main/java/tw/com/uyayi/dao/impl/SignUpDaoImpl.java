@@ -1,5 +1,6 @@
 package tw.com.uyayi.dao.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -30,7 +31,11 @@ public class SignUpDaoImpl implements SignUpDao {
 	public List<Dist> getDist(int cityPkId) {
 		Session session = factory.getCurrentSession();
 		String hql = "from Dist where cityPkId = :cId";
-		return session.createQuery(hql).setParameter("cId", cityPkId).getResultList();
+		List<Dist> a = session.createQuery(hql).setParameter("cId", cityPkId).getResultList();
+		for (int j = 0; j < a.size(); j++) {
+			System.out.println(a.get(j).getDistName());
+		}
+		return a;
 	}
 
 }

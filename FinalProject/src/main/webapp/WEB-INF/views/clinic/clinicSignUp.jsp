@@ -225,7 +225,6 @@
 		</footer>
 
 	</div>
-
 	<script>
 		$("#city").children("option").eq(0).attr("selected");
 		var flagPwd = false;
@@ -233,20 +232,28 @@
 		var flagPhone = false;
 		$(function() {
 			$("#city").change(function() {
+				let str ="";
 				let urlQuery = new URLSearchParams({
-					cityPkId : $("#city").value,
+					cityPkId : $("#city").val(),
 					method : "fetch()",
 					doWhat : "GET"
 				});
-
+	
 				
 				fetch("getDist?" + urlQuery, {
 					method : "GET"
 				}).then(function(response) {
-					return response.text();
+					return response.json();
 				}).then(function(data) {
-					console.log(data);
-					// 				document.getElementById("resultName").innerHTML = data;
+					var jsonLength = 0;
+					for(var item in data){
+					jsonLength++;
+					}
+					for (var i = 0; i < data.length; i++) {
+					let distName=data[i].distName;
+						str+="<option value='"+data[i].distPkId+"'>"+distName+"</option>";
+					}
+						$("#dist").html(str);
 				})
 
 			});
