@@ -18,20 +18,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Appointment {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private  Integer appointmentPkId;
+	
+	
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "memberPkId")
     @JsonIgnore
-	private  Member member;
+	private  Member memberBean;
     
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "clinicPkId")
     @JsonIgnore
-    private  Clinic clinic;
+    private  Clinic clinicBean;
     
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "dentistPkId")
     @JsonIgnore
-    private  Dentist dentist;
+    private  Dentist dentistBean;
     
 	private  String patientName;
 	private  String patientIdNumber;
@@ -41,116 +43,120 @@ public class Appointment {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "timeTablePkId")
 	@JsonIgnore
-	private  TimeTable timeTable;
+	private  TimeTable timeTableBean;
+	
+	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "itemPkId")
 	@JsonIgnore
-	private  Item item; 
+	private  Items itemBean;
+	
+	
+	
 	private  String arrive;
 	private  String memberReply;
 	
 	public Appointment() {
 		
 	}
-	
 
 	public Integer getAppointmentPkId() {
 		return appointmentPkId;
 	}
 
-
 	public void setAppointmentPkId(Integer appointmentPkId) {
 		this.appointmentPkId = appointmentPkId;
 	}
 
-
-	public Member getMember() {
-		return member;
+	public Member getMemberBean() {
+		return memberBean;
 	}
 
-
-	public void setMember(Member member) {
-		this.member = member;
+	public void setMemberBean(Member memberBean) {
+		this.memberBean = memberBean;
 	}
 
-
-	public Clinic getClinic() {
-		return clinic;
+	public Clinic getClinicBean() {
+		return clinicBean;
 	}
 
-
-	public void setClinic(Clinic clinic) {
-		this.clinic = clinic;
+	public void setClinicBean(Clinic clinicBean) {
+		this.clinicBean = clinicBean;
 	}
 
-
-	public Dentist getDentist() {
-		return dentist;
+	public Dentist getDentistBean() {
+		return dentistBean;
 	}
 
-
-	public void setDentist(Dentist dentist) {
-		this.dentist = dentist;
+	public void setDentistBean(Dentist dentistBean) {
+		this.dentistBean = dentistBean;
 	}
-
 
 	public String getPatientName() {
 		return patientName;
 	}
+
 	public void setPatientName(String patientName) {
 		this.patientName = patientName;
 	}
+
 	public String getPatientIdNumber() {
 		return patientIdNumber;
 	}
+
 	public void setPatientIdNumber(String patientIdNumber) {
 		this.patientIdNumber = patientIdNumber;
 	}
+
 	public String getPatientPhone() {
 		return patientPhone;
 	}
+
 	public void setPatientPhone(String patientPhone) {
 		this.patientPhone = patientPhone;
 	}
+
 	public Date getAppointDate() {
 		return appointDate;
 	}
+
 	public void setAppointDate(Date appointDate) {
 		this.appointDate = appointDate;
 	}
 
-	public TimeTable getTimeTable() {
-		return timeTable;
+	public TimeTable getTimeTableBean() {
+		return timeTableBean;
 	}
 
-
-	public void setTimeTable(TimeTable timeTable) {
-		this.timeTable = timeTable;
+	public void setTimeTableBean(TimeTable timeTableBean) {
+		this.timeTableBean = timeTableBean;
 	}
 
-
-	public Item getItem() {
-		return item;
+	public Items getItemBean() {
+		return itemBean;
 	}
 
-
-	public void setItem(Item item) {
-		this.item = item;
+	public void setItemBean(Items itemBean) {
+		this.itemBean = itemBean;
 	}
-
 
 	public String getArrive() {
 		return arrive;
 	}
+
 	public void setArrive(String arrive) {
 		this.arrive = arrive;
 	}
+
 	public String getMemberReply() {
 		return memberReply;
 	}
+
 	public void setMemberReply(String memberReply) {
 		this.memberReply = memberReply;
 	}
 	
+
+
 	
 }

@@ -1,6 +1,7 @@
 package tw.com.uyayi.model;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -36,6 +38,9 @@ public class Clinic {
 	private Date clinicStartTime;
 	private Date clinicEndTime;
 	private String clinicStatus;
+	
+	@OneToMany(mappedBy = "clinicBean" )
+	private Set<Appointment> appointments;
 	
 	
 	public Clinic() {
@@ -131,6 +136,14 @@ public class Clinic {
 	}
 	public void setClinicStatus(String clinicStatus) {
 		this.clinicStatus = clinicStatus;
+	}
+
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
 	}
 
 }

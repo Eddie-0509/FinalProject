@@ -11,7 +11,6 @@ import javax.persistence.Table;
 @Table(name="timeTable")
 public class TimeTable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@OneToMany(mappedBy = "")
 	private Integer timeTablePkId;
 	
 	private String weekdays;
