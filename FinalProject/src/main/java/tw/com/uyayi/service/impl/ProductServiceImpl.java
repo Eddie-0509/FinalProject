@@ -25,4 +25,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Products> getAllProducts() {
 		return pDao.getAllProducts();
 	}
+
+	@Override
+	public List<Products> getProductsByCategory(String productCategoty) {
+		return pDao.getProductsByCategory(productCategoty);
+	}
 }

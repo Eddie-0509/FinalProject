@@ -475,6 +475,208 @@ timeTablePkId int primary key identity(1,1) not null,
 weekdays nvarchar(10),													--周一至周日--
 times nvarchar(20),															--開放時間--
 );
+insert into timeTable(weekdays,times) values('Sunday','08:00-08:30');
+insert into timeTable(weekdays,times) values('Sunday','08:30-09:00');
+insert into timeTable(weekdays,times) values('Sunday','09:00-09:30');
+insert into timeTable(weekdays,times) values('Sunday','09:30-10:00');
+insert into timeTable(weekdays,times) values('Sunday','10:00-10:30');
+insert into timeTable(weekdays,times) values('Sunday','10:30-11:00');
+insert into timeTable(weekdays,times) values('Sunday','11:00-11:30');
+insert into timeTable(weekdays,times) values('Sunday','11:30-12:00');
+insert into timeTable(weekdays,times) values('Sunday','12:00-12:30');
+insert into timeTable(weekdays,times) values('Sunday','12:30-13:00');
+insert into timeTable(weekdays,times) values('Sunday','13:00-13:30');
+insert into timeTable(weekdays,times) values('Sunday','13:30-14:00');
+insert into timeTable(weekdays,times) values('Sunday','14:00-14:30');
+insert into timeTable(weekdays,times) values('Sunday','14:30-15:00');
+insert into timeTable(weekdays,times) values('Sunday','15:00-15:30');
+insert into timeTable(weekdays,times) values('Sunday','15:30-16:00');
+insert into timeTable(weekdays,times) values('Sunday','16:00-16:30');
+insert into timeTable(weekdays,times) values('Sunday','16:30-17:00');
+insert into timeTable(weekdays,times) values('Sunday','17:00-17:30');
+insert into timeTable(weekdays,times) values('Sunday','17:30-18:00');
+insert into timeTable(weekdays,times) values('Sunday','18:00-18:30');
+insert into timeTable(weekdays,times) values('Sunday','18:30-19:00');
+insert into timeTable(weekdays,times) values('Sunday','19:00-19:30');
+insert into timeTable(weekdays,times) values('Sunday','19:30-20:00');
+insert into timeTable(weekdays,times) values('Sunday','20:00-20:30');
+insert into timeTable(weekdays,times) values('Sunday','20:30-21:00');
+insert into timeTable(weekdays,times) values('Sunday','21:00-21:30');
+insert into timeTable(weekdays,times) values('Sunday','21:30-22:00');
+
+insert into timeTable(weekdays,times) values('Monday','08:00-08:30');
+insert into timeTable(weekdays,times) values('Monday','08:30-09:00');
+insert into timeTable(weekdays,times) values('Monday','09:00-09:30');
+insert into timeTable(weekdays,times) values('Monday','09:30-10:00');
+insert into timeTable(weekdays,times) values('Monday','10:00-10:30');
+insert into timeTable(weekdays,times) values('Monday','10:30-11:00');
+insert into timeTable(weekdays,times) values('Monday','11:00-11:30');
+insert into timeTable(weekdays,times) values('Monday','11:30-12:00');
+insert into timeTable(weekdays,times) values('Monday','12:00-12:30');
+insert into timeTable(weekdays,times) values('Monday','12:30-13:00');
+insert into timeTable(weekdays,times) values('Monday','13:00-13:30');
+insert into timeTable(weekdays,times) values('Monday','13:30-14:00');
+insert into timeTable(weekdays,times) values('Monday','14:00-14:30');
+insert into timeTable(weekdays,times) values('Monday','14:30-15:00');
+insert into timeTable(weekdays,times) values('Monday','15:00-15:30');
+insert into timeTable(weekdays,times) values('Monday','15:30-16:00');
+insert into timeTable(weekdays,times) values('Monday','16:00-16:30');
+insert into timeTable(weekdays,times) values('Monday','16:30-17:00');
+insert into timeTable(weekdays,times) values('Monday','17:00-17:30');
+insert into timeTable(weekdays,times) values('Monday','17:30-18:00');
+insert into timeTable(weekdays,times) values('Monday','18:00-18:30');
+insert into timeTable(weekdays,times) values('Monday','18:30-19:00');
+insert into timeTable(weekdays,times) values('Monday','19:00-19:30');
+insert into timeTable(weekdays,times) values('Monday','19:30-20:00');
+insert into timeTable(weekdays,times) values('Monday','20:00-20:30');
+insert into timeTable(weekdays,times) values('Monday','20:30-21:00');
+insert into timeTable(weekdays,times) values('Monday','21:00-21:30');
+insert into timeTable(weekdays,times) values('Monday','21:30-22:00');
+
+insert into timeTable(weekdays,times) values('Tuesday','08:00-08:30');
+insert into timeTable(weekdays,times) values('Tuesday','08:30-09:00');
+insert into timeTable(weekdays,times) values('Tuesday','09:00-09:30');
+insert into timeTable(weekdays,times) values('Tuesday','09:30-10:00');
+insert into timeTable(weekdays,times) values('Tuesday','10:00-10:30');
+insert into timeTable(weekdays,times) values('Tuesday','10:30-11:00');
+insert into timeTable(weekdays,times) values('Tuesday','11:00-11:30');
+insert into timeTable(weekdays,times) values('Tuesday','11:30-12:00');
+insert into timeTable(weekdays,times) values('Tuesday','12:00-12:30');
+insert into timeTable(weekdays,times) values('Tuesday','12:30-13:00');
+insert into timeTable(weekdays,times) values('Tuesday','13:00-13:30');
+insert into timeTable(weekdays,times) values('Tuesday','13:30-14:00');
+insert into timeTable(weekdays,times) values('Tuesday','14:00-14:30');
+insert into timeTable(weekdays,times) values('Tuesday','14:30-15:00');
+insert into timeTable(weekdays,times) values('Tuesday','15:00-15:30');
+insert into timeTable(weekdays,times) values('Tuesday','15:30-16:00');
+insert into timeTable(weekdays,times) values('Tuesday','16:00-16:30');
+insert into timeTable(weekdays,times) values('Tuesday','16:30-17:00');
+insert into timeTable(weekdays,times) values('Tuesday','17:00-17:30');
+insert into timeTable(weekdays,times) values('Tuesday','17:30-18:00');
+insert into timeTable(weekdays,times) values('Tuesday','18:00-18:30');
+insert into timeTable(weekdays,times) values('Tuesday','18:30-19:00');
+insert into timeTable(weekdays,times) values('Tuesday','19:00-19:30');
+insert into timeTable(weekdays,times) values('Tuesday','19:30-20:00');
+insert into timeTable(weekdays,times) values('Tuesday','20:00-20:30');
+insert into timeTable(weekdays,times) values('Tuesday','20:30-21:00');
+insert into timeTable(weekdays,times) values('Tuesday','21:00-21:30');
+insert into timeTable(weekdays,times) values('Tuesday','21:30-22:00');
+
+insert into timeTable(weekdays,times) values('Wednesday','08:00-08:30');
+insert into timeTable(weekdays,times) values('Wednesday','08:30-09:00');
+insert into timeTable(weekdays,times) values('Wednesday','09:00-09:30');
+insert into timeTable(weekdays,times) values('Wednesday','09:30-10:00');
+insert into timeTable(weekdays,times) values('Wednesday','10:00-10:30');
+insert into timeTable(weekdays,times) values('Wednesday','10:30-11:00');
+insert into timeTable(weekdays,times) values('Wednesday','11:00-11:30');
+insert into timeTable(weekdays,times) values('Wednesday','11:30-12:00');
+insert into timeTable(weekdays,times) values('Wednesday','12:00-12:30');
+insert into timeTable(weekdays,times) values('Wednesday','12:30-13:00');
+insert into timeTable(weekdays,times) values('Wednesday','13:00-13:30');
+insert into timeTable(weekdays,times) values('Wednesday','13:30-14:00');
+insert into timeTable(weekdays,times) values('Wednesday','14:00-14:30');
+insert into timeTable(weekdays,times) values('Wednesday','14:30-15:00');
+insert into timeTable(weekdays,times) values('Wednesday','15:00-15:30');
+insert into timeTable(weekdays,times) values('Wednesday','15:30-16:00');
+insert into timeTable(weekdays,times) values('Wednesday','16:00-16:30');
+insert into timeTable(weekdays,times) values('Wednesday','16:30-17:00');
+insert into timeTable(weekdays,times) values('Wednesday','17:00-17:30');
+insert into timeTable(weekdays,times) values('Wednesday','17:30-18:00');
+insert into timeTable(weekdays,times) values('Wednesday','18:00-18:30');
+insert into timeTable(weekdays,times) values('Wednesday','18:30-19:00');
+insert into timeTable(weekdays,times) values('Wednesday','19:00-19:30');
+insert into timeTable(weekdays,times) values('Wednesday','19:30-20:00');
+insert into timeTable(weekdays,times) values('Wednesday','20:00-20:30');
+insert into timeTable(weekdays,times) values('Wednesday','20:30-21:00');
+insert into timeTable(weekdays,times) values('Wednesday','21:00-21:30');
+insert into timeTable(weekdays,times) values('Wednesday','21:30-22:00');
+
+insert into timeTable(weekdays,times) values('Thursday','08:00-08:30');
+insert into timeTable(weekdays,times) values('Thursday','08:30-09:00');
+insert into timeTable(weekdays,times) values('Thursday','09:00-09:30');
+insert into timeTable(weekdays,times) values('Thursday','09:30-10:00');
+insert into timeTable(weekdays,times) values('Thursday','10:00-10:30');
+insert into timeTable(weekdays,times) values('Thursday','10:30-11:00');
+insert into timeTable(weekdays,times) values('Thursday','11:00-11:30');
+insert into timeTable(weekdays,times) values('Thursday','11:30-12:00');
+insert into timeTable(weekdays,times) values('Thursday','12:00-12:30');
+insert into timeTable(weekdays,times) values('Thursday','12:30-13:00');
+insert into timeTable(weekdays,times) values('Thursday','13:00-13:30');
+insert into timeTable(weekdays,times) values('Thursday','13:30-14:00');
+insert into timeTable(weekdays,times) values('Thursday','14:00-14:30');
+insert into timeTable(weekdays,times) values('Thursday','14:30-15:00');
+insert into timeTable(weekdays,times) values('Thursday','15:00-15:30');
+insert into timeTable(weekdays,times) values('Thursday','15:30-16:00');
+insert into timeTable(weekdays,times) values('Thursday','16:00-16:30');
+insert into timeTable(weekdays,times) values('Thursday','16:30-17:00');
+insert into timeTable(weekdays,times) values('Thursday','17:00-17:30');
+insert into timeTable(weekdays,times) values('Thursday','17:30-18:00');
+insert into timeTable(weekdays,times) values('Thursday','18:00-18:30');
+insert into timeTable(weekdays,times) values('Thursday','18:30-19:00');
+insert into timeTable(weekdays,times) values('Thursday','19:00-19:30');
+insert into timeTable(weekdays,times) values('Thursday','19:30-20:00');
+insert into timeTable(weekdays,times) values('Thursday','20:00-20:30');
+insert into timeTable(weekdays,times) values('Thursday','20:30-21:00');
+insert into timeTable(weekdays,times) values('Thursday','21:00-21:30');
+insert into timeTable(weekdays,times) values('Thursday','21:30-22:00');
+
+insert into timeTable(weekdays,times) values('Friday','08:00-08:30');
+insert into timeTable(weekdays,times) values('Friday','08:30-09:00');
+insert into timeTable(weekdays,times) values('Friday','09:00-09:30');
+insert into timeTable(weekdays,times) values('Friday','09:30-10:00');
+insert into timeTable(weekdays,times) values('Friday','10:00-10:30');
+insert into timeTable(weekdays,times) values('Friday','10:30-11:00');
+insert into timeTable(weekdays,times) values('Friday','11:00-11:30');
+insert into timeTable(weekdays,times) values('Friday','11:30-12:00');
+insert into timeTable(weekdays,times) values('Friday','12:00-12:30');
+insert into timeTable(weekdays,times) values('Friday','12:30-13:00');
+insert into timeTable(weekdays,times) values('Friday','13:00-13:30');
+insert into timeTable(weekdays,times) values('Friday','13:30-14:00');
+insert into timeTable(weekdays,times) values('Friday','14:00-14:30');
+insert into timeTable(weekdays,times) values('Friday','14:30-15:00');
+insert into timeTable(weekdays,times) values('Friday','15:00-15:30');
+insert into timeTable(weekdays,times) values('Friday','15:30-16:00');
+insert into timeTable(weekdays,times) values('Friday','16:00-16:30');
+insert into timeTable(weekdays,times) values('Friday','16:30-17:00');
+insert into timeTable(weekdays,times) values('Friday','17:00-17:30');
+insert into timeTable(weekdays,times) values('Friday','17:30-18:00');
+insert into timeTable(weekdays,times) values('Friday','18:00-18:30');
+insert into timeTable(weekdays,times) values('Friday','18:30-19:00');
+insert into timeTable(weekdays,times) values('Friday','19:00-19:30');
+insert into timeTable(weekdays,times) values('Friday','19:30-20:00');
+insert into timeTable(weekdays,times) values('Friday','20:00-20:30');
+insert into timeTable(weekdays,times) values('Friday','20:30-21:00');
+insert into timeTable(weekdays,times) values('Friday','21:00-21:30');
+insert into timeTable(weekdays,times) values('Friday','21:30-22:00');
+
+insert into timeTable(weekdays,times) values('Saturday','08:00-08:30');
+insert into timeTable(weekdays,times) values('Saturday','08:30-09:00');
+insert into timeTable(weekdays,times) values('Saturday','09:00-09:30');
+insert into timeTable(weekdays,times) values('Saturday','09:30-10:00');
+insert into timeTable(weekdays,times) values('Saturday','10:00-10:30');
+insert into timeTable(weekdays,times) values('Saturday','10:30-11:00');
+insert into timeTable(weekdays,times) values('Saturday','11:00-11:30');
+insert into timeTable(weekdays,times) values('Saturday','11:30-12:00');
+insert into timeTable(weekdays,times) values('Saturday','12:00-12:30');
+insert into timeTable(weekdays,times) values('Saturday','12:30-13:00');
+insert into timeTable(weekdays,times) values('Saturday','13:00-13:30');
+insert into timeTable(weekdays,times) values('Saturday','13:30-14:00');
+insert into timeTable(weekdays,times) values('Saturday','14:00-14:30');
+insert into timeTable(weekdays,times) values('Saturday','14:30-15:00');
+insert into timeTable(weekdays,times) values('Saturday','15:00-15:30');
+insert into timeTable(weekdays,times) values('Saturday','15:30-16:00');
+insert into timeTable(weekdays,times) values('Saturday','16:00-16:30');
+insert into timeTable(weekdays,times) values('Saturday','16:30-17:00');
+insert into timeTable(weekdays,times) values('Saturday','17:00-17:30');
+insert into timeTable(weekdays,times) values('Saturday','17:30-18:00');
+insert into timeTable(weekdays,times) values('Saturday','18:00-18:30');
+insert into timeTable(weekdays,times) values('Saturday','18:30-19:00');
+insert into timeTable(weekdays,times) values('Saturday','19:00-19:30');
+insert into timeTable(weekdays,times) values('Saturday','19:30-20:00');
+insert into timeTable(weekdays,times) values('Saturday','20:00-20:30');
+insert into timeTable(weekdays,times) values('Saturday','20:30-21:00');
+insert into timeTable(weekdays,times) values('Saturday','21:00-21:30');
+insert into timeTable(weekdays,times) values('Saturday','21:30-22:00');
 
 --醫師資料表--
 create table dentist(
@@ -484,6 +686,14 @@ dentistName nvarchar(30) not null,								--醫師姓名--
 dentistImage nvarchar(max) not null,									--醫師照片，無照片後端自動存入預設照片--!!!!!
 dentistGender nvarchar(10) not null,							--醫師性別--
 );
+insert into dentist(clinicPkId ,dentistName,dentistImage,dentistGender) values(1,'李天成','???','Male')
+insert into dentist(clinicPkId ,dentistName,dentistImage,dentistGender) values(1,'黃和虎','???','Male')
+insert into dentist(clinicPkId ,dentistName,dentistImage,dentistGender) values(1,'陳韻竹','???','Female')
+insert into dentist(clinicPkId ,dentistName,dentistImage,dentistGender) values(2,'石建頤','???','Male')
+insert into dentist(clinicPkId ,dentistName,dentistImage,dentistGender) values(2,'張海珊','???','Female')
+insert into dentist(clinicPkId ,dentistName,dentistImage,dentistGender) values(2,'莊斯齊','???','Male')
+insert into dentist(clinicPkId ,dentistName,dentistImage,dentistGender) values(2,'白欣宜','???','Female')
+
 
 --醫生經歷表--
 
@@ -515,12 +725,108 @@ create table dentistItem(
 dentistPkId int references dentist(dentistPkId) not null,			--多對一關連到醫師--
 itemPkId int references items(itemPkId) not null						--多對一關連到診療項目--
 );
+insert into dentistItem(dentistPkId,itemPkId ) values(1,1)
+insert into dentistItem(dentistPkId,itemPkId ) values(1,3)
+insert into dentistItem(dentistPkId,itemPkId ) values(1,8)
+insert into dentistItem(dentistPkId,itemPkId ) values(2,5)
+insert into dentistItem(dentistPkId,itemPkId ) values(2,7)
+insert into dentistItem(dentistPkId,itemPkId ) values(3,8)
+insert into dentistItem(dentistPkId,itemPkId ) values(4,5)
+insert into dentistItem(dentistPkId,itemPkId ) values(4,6)
+insert into dentistItem(dentistPkId,itemPkId ) values(4,9)
+insert into dentistItem(dentistPkId,itemPkId ) values(5,3)
+insert into dentistItem(dentistPkId,itemPkId ) values(5,7)
+insert into dentistItem(dentistPkId,itemPkId ) values(6,1)
+insert into dentistItem(dentistPkId,itemPkId ) values(7,4)
+insert into dentistItem(dentistPkId,itemPkId ) values(7,10)
+
 
 --醫師開放約診時間--
 create table dentistTime(
 dentistPkId int references dentist(dentistPkId) not null,						--多對一關連到醫師--
 timeTablePkId int references timeTable(timeTablePkId) not null		--多對一關連到開放預約時間--
 );
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,1)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,2)
+insert into dentistTime (dentistPkId,timeTablePkId) values	(1,3)
+insert into dentistTime (dentistPkId,timeTablePkId) values	(1,4)
+insert into dentistTime (dentistPkId,timeTablePkId) values	(1,5)
+insert into dentistTime (dentistPkId,timeTablePkId) values	(1,6)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,7)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,8)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,28)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,29)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,30)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,31)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,32)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,33)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,34)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(1,35)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(2,36)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(2,37)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(2,38)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(2,39)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(2,40)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(2,41)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(3,80)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(3,81)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(3,82)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(3,83)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(3,84)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(3,85)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(3,86)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,10)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,11)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,12)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,13)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,14)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,15)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,16)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,17)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,18)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,27)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,28)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,29)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,30)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,31)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,32)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,70)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,71)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(4,72)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(5,10)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(5,11)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(5,12)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(5,13)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(5,14)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(5,15)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,58)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,59)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,60)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,61)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,72)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,73)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,74)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,75)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,76)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,77)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(6,90)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,36)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,37)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,38)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,39)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,40)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,41)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,42)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,43)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,100)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,101)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,102)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,103)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,104)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,105)
+insert into dentistTime(dentistPkId,timeTablePkId) values	(7,106)
+
+
 
 --預約資料表--
 create table appointment(
@@ -533,9 +839,13 @@ patientPhone nvarchar(15),																			--診所主動預約非會員電話--
 appointDate Date not null,																				--預約日期--
 timeTablePkId int references timeTable(timeTablePkId) not null,			--多對一關連到開放約診時間--
 itemPkId int references items(itemPkId) not null,										----多對一關連到看診項目--
-arrive nvarchar(10),																							--確認是否到診---
-memberReply nvarchar(15)																			--是否有回覆會到診--
+memberReply nvarchar(15),																		--是否有回覆會到診--
+arrive nvarchar(10) default 'true'																							--確認是否到診---
 )
+insert into appointment(memeberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (3,1,2,'2020-01-04',37,5,'確定前往')
+insert into appointment(clinicPkId,dentistPkId,patientName,patientIdNumber,patientPhone,appointDate,timeTablePkId,itemPkId,memberReply)
+values (2,7,'2020-01-06',104,4,'未回覆')
 
 
 --商城商品--
@@ -547,16 +857,16 @@ productPrice int not null,														--商品價格--
 productQuantity int not null,													--商品剩餘數量--
 productStatus nvarchar(10) not null,									--商品上架於否--
 productImage nvarchar(max) not null,									--圖片路徑/API
+productCategory nvarchar(20) not null,									--商品分類--
 productProfile nvarchar(max) not null,											--商品介紹--
 productSpec nvarchar(max) not null										--商品規格--
 );
 
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) 
-values('【德國百靈Oral-B】iO9微震科技電動牙刷',GETDATE(),12990,30,'上架中','???','【德國百靈Oral-B】iO9微震科技電動牙刷-黑色(微磁電動牙刷)','品牌：歐樂B|品名：ORAL-B iO9 微震科技電動牙刷|顏色:黑|本體尺寸(cm)：18*10*26cm|商品重量(g)：900g|產地：本體-德國');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【國際牌】音波電動牙刷',GETDATE(),7290,30,'上架中','???','【國際牌】年度新品音波電動牙刷(EW-DP54-S/A)+櫸木柄、矽膠餐具五件組','本體尺寸：高23.5 x 寬2.9 x 深3.5cm|重量：110g|電壓：100-240V|充電/使用時間：充電1小時，約可連續使用90分鐘 (水平震動下)/45分鐘(W音波震動下)|附件：攜帶盒*1、刷頭放置架*1|產地: 日本(充電座產地：中國)');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【Philips飛利浦】高效空氣動能牙線機/沖牙機',GETDATE(),3880,30,'上架中','???','【Philips 飛利浦】高效空氣動能牙線機/沖牙機(HX8401/03)','型號：HX8401/03|尺寸：24D x14W x9H (cm)|重量：430g|產地：中國');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【Ora2愛樂齒】微觸感牙刷',GETDATE(),299,30,'上架中','???','【Ora2愛樂齒】me微觸感牙刷6支/盒(超軟毛，顏色隨機出貨)','材質:刷毛:尼龍。刷柄:聚乙烯塑膠。耐熱溫度:60度C|包裝入數:6支/盒|產地:日本');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productProfile,productSpec) values('【舒酸定】多元護理+深層潔淨牙膏',GETDATE(),499,30,'上架中','???','【舒酸定】爆殺8入組牙膏-多元護理120g*6+深層潔淨100g*2','品名:舒酸定長效抗敏-多元護理|規格:120g x6入|用途:幫助保護牙齦健康|保存期限:三年|原產地:泰國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【德國百靈Oral-B】iO9微震科技電動牙刷',GETDATE(),12990,30,'上架中','???','電動牙刷','【德國百靈Oral-B】iO9微震科技電動牙刷-黑色(微磁電動牙刷)','品牌：歐樂B|品名：ORAL-B iO9 微震科技電動牙刷|顏色:黑|本體尺寸(cm)：18*10*26cm|商品重量(g)：900g|產地：本體-德國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【國際牌】音波電動牙刷',GETDATE(),7290,30,'上架中','???','電動牙刷','【國際牌】年度新品音波電動牙刷(EW-DP54-S/A)+櫸木柄、矽膠餐具五件組','本體尺寸：高23.5 x 寬2.9 x 深3.5cm|重量：110g|電壓：100-240V|充電/使用時間：充電1小時，約可連續使用90分鐘 (水平震動下)/45分鐘(W音波震動下)|附件：攜帶盒*1、刷頭放置架*1|產地: 日本(充電座產地：中國)');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【Philips飛利浦】高效空氣動能牙線機/沖牙機',GETDATE(),3880,30,'上架中','???','沖牙機','【Philips 飛利浦】高效空氣動能牙線機/沖牙機(HX8401/03)','型號：HX8401/03|尺寸：24D x14W x9H (cm)|重量：430g|產地：中國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【Ora2愛樂齒】微觸感牙刷',GETDATE(),299,30,'上架中','???','牙刷','【Ora2愛樂齒】me微觸感牙刷6支/盒(超軟毛，顏色隨機出貨)','材質:刷毛:尼龍。刷柄:聚乙烯塑膠。耐熱溫度:60度C|包裝入數:6支/盒|產地:日本');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【舒酸定】多元護理+深層潔淨牙膏',GETDATE(),499,30,'上架中','???','牙膏','【舒酸定】爆殺8入組牙膏-多元護理120g*6+深層潔淨100g*2','品名:舒酸定長效抗敏-多元護理|規格:120g x6入|用途:幫助保護牙齦健康|保存期限:三年|原產地:泰國');
 
 --折價券歷史紀錄--
 create table coupon(

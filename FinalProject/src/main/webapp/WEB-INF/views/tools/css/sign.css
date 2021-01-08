@@ -1,0 +1,26 @@
+.formcontainer {
+	text-align: center;
+	margin: 24px 50px 12px;
+}
+.formcontainer .containerF {
+	padding: 16px 0;
+	text-align: left;
+}
+
+.formcontainer input[type=text], input[type=password] {
+	width: 100%;
+	padding: 8px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+    box-sizing: border-box;
+    color: black;
+}
+.formcontainer select {
+	padding: 8px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+    box-sizing: border-box;
+    color: black;
+}

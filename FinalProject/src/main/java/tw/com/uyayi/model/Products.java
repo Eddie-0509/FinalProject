@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "products")
 public class Products {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int productPkId;
@@ -19,20 +19,24 @@ public class Products {
 	private int productQuantity;
 	private String productStatus;
 	private String productImage;
+	private String productCategory;
 	private String productProfile;
 	private String productSpec;
 
 	public Products() {
 
 	}
-	
-	public Products(String productName, String productUpdateDate, int productPrice, int productQuantity, String productStatus, String productImage, String productProfile, String productSpec) {
+
+	public Products(String productName, String productUpdateDate, int productPrice, int productQuantity,
+			String productStatus, String productImage, String productCategory, String productProfile,
+			String productSpec) {
 		this.productName = productName;
 		this.productUpdateDate = productUpdateDate;
 		this.productPrice = productPrice;
 		this.productQuantity = productQuantity;
 		this.productStatus = productStatus;
 		this.productImage = productImage;
+		this.productCategory = productCategory;
 		this.productProfile = productProfile;
 		this.productSpec = productSpec;
 	}
@@ -107,5 +111,13 @@ public class Products {
 
 	public void setProductSpec(String productSpec) {
 		this.productSpec = productSpec;
+	}
+
+	public String getProductCategory() {
+		return productCategory;
+	}
+
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
 	}
 }
