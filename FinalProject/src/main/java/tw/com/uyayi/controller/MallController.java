@@ -31,12 +31,7 @@ public class MallController {
 	
 	@GetMapping(path  = "/productsByCategory", produces = "application/json")
 	public @ResponseBody List<Products> getProductsByCategory(@RequestParam String productCategoty) {
-		System.out.println("AAAAAA"+productCategoty);
 		List<Products> beans = (List<Products>)service.getProductsByCategory(productCategoty);
-		System.out.println(beans);
-		
-		for(Products p:beans) {System.out.println();}
-		
 		return beans;
 	}
 }
