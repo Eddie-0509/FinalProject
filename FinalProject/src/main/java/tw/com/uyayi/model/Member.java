@@ -3,6 +3,7 @@ package tw.com.uyayi.model;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JoinColumn(name = "memberPkId")
+	@Column(name = "memberPkId")
 	private int memberPkId ;
 	private String memberAccount;
 	private String memberPwd;
@@ -26,11 +27,15 @@ public class Member {
 	private String memberPhone;
 	private String memberStatus;
 	
+	
+	
 	@OneToMany(mappedBy = "memberBean" )
 	private Set<Appointment> appointments;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "memberBean")
 	private Set<Orders> orders;
+	
+	
 	
 	public int getMemberPkId() {
 		return memberPkId;

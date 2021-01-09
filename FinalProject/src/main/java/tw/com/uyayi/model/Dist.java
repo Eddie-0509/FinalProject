@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,8 +28,8 @@ public class Dist {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cityPkId")
 	private City cityBean;
-	@JsonIgnore
-	@OneToMany(mappedBy="distBean")
+	
+	@OneToMany(mappedBy="distBean", fetch = FetchType.EAGER)
 	private Set<Clinic> clinics = new LinkedHashSet<Clinic>();
 	
 	

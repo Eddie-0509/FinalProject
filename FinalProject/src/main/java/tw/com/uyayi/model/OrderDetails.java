@@ -25,8 +25,8 @@ public class OrderDetails {
 	private Orders orderBean;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "productPkId")
-	private Products products;
+	@JoinColumn(name = "productPkId", referencedColumnName = "productPkId")
+	private Products productBean;
 	
 	private int orderQuantity;
 	

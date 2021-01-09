@@ -25,7 +25,7 @@ public class Orders {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "couponPkId")
-	private Coupon conponBean;
+	private Coupon couponBean;
 	
 	private int totalPayment;
 	private String orderStatus;
@@ -54,12 +54,12 @@ public class Orders {
 		this.memberBean = memberBean;
 	}
 
-	public Coupon getConponBean() {
-		return conponBean;
+	public Coupon getCouponBean() {
+		return couponBean;
 	}
 
-	public void setConponBean(Coupon conponBean) {
-		this.conponBean = conponBean;
+	public void setCouponBean(Coupon couponBean) {
+		this.couponBean = couponBean;
 	}
 
 	public int getTotalPayment() {

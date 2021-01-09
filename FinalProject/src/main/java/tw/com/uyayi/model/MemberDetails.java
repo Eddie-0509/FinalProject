@@ -1,10 +1,11 @@
 package tw.com.uyayi.model;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,9 +13,14 @@ import javax.persistence.Table;
 public class MemberDetails {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="memberPkId")
 	private int memberPkId;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "memberPkId")
+    @MapsId    
+    private Member member;
+	
+	
 	private String emergencyContact;
 	private String emergencyNumber;
 	private String emergencyRelationship;
@@ -23,6 +29,8 @@ public class MemberDetails {
 	private String diseases;
 	private String allergy;
 	private String surgery;
+	
+	
 	
 	
 	public MemberDetails() {
