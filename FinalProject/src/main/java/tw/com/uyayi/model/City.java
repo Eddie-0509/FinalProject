@@ -19,10 +19,10 @@ public class City {
 	private int cityPkId;
 	private String cityName;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cityBean" )
+	@OneToMany(mappedBy = "cityBean")
 	private Set<Dist> dists = new LinkedHashSet<>();
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="cityBean")
+	@OneToMany(mappedBy="cityBean")
 	private Set<Clinic> clinics = new LinkedHashSet<Clinic>();
 
 	public int getCityPkId() {

@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.com.uyayi.model.City;
+import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.service.SignUpService;
 
@@ -31,5 +33,25 @@ public class SignUpController {
 		int cityId = Integer.valueOf(cityPkId);
 		List<Dist> dists= signUpService.getDist(cityId);
 		return dists;
+	}
+	
+	@GetMapping(value = "/signUp")
+	public String getSignUp(Model model) {
+		Clinic clinic = new Clinic();
+		model.addAttribute("clinic", clinic);
+		return "clinic/clinicSignUp";
+	}
+	
+	
+	@PostMapping(value ="/signUp")
+	public String processSignUp(@ModelAttribute("clinic") Clinic clinic) {
+		System.out.println(clinic.getClinicCityId());
+		
+		City cityBean = signUpService.getCityBean(clinic.getClinicCityId());
+		Dist distBean = signUpService.getDistBean(clinic.getClinicDistId());
+		clinic.setCityBean(cityBean);
+		clinic.setDistBean(distBean);
+		signUpService.insertClinic(clinic);
+		return "redirect:/clinicIndex";
 	}
 }

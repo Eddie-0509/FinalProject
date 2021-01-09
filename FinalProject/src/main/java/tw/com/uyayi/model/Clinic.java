@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -25,23 +28,37 @@ public class Clinic {
 	private String clinicName;
 	private String clinicPhone;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@JsonIgnore
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="clinicCity")
 	private City cityBean;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@JsonIgnore
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="clinicDist")
 	private Dist distBean;
 	
 	private String clinicAddress;
+	
+
 	private String clinicLocation;
+
 	private Date clinicStartTime;
+
 	private Date clinicEndTime;
+
 	private String clinicStatus;
 	
+	@Transient
+	private int clinicCityId;
+	@Transient
+	private int clinicDistId;
+	
+	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean" )
 	private Set<Appointment> appointments;
 	
+	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean")
 	private Set<Dentist> dentists;
 	
@@ -65,6 +82,19 @@ public class Clinic {
 		this.clinicEndTime = clinicEndTime;
 		this.clinicStatus = clinicStatus;
 	}
+	
+	public Clinic(String clinicAccount, String clinicPwd, String clinicName, String clinicPhone,
+			City cityBean, Dist distBean, String clinicAddress) {
+		this.clinicAccount = clinicAccount;
+		this.clinicPwd = clinicPwd;
+		this.clinicName = clinicName;
+		this.clinicPhone = clinicPhone;
+		this.cityBean = cityBean;
+		this.distBean = distBean;
+		this.clinicAddress = clinicAddress;
+	}
+
+	
 	public int getClinicPkId() {
 		return clinicPkId;
 	}
@@ -139,6 +169,23 @@ public class Clinic {
 	}
 	public void setClinicStatus(String clinicStatus) {
 		this.clinicStatus = clinicStatus;
+	}
+
+
+	public int getClinicCityId() {
+		return clinicCityId;
+	}
+
+	public void setClinicCityId(int clinicCityId) {
+		this.clinicCityId = clinicCityId;
+	}
+
+	public int getClinicDistId() {
+		return clinicDistId;
+	}
+
+	public void setClinicDistId(int clinicDistId) {
+		this.clinicDistId = clinicDistId;
 	}
 
 	public Set<Appointment> getAppointments() {

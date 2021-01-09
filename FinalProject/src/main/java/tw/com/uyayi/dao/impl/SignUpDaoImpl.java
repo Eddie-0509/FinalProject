@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import tw.com.uyayi.dao.SignUpDao;
 import tw.com.uyayi.model.City;
+import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dist;
 
 @Repository
@@ -23,7 +24,9 @@ public class SignUpDaoImpl implements SignUpDao {
 	public List<City> getAllCity() {
 		Session session = factory.getCurrentSession();
 		String hql = "from City";
-		return session.createQuery(hql).getResultList();
+		List<City> a= session.createQuery(hql).getResultList();
+		session.clear();
+		return a ;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -32,10 +35,30 @@ public class SignUpDaoImpl implements SignUpDao {
 		Session session = factory.getCurrentSession();
 		String hql = "from Dist where cityPkId = :cId";
 		List<Dist> a = session.createQuery(hql).setParameter("cId", cityPkId).getResultList();
-		for (int j = 0; j < a.size(); j++) {
-			System.out.println(a.get(j).getDistName());
-		}
+		session.clear();
 		return a;
+	}
+
+	@Override
+	public void insertClinic(Clinic clinic) {
+		Session session = factory.getCurrentSession();
+		session.save(clinic);		
+	}
+
+	@Override
+	public City getCityBean(int cityPkId) {
+		Session session = factory.getCurrentSession();
+		City cityBean = session.get(City.class, cityPkId);
+		System.out.println(cityBean.getCityName()+cityBean.getCityPkId());
+		return cityBean;
+	}
+
+	@Override
+	public Dist getDistBean(int distPkId) {
+		Session session = factory.getCurrentSession();
+		Dist distBean = session.get(Dist.class, distPkId);
+		System.out.println(distBean.getDistName()+distBean.getDistPkId());
+		return distBean;
 	}
 
 }

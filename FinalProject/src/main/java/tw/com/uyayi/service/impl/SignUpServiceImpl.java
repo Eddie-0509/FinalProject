@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.uyayi.dao.SignUpDao;
 import tw.com.uyayi.model.City;
+import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.service.SignUpService;
 @Service
@@ -25,6 +26,22 @@ public class SignUpServiceImpl implements SignUpService {
 	@Override
 	public List<Dist> getDist(int cityPkId) {
 		return signUpDao.getDist(cityPkId);
+	}
+	
+	@Transactional
+	@Override
+	public void insertClinic(Clinic clinic) {
+		signUpDao.insertClinic(clinic);
+	}
+	@Transactional
+	@Override
+	public City getCityBean(int cityPkId) {
+		return signUpDao.getCityBean(cityPkId);
+	}
+	@Transactional
+	@Override
+	public Dist getDistBean(int distPkId) {
+		return signUpDao.getDistBean(distPkId);
 	}
 
 }

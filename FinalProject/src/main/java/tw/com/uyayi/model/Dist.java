@@ -29,6 +29,7 @@ public class Dist {
 	@JoinColumn(name = "cityPkId")
 	private City cityBean;
 	
+	
 	@OneToMany(mappedBy="distBean", fetch = FetchType.EAGER)
 	private Set<Clinic> clinics = new LinkedHashSet<Clinic>();
 	

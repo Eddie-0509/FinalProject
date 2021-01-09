@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -162,8 +163,7 @@
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main"
 			data-colorbg="">
 			<div class="container">
-
-				<form action="SignUpServlet.do" method="POST">
+				<form:form method='POST' action="${pageContext.request.contextPath}/signUp" modelAttribute="clinic" class='form-horizontal' enctype="multipart/form-data">
 					<h1>註冊</h1>
 					<div class="usericon"></div>
 					<div class="formcontainer">
@@ -184,25 +184,29 @@
 								id="clinicPhone" placeholder="02-xxxxxxx"><br> <label
 								for="clinicCity"><strong>縣市 / 區</strong></label>
 							<div>
-								<select name="clinicCity" id="city">
+								<select name="clinicCityId" id="city">
+									<option id="cityDefault">請選擇</option>
 									<c:forEach var="city" items="${cities}" varStatus="vs">
 										<option value="${city.cityPkId}">${city.cityName}</option>
 									</c:forEach>
-								</select> <select name="clinicDist" id="dist">
-									<option value="大安區" selected>大安區</option>
-									<option value="新北市">新北市</option>
-									<option value="桃園市">桃園市</option>
-									<option value="台中市">台中市</option>
-									<option value="台南市">台南市</option>
-									<option value="高雄市">高雄市</option>
+								</select> 
+								<select name="clinicDistId" id="dist">
+									<option value="0" selected>請選擇</option>
 								</select>
 							</div>
 							<label for="clinicAddress"><strong>地址</strong></label> <input
 								type="text" name="clinicAddress" id="clinicAddress">
+<!-- 								<input type="hidden"  name="clinicLocation"> -->
+<!-- 								<input type="hidden"  name="clinicStartTime"> -->
+<!-- 								<input type="hidden" name="clinicEndTime"> -->
+<!-- 								<input type="hidden" name="clinicStatus"> -->
+						</div>
+						<div>
+						<input type="submit" value="送出" style="color : black; font-weight: 800;">
 						</div>
 
 					</div>
-				</form>
+				</form:form>
 			</div>
 		</div>
 
@@ -226,12 +230,12 @@
 
 	</div>
 	<script>
-		$("#city").children("option").eq(0).attr("selected");
 		var flagPwd = false;
 		var flagEmail = false;
 		var flagPhone = false;
 		$(function() {
 			$("#city").change(function() {
+				$("#cityDefault").css("display","none")
 				let str ="";
 				let urlQuery = new URLSearchParams({
 					cityPkId : $("#city").val(),
