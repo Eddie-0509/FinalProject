@@ -25,6 +25,9 @@ public class TimeTable {
 	private Set<Dentist> dentists;
 	
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "timeTableBean")
+	private Set<Appointment> appointments;
+	
 	public TimeTable() {
 		
 	}
@@ -62,6 +65,16 @@ public class TimeTable {
 
 	public void setDentists(Set<Dentist> dentists) {
 		this.dentists = dentists;
+	}
+
+
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+
+
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
 	}
 
 	

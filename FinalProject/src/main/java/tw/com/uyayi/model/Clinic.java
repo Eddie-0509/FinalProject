@@ -39,8 +39,11 @@ public class Clinic {
 	private Date clinicEndTime;
 	private String clinicStatus;
 	
-	@OneToMany(mappedBy = "clinicBean" )
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean" )
 	private Set<Appointment> appointments;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean")
+	private Set<Dentist> dentists;
 	
 	
 	public Clinic() {
@@ -144,6 +147,14 @@ public class Clinic {
 
 	public void setAppointments(Set<Appointment> appointments) {
 		this.appointments = appointments;
+	}
+
+	public Set<Dentist> getDentists() {
+		return dentists;
+	}
+
+	public void setDentists(Set<Dentist> dentists) {
+		this.dentists = dentists;
 	}
 
 }

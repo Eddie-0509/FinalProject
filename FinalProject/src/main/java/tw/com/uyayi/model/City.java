@@ -3,6 +3,7 @@ package tw.com.uyayi.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +19,10 @@ public class City {
 	private int cityPkId;
 	private String cityName;
 	
-	@OneToMany(mappedBy = "cityBean" )
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cityBean" )
 	private Set<Dist> dists = new LinkedHashSet<>();
 	
-	@OneToMany(mappedBy="cityBean")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="cityBean")
 	private Set<Clinic> clinics = new LinkedHashSet<Clinic>();
 
 	public int getCityPkId() {

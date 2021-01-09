@@ -2,12 +2,16 @@ package tw.com.uyayi.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +19,7 @@ import javax.persistence.Table;
 public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "memberPkId")
 	private int memberPkId ;
 	private String memberAccount;
 	private String memberPwd;
@@ -27,9 +32,9 @@ public class Member {
 	@OneToMany(mappedBy = "memberBean" )
 	private Set<Appointment> appointments;
 	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "memberBean")
+	private Set<Orders> orders;
 	
-	@Id @Column(name = "memberPkId")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getMemberPkId() {
 		return memberPkId;
 	}
@@ -38,7 +43,6 @@ public class Member {
 		this.memberPkId = memberPkId;
 	}
 	
-	@Column(name = "memberAccount")
 	public String getMemberAccount() {
 		return memberAccount;
 	}
@@ -46,7 +50,6 @@ public class Member {
 		this.memberAccount = memberAccount;
 	}
 	
-	@Column(name = "memberPwd")
 	public String getMemberPwd() {
 		return memberPwd;
 	}
@@ -54,7 +57,7 @@ public class Member {
 		this.memberPwd = memberPwd;
 	}
 	
-	@Column(name = "memberIdNumber")
+
 	public String getMemberIdNumber() {
 		return memberIdNumber;
 	}
@@ -62,7 +65,7 @@ public class Member {
 		this.memberIdNumber = memberIdNumber;
 	}
 	
-	@Column(name = "memberName")
+
 	public String getMemberName() {
 		return memberName;
 	}
@@ -70,7 +73,6 @@ public class Member {
 		this.memberName = memberName;
 	}
 	
-	@Column(name = "memberAddress")
 	public String getMemberAddress() {
 		return memberAddress;
 	}
@@ -78,7 +80,6 @@ public class Member {
 		this.memberAddress = memberAddress;
 	}
 	
-	@Column(name = "memberPhone")
 	public String getMemberPhone() {
 		return memberPhone;
 	}
@@ -86,7 +87,6 @@ public class Member {
 		this.memberPhone = memberPhone;
 	}
 	
-	@Column(name = "memberStatus")
 	public String getMemberStatus() {
 		return memberStatus;
 	}

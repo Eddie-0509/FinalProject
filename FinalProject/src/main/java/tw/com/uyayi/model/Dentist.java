@@ -22,7 +22,7 @@ public class Dentist {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "clinicPkId")
-	private Clinic clinic;
+	private Clinic clinicBean;
 	
 	private String dentistName;
 	
@@ -31,7 +31,7 @@ public class Dentist {
 	private String dentistGender;
 	
 	
-	@OneToMany(mappedBy="dentistBean")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="dentistBean")
 	private Set<Appointment> appointments;
 	
 	
@@ -69,16 +69,15 @@ public class Dentist {
 
 
 
-	public Clinic getClinic() {
-		return clinic;
+	public Clinic getClinicBean() {
+		return clinicBean;
 	}
 
 
 
-	public void setClinic(Clinic clinic) {
-		this.clinic = clinic;
+	public void setClinicBean(Clinic clinicBean) {
+		this.clinicBean = clinicBean;
 	}
-
 
 
 	public String getDentistName() {

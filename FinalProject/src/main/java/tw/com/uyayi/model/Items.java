@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +22,8 @@ public class Items {
 	@ManyToMany(mappedBy = "itemsBean", cascade = CascadeType.ALL)
 	private Set<Dentist> dentists;
 	
-	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "itemBean")
+	private Set<Appointment> appointments;
 
 	public Items() {
 	
@@ -48,6 +51,14 @@ public class Items {
 
 	public void setDentists(Set<Dentist> dentists) {
 		this.dentists = dentists;
+	}
+
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
 	}
 
 	

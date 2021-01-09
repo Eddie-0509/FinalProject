@@ -1,9 +1,16 @@
 package tw.com.uyayi.model;
 
+import java.sql.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,9 +19,10 @@ public class Products {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "productPkId")
 	private int productPkId;
 	private String productName;
-	private String productUpdateDate;
+	private Date productUpdateDate;
 	private int productPrice;
 	private int productQuantity;
 	private String productStatus;
@@ -22,12 +30,16 @@ public class Products {
 	private String productCategory;
 	private String productProfile;
 	private String productSpec;
-
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "productPkId")
+	private Set<OrderDetails> orderDetailBean;
+	
 	public Products() {
 
 	}
 
-	public Products(String productName, String productUpdateDate, int productPrice, int productQuantity,
+	public Products(String productName, Date productUpdateDate, int productPrice, int productQuantity,
 			String productStatus, String productImage, String productCategory, String productProfile,
 			String productSpec) {
 		this.productName = productName;
@@ -57,11 +69,12 @@ public class Products {
 		this.productName = productName;
 	}
 
-	public String getProductUpdateDate() {
+
+	public Date getProductUpdateDate() {
 		return productUpdateDate;
 	}
 
-	public void setProductUpdateDate(String productUpdateDate) {
+	public void setProductUpdateDate(Date productUpdateDate) {
 		this.productUpdateDate = productUpdateDate;
 	}
 
