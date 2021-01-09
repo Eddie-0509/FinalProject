@@ -431,7 +431,7 @@ insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddre
 
 --會員初診相關資料--
 create table memberDetails(
-memeberPkId int references member(memberPkId) not null ,		--一對一關聯到會員基本資料ID--
+memberPkId int references member(memberPkId) not null ,		--一對一關聯到會員基本資料ID--
 emergencyContact nvarchar(30) not null,							--緊急聯絡人--
 emergencyNumber nvarchar(15) not null,							--	緊急連絡電話--
 emergencyRelationship nvarchar(10) not null,					--關係欄--
@@ -458,11 +458,11 @@ clinicName nvarchar(50) not null,							--診所名稱--
 clinicPhone nvarchar(15) not null,						--診所電話--
 clinicCity int references city(cityPkId),					--多對一關聯到縣市表--
 clinicDist int references dist(distPkId),					--多對一關聯到行政區表--
-clinicAddress nvarchar(max) not null,					--診所地址--
-clinicLocation nvarchar(100) ,									--診所GPS位址--
-clinicStartTime date not null,									--權限開始時間
-clinicEndTime date not null,									--權限結束時間
-clinicStatus nvarchar(20) not null							--診所權限(未付款/付款/付款但不開放查詢)--
+clinicAddress nvarchar(200) not null,					--診所地址--
+clinicLocation nvarchar(500) ,							--診所GPS位址--
+clinicStartTime date ,									--權限開始時間
+clinicEndTime date ,									--權限結束時間
+clinicStatus nvarchar(20) 							--診所權限(未付款/付款/付款但不開放查詢)--
 );
 insert into clinic(clinicAccount,clinicPwd,clinicName,clinicPhone,clinicCity,clinicDist,clinicAddress,clinicStartTime,clinicEndTime,clinicStatus) values('Shinra@hotmail.com.tw','P@ssw0rd456','神羅牙醫診所','00-000-001',1,1,'遠得要命1','2021/01/01','2021/12/31','false');
 insert into clinic(clinicAccount,clinicPwd,clinicName,clinicPhone,clinicCity,clinicDist,clinicAddress,clinicStartTime,clinicEndTime,clinicStatus) values('Yorozuya@hotmail.com.tw','P@ssw0rd456','萬事屋牙醫診所','00-000-002',2,7,'遠得要命2','2021/01/01','2021/12/31','true');
