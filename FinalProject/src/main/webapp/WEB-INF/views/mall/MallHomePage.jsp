@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <style>
 #topBar {
 	height: 150px;
@@ -85,7 +86,7 @@ td {
 	<div id="title">
 		<h1>Products</h1>
 		<select class="showby" name="showby">
-			<option style="display: none">商品排序</option>
+			<option class="zero" style="display: none">--- 商品排序 ---</option>
 			<option value="1">價格 - 由高至低</option>
 			<option value="2">價格 - 由低至高</option>
 			<option value="3">上架時間 - 由新至舊</option>
@@ -107,18 +108,20 @@ td {
 <%-- 		</c:forEach> --%>
 <!-- 	</table> -->
 	</div> 
-	<script src="js/jquery.min.js"></script>
+<!-- 	<script src="../tools/js/jquery-3.5.1.min.js"></script> -->
 	<script>
+		let trans = ${products};
+		let products = trans.productList
+		
 		$(document).ready(function() {
-		let products = ${products};
 		let j = 1;
 		
 		let str1 = "<table class='ptable'><tr>";		
-		for(let i=0 ; i<products.productList.length ; i++){
-			str1 += "<td>" + products.productList[i].productImage + "<br>" + products.productList[i].productName + "<br>NTD$ " + products.productList[i].productPrice + "</td>";
+		for(let i=0 ; i<products.length ; i++){
+			str1 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
 
 			if(j % 3 == 0){
-				str1 += "</tr>"
+				str1 += "</tr>";
 			}
 
 			j++;
@@ -130,6 +133,7 @@ td {
 
 		
 		$("#left p").click(function() {
+			$(".showby .zero").prop('selected', true);
 			j = 1;
 			fetch("http://localhost:8080/FinalProject/productsByCategory?"+"productCategoty="+$(this).text(), {
 				method: "GET"
@@ -137,14 +141,15 @@ td {
 			}).then(function(response) {
 				return response.json();
 				
-			}).then(function(data){					
+			}).then(function(data){	
+					products = data;				
 					let str2 = "<table class='ptable'><tr>";
 					
 					for(let i=0 ; i<data.length ; i++){
 						str2 += "<td>" + data[i].productImage + "<br>" + data[i].productName + "<br>NTD$ " + data[i].productPrice + "</td>";
 
 						if(j % 3 == 0){
-							str2 += "</tr>"
+							str2 += "</tr>";
 						}
 
 						j++;
@@ -156,8 +161,82 @@ td {
 		});
 
 		$(".showby").change(function(){
-				
+			if($(this).val() == 1){
+			newlist = products.sort(function(a,b){
+				return b.productPrice - a.productPrice;
 			});
+			
+			let j = 1;		
+			let str3 = "<table class='ptable'><tr>";		
+			for(let i = 0 ; i < newlist.length ; i++){
+				str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+
+				if(j % 3 == 0){
+					str3 += "</tr>";
+				}
+				j++;
+			}
+			str3 += "</table>";
+			$("#main").html(str3);
+			}
+
+			else if($(this).val() == 2){
+				newlist = products.sort(function(a,b){
+					return a.productPrice - b.productPrice;
+				});
+				
+				let j = 1;		
+				let str3 = "<table class='ptable'><tr>";		
+				for(let i = 0 ; i < newlist.length ; i++){
+					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+
+					if(j % 3 == 0){
+						str3 += "</tr>";
+					}
+					j++;
+				}
+				str3 += "</table>";
+				$("#main").html(str3);
+				}
+
+			else if($(this).val() == 3){
+				newlist = products.sort(function(a,b){
+					return b.productPkId - a.productPkId;			
+				});
+				
+				let j = 1;		
+				let str3 = "<table class='ptable'><tr>";		
+				for(let i = 0 ; i < newlist.length ; i++){
+					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+
+					if(j % 3 == 0){
+						str3 += "</tr>";
+					}
+					j++;
+				}
+				str3 += "</table>";
+				$("#main").html(str3);
+				}
+
+			else if($(this).val() == 4){
+				newlist = products.sort(function(a,b){
+					return a.productPkId - b.productPkId;			
+				});
+				
+				let j = 1;		
+				let str3 = "<table class='ptable'><tr>";		
+				for(let i = 0 ; i < newlist.length ; i++){
+					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+
+					if(j % 3 == 0){
+						str3 += "</tr>";
+					}
+					j++;
+				}
+				str3 += "</table>";
+				$("#main").html(str3);
+				}
+		});
 	</script>
 </body>
 </html>
