@@ -31,7 +31,7 @@
 	margin: 20px;
 }
 
-#main {
+.ptable {
 	margin-top: 30px;
 	margin-left: 25%;
 }
@@ -55,17 +55,21 @@ td {
 	<div id="title">
 		<h1>Products</h1>
 	</div>
-	<table id="main">
+	<div id="main">
+	<table class="ptable">
 		<tr>
 			<c:forEach var='product' items="${productsList}" varStatus="vs">
-				<td>${product.productImage}<br> ${product.productName}<br>
-					NTD$ ${product.productPrice}
+				<td>
+				${product.productImage}<br>
+				${product.productName}<br>
+				NTD$ ${product.productPrice}
 				</td>
 				<c:if test="${(vs.count % 3) eq '0'}">
 		</tr>
 		</c:if>
 		</c:forEach>
 	</table>
+	</div>
 	<script src="js/jquery.min.js"></script>
 	<script>
 		$("#left p").click(function() {
@@ -73,12 +77,21 @@ td {
 				method: "GET"
 
 			}).then(function(response) {
-				console.log("response = "+response);
 				return response.json();
 				
-			}).then(function(data){
-					console.log("data = "+data)
-					console.log(data[0].productName)
+			}).then(function(data){					
+					let str = "<table class='ptable'><tr>";
+					
+					for(let i=0 ; i<data.length ; i++){
+						str += "<td>" + data[i].productImage + "<br>" + data[i].productName + "<br>NTD$ " + data[i].productPrice + "</td>";
+
+						if(i != 0 && i % 3 == 0){
+							str += "</tr>"
+						}
+					}
+
+					str += "</table>";
+					$("#main").html(str);
 				});
 		});
 	</script>
