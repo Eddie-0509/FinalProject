@@ -41,27 +41,27 @@
 	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="shortcut icon" href="../favicon.ico">
 	
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="../css/animate.css">
 	<!-- Flexslider -->
-	<link rel="stylesheet" href="css/flexslider.css">
+	<link rel="stylesheet" href="../css/flexslider.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="../css/icomoon.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="../css/bootstrap.css">
 
-	<link rel="stylesheet" id="theme-switch" href="css/style.css">
+	<link rel="stylesheet" id="theme-switch" href="../css/style.css">
 	
 	
 	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
+	<script src="../js/jquery.min.js"></script>
 
 	<!-- jQuery Cookie -->
-	<script src="js/jquery.cookie.js"></script>
+	<script src="../js/jquery.cookie.js"></script>
 	<script>
 	if ( $.cookie('styleCookie') === 'style-light.css') {
 		$('html, body').css('background', '#eeeeee');
@@ -71,26 +71,26 @@
 	
 	</script>
 	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="../js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="../js/jquery.waypoints.min.js"></script>
 	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
+	<script src="../js/jquery.flexslider-min.js"></script>
 
 	<!-- Viewport Units Buggyfill -->
-	<script src="js/viewport-units-buggyfill.js"></script>
+	<script src="../js/viewport-units-buggyfill.js"></script>
 
 	<!-- Googgle Map -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-	<script src="js/google_map.js"></script>
+	<script src="../js/google_map.js"></script>
 
 	
 	<!-- Main JS  -->
-	<script src="js/main.js"></script>
+	<script src="../js/main.js"></script>
 	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
+	<script src="../js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
@@ -105,13 +105,13 @@
 	  
 	
 	<!--登入modal css bySCONE-->
-	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" href="../css/login.css">
 
 	<!--fontawesome bySCONE-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous"> 
 
 	<!--首頁文字輪播、modal js bySCONE-->	
-	<script src="js/hpother.js"></script>
+	<script src="../js/hpother.js"></script>
 	<style>
 		#monthcalendar,#weekcalendar,#listcalendar,#doctorcalendar{
 			background-color: rgba(202, 204, 206, 0.8);
@@ -225,8 +225,9 @@
 	
 	
 	<script>
-	var Doctor={"doctor":["王醫師","陳醫師","黃醫師"]};
-	var DocNum = Doctor.doctor.length;
+// 	var Doctor={"doctor":["王醫師","陳醫師","黃醫師"]};
+	var Doctor="${DentistNameList}";
+	var DocNum = Doctor.length;
 	var allevents=
 		{"王醫師":
 			[{
@@ -249,13 +250,13 @@
 		}
 	// console.log(DocNum)
 	for (let dn=0;dn<DocNum;dn++){
-		let DocName=Doctor.doctor[dn];
+		let DocName=Doctor[dn];
 		let hisevents=allevents[DocName];
 
 		//迴圈新增行事曆div
 		$(".tab-content").append('<div id="tab-'+dn+'"class="tab-pane"><div id="doctor'+dn+'"></div></div>');
 		//迴圈新增上面標籤
-		$(".nav-tabs").append('<li class=""><a data-toggle="tab" href="#tab-'+dn+'" class="tab'+dn+'">'+Doctor.doctor[dn]+'</a></li>');
+		$(".nav-tabs").append('<li class=""><a data-toggle="tab" href="#tab-'+dn+'" class="tab'+dn+'">'+Doctor[dn]+'</a></li>');
 
 	}
 	//寫不出來QQ
@@ -268,8 +269,8 @@
 	// $("#doctor0").addClass("fc-unthemed")
 	// $("#doctor0").addClass("fc-ltr")
 	for (let dn=0;dn<DocNum;dn++){
-		let DocName=Doctor.doctor[dn];
-		//  console.log(DocName);
+		let DocName=Doctor[dn];
+		//  console.log(DocName); 
 		let hisevents=allevents[DocName];
 		console.log(hisevents);
 		$('.tab'+dn).on("click",function (e) {
@@ -319,8 +320,28 @@
 		$("#weekcalendar").css("display","none");
 		$("#listcalendar").css("display","none");
 		$("#doctorcalendar").css("display","block");
+// 		$.ajax({
+//              url: 'clinicCalendar',    //url位置
+//              type: 'get',
+//              data:{
+//             	 method : "$.ajax()",
+// 				 doWhat : "GET"
+//              }//請求方式
+//              success: function () { //成功後要執行的函數
+//                  //成功後回傳資訊
 
+
+//                  //資料處理
+//                  let outputString = "";
+//                  for (let map of data) {
+//                      map.get;
+//                  }
+//                  $("#jqueryResult").html(outputString);
+
+//              }
+//         })
 	});
+	
 		$( "#monthcalendar" ).fullCalendar({
 			header: {
 				left: 'prev,next today',

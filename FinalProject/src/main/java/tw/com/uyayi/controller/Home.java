@@ -17,9 +17,9 @@ public class Home {
 		return "clinic/clinicIndex";
 	}
 	
-	@GetMapping("/clinicCalendar")
-	public String clinicCalendar() {
-		return "clinic/clinicCalendar";
-	}
+//	@GetMapping("/clinicCalendar")
+//	public String clinicCalendar() {
+//		return "clinic/clinicCalendar";
+//	}
 	
 }
