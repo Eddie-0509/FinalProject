@@ -2,6 +2,7 @@ package tw.com.uyayi.controller;
 
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,9 @@ public class MallController {
 	@GetMapping("/products")
 	public String getProducts(Model model) {
 		List<Products> beans = service.getAllProducts();
-		model.addAttribute(beans); 
+		JSONObject job = new JSONObject();
+		job.put("productList", beans);
+		model.addAttribute("products",job); 
 		return "mall/MallHomePage";
 	}
 	
