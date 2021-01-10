@@ -1,5 +1,7 @@
 package tw.com.uyayi.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javassist.Loader.Simple;
 import tw.com.uyayi.model.City;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dist;
@@ -35,6 +38,13 @@ public class SignUpController {
 		return dists;
 	}
 	
+	@PostMapping(path= "/checkAccount", produces = "application/json")
+	public @ResponseBody boolean checkAccount(@RequestParam("clinicAccount") String clinicEmail) {
+		boolean flag = signUpService.checkEmail(clinicEmail);
+		return flag;
+	}
+	
+	
 	@GetMapping(value = "/signUp")
 	public String getSignUp(Model model) {
 		Clinic clinic = new Clinic();
@@ -51,6 +61,13 @@ public class SignUpController {
 		Dist distBean = signUpService.getDistBean(clinic.getClinicDistId());
 		clinic.setCityBean(cityBean);
 		clinic.setDistBean(distBean);
+		
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+		String dStr = sdf.format(d);
+		java.sql.Date sqlDate = java.sql.Date.valueOf(dStr);
+		clinic.setClinicStartTime(sqlDate);
+		
 		signUpService.insertClinic(clinic);
 		return "redirect:/clinicIndex";
 	}

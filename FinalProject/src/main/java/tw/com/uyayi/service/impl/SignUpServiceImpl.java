@@ -43,5 +43,10 @@ public class SignUpServiceImpl implements SignUpService {
 	public Dist getDistBean(int distPkId) {
 		return signUpDao.getDistBean(distPkId);
 	}
+	@Transactional
+	@Override
+	public boolean checkEmail(String clinicEmail) {
+		return signUpDao.checkEmail(clinicEmail);
+	}
 
 }
