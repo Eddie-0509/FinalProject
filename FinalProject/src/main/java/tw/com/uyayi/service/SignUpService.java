@@ -17,4 +17,6 @@ public interface SignUpService {
 	City getCityBean(int cityPkId);
 	
 	Dist getDistBean(int distPkId);
+
+	boolean checkEmail(String clinicEmail);
 }

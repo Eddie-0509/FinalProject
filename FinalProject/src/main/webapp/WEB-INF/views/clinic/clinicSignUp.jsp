@@ -258,7 +258,7 @@
 						str+="<option value='"+data[i].distPkId+"'>"+distName+"</option>";
 					}
 						$("#dist").html(str);
-				})
+				});
 
 			});
 
@@ -281,11 +281,33 @@
 											flagEmail = true;
 											break;
 										} else {
-											span
-													.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確電子信箱");
+											flagEmail = false;
+											span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確電子信箱");
+										};
+									};
+								};
+								
+								if(flagEmail){
+									let urlQuery = new URLSearchParams({
+										clinicAccount : emailVal,
+										method : "fetch()",
+										doWhat : "post"
+									});
+									
+									fetch("checkAccount", {
+										method : "POST",
+										body : urlQuery
+									}).then(function(response) {
+										return response.json();;
+									}).then(function(data) {
+										if(data){
+											span.css("color","green");
+											span.html("&nbsp &nbsp <i class='far fa-check-circle'></i>帳號可以使用");
+										}else {
+											span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>帳號已被使用過");
 										}
-
-									}
+									})
+									
 								}
 
 							});

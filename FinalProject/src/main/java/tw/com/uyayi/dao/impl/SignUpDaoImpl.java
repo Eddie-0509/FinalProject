@@ -61,4 +61,15 @@ public class SignUpDaoImpl implements SignUpDao {
 		return distBean;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean checkEmail(String clinicEmail) {
+		Session session = factory.getCurrentSession();
+		String hql = "from Clinic where clinicAccount = :email";
+		List<Clinic> clinicList = session.createQuery(hql).setParameter("email", clinicEmail).getResultList();
+		if(clinicList.size() < 1) {
+			return true;
+		}else return false;
+	}
+
 }
