@@ -460,6 +460,7 @@ clinicCity int references city(cityPkId),					--多對一關聯到縣市表--
 clinicDist int references dist(distPkId),					--多對一關聯到行政區表--
 clinicAddress nvarchar(200) not null,					--診所地址--
 clinicLocation nvarchar(500) ,							--診所GPS位址--
+clinicImage nvarchar(200) not null,
 clinicStartTime date ,									--權限開始時間
 clinicEndTime date ,									--權限結束時間
 clinicStatus nvarchar(20) 							--診所權限(未付款/付款/付款但不開放查詢)--
