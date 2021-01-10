@@ -1,6 +1,7 @@
 package tw.com.uyayi.controller;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,17 +39,29 @@ public class ClinicCalendarController {
 			DentistNameList.add(dentistBean.getDentistName());
 			DentistIdList.add(dentistBean.getDentistPkId());
 		}
+		List<Appointment> applist = caService.getAllAppointmentByClinic(clinicID);
 		 model.addAttribute("DentistIdList",DentistIdList);
 		 model.addAttribute("DentistNameList",DentistNameList);
+		 model.addAttribute("AllAppointmentList",applist);
 		 return "clinic/clinicCalendar";
 	}
 	
+	//點選醫師個人行事曆傳送該醫生的預約資料
 	@GetMapping(path = "/getAppointment", produces = "application/json")
-	public @ResponseBody List<Appointment> getAppointment(
+	public @ResponseBody List<Appointment> getDentistAppointment(
 			@RequestParam("dentistId") String dentistId) {
 		int dentistId2 = Integer.valueOf(dentistId);
 		List<Appointment> app= caService.getAppointmentByDentist(dentistId2);
 		System.out.println(app.get(0).getAppointDate());
 		return app;
 	}
+	@GetMapping(path = "/AppointmenDetail", produces = "application/json")
+	public @ResponseBody LinkedHashMap<String,String> getAppointmentDetail(
+			@RequestParam("appointmentId") String appointmentId) {
+		int appointmentId2 = Integer.valueOf(appointmentId);
+		LinkedHashMap<String,String> appdetail =new LinkedHashMap<String,String>() ;
+//		appdetail.put("patientName", caService.)
+		return appdetail;
+	}
+
 }

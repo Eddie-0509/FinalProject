@@ -46,5 +46,18 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getAllAppointmentByClinic(Integer clinicID) {
+		Session session=factory.getCurrentSession();
+		String hql = "from Appointment app where app.clinicBean =:clinic";
+		List<Appointment> list=new ArrayList<Appointment>();
+		Clinic clinic=(Clinic) session.
+				createQuery("from Clinic clinic where clinic.clinicPkId =:clinicID").
+				setParameter("clinicID",clinicID).getSingleResult();
+		list=session.createQuery(hql).setParameter("clinic",clinic).getResultList();
+		return list;
+	}
+
 	
 }

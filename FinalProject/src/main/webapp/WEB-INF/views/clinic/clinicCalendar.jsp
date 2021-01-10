@@ -96,7 +96,7 @@
 	  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.0/moment.min.js"></script>
 	  <!-- FullCalendar v3.8.1 -->
 	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet"  />
-	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print"></script>
+	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print">
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>
 	  
 	
@@ -112,10 +112,10 @@
 		#monthcalendar,#weekcalendar,#listcalendar,#doctorcalendar{
 			background-color: rgba(202, 204, 206, 0.8);
 			position: relative;
-/* 			height: 'parent'; */
+ 			/*height: 'parent';*/ 
 			color: black;
-			display: inline-block;
-			width: 1140px;
+			/*display: inline-block;*/
+			/*width: 1140px;*/
 			margin: 40px auto;
 			
 		}
@@ -124,17 +124,22 @@
 /* 		} */
 		
 
-		.fc-agenda-slots td div {
-            height: 6px;
-            line-height: 6px;
-        }
-        .fc-agenda-axis {
-            font-size:1px;
-            line-height: 1px;
-		}
+/* 		.fc-agenda-slots td div { */
+/*             height: 6px; */
+/*             line-height: 6px; */
+/*         } */
+/*         .fc-agenda-axis { */
+/*             font-size:1px; */
+/*             line-height: 1px; */
+/* 		} */
+		.fc-axis { width: 6rem !important;}
 		
 		.fc-unthemed td.fc-today,th.fc-today{
 			background-color:  rgba(202, 204, 206, 0.8);
+		}
+
+		.fc-slats tr { 
+			height: 4rem 
 		}
 		
 		#calendarbutton{
@@ -144,6 +149,18 @@
 		.nav-tabs li a{
 			color: black;
 		}
+	
+ 		#weekcalendar .fc-time-grid-container{ 
+ 			overflow: hidden scroll !important; 
+ 			height: 400px !important; 
+ 		} 
+ 		#weekcalendar > div.fc-view-container > div > table > tbody > tr > td > div.fc-day-grid.fc-unselectable > div,
+ 		#weekcalendar > div.fc-view-container > div > table > thead > tr > td > div{
+ 			border-right-width: 1px; margin-right: 16px;
+ 		}
+/*  		.fc-agendaWeek-view th.fc-widget-header,.fc-agendaWeek-view td.fc-widget-content{  */
+/*  			width:58px  */
+/*  		}  */
 	</style>
 
 
@@ -192,7 +209,31 @@
 
 			</div>
 		</div>
-
+		
+<!-- 預約彈窗 -->
+<div id="AppointmentModal" class="modal fade" style="color:black">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            <h4 id="modalTitle" class="modal-title"  style="color:black">預約詳細</h4>
+	        </div>
+	        <div id="modalBody" class="modal-body"  style="color:black">
+	        	病患姓名：<span id="memberName"></span>
+	        	<br>
+	        	預約醫師：<span id="doctorName"></span>
+	        	<br>
+	        	預約項目：<span id="item"></span>
+	        	<br>
+	        	預約時間：<span id="time"></span>
+	  
+	        </div>
+	        <div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	    </div>
+	</div>
+</div>
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">
 			<div class="container">
 				<div class="row">
@@ -223,22 +264,16 @@
 	<script>
 	var dnl="${DentistNameList}"
 	var afterdnl=dnl.substring(1,dnl.length-1);
-	var Doctor=afterdnl.split(",");
+	var Doctor=afterdnl.split(", ");
 	var DocNum = Doctor.length;
 	var dil="${DentistIdList}";
-	console.log(dil)
 	var afterdil=dil.substring(1,dil.length-1);
 	var DoctorId=afterdil.split(", ");
-	console.log(DoctorId)
-// 	<c:forEach items='${AppointmentBeanList}' var='applist'>
-// 		console.log("${applist.appointmentPkId}");
-// 	</c:forEach>
-	//var allevents=a;
-	//console.log(allevents);
+	
+
+
 	for (let dn=0;dn<DocNum;dn++){
 		let DocName=Doctor[dn];
-		//let hisevents=allevents[DocName];
-
 		//迴圈新增行事曆div
 		$(".tab-content").append('<div id="tab-'+dn+'"class="tab-pane"><div id="doctor'+dn+'"></div></div>');
 		//迴圈新增上面標籤
@@ -265,23 +300,14 @@
 	    var date = dt.getDate();
 	    date=("0"+date);
 		date=date.substring(date.length-2);
-// 	    var hour = dt.getHours();
-// 	    hour=("0"+hour);
-// 	    hour=hour.substring(hour.length-2);
-// 	    var minute = dt.getMinutes();
-// 	    minute=("0"+minute);
-// 	    minute=minute.substring(minute.length-2);
-// 	    var second = dt.getSeconds();
-// 	    second=("0"+second);
-// 	    second=second.substring(second.length-2);
-	
 	    return year + "-" + month + "-" + date ;
 	}
-
+	
+	
 	
 	for (let dn=0;dn<DocNum;dn++){
 		$('.tab'+dn).on("click",function (e) {
-			let hisevent=[{"hi":"HI"}];
+			let hisevent=[];
 			e.preventDefault();
 			$(this).tab('show');
 			$.ajax({
@@ -300,12 +326,12 @@
 	      			 
 		            	 hisevent.push({title:result[appnum].memberBean.memberName,
 		      			 			   start: formatDate(result[appnum].appointDate)+"T"+
-		      			 			   (result[appnum].timeTableBean.times).substring(0,(result[appnum].timeTableBean.times).length-6)})
+		      			 			   (result[appnum].timeTableBean.times).substring(0,(result[appnum].timeTableBean.times).length-6)+":00"})
 	             	}
 	      			 console.log(hisevent)
 	             }
 	        });
-			//console.log("4"+hisevent)
+
 			$("#doctor"+dn).fullCalendar({
 				header: {
 					left: 'prev,next today',
@@ -327,7 +353,6 @@
 	}	
 	
 	
-	
 	$("#monthBut").on("click",function(){
 		$("#monthcalendar").css("display","block");
 		$("#weekcalendar").css("display","none");
@@ -336,7 +361,7 @@
 	});
 	$("#weekBut").on("click",function(){
 		$("#monthcalendar").css("display","none");
-		$("#weekcalendar").css("display","block");
+		$("#weekcalendar").css("display","inline-block");
 		$("#listcalendar").css("display","none");
 		$("#doctorcalendar").css("display","none");
 
@@ -378,41 +403,48 @@
 			]
 		});
 
-		$( "#weekcalendar" ).fullCalendar({
+		$("#weekcalendar").fullCalendar({
 			header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'none'
 			},
-
 			contentHeight: 500,
 			defaultDate: $('#calendar').fullCalendar('today'), // 起始日期
 			weekends: true, // 顯示星期六跟星期日
 			editable: true,  // 啟動拖曳調整日期
-			defaultView: "agendaWeek", 
+			defaultView: "agendaWeek",
+			defaultTimedEventDuration: '00:30:00',
+			forceEventDuration: true,
 			minTime: '08:00:00', 
     		maxTime: '22:00:00', 
 			events: [ // 事件
-				{ // 事件
-					title: "5",
-					start: "2021-01-06",
-				},
+				
 			]
 		});
+		let id=[]
+		let title=[]
+		let start=[]
+			<c:forEach var="allapplist" items="${AllAppointmentList}" varStatus="vs">
+				id.push("${allapplist.appointmentPkId}")
+				title.push("${allapplist.memberBean.memberName}"+"("+"${allapplist.dentistBean.dentistName}"+")")
+				start.push("${allapplist.appointDate}"+"T"+
+			 			   ("${allapplist.timeTableBean.times}".substring(0,"${allapplist.timeTableBean.times}".length-6))+":00")		
+				</c:forEach>
+				
+		//console.log("${AllAppointmentList[2].memberBean.memberName}")
+		let allevents=[]
+		for(let i=0;i<title.length;i++){
+			allevents.push({id:id[i],title:title[i],start:start[i]})
+		}
+		console.log(allevents)
+		
 		$("#listcalendar").fullCalendar({
-			// 參數設定[註1]
-			// themeSystem: 'bootstrap4',
 			header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'none'
 			},
-			// themeSystem: 'bootstrap',
-			// header: { // 頂部排版
-			// 	left: "prev,next today", // 左邊放置上一頁、下一頁和今天
-			// 	center: "title", // 中間放置標題
-			// 	right: "month,agendaWeek,agendaDay,list" // 右邊放置月、周、天
-			// },
 			contentHeight: 500,
 			defaultDate: $('#calendar').fullCalendar('today'), // 起始日期
 			weekends: true, // 顯示星期六跟星期日
@@ -422,18 +454,11 @@
 			forceEventDuration: true,
 			minTime: '08:00:00', 
     		maxTime: '22:00:00', 
-			events: [ // 事件
-				{ // 事件
-					title: "first",
-					start: "2021-01-07T12:00",
-				 	// end: "2021-01-06",
-
-				},
-				{
-					title: "second",
-					start: "2021-01-07T13:00",
-				}
-			]
+			events: allevents,
+			eventClick:function(calEvent){
+				 $('#AppointmentModal').modal();
+				 $("#memberName").text();
+			}
 		});
 
 	</script>

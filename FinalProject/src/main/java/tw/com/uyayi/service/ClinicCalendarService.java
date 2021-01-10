@@ -8,5 +8,6 @@ import tw.com.uyayi.model.Dentist;
 
 public interface ClinicCalendarService {
 	List<Appointment> getAppointmentByDentist(Integer dentistID);
+	List<Appointment> getAllAppointmentByClinic(Integer clinicID);
 	List<Dentist> getDentistList(Integer clinicID);
 }

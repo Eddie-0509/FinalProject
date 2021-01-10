@@ -7,6 +7,7 @@ import tw.com.uyayi.model.Dentist;
 
 public interface ClinicCalendarDao {
 	List<Appointment> getAppointmentByDentist(Integer dentistID);
-//	Integer getDentistID(String dentistName);
+	List<Appointment> getAllAppointmentByClinic(Integer clinicID);
 	List<Dentist> getDentistList(Integer clinicID);
+	
 }

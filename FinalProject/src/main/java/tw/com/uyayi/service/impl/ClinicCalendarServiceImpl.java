@@ -32,6 +32,11 @@ public class ClinicCalendarServiceImpl implements ClinicCalendarService {
 		return caDao.getDentistList(clinicID);
 	}
 
+	@Override
+	public List<Appointment> getAllAppointmentByClinic(Integer clinicID) {
+		return caDao.getAllAppointmentByClinic(clinicID);
+	}
+
 
 
 }
