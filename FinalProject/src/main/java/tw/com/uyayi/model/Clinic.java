@@ -47,6 +47,8 @@ public class Clinic {
 	private Date clinicStartTime;
 
 	private Date clinicEndTime;
+	
+	private String clinicImage;
 
 	private String clinicStatus;
 	
@@ -151,6 +153,14 @@ public class Clinic {
 
 	public void setClinicLocation(String clinicLocation) {
 		this.clinicLocation = clinicLocation;
+	}
+
+	public String getClinicImage() {
+		return clinicImage;
+	}
+
+	public void setClinicImage(String clinicImage) {
+		this.clinicImage = clinicImage;
 	}
 
 	public Date getClinicStartTime() {

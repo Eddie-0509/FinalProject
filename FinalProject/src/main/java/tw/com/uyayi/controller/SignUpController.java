@@ -71,4 +71,9 @@ public class SignUpController {
 		signUpService.insertClinic(clinic);
 		return "redirect:/clinicIndex";
 	}
+	@GetMapping("/testAPI")
+	public String test() {
+		return "clinic/testAPI";
+		
+	}
 }

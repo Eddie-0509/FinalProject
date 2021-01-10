@@ -35,7 +35,6 @@ public class SignUpDaoImpl implements SignUpDao {
 		Session session = factory.getCurrentSession();
 		String hql = "from Dist where cityPkId = :cId";
 		List<Dist> a = session.createQuery(hql).setParameter("cId", cityPkId).getResultList();
-		session.clear();
 		return a;
 	}
 

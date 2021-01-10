@@ -163,7 +163,7 @@
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main"
 			data-colorbg="">
 			<div class="container">
-				<form:form method='POST' action="${pageContext.request.contextPath}/signUp" modelAttribute="clinic" class='form-horizontal' enctype="multipart/form-data">
+				<form:form method='POST' action="${pageContext.request.contextPath}/signUp" modelAttribute="clinic" id="clinicForm" class='form-horizontal' enctype="multipart/form-data">
 					<h1>註冊</h1>
 					<div class="usericon"></div>
 					<div class="formcontainer">
@@ -196,13 +196,19 @@
 							</div>
 							<label for="clinicAddress"><strong>地址</strong></label> <input
 								type="text" name="clinicAddress" id="clinicAddress">
+							<div>
+							<label for="upload">上傳診所圖片</label>
+  							<input id="upload" type="file" accept="image/*" >
+  							<button class="btn btn-primary" type="button" id="imageUpload">上傳</button>
+							<input type="hidden" id="clinicImage" name="clinicImage">
+							</div>
 <!-- 								<input type="hidden"  name="clinicLocation"> -->
 <!-- 								<input type="hidden"  name="clinicStartTime"> -->
 <!-- 								<input type="hidden" name="clinicEndTime"> -->
 <!-- 								<input type="hidden" name="clinicStatus"> -->
 						</div>
 						<div>
-						<input type="submit" value="送出" style="color : black; font-weight: 800;">
+						<input type="button" id="formButton" value="送出" style="color : black; font-weight: 800;">
 						</div>
 
 					</div>
@@ -232,7 +238,9 @@
 	<script>
 		var flagPwd = false;
 		var flagEmail = false;
+		var checkEmail = false;
 		var flagPhone = false;
+		var flagImage = false;
 		$(function() {
 			$("#city").change(function() {
 				$("#cityDefault").css("display","none")
@@ -273,21 +281,24 @@
 									span
 											.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入電子信箱");
 									flagEmail = false;
+									checkEmail = false;
 								} else {
 									for (let i = 0; i < emailVal.length; i++) {
 										let char1 = emailVal.charCodeAt(i);
 										if (char1 == 64) {
 											span.html("");
-											flagEmail = true;
+											checkEmail = true;
 											break;
 										} else {
 											flagEmail = false;
+											checkEmail = false;
+
 											span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確電子信箱");
 										};
 									};
 								};
 								
-								if(flagEmail){
+								if(checkEmail){
 									let urlQuery = new URLSearchParams({
 										clinicAccount : emailVal,
 										method : "fetch()",
@@ -298,12 +309,14 @@
 										method : "POST",
 										body : urlQuery
 									}).then(function(response) {
-										return response.json();;
+										return response.json();
 									}).then(function(data) {
 										if(data){
+											flagEmail = true;
 											span.css("color","green");
 											span.html("&nbsp &nbsp <i class='far fa-check-circle'></i>帳號可以使用");
 										}else {
+											flagEmail = false;
 											span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>帳號已被使用過");
 										}
 									})
@@ -349,7 +362,6 @@
 					if (flag1 && flag2 && flag3) {
 						span.innerHTML = "";
 						flagPwd = true;
-						console.log(flagPwd);
 					} else {
 						span.innerHTML = "&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確密碼格式";
 						flagPwd = false;
@@ -384,8 +396,63 @@
 								}
 
 							});
-
-		})
+			var x="";
+			$("#upload").change(function(e){
+				flagImage=false;
+				 x = e.target.files[0]; // get file object
+				});
+				 
+			
+			$("#imageUpload").click(function(){
+				flagImage=false;
+				var form = new FormData();
+				form.append("image", x);
+				form.append("album", 'gMbwr3Z')
+				
+				var settings = {
+						  "async": true,
+					      "crossDomain": true,
+					      "processData": false,
+					      "contentType": false,
+						  "url": "https://api.imgur.com/3/image",
+						  "method": "POST",
+						  "timeout": 0,
+						  "headers": {
+							"Authorization": 'Bearer ' + "9d5b4a203ea24b781851009260d5138e60b510b9"
+						  },
+						  "processData": false,
+						  "mimeType": "multipart/form-data",
+						  "contentType": false,
+						  "data": form
+						};
+				$.ajax(settings).done(function (response) {
+					let resJSON = JSON.parse(response);
+					let imageStr = resJSON.data.link;
+					$("#clinicImage").attr("value", imageStr);
+					flagImage=true;
+					window.alert("上傳成功");
+					});
+			})
+			
+			$("#formButton").click(function(){
+				if(flagPwd && flagEmail &&flagPhone && flagImage){
+				  $("#clinicForm").submit();	
+				}else if (flagPwd && flagEmail &&flagPhone && (flagImage==false)){
+					window.alert("請等候圖片上傳");
+				}else{
+					window.alert("請輸入正確資料再送出");
+				}
+				
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+		});
 	</script>
 </body>
 </html>
