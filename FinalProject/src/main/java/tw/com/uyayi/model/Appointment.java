@@ -22,33 +22,34 @@ public class Appointment {
 	
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "memberPkId")
-    @JsonIgnore
+//    @JsonIgnore
 	private  Member memberBean;
     
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "clinicPkId")
-    @JsonIgnore
+//    @JsonIgnore
     private  Clinic clinicBean;
     
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "dentistPkId")
-    @JsonIgnore
+//    @JsonIgnore
     private  Dentist dentistBean;
     
 	private  String patientName;
 	private  String patientIdNumber;
 	private  String patientPhone;
+	
 	private  Date  appointDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "timeTablePkId")
-	@JsonIgnore
+//	@JsonIgnore
 	private  TimeTable timeTableBean;
 	
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "itemPkId")
-	@JsonIgnore
+//	@JsonIgnore
 	private  Items itemBean;
 	
 	

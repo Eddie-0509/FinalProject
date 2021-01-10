@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "items")
 public class Items {
@@ -20,9 +22,11 @@ public class Items {
 	private  String itemName;
 	
 	@ManyToMany(mappedBy = "itemsBean", cascade = CascadeType.ALL)
+	@JsonIgnore //scone+的
 	private Set<Dentist> dentists;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "itemBean")
+	@JsonIgnore //scone+的
 	private Set<Appointment> appointments;
 
 	public Items() {

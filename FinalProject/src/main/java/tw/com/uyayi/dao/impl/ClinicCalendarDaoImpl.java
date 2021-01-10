@@ -37,7 +37,7 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 	@Override
 	public List<Dentist> getDentistList(Integer clinicID) {
 		Session session=factory.getCurrentSession();
-		String hql = "from Dentist dentist where dentist.clinic =:clinic";
+		String hql = "from Dentist dentist where dentist.clinicBean =:clinic";
 		Clinic clinic=(Clinic) session.
 				createQuery("from Clinic clinic where clinic.clinicPkId =:clinicID").
 				setParameter("clinicID",clinicID).getSingleResult();

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "dentist")
 public class Dentist {
@@ -32,9 +34,10 @@ public class Dentist {
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="dentistBean")
+	@JsonIgnore
 	private Set<Appointment> appointments;
 	
-	
+	@JsonIgnore //SCONE加的
 	@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
         name="dentistTime",
@@ -43,6 +46,7 @@ public class Dentist {
     )
 	private Set<TimeTable> timeTables;
 	
+	@JsonIgnore //SCONE加ㄉ
 	@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
         name="dentistItem",

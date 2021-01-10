@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="timeTable")
 public class TimeTable {
@@ -22,10 +24,12 @@ public class TimeTable {
 	private String times;
 	
 	@ManyToMany(mappedBy = "timeTables",cascade = CascadeType.ALL)
+	@JsonIgnore //scone加ㄉ
 	private Set<Dentist> dentists;
 	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "timeTableBean")
+	@JsonIgnore
 	private Set<Appointment> appointments;
 	
 	public TimeTable() {

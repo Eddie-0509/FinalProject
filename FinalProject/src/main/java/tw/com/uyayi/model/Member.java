@@ -8,9 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "member")
@@ -18,7 +19,7 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "memberPkId")
-	private int memberPkId ;
+	private int memberPkId;
 	private String memberAccount;
 	private String memberPwd;
 	private String memberIdNumber;
@@ -28,15 +29,20 @@ public class Member {
 	private String memberStatus;
 	
 	
-	
-	@OneToMany(mappedBy = "memberBean" )
+	@JsonIgnore
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "memberBean")
 	private Set<Appointment> appointments;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "memberBean")
+	@JsonIgnore //SC加ㄉ
 	private Set<Orders> orders;
 	
 	
 	
+	public Member() {
+		super();
+	}
+
 	public int getMemberPkId() {
 		return memberPkId;
 	}
@@ -94,6 +100,22 @@ public class Member {
 	}
 	public void setMemberStatus(String memberStatus) {
 		this.memberStatus = memberStatus;
+	}
+
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
+	}
+
+	public Set<Orders> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Orders> orders) {
+		this.orders = orders;
 	}
 	
 	

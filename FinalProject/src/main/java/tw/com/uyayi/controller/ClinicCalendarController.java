@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Dentist;
+import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.service.ClinicCalendarService;
 
 
@@ -28,19 +29,26 @@ public class ClinicCalendarController {
 		this.caService = service;
 	}
 	
-	@GetMapping(value="/clinicCalendar/{clinicID}")
-	public  String getData(@PathVariable Integer clinicID,Model model) {
-//		caService.getAppointmentByDentist(dentistID);
+	@GetMapping(value="/clinicCalendar")
+	public  String getData(@RequestParam Integer clinicID,Model model) {
 		List<Dentist> dentistlist = caService.getDentistList(clinicID);
 		LinkedList<String>DentistNameList = new LinkedList<String>();
-		List<Appointment> app=new ArrayList<Appointment>();
+		LinkedList<Integer>DentistIdList = new LinkedList<Integer>();
 		for (Dentist dentistBean :dentistlist) {
 			DentistNameList.add(dentistBean.getDentistName());
-			int dentistID=dentistBean.getDentistPkId();
-			app.addAll(caService.getAppointmentByDentist(dentistID));
+			DentistIdList.add(dentistBean.getDentistPkId());
 		}
+		 model.addAttribute("DentistIdList",DentistIdList);
 		 model.addAttribute("DentistNameList",DentistNameList);
-		 model.addAttribute("AppointmentList",app);
 		 return "clinic/clinicCalendar";
+	}
+	
+	@GetMapping(path = "/getAppointment", produces = "application/json")
+	public @ResponseBody List<Appointment> getAppointment(
+			@RequestParam("dentistId") String dentistId) {
+		int dentistId2 = Integer.valueOf(dentistId);
+		List<Appointment> app= caService.getAppointmentByDentist(dentistId2);
+		System.out.println(app.get(0).getAppointDate());
+		return app;
 	}
 }

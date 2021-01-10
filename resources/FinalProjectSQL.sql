@@ -442,12 +442,12 @@ allergy nvarchar(30) not null,													--¹L±Ó­ì--
 surgery nvarchar(50) not null,												--¤â³N¥v--
 );
 
-insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(2,'ªv­¦ª¨','0911001001','¤÷','true','false','¸t¥À¯f','','¦h³B°©§é¤â³N');
-insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(3,'¨§¤l¶ý','0922002002','¥À','false','false','','','«r¦XÁB¥¿');
-insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(4,'µ½¶h©d','0933003003','°t°¸','false','true','','','µ²²Ï');
-insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(5,'¤§§Uª¯','0944004004','Ãdª«','true','true','¯«¸g¯f','','');
-insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(6,'¹Ø­¦§Ì','0955005005','§Ì§Ì','true','false','','«K·í¹L±Ó','');
-insert into memberDetails(memeberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(7,'­»©`¥G','0966006006','®{§Ì','false','false','','µw¹ô¹L±Ó','');
+insert into memberDetails(memberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(2,'ªv­¦ª¨','0911001001','¤÷','true','false','¸t¥À¯f','','¦h³B°©§é¤â³N');
+insert into memberDetails(memberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(3,'¨§¤l¶ý','0922002002','¥À','false','false','','','«r¦XÁB¥¿');
+insert into memberDetails(memberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(4,'µ½¶h©d','0933003003','°t°¸','false','true','','','µ²²Ï');
+insert into memberDetails(memberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(5,'¤§§Uª¯','0944004004','Ãdª«','true','true','¯«¸g¯f','','');
+insert into memberDetails(memberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(6,'¹Ø­¦§Ì','0955005005','§Ì§Ì','true','false','','«K·í¹L±Ó','');
+insert into memberDetails(memberPkId,emergencyContact,emergencyNumber,emergencyRelationship,smoke,betelNut,diseases,allergy,surgery) values(7,'­»©`¥G','0966006006','®{§Ì','false','false','','µw¹ô¹L±Ó','');
 
 --¶E©Ò°ò¥»¸ê®Æ--
 create table clinic(
@@ -831,7 +831,7 @@ insert into dentistTime(dentistPkId,timeTablePkId) values	(7,106)
 --¹w¬ù¸ê®Æªí--
 create table appointment(
 appointmentPkId int primary key identity(1,1) not null,
-memeberPkId int references member(memberPkId),								--¦h¹ï¤@Ãö³s¨ì·|­û--
+memberPkId int references member(memberPkId),								--¦h¹ï¤@Ãö³s¨ì·|­û--
 clinicPkId int references clinic(clinicPkId) not null,									--¦h¹ï¤@Ãö³s¨ì¶E©Ò--
 dentistPkId int references dentist(dentistPkId) not null,							--¦h¹ï¤@Ãö³s¨ìÂå®v--
 patientName nvarchar(20) ,																			--¶E©Ò¥D°Ê¹w¬ù«D·|­û©m¦W--
@@ -843,11 +843,24 @@ itemPkId int references items(itemPkId) not null,										----¦h¹ï¤@Ãö³s¨ì¬Ý¶E¶
 memberReply nvarchar(15),																		--¬O§_¦³¦^ÂÐ·|¨ì¶E--
 arrive nvarchar(10) default 'true'																							--½T»{¬O§_¨ì¶E---
 )
-insert into appointment(memeberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
-values (3,1,2,'2020-01-04',37,5,'½T©w«e©¹')
-insert into appointment(clinicPkId,dentistPkId,patientName,patientIdNumber,patientPhone,appointDate,timeTablePkId,itemPkId,memberReply)
-values (2,7,'Áú¤jÕÍ','A128893701','0911-222-351','2020-01-06',104,4,'¥¼¦^ÂÐ')
-
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (3,1,2,'2021-01-04',37,5,'½T©w«e©¹')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (2,2,4,'2021-01-10',11,5,'¥¼¦^ÂÐ')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (3,2,4,'2021-01-11',30,6,'½T©w«e©¹')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (4,2,4,'2021-01-13',104,9,'¥¼¦^ÂÐ')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (5,2,5,'2021-01-10',13,3,'¥¼¦^ÂÐ')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (6,2,5,'2021-01-10',15,7,'½T©w«e©¹')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (6,2,6,'2021-01-12',77,1,'½T©w«e©¹')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (7,2,7,'2021-01-11',42,4,'¥¼¦^ÂÐ')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (7,2,7,'2021-01-13',106,10,'½T©w«e©¹')
 
 --°Ó«°°Ó«~--
 create table products(

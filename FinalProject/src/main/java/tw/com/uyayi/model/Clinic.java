@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,7 +56,7 @@ public class Clinic {
 	private int clinicDistId;
 	
 	@JsonIgnore
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean" )
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean")
 	private Set<Appointment> appointments;
 	
 	@JsonIgnore
