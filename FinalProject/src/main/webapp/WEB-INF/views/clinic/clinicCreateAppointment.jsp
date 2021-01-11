@@ -82,6 +82,10 @@
 	<!-- Viewport Units Buggyfill -->
 	<script src="js/viewport-units-buggyfill.js"></script>
 
+	<!-- Googgle Map -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+	<script src="js/google_map.js"></script>
+
 	
 	<!-- Main JS  -->
 	<script src="js/main.js"></script>
@@ -96,7 +100,7 @@
 	  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.0/moment.min.js"></script>
 	  <!-- FullCalendar v3.8.1 -->
 	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet"  />
-	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print">
+	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>
 	  
 	
@@ -108,34 +112,7 @@
 
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
-	<!-- 傳送JSTL資料到JS FILE -->
-	<script type="text/javascript">
-		var dnl="${DentistNameList}"
-		var dil="${DentistIdList}";
-		var id=[]
-		var title=[]
-		var start=[]
-		var backgroundColor=[]
-		var allevents=[]
-		<c:forEach var="allapplist" items="${AllAppointmentList}" varStatus="vs">
-			id.push("${allapplist.appointmentPkId}")
-			title.push("${allapplist.memberBean.memberName}"+"("+"${allapplist.dentistBean.dentistName}"+")")
-			start.push("${allapplist.appointDate}"+"T"+
-		 			   ("${allapplist.timeTableBean.times}".substring(0,"${allapplist.timeTableBean.times}".length-6))+":00")		
-			if("${allapplist.memberReply}"=="未回覆"){
-		 		backgroundColor.push('#95CACA')
-			}
-			if("${allapplist.memberReply}"=="確定前往"){
-		 		backgroundColor.push('#408080')
-			}
-			d="${allapplist.appointDate}".substring(8);
-		</c:forEach>
-	</script>
-	<!-- calendar JS&CSS  BySCONE-->
-	<script src="js/calendar.js"></script>
-	<link rel="stylesheet" href="css/calendar.css"></link>
-
-
+	
 	</head>
 
 	<body>
@@ -147,8 +124,8 @@
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
 				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
-				<li class="animate-box"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增及查詢</a></li>
+				<li class="animate-box "><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
+				<li class="animate-box fh5co-active"><a href="#" class="transition">預約新增及查詢</a></li>
 				<li class="animate-box"><a href="#" class="transition">診所資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">醫師資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">報表</a></li>
@@ -162,86 +139,13 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
-						
-							<div id="calendarbutton" class="animate-box">
-								<input type="button" value="MONTH" style="color: black;" id="monthBut"></input>
-								<input type="button" value="WEEK" style="color: black;" id="weekBut"></input>
-								<input type="button" value="LIST" style="color: black;" id="listBut"></input>
-								<input type="button" value="醫師別" style="color: black;" id="doctorBut"></input>
-								<input type="button" value="查詢病患預約" style="color: black;" data-toggle="modal" data-target="#QueryModal"></input>
-								<br>
-							</div>
-								<div id="colorsetumeis" class="animate-box">
-									<label class="colorsetumei" style="background-color:#408080" ></label>平台預約－確定前往
-									<label class="colorsetumei" style="background-color:#95CACA" ></label>平台預約－未回覆
-									<label class="colorsetumei" style="background-color:#EA7500" ></label>診所預約－確定前往
-									<label class="colorsetumei" style="background-color:#FFD1A4" ></label>診所預約－未回覆
-								</div>
-							<div id="monthcalendar" class="animate-box" style="display: none;"></div>
-							<div id="weekcalendar" class="animate-box" style="display: none;"></div>
-							<div id="listcalendar" class="animate-box" style="display: block;"></div>
-							<div id="doctorcalendar" class="animate-box doctorC" style="display: none;">
-								<ul class="nav nav-tabs">				
-								
-								</ul>
-								<div class="tab-content">
+				<div>
+					
 				
-							</div>
-
+				</div>
 			</div>
 		</div>
-		
-<!-- 預約彈窗 -->
-<div id="AppointmentModal" class="modal fade" style="color:black">
-	<div class="modal-dialog">
-	    <div class="modal-content">
-	        <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="modalTitle" class="modal-title"  style="color:black">預約詳細</h4>
-	        </div>
-	        <div id="modalBody" class="modal-body"  style="color:black">
-	        	病患姓名：<span id="patientName"></span>
-	        	<br>
-	        	病患電話：<span id="patientPhone"></span>
-	        	<br>
-	        	預約醫師：<span id="dentistName"></span>
-	        	<br>
-	        	預約項目：<span id="item"></span>
-	        	<br>
-	        	預約日期：<span id="date"></span>
-	        	<br>
-	        	預約時間：<span id="time"></span>
-	        	<br>
-	        	到診確認：<span id="reply"></span>
-	  
-	        </div>
-	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default" >連絡病患</button>
-	        	<button type="button" class="btn btn-default" >未到診回報</button>
-	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
-	        </div>
-	    </div>
-	</div>
-</div>
 
-<!-- 查詢紀錄彈窗 -->
-<div id="QueryModal" class="modal fade" style="color:black">
-	<div class="modal-dialog">
-	    <div class="modal-content">
-	        <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="qmodalTitle" class="modal-title"  style="color:black">查詢病患預約紀錄</h4>
-	        </div>
-	        <div id="qmodalBody" class="modal-body"  style="color:black">
-	        	請輸入病患電話：<input type="text" id="phoneToQuery"></input>	  
-	        </div>
-	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default" id="queryAppointment">查詢</button>
-	            <button type="button" class="btn btn-default" data-dismiss="modal" id="queryClose">Close</button>	            
-	        </div>
-	    </div>
-	</div>
-</div>
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">
 			<div class="container">
 				<div class="row">
@@ -267,12 +171,7 @@
 		</footer>
 
 	</div>
-	
-	
-	<script>
 
-
-	</script>
 	
 	</body>
 </html>

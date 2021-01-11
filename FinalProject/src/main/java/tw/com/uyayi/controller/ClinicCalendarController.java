@@ -1,21 +1,24 @@
 package tw.com.uyayi.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import tw.com.uyayi.dao.impl.ComparatorDate;
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Dentist;
-import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.service.ClinicCalendarService;
 
 
@@ -30,6 +33,7 @@ public class ClinicCalendarController {
 		this.caService = service;
 	}
 	
+	//點預約紀錄，model增加所有預約紀錄、醫師名單、醫師ID
 	@GetMapping(value="/clinicCalendar")
 	public  String getData(@RequestParam Integer clinicID,Model model) {
 		List<Dentist> dentistlist = caService.getDentistList(clinicID);
@@ -55,13 +59,42 @@ public class ClinicCalendarController {
 		System.out.println(app.get(0).getAppointDate());
 		return app;
 	}
-	@GetMapping(path = "/AppointmenDetail", produces = "application/json")
+	//點選清單或行事曆上活動顯示詳細資料
+	@GetMapping(path = "/getAppointmentDetail", produces = "application/json")
 	public @ResponseBody LinkedHashMap<String,String> getAppointmentDetail(
 			@RequestParam("appointmentId") String appointmentId) {
 		int appointmentId2 = Integer.valueOf(appointmentId);
-		LinkedHashMap<String,String> appdetail =new LinkedHashMap<String,String>() ;
-//		appdetail.put("patientName", caService.)
+		LinkedHashMap<String,String> appdetail = caService.getAppointmentDetail(appointmentId2);
+		System.out.println(appointmentId2+" "+appdetail);
 		return appdetail;
+	}
+	//周行事曆 卡關了之後再寫ㄅ(還有月行事曆也是)
+//	@GetMapping(path = "/getWeekDetail", produces = "application/json")
+//	public @ResponseBody LinkedHashMap<String,String> getWeekDetail(
+//			@RequestParam("appointmentId") String appointmentId) {
+//		int appointmentId2 = Integer.valueOf(appointmentId);
+//		LinkedHashMap<String,String> appdetail = caService.getAppointmentDetail(appointmentId2);
+//		System.out.println(appointmentId2+" "+appdetail);
+//		return appdetail;
+//	}
+	
+	//點預約紀錄
+	@GetMapping(value="/clinicAppoint")
+	public  String appoint(@RequestParam Integer clinicID,Model model) {
+		return "clinic/clinicCreateAppointment";
+	}
+	
+	@GetMapping(path = "/queryAppointment", produces = "application/json")
+	public @ResponseBody ArrayList<Appointment> queryAppointment(
+			@RequestParam("patientPhone") String patientPhone) {
+		 	 try {
+			 ArrayList<Appointment> patientallapp = caService.queryAppointmentByPhone(patientPhone);
+			 System.out.print(patientPhone);
+			 Collections.sort(patientallapp,new ComparatorDate());
+			 return patientallapp;
+		 	 }catch (NoResultException e) {
+				 return null;
+			 } 
 	}
 
 }

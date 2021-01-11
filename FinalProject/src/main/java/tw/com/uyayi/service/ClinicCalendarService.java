@@ -1,5 +1,8 @@
 package tw.com.uyayi.service;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -10,4 +13,8 @@ public interface ClinicCalendarService {
 	List<Appointment> getAppointmentByDentist(Integer dentistID);
 	List<Appointment> getAllAppointmentByClinic(Integer clinicID);
 	List<Dentist> getDentistList(Integer clinicID);
+	LinkedHashMap<String,String> getAppointmentDetail(Integer appointmentID);
+	ArrayList<Appointment> queryAppointmentByPhone(String phone);
+
+
 }

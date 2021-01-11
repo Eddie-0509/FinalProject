@@ -1,0 +1,80 @@
+#monthcalendar,#weekcalendar,#listcalendar,#doctorcalendar{
+			background-color: rgba(202, 204, 206, 0.8);
+			position: relative;
+ 			/*height: 'parent';*/ 
+			color: black;
+			/*display: inline-block;*/
+			/*width: 1140px;*/
+			margin: 40px auto;
+			
+		}
+/* 		#calender h2{ */
+/* 			color: black; */
+/* 		} */
+
+
+		
+
+/* 		.fc-agenda-slots td div { */
+/*             height: 6px; */
+/*             line-height: 6px; */
+/*         } */
+/*         .fc-agenda-axis { */
+/*             font-size:1px; */
+/*             line-height: 1px; */
+/* 		} */
+
+		.fc-event{
+			color:black;
+			font-weight:bolder;
+		}
+		.fc-axis { width: 6rem !important;}
+		
+		.fc-unthemed td.fc-today,th.fc-today{
+			background-color:  rgba(202, 204, 206, 0.8);
+		}
+
+		.fc-slats tr { 
+			height: 4rem 
+		}
+		
+		#calendarbutton{
+			text-align: right;
+
+		}
+		.nav-tabs li a{
+			color: black;
+		}
+	
+ 		#weekcalendar .fc-time-grid-container{ 
+ 			overflow: hidden scroll !important; 
+ 			height: 400px !important; 
+ 		} 
+ 		#weekcalendar > div.fc-view-container > div > table > tbody > tr > td > div.fc-day-grid.fc-unselectable > div,
+ 		#weekcalendar > div.fc-view-container > div > table > thead > tr > td > div{
+ 			border-right-width: 1px; margin-right: 16px;
+ 		}
+/*  		.fc-agendaWeek-view th.fc-widget-header,.fc-agendaWeek-view td.fc-widget-content{  */
+/*  			width:58px  */
+/*  		}  */
+		.colorsetumei{
+			/*border-radius:50%;*/
+			vertical-align:middle;
+			
+			width:20px;
+			height:10px;
+			line-height:10px;
+		}
+		#colorsetumeis{
+			float: right;
+			margin:5px 0 5px 0;
+			text-align:right;
+		}
+		
+		#queryTable > tbody > tr > td{
+			padding:5px
+		}
+		#queryTable > thead > tr > th{
+			padding:5px;
+			text-align:center;
+		}

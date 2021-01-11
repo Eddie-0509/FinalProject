@@ -1,4 +1,4 @@
- //首頁文字自動跳轉動畫
+ //首頁文字自動跳轉動畫 BySCONE
 $(document).ready(function(){
     var time=setInterval(autoplay,4000);
     let text=["U YA YI","隨時預約你的牙醫","ユヤイ","歯医者さんをすぐに見つける","U YA YI","Find your dentist"];

@@ -1,5 +1,7 @@
 package tw.com.uyayi.service.impl;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,16 @@ public class ClinicCalendarServiceImpl implements ClinicCalendarService {
 	@Override
 	public List<Appointment> getAllAppointmentByClinic(Integer clinicID) {
 		return caDao.getAllAppointmentByClinic(clinicID);
+	}
+
+	@Override
+	public LinkedHashMap<String, String> getAppointmentDetail(Integer appointmentID) {
+		return caDao.getAppointmentDetail(appointmentID);
+	}
+
+	@Override
+	public ArrayList<Appointment> queryAppointmentByPhone(String phone) {
+		return caDao.queryAppointmentByPhone(phone);
 	}
 
 
