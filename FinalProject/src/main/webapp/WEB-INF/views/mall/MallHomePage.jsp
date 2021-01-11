@@ -16,7 +16,6 @@
 	height: 150px;
 	background-color: black;
 	margin-bottom: 30px;
-/* 	text-align:center; */
 }
 
 .sp1 {
@@ -35,7 +34,7 @@
 }
 
 #title {
-	margin: 50px 25%;
+	margin: 50px 20vw;
 }
 
 #title h1 {
@@ -43,25 +42,37 @@
 }
 
 #left {
-	/*  		background-color: lightgreen; */
-	width: 20vw;
 	height: 80vh;
 	float: left;
 	text-align: center;
 	padding-top: 60px;
+	margin-left: 5vw;
 }
 
 #left p {
 	margin: 20px;
+	cursor:pointer;
+}
+
+#left p:hover {
+	color: orange;
+	font-weight: 900;
+}
+
+#main {
+ 	margin-left: 19vw;
 }
 
 .showby {
-	align:right;
+	height: 35px;
+	width: 200px;
+	text-align: center;
+ 	float: right;
+ 	padding: 5px 10px;
 }
 
-.ptable {
-	margin-top: 30px;
-	margin-left: 25%;
+.showby:focus{
+  box-shadow: 0 0 5px 2px #467BF4;    
 }
 
 td {
@@ -86,7 +97,7 @@ td {
 	<div id="title">
 		<h1>Products</h1>
 		<select class="showby" name="showby">
-			<option class="zero" style="display: none">--- 商品排序 ---</option>
+			<option class="zero" style="display: none">商品排序</option>
 			<option value="1">價格 - 由高至低</option>
 			<option value="2">價格 - 由低至高</option>
 			<option value="3">上架時間 - 由新至舊</option>
@@ -94,21 +105,8 @@ td {
 		</select>
 	</div>
 	<div id="main">
-<!-- 	<table class="ptable"> -->
-<!-- 		<tr> -->
-<%-- 			<c:forEach var='product' items="${products}" varStatus="vs"> --%>
-<!-- 				<td> -->
-<%-- 				${product.productImage}<br> --%>
-<%-- 				${product.productName}<br> --%>
-<%-- 				NTD$ ${product.productPrice} --%>
-<!-- 				</td> -->
-<%-- 				<c:if test="${(vs.count % 3) eq '0'}"> --%>
-<!-- 		</tr> -->
-<%-- 		</c:if> --%>
-<%-- 		</c:forEach> --%>
-<!-- 	</table> -->
+	
 	</div> 
-<!-- 	<script src="../tools/js/jquery-3.5.1.min.js"></script> -->
 	<script>
 		let trans = ${products};
 		let products = trans.productList
