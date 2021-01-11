@@ -863,6 +863,15 @@ values (7,2,7,'2021-01-11',42,4,'未回覆')
 insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
 values (7,2,7,'2021-01-13',106,10,'確定前往')
 
+
+--看診評論資料表--
+create table comments(
+commentPkId int primary key identity(1,1) not null,
+appointmentPkId int not null references appointment(appointmentPkId),
+rate smallint not null,
+commentContext nvarchar(500),
+);
+
 --商城商品--
 create table products(
 productPkId int primary key identity(1,1) not null,
