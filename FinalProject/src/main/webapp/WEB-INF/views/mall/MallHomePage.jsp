@@ -8,8 +8,8 @@
 <title>U YA MALL</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <style>
 #topBar {
@@ -31,6 +31,16 @@
 	color:white;
 	font-size:32px;
 	margin-left:20px;
+}
+
+.icon {
+ 	margin-left: 25vw;
+ 	color: white;
+ 	font-size: 25px;
+}
+
+.icon i {
+	margin: 6px;
 }
 
 #title {
@@ -79,12 +89,23 @@ td {
 	width: 350px;
 	padding: 20px;
 }
+
+.price {
+	color: #F75000;
+	font-weight: 900;
+	font-family: Calibri;
+}
 </style>
 </head>
 <body>
 	<div id="topBar">
 		<span class=sp1>U YA MALL</span>
 		<span class=sp2>for a better teeth health</span>
+		<span class=icon>
+		<i class="bi bi-house"></i>
+		<i class="bi bi-person-circle"></i>
+		<i class="bi bi-cart4"></i>
+		</span>
 	</div>
 	<div id="left">
 		<h2>Category</h2>
@@ -116,7 +137,7 @@ td {
 		
 		let str1 = "<table class='ptable'><tr>";		
 		for(let i=0 ; i<products.length ; i++){
-			str1 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+			str1 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
 
 			if(j % 3 == 0){
 				str1 += "</tr>";
@@ -144,7 +165,7 @@ td {
 					let str2 = "<table class='ptable'><tr>";
 					
 					for(let i=0 ; i<data.length ; i++){
-						str2 += "<td>" + data[i].productImage + "<br>" + data[i].productName + "<br>NTD$ " + data[i].productPrice + "</td>";
+						str2 += "<td>" + data[i].productImage + "<br>" + data[i].productName + "<br><span class='price'>NTD$ " + data[i].productPrice + "</span></td>";
 
 						if(j % 3 == 0){
 							str2 += "</tr>";
@@ -167,7 +188,7 @@ td {
 			let j = 1;		
 			let str3 = "<table class='ptable'><tr>";		
 			for(let i = 0 ; i < newlist.length ; i++){
-				str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+				str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
 
 				if(j % 3 == 0){
 					str3 += "</tr>";
@@ -186,7 +207,7 @@ td {
 				let j = 1;		
 				let str3 = "<table class='ptable'><tr>";		
 				for(let i = 0 ; i < newlist.length ; i++){
-					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
 
 					if(j % 3 == 0){
 						str3 += "</tr>";
@@ -205,7 +226,7 @@ td {
 				let j = 1;		
 				let str3 = "<table class='ptable'><tr>";		
 				for(let i = 0 ; i < newlist.length ; i++){
-					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
 
 					if(j % 3 == 0){
 						str3 += "</tr>";
@@ -224,7 +245,7 @@ td {
 				let j = 1;		
 				let str3 = "<table class='ptable'><tr>";		
 				for(let i = 0 ; i < newlist.length ; i++){
-					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br>NTD$ " + products[i].productPrice + "</td>";
+					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
 
 					if(j % 3 == 0){
 						str3 += "</tr>";
