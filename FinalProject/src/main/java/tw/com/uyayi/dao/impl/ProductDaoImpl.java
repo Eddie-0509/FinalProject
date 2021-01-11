@@ -25,7 +25,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<Products> getAllProducts() {
 		Session session = factory.getCurrentSession();
-		String hql  = "from Products";
+		String hql  = "from Products where productStatus = '上架中'";
 		List<Products> list = new ArrayList<>();
 		list = session.createQuery(hql).getResultList();
 		return list;
@@ -35,7 +35,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<Products> getProductsByCategory(String productCategoty) {
 		Session session = factory.getCurrentSession();
-		String hql  = "from Products product where product.productCategory = :category";
+		String hql  = "from Products product where productStatus = '上架中' and product.productCategory = :category";
 		List<Products> list = new ArrayList<>();
 		list = session.createQuery(hql).setParameter("category", productCategoty).getResultList();
 		return list;

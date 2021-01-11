@@ -10,7 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <style>
 #topBar {
 	height: 150px;
@@ -87,7 +89,12 @@
 
 td {
 	width: 350px;
+	border: 15px solid white;
 	padding: 20px;
+}
+
+td:hover {
+	cursor: pointer;
 }
 
 .price {
@@ -127,135 +134,171 @@ td {
 	</div>
 	<div id="main">
 	
-	</div> 
+	</div>
+	<div class="modal" tabindex="-1" role="dialog" id="pdetail">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">TITLE 123<br></h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>我們要呈現在Modal裡的內容</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
 		let trans = ${products};
-		let products = trans.productList
-		
-		$(document).ready(function() {
-		let j = 1;
-		
-		let str1 = "<table class='ptable'><tr>";		
-		for(let i=0 ; i<products.length ; i++){
-			str1 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
+		let products = trans.productList;
 
-			if(j % 3 == 0){
-				str1 += "</tr>";
-			}
+		$(document).ready(
+				function() {
+					let j = 1;
 
-			j++;
-		}
+					let str1 = "<table class='ptable'><tr>";
+					for (let i = 0; i < products.length; i++) {
+						str1 += "<td>" + products[i].productImage + "<br>"+ products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice + "</span></td>";
 
-		str1 += "</table>";
-		$("#main").html(str1);
-		});
-
-		
-		$("#left p").click(function() {
-			$(".showby .zero").prop('selected', true);
-			j = 1;
-			fetch("http://localhost:8080/FinalProject/productsByCategory?"+"productCategoty="+$(this).text(), {
-				method: "GET"
-
-			}).then(function(response) {
-				return response.json();
-				
-			}).then(function(data){	
-					products = data;				
-					let str2 = "<table class='ptable'><tr>";
-					
-					for(let i=0 ; i<data.length ; i++){
-						str2 += "<td>" + data[i].productImage + "<br>" + data[i].productName + "<br><span class='price'>NTD$ " + data[i].productPrice + "</span></td>";
-
-						if(j % 3 == 0){
-							str2 += "</tr>";
+						if (j % 3 == 0) {
+							str1 += "</tr>";
 						}
 
 						j++;
 					}
 
-					str2 += "</table>";
-					$("#main").html(str2);
+					str1 += "</table>";
+					$("#main").html(str1);
+
+					beReady();
 				});
-		});
 
-		$(".showby").change(function(){
-			if($(this).val() == 1){
-			newlist = products.sort(function(a,b){
-				return b.productPrice - a.productPrice;
-			});
-			
-			let j = 1;		
-			let str3 = "<table class='ptable'><tr>";		
-			for(let i = 0 ; i < newlist.length ; i++){
-				str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
+		$("#left p").click(function() {
+					$(".showby .zero").prop('selected', true);
+					j = 1;
+					fetch("http://localhost:8080/FinalProject/productsByCategory?"+ "productCategoty=" + $(this).text(), {
+								method : "GET"
 
-				if(j % 3 == 0){
-					str3 += "</tr>";
-				}
-				j++;
-			}
-			str3 += "</table>";
-			$("#main").html(str3);
-			}
+							}).then(function(response) {
+						return response.json();
 
-			else if($(this).val() == 2){
-				newlist = products.sort(function(a,b){
-					return a.productPrice - b.productPrice;
+					}).then(function(data) {
+								products = data;
+								let str2 = "<table class='ptable'><tr>";
+
+								for (let i = 0; i < data.length; i++) {
+									str2 += "<td>" + data[i].productImage+ "<br>" + data[i].productName+ "<br><span class='price'>NTD$ "+ data[i].productPrice+ "</span></td>";
+
+									if (j % 3 == 0) {
+										str2 += "</tr>";
+									}
+									j++;
+								}
+
+								str2 += "</table>";
+								$("#main").html(str2);
+
+								beReady();
+							});
 				});
-				
-				let j = 1;		
-				let str3 = "<table class='ptable'><tr>";		
-				for(let i = 0 ; i < newlist.length ; i++){
-					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
 
-					if(j % 3 == 0){
-						str3 += "</tr>";
-					}
-					j++;
-				}
-				str3 += "</table>";
-				$("#main").html(str3);
-				}
+		$(".showby").change(function() {
+							if ($(this).val() == 1) {
+								newlist = products.sort(function(a, b) {
+									return b.productPrice - a.productPrice;
+								});
 
-			else if($(this).val() == 3){
-				newlist = products.sort(function(a,b){
-					return b.productPkId - a.productPkId;			
-				});
-				
-				let j = 1;		
-				let str3 = "<table class='ptable'><tr>";		
-				for(let i = 0 ; i < newlist.length ; i++){
-					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
+								let j = 1;
+								let str3 = "<table class='ptable'><tr>";
+								for (let i = 0; i < newlist.length; i++) {
+									str3 += "<td>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
-					if(j % 3 == 0){
-						str3 += "</tr>";
-					}
-					j++;
-				}
-				str3 += "</table>";
-				$("#main").html(str3);
-				}
+									if (j % 3 == 0) {
+										str3 += "</tr>";
+									}
+									j++;
+								}
+								
+								str3 += "</table>";
+								$("#main").html(str3);
+							}
 
-			else if($(this).val() == 4){
-				newlist = products.sort(function(a,b){
-					return a.productPkId - b.productPkId;			
-				});
-				
-				let j = 1;		
-				let str3 = "<table class='ptable'><tr>";		
-				for(let i = 0 ; i < newlist.length ; i++){
-					str3 += "<td>" + products[i].productImage + "<br>" + products[i].productName + "<br><span class='price'>NTD$ " + products[i].productPrice + "</span></td>";
+							else if ($(this).val() == 2) {
+								newlist = products.sort(function(a, b) {
+									return a.productPrice - b.productPrice;
+								});
 
-					if(j % 3 == 0){
-						str3 += "</tr>";
-					}
-					j++;
-				}
-				str3 += "</table>";
-				$("#main").html(str3);
-				}
-		});
+								let j = 1;
+								let str3 = "<table class='ptable'><tr>";
+								for (let i = 0; i < newlist.length; i++) {
+									str3 += "<td>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+
+									if (j % 3 == 0) {
+										str3 += "</tr>";
+									}
+									j++;
+								}
+								
+								str3 += "</table>";
+								$("#main").html(str3);
+							}
+
+							else if ($(this).val() == 3) {
+								newlist = products.sort(function(a, b) {
+									return b.productPkId - a.productPkId;
+								});
+
+								let j = 1;
+								let str3 = "<table class='ptable'><tr>";
+								for (let i = 0; i < newlist.length; i++) {
+									str3 += "<td>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+
+									if (j % 3 == 0) {
+										str3 += "</tr>";
+									}
+									j++;
+								}
+								
+								str3 += "</table>";
+								$("#main").html(str3);
+							}
+
+							else if ($(this).val() == 4) {
+								newlist = products.sort(function(a, b) {
+									return a.productPkId - b.productPkId;
+								});
+
+								let j = 1;
+								let str3 = "<table class='ptable'><tr>";
+								for (let i = 0; i < newlist.length; i++) {
+									str3 += "<td>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+
+									if (j % 3 == 0) {
+										str3 += "</tr>";
+									}
+									j++;
+								}
+								
+								str3 += "</table>";
+								$("#main").html(str3);
+							}
+							beReady();
+						});
+
+		
+		function beReady() {
+			$("td").click(function() {
+				console.log(products);
+				console.log($(this));
+				$("#pdetail").modal("show"); 
+			})
+		}
 	</script>
 </body>
 </html>
