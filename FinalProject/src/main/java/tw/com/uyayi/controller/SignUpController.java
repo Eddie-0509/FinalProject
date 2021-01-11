@@ -24,6 +24,8 @@ public class SignUpController {
 	@Autowired
 	SignUpService signUpService;
 	
+	
+	// 取得 縣市資料轉到註冊頁面
 	@GetMapping(value = "/signupFirst")
 	public String getAllCity(Model model) {
 		List<City> cities = signUpService.getAllCity();
@@ -31,6 +33,7 @@ public class SignUpController {
 		return "clinic/clinicSignUp";
 	}
 	
+	// 接收行政區的fetch
 	@GetMapping(path = "/getDist", produces = "application/json")
 	public @ResponseBody List<Dist> getDist(@RequestParam("cityPkId") String cityPkId) {
 		int cityId = Integer.valueOf(cityPkId);
@@ -38,13 +41,14 @@ public class SignUpController {
 		return dists;
 	}
 	
+	// 使用fetch驗證 帳號是否重複
 	@PostMapping(path= "/checkAccount", produces = "application/json")
 	public @ResponseBody boolean checkAccount(@RequestParam("clinicAccount") String clinicEmail) {
 		boolean flag = signUpService.checkEmail(clinicEmail);
 		return flag;
 	}
 	
-	
+	// 接收表單資料用
 	@GetMapping(value = "/signUp")
 	public String getSignUp(Model model) {
 		Clinic clinic = new Clinic();
@@ -52,7 +56,7 @@ public class SignUpController {
 		return "clinic/clinicSignUp";
 	}
 	
-	
+	// 接收表單資料用 並寫入資料庫
 	@PostMapping(value ="/signUp")
 	public String processSignUp(@ModelAttribute("clinic") Clinic clinic) {
 		System.out.println(clinic.getClinicCityId());
@@ -62,6 +66,7 @@ public class SignUpController {
 		clinic.setCityBean(cityBean);
 		clinic.setDistBean(distBean);
 		
+		//設定開始日期
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
 		String dStr = sdf.format(d);
