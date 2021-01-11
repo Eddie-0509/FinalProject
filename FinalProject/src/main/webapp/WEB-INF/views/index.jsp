@@ -83,8 +83,8 @@
 	<script src="js/viewport-units-buggyfill.js"></script>
 
 	<!-- Googgle Map -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-	<script src="js/google_map.js"></script>
+<!-- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script> -->
+<!-- 	<script src="js/google_map.js"></script> -->
 
 	
 	<!-- Main JS  -->

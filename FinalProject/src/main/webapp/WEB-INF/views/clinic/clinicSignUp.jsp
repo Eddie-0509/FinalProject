@@ -91,9 +91,9 @@
 <script src="js/viewport-units-buggyfill.js"></script>
 
 <!-- Googgle Map -->
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-<script src="js/google_map.js"></script>
+<!-- <script -->
+<!-- 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script> -->
+<!-- <script src="js/google_map.js"></script> -->
 
 
 <!-- Main JS  -->
@@ -200,7 +200,7 @@
 							<label for="upload">上傳診所圖片</label>
   							<input id="upload" type="file" accept="image/*" >
   							<button class="btn btn-primary" type="button" id="imageUpload">上傳</button>
-							<input type="hidden" id="clinicImage" name="clinicImage">
+							<input type="hidden" id="clinicImage" name="clinicImage" value="defaultImage">
 							</div>
 <!-- 								<input type="hidden"  name="clinicLocation"> -->
 <!-- 								<input type="hidden"  name="clinicStartTime"> -->
@@ -240,8 +240,10 @@
 		var flagEmail = false;
 		var checkEmail = false;
 		var flagPhone = false;
-		var flagImage = false;
+		var flagImage = true;
 		$(function() {
+			
+			// 使用Fetch 取得行政區
 			$("#city").change(function() {
 				$("#cityDefault").css("display","none")
 				let str ="";
@@ -396,6 +398,7 @@
 								}
 
 							});
+			//  使用imgur API 上傳圖片 取得圖片網址
 			var x="";
 			$("#upload").change(function(e){
 				flagImage=false;
@@ -406,8 +409,8 @@
 			$("#imageUpload").click(function(){
 				flagImage=false;
 				var form = new FormData();
-				form.append("image", x);
-				form.append("album", 'gMbwr3Z')
+				form.append("image", x);   //設定 圖片file值
+				form.append("album", 'gMbwr3Z')  // 設定圖片存到哪一個相簿
 				
 				var settings = {
 						  "async": true,
@@ -425,8 +428,8 @@
 						  "contentType": false,
 						  "data": form
 						};
-				$.ajax(settings).done(function (response) {
-					let resJSON = JSON.parse(response);
+				$.ajax(settings).done(function (response) {  // 使用ajax 取得imgur網址
+					let resJSON = JSON.parse(response);  
 					let imageStr = resJSON.data.link;
 					$("#clinicImage").attr("value", imageStr);
 					flagImage=true;
@@ -434,6 +437,7 @@
 					});
 			})
 			
+			// 驗證每一個欄位都填寫正確再送出資料 並且上傳成功
 			$("#formButton").click(function(){
 				if(flagPwd && flagEmail &&flagPhone && flagImage){
 				  $("#clinicForm").submit();	
