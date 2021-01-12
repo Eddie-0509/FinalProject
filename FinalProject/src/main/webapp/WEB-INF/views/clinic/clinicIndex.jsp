@@ -173,7 +173,7 @@
 	<div class="modal fade" id="clinicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-					<form class="loginForm" action="<c:url value='/clinicLogIn'/>" method="POST" >
+					<form class="loginForm" action="<c:url value='/clinic'/>" method="POST" >
 						<h1>診所會員</h1>
 							<div class="usericon">
 								<i class="fas fa-clinic-medical"></i>

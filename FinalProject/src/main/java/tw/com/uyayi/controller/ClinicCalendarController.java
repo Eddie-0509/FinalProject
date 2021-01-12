@@ -39,19 +39,19 @@ public class ClinicCalendarController {
 	
 	//點預約紀錄，model增加所有預約紀錄、醫師名單、醫師ID
 	@GetMapping(value="/clinicCalendar")
-	public  String getData(@ModelAttribute("clinicID") Integer id,Model model) {
-		int clinicID=id;
-		List<Dentist> dentistlist = caService.getDentistList(clinicID);
-		LinkedList<String>DentistNameList = new LinkedList<String>();
-		LinkedList<Integer>DentistIdList = new LinkedList<Integer>();
-		for (Dentist dentistBean :dentistlist) {
-			DentistNameList.add(dentistBean.getDentistName());
-			DentistIdList.add(dentistBean.getDentistPkId());
-		}
-		List<Appointment> applist = caService.getAllAppointmentByClinic(clinicID);
-		 model.addAttribute("DentistIdList",DentistIdList);
-		 model.addAttribute("DentistNameList",DentistNameList);
-		 model.addAttribute("AllAppointmentList",applist);
+	public  String getData(Model model) {
+//		int clinicID=id;
+//		List<Dentist> dentistlist = caService.getDentistList(clinicID);
+//		LinkedList<String>DentistNameList = new LinkedList<String>();
+//		LinkedList<Integer>DentistIdList = new LinkedList<Integer>();
+//		for (Dentist dentistBean :dentistlist) {
+//			DentistNameList.add(dentistBean.getDentistName());
+//			DentistIdList.add(dentistBean.getDentistPkId());
+//		}
+//		List<Appointment> applist = caService.getAllAppointmentByClinic(clinicID);
+//		 model.addAttribute("DentistIdList",DentistIdList);
+//		 model.addAttribute("DentistNameList",DentistNameList);
+//		 model.addAttribute("AllAppointmentList",applist);
 		 return "clinic/clinicCalendar";
 	}
 	

@@ -30,7 +30,7 @@ public class ClinicLogInController {
 	@Autowired
 	ClinicCalendarService caService;
 	
-	@PostMapping(value = "/clinicLogIn")
+	@PostMapping(value = "/clinic")
 	public String clinicLogIn(Model model,
 			RedirectAttributes redAttributes,
 			@RequestParam("clinicAccount") String clinicAccount,
@@ -64,6 +64,9 @@ public class ClinicLogInController {
 	public String logout(HttpSession session,  Model model, SessionStatus status,
 			RedirectAttributes redirectAtt
 			) {	
+		String farewellMessage="";
+		redirectAtt.addFlashAttribute("FlashMSG_farewell", farewellMessage);
+
 		// 登出時執行下列兩敘述
 		status.setComplete();		// 移除@SessionAttributes({"LoginOK"}) 標示的屬性物件
 		session.invalidate();		// 此敘述不能省略		
