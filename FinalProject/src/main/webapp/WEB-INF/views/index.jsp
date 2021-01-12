@@ -151,7 +151,7 @@
 	<div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-					<form class="loginForm" action="LoginServlet" method="POST" >
+					<form class="loginForm" action="checkLogin" method="POST" >
 						<h1>一般會員</h1>
 							<div class="usericon">
 								<i class="fas fa-user-circle"></i>
@@ -162,6 +162,7 @@
 							</div>
 								<div class="formcontainer">
 								<div class="container">
+									<span id="errorMsg" style="color: red; text-align: center; display:block;">${errorMsg}</span><br/>
 									<label for="uname"><strong>身分證字號</strong></label>
 									<input type="text" placeholder="請輸入身分證字號" name="account" id="uname" required autofocus>
 					
@@ -293,8 +294,14 @@
 		</footer>
 
 	</div>
-	
-	
+	<script>
+	$(document).ready(function(){
+		if(${errorMsg=='帳號密碼錯誤'}){
+			$("#memberModal").modal('show');
+		}
+	})
+
+	</script>
 	
 	
 	</body>
