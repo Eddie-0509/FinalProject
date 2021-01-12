@@ -88,13 +88,22 @@
 }
 
 td {
-	width: 350px;
+	width: 300px;
 	border: 15px solid white;
 	padding: 20px;
 }
 
 td:hover {
 	cursor: pointer;
+}
+
+.ppic {
+	width: 300px;
+	margin-bottom: 20px;
+}
+
+.dpic {
+	margin: 15px;
 }
 
 .pnum {
@@ -107,12 +116,55 @@ td:hover {
 	font-family: Calibri;
 }
 
-.dpic {
-	background-color: lightgreen;
+#dtitle {
+	font-size: 35px;
+	font-weight: 900;
+}
+
+#dcontent {
+ 	width: 900px; 
+}
+
+#dbody p {
+	margin: 25px 10px;
+	font-weight: 900;
+	font-size: 18px;
+}
+
+#dprice {
+	color: #F75000;
+	font-weight: 900;
+	font-family: Calibri;
+	font-size: 25px;
+}
+
+#dfigure {
 	height: 300px;
 	width: 300px;
 	float: left;
-	
+	margin: 10px 30px 10px 10px;
+}
+
+.dpic {
+	height: 100%;
+	width: 100%;
+}
+
+#dicon {
+	margin-right: 100px;
+}
+
+#dqty {
+	text-align: center;
+	width: 80px;
+	height: 65px;
+	font-weight: 900;
+	font-size: 25px;
+	border: none;
+}
+
+#dicon img:hover{
+	opacity: 0.5;
 }
 </style>
 </head>
@@ -147,24 +199,49 @@ td:hover {
 	<div id="main">
 	
 	</div>
-	<div class="modal" tabindex="-1" role="dialog" id="pdetail">
+	<div class="modal right fade" tabindex="-1" role="dialog" id="pdetail">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" id="dcontent">
+				<div class="modal-header">
+					<h5 id="dtitle" class="modal-title"><br></h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="dbody">
+					<figure id="dfigure"></figure>
+					<p id="dprice"></p>
+					<p id="dprofile"></p>
+					<p id="dspec"></p>
+				</div>
+				<div class="modal-footer">
+				<div id="dicon">
+					<img id="dsub" src="images/CartIconSub.png">
+					<input type="text" id="dqty" value="1">
+					<img id="dadd" src="images/CartIconAdd.png">
+				</div>	
+					<button type="button" class="btn btn-primary">加入購物車</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+	<div class="modal right fade" tabindex="-1" role="dialog" id="cart">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">TITLE 123<br></h5>
+					<h5 id="ctitle" class="modal-title"><br></h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<figure class="dpic">
-						【PICTURES HERE】
-					</figure>
-					<p class="dprice">我們要呈現在Modal裡的內容</p>
-					<p class="dprofile"></p>
+					<figure class="dfigure">123</figure>
+					<p class="dprice">456</p>
+					<p class="dprofile">789</p>
 					<p class="dspec"></p>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">加入購物車</button>
+				<div class="modal-footer">	
+					<button type="button" class="btn btn-primary">結帳</button>
 				</div>
 			</div>
 		</div>
@@ -179,7 +256,7 @@ td:hover {
 
 					let str1 = "<table class='ptable'><tr>";
 					for (let i = 0; i < products.length; i++) {
-						str1 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage + "<br>"+ products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice + "</span></td>";
+						str1 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice + "</span></td>";
 
 						if (j % 3 == 0) {
 							str1 += "</tr>";
@@ -190,6 +267,28 @@ td:hover {
 
 					str1 += "</table>";
 					$("#main").html(str1);
+
+					$(".bi-cart4").click(function(){
+						$("#cart").modal("show");
+					});
+
+					$("#dadd").click(function(){				
+						$("#dqty").val(parseInt($("#dqty").val(), 10)+1);
+					});
+
+					$("#dsub").click(function(){
+						$("#dqty").val(parseInt($("#dqty").val(), 10)-1);
+
+						if($("#dqty").val() < 1) {
+							$("#dqty").val(1)
+						}
+					});
+
+					$("#dqty").blur(function(){
+						if($("#dqty").val() < 1) {
+							$("#dqty").val(1)
+						}
+					});
 
 					beReady();
 				});
@@ -208,7 +307,7 @@ td:hover {
 								let str2 = "<table class='ptable'><tr>";
 
 								for (let i = 0; i < data.length; i++) {
-									str2 += "<td><span class='pnum'>" + i + "</span>" + data[i].productImage+ "<br>" + data[i].productName+ "<br><span class='price'>NTD$ "+ data[i].productPrice+ "</span></td>";
+									str2 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + data[i].productName+ "<br><span class='price'>NTD$ "+ data[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str2 += "</tr>";
@@ -232,7 +331,7 @@ td:hover {
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -252,7 +351,7 @@ td:hover {
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -272,7 +371,7 @@ td:hover {
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -292,7 +391,7 @@ td:hover {
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -309,19 +408,19 @@ td:hover {
 		
 		function beReady() {
 			$("td").click(function() {
+				$("#dqty").val(1);
+				
 				let pnum = $(this).children(".pnum").text();
-				console.log(products[pnum]);
-				$(".modal-title").text(products[pnum].productName);
-				$(".modal-body").children(".dprice").text("NTD $ " + products[pnum].productPrice);
-				$(".modal-body").children(".dprofile").text(products[pnum].productProfile);
+				$("#dtitle").text(products[pnum].productName);
+				$("#dfigure").html("<img class='dpic' src='" + products[pnum].productImage + "'/>");
+				$("#dprice").text("NTD $ " + products[pnum].productPrice);
+				$("#dprofile").text(products[pnum].productProfile);
 
 				let pspec = products[pnum].productSpec;
-				console.log("pspec = " + pspec);
-				console.log("newpspec = " + pspec.replace('|', '<br>'));
-				$(".modal-body").children(".dspec").text(products[pnum].productSpec);
-				
+				let restr = /\|/gi;
+				$("#dspec").html(pspec.replace(restr, '<br>'));			
 				$("#pdetail").modal("show"); 
-			})
+			});
 		}
 	</script>
 </body>
