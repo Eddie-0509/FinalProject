@@ -78,7 +78,6 @@
 .showby {
 	height: 35px;
 	width: 200px;
-	text-align: center;
  	float: right;
  	padding: 5px 10px;
 }
@@ -116,7 +115,7 @@ td:hover {
 	font-family: Calibri;
 }
 
-#dtitle {
+#dtitle, #ctitle {
 	font-size: 35px;
 	font-weight: 900;
 }
@@ -166,9 +165,49 @@ td:hover {
 #dicon img:hover {
 	opacity: 0.5;
 }
+
+.modal.right .modal-dialog {
+position: fixed;
+margin: auto; 
+width: 500px;
+height: 100%;
+-webkit-transform: translate3d(200%, 0, 0);
+-ms-transform: translate3d(200%, 0, 0);
+o-transform: translate3d(200%, 0, 0);
+transform: translate3d(200%, 0, 0);
+}
+
+.modal.right .modal-content {   
+height: 100vh;
+width:40vw;
+}   
+
+.modal.right.fade .modal-dialog{
+-webkit-transition: opacity 0.5s linear, right 0.5s ease-out;
+-moz-transition: opacity 0.5s linear, right 0.5s ease-out;
+-o-transition: opacity 0.5s linear, right 0.5s ease-out;
+transition: opacity 0.5s linear, right 0.5s ease-out;
+}
 </style>
 </head>
 <body>
+    <div class="modal fade right" id= "experimentMakeAnOffer2">
+        <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+            <h4 id="ctitle" class="modal-title">購物車</h4></div>
+            <div class="modal-body experimentMakeAnOffer">
+            	<p>您還未選購任何商品 T_T</p>         
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary submitOffer btn-lg" data-dismiss="modal">結帳</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 	<div id="topBar">
 		<span class=sp1>U YA MALL</span>
 		<span class=sp2>for a better teeth health</span>
@@ -203,7 +242,7 @@ td:hover {
 	
 	</div>
 	
-	<div class="modal right fade" tabindex="-1" role="dialog" id="pdetail">
+	<div class="modal left fade" tabindex="-1" role="dialog" id="pdetail">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content" id="dcontent">
 				<div class="modal-header">
@@ -251,7 +290,7 @@ td:hover {
 					$("#main").html(str1);
 
 					$(".bi-cart4").click(function(){
-// 						===================
+						$("#experimentMakeAnOffer2").modal("show");
 					});
 
 					$("#dadd").click(function(){				
