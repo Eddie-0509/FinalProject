@@ -133,7 +133,17 @@
 
 <!--首頁文字輪播、modal js bySCONE-->
 <script src="js/hpother.js"></script>
-
+<style>
+#upload{
+display: inline;
+    width: 250px;
+}
+#imageUpload{
+display: inline;
+height: 33.600px;
+line-height: 33.600px;
+}
+</style>
 </head>
 
 <body>
@@ -148,12 +158,8 @@
 				<li class="animate-box "><a href="<c:url value='clinicIndex'/>"
 					class="transition">Home</a></li>
 				<li class="animate-box fh5co-active"><a
-					href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
-				<li class="animate-box"><a href="#" class="transition">診所資料</a></li>
-				<li class="animate-box"><a href="#" class="transition">醫師資料</a></li>
-				<li class="animate-box"><a href="#" class="transition">報表</a></li>
+					href="<c:url value='clinicIndex'/>" class="transition">回上頁</a></li>
 			</ul>
-			<a href="#" class="transition style-logout">登出</a>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
@@ -171,18 +177,18 @@
 							<h3>
 								<i class="fas fa-tooth"></i>診所資料
 							</h3>
-							<br> <label for="clinicAccount"><strong>電子信箱</strong></label><span
-								id="checkEmail"></span> <input type="text"
-								placeholder="請輸入E-mail" name="clinicAccount" id="clinicEmail"
-								required autofocus> <label for="clinicPwd"><strong>密碼</strong></label><span
-								id="checkPwd"></span><input type="password" placeholder="請輸入密碼"
-								name="clinicPwd" id="clinicPwd" required> <label
-								for="clinicName"><strong>診所名稱</strong></label> <input
-								type="text" placeholder="請輸入診所名稱" name="clinicName"
-								id="clinicName"> <label for="clinicPhone"><strong>診所電話</strong></label><span
-								id="checkPhone"></span> <input type="text" name="clinicPhone"
-								id="clinicPhone" placeholder="02-xxxxxxx"><br> <label
-								for="clinicCity"><strong>縣市 / 區</strong></label>
+							<br> 
+								<label for="clinicAccount"><strong>電子信箱</strong></label><span id="checkEmail"></span> 
+								<input type="text" placeholder="請輸入E-mail" name="clinicAccount" id="clinicEmail" required autofocus> 
+								<label for="clinicPwd"><strong>密碼</strong></label><span id="checkPwd"></span>
+								<input type="password" placeholder="請輸入密碼" name="clinicPwd" id="clinicPwd" required>
+								<label for="clinicPwdCheck"><strong>確認密碼</strong></label><span id="spPwdCheck"></span>
+								<input type="password" placeholder="請再次輸入密碼" name="clinicPwdCheck" id="clinicPwdCheck" required>
+								<label for="clinicName"><strong>診所名稱</strong></label> 
+								<input type="text" placeholder="請輸入診所名稱" name="clinicName" id="clinicName"> 
+								<label for="clinicPhone"><strong>診所電話</strong></label><span id="checkPhone"></span> 
+								<input type="text" name="clinicPhone" id="clinicPhone" placeholder="02-xxxxxxx"><br> 
+								<label for="clinicCity"><strong>縣市 / 區</strong></label>
 							<div>
 								<select name="clinicCityId" id="city">
 									<option id="cityDefault">請選擇</option>
@@ -197,9 +203,9 @@
 							<label for="clinicAddress"><strong>地址</strong></label> <input
 								type="text" name="clinicAddress" id="clinicAddress">
 							<div>
-							<label for="upload">上傳診所圖片</label>
+							<label for="upload">上傳診所圖片</label><br/>
   							<input id="upload" type="file" accept="image/*" >
-  							<button class="btn btn-primary" type="button" id="imageUpload">上傳</button>
+  							<input type="button" id="imageUpload" value="上傳" style="color : black;">
 							<input type="hidden" id="clinicImage" name="clinicImage" value="defaultImage">
 							</div>
 <!-- 								<input type="hidden"  name="clinicLocation"> -->
@@ -208,7 +214,7 @@
 <!-- 								<input type="hidden" name="clinicStatus"> -->
 						</div>
 						<div>
-						<input type="button" id="formButton" value="送出" style="color : black; font-weight: 800;">
+						<button class="btn btn-primary" type="button" id="formButton">送出</button>
 						</div>
 
 					</div>
@@ -241,6 +247,7 @@
 		var checkEmail = false;
 		var flagPhone = false;
 		var flagImage = true;
+		var flagClinicPwdCheck=false;
 		$(function() {
 			
 			// 使用Fetch 取得行政區
@@ -370,6 +377,19 @@
 					}
 				}
 			}
+			
+			$("#clinicPwdCheck").blur(function(){
+				let span = $("#spPwdCheck");
+				if($("#clinicPwdCheck").val()!=$("#clinicPwd").val()){
+					flagClinicPwdCheck=false;
+					span.css("color","red");
+					span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>輸入密碼不同");
+				}else {
+					flagClinicPwdCheck=true;
+					span.css("color","green");
+					span.html("&nbsp &nbsp <i class='far fa-check-circle'></i>密碼相符");
+				}
+			});
 
 			$("#clinicPhone")
 					.blur(
@@ -439,9 +459,9 @@
 			
 			// 驗證每一個欄位都填寫正確再送出資料 並且上傳成功
 			$("#formButton").click(function(){
-				if(flagPwd && flagEmail &&flagPhone && flagImage){
+				if(flagPwd && flagEmail &&flagPhone && flagImage&&flagClinicPwdCheck){
 				  $("#clinicForm").submit();	
-				}else if (flagPwd && flagEmail &&flagPhone && (flagImage==false)){
+				}else if (flagPwd && flagEmail &&flagPhone &&flagClinicPwdCheck&& (flagImage==false)){
 					window.alert("請等候圖片上傳");
 				}else{
 					window.alert("請輸入正確資料再送出");

@@ -8,13 +8,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import tw.com.uyayi.dao.SignUpDao;
+import tw.com.uyayi.dao.ClinicSignUpDao;
 import tw.com.uyayi.model.City;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dist;
 
 @Repository
-public class SignUpDaoImpl implements SignUpDao {
+public class ClinicSignUpDaoImpl implements ClinicSignUpDao {
 	
 	@Autowired
 	SessionFactory factory ;

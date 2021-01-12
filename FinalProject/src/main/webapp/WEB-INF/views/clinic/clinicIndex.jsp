@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
 <!-- 請改成給診所看的介紹頁面(診所的HOME)	 -->
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -110,6 +111,27 @@
 
 	<body>
 	
+<!-- 	帳號密碼錯誤彈窗 -->
+ <div id="checkLogIn" class="modal fade" style="color:black">
+ <div class="modal-dialog">
+     <div class="modal-content">
+         <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+             <h4 id="modalTitle" class="modal-title"  style="color:black">標題</h4>
+         </div>
+         <div id="modalBody" class="modal-body"  style="color:black">
+          <span>帳號密碼錯誤</span>
+   
+         </div>
+         <div class="modal-footer">
+          
+             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>             
+         </div>
+     </div>
+ </div>
+</div>
+	
+	
 	<!-- Loader -->
 	<div class="fh5co-loader"></div>
 	
@@ -151,24 +173,27 @@
 	<div class="modal fade" id="clinicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-					<form class="loginForm" action="LoginServlet" method="POST" >
+					<form class="loginForm" action="<c:url value='/clinicLogIn'/>" method="POST" >
 						<h1>診所會員</h1>
 							<div class="usericon">
 								<i class="fas fa-clinic-medical"></i>
 							</div>
 							<div class="choose">
 								<a href="javascript:void();" class="login default"><h2 >登　入</h2></a>
-								<a href="../memberSignin/MemberSingup.jsp" class="sign"><h2 >註　冊</h2></a>
+								<a href="<c:url value='/signupFirst'/>" class="sign"><h2 >註　冊</h2></a>
 							</div>
 								<div class="formcontainer">
 								<div class="container">
-									<label for="uname"><strong>身分證字號</strong></label>
-									<input type="text" placeholder="請輸入身分證字號" name="account" id="cname" required autofocus>
-									<br>
-									<label for="psw"><strong>密　　　碼</strong></label>
-									<input type="password" placeholder="請輸入密碼" name="pwd" id="cpsw" required>
+								<div>
+								<span style="color:red">${logInFail}</span>
 								</div>
-								<button type="submit"><strong>登入</strong></button>
+									<label for="uname"><strong>帳號</strong></label>
+									<input type="text" placeholder="請輸入Email" name="clinicAccount" id="cname" required autofocus>
+									<br>
+									<label for="psw"><strong>密碼</strong></label>
+									<input type="password" placeholder="請輸入密碼" name="clinicPwd" id="cpsw" required>
+								</div>
+								<button type="submit" id="logInBtn"><strong>登入</strong></button>
 								<div class="container" >
 									<span ><a href="#" class="link">忘記密碼?</a></span>
 								</div>
@@ -291,6 +316,21 @@
 
 	</div>
 	
+	<script>
+	<c:choose>
+	<c:when test="${logInFail=='帳號密碼錯誤'}">
+		$(window).ready(() => {
+			$('#clinicModal').modal('show');
+		});
+	</c:when>
+	<c:otherwise>
+	</c:otherwise>
+	</c:choose>
+		
+
+		
+	
+	</script>
 	
 	
 	

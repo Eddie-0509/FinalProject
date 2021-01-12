@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.com.uyayi.dao.impl.ComparatorDate;
 import tw.com.uyayi.model.Appointment;
+import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.service.ClinicCalendarService;
 
@@ -35,7 +37,7 @@ public class ClinicCalendarController {
 	
 	//點預約紀錄，model增加所有預約紀錄、醫師名單、醫師ID
 	@GetMapping(value="/clinicCalendar")
-	public  String getData(@RequestParam Integer clinicID,Model model) {
+	public  String getData(@ModelAttribute("clinicID") Integer clinicID,Model model) {
 		List<Dentist> dentistlist = caService.getDentistList(clinicID);
 		LinkedList<String>DentistNameList = new LinkedList<String>();
 		LinkedList<Integer>DentistIdList = new LinkedList<Integer>();

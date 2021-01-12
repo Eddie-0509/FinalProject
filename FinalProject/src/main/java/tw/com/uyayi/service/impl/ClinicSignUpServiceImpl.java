@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.com.uyayi.dao.SignUpDao;
+import tw.com.uyayi.dao.ClinicSignUpDao;
 import tw.com.uyayi.model.City;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dist;
-import tw.com.uyayi.service.SignUpService;
+import tw.com.uyayi.service.ClinicSignUpService;
 @Service
-public class SignUpServiceImpl implements SignUpService {
+public class ClinicSignUpServiceImpl implements ClinicSignUpService {
 	
 	@Autowired
-	SignUpDao signUpDao;
+	ClinicSignUpDao signUpDao;
 	
 	@Transactional
 	@Override

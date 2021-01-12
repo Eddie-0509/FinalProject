@@ -17,12 +17,12 @@ import javassist.Loader.Simple;
 import tw.com.uyayi.model.City;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dist;
-import tw.com.uyayi.service.SignUpService;
+import tw.com.uyayi.service.ClinicSignUpService;
 
 @Controller
-public class SignUpController {
+public class ClinicSignUpController {
 	@Autowired
-	SignUpService signUpService;
+	ClinicSignUpService signUpService;
 	
 	
 	// 取得 縣市資料轉到註冊頁面
