@@ -16,7 +16,8 @@ public class Home {
 	
 
 	@GetMapping("/clinicIndex")
-	public String clinicIndex() {
+	public String clinicIndex(@ModelAttribute("logInFail") String logInFail, Model model) {
+		model.addAttribute("logInFail", logInFail);
 		return "clinic/clinicIndex";
 	}
 	

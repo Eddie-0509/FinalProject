@@ -34,9 +34,13 @@ public class ClinicCalendarController {
 		this.caService = service;
 	}
 	
+	
+	
+	
 	//點預約紀錄，model增加所有預約紀錄、醫師名單、醫師ID
 	@GetMapping(value="/clinicCalendar")
-	public  String getData(@ModelAttribute("clinicID") Integer clinicID,Model model) {
+	public  String getData(@ModelAttribute("clinicID") Integer id,Model model) {
+		int clinicID=id;
 		List<Dentist> dentistlist = caService.getDentistList(clinicID);
 		LinkedList<String>DentistNameList = new LinkedList<String>();
 		LinkedList<Integer>DentistIdList = new LinkedList<Integer>();
@@ -57,7 +61,7 @@ public class ClinicCalendarController {
 			@RequestParam("dentistId") String dentistId) {
 		int dentistId2 = Integer.valueOf(dentistId);
 		List<Appointment> app= caService.getAppointmentByDentist(dentistId2);
-		System.out.println(app.get(0).getAppointDate());
+//		System.out.println(app.get(0).getAppointDate());
 		return app;
 	}
 	//點選清單或行事曆上活動顯示詳細資料
