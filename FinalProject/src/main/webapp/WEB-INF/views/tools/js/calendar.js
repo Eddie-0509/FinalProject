@@ -1,4 +1,4 @@
-
+var memberEmail="";
 
 $(document).ready(function(){
 //	var dnl="${DentistNameList}"
@@ -256,10 +256,7 @@ $(document).ready(function(){
     		maxTime: '22:00:00', 
 			events: allevents,
 			eventClick:function(event){
-				 $('#AppointmentModal').modal();
-				 //if (event.id) {
-			            console.log(event.id);
-			      //}
+				 $('#AppointmentModal').modal();						 
 				 $.ajax({
 		             url: 'getAppointmentDetail',    //url位置
 		             type: 'get',
@@ -269,19 +266,23 @@ $(document).ready(function(){
 		             data:{
 		            	 appointmentId : event.id
 		             },//請求方式
-		             success: function (result) { 
-						 $("#patientName").text(result.patientName);
+		             success: function (result) {
+		             	 $("#patientName").text(result.patientName);
 						 $("#patientPhone").text(result.patientPhone);
 						 $("#dentistName").text(result.dentistName);
 						 $("#item").text(result.item);
 						 $("#date").text(result.date);
 						 $("#time").text(result.time);
 						 $("#reply").text(result.reply);
+						 memberEmail=result.email;
+						 console.log("283="+memberEmail);
 		             }
 		        })
 			}		             
 		});
-		
+	
+	console.log("283="+memberEmail);
+	
 	$("#queryAppointment").on("click",function(){
 		$.ajax({
              url: 'queryAppointment',    //url位置
@@ -300,6 +301,7 @@ $(document).ready(function(){
 				 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td></tr>')
 				 }
 				 console.log(result)
+				 
              },
              error: function(){
              	$("#qmodalBody").text("查無資料")
@@ -312,5 +314,34 @@ $(document).ready(function(){
 			   $("#qmodalBody").html("請輸入病患電話："+'<input type="text" id="phoneToQuery"></input>')	  
 		
 	})
-		
+	
+	 $(".contactMember").on("click",function(){
+ 			   $("#ContactModalTitle").text("傳送郵件");	  
+ 			   $("#ContactModalBody").html('請輸入內容：<br><textarea name="text" rows=5 style="width:90%;resize:none" id="mailText"></textarea>');	  
+ 			   $("#ContactModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default mailMember" onclick="mailMember()">寄出</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>');
+ 		})
+	
+
 });
+
+function mailMember(){
+		$.ajax({
+			url : 'sendEmail',
+			type : 'GET',
+			async:false,
+            contentType: "application/json",
+            dataType : "JSON",
+			data : {
+				email : memberEmail,
+				text : $("#mailText").val(),
+				method : "$.ajax()",
+				doWhat : "GET"
+			},
+			error:function(){
+				console.log("HI")
+			}
+		})
+			$("#ContactModalBody").html('成功');
+			$("#ContactModal").children("button").eq(0).remove();
+				console.log("?")
+	}

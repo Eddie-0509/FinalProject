@@ -81,7 +81,7 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		appointmentDetail.put("date", sdf.format(result.getAppointDate()));
 		appointmentDetail.put("time", result.getTimeTableBean().getTimes());
 		appointmentDetail.put("reply", result.getMemberReply());
-		
+		appointmentDetail.put("email", result.getMemberBean().getMemberAccount());
 		return appointmentDetail;
 	}
 

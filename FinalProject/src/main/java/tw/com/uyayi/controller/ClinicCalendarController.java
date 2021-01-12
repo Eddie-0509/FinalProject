@@ -1,7 +1,6 @@
 package tw.com.uyayi.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -18,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.com.uyayi.dao.impl.ComparatorDate;
+import tw.com.uyayi.dao.impl.Mail;
 import tw.com.uyayi.model.Appointment;
-import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.service.ClinicCalendarService;
 
@@ -98,5 +97,17 @@ public class ClinicCalendarController {
 				 return null;
 			 } 
 	}
+	
+	@GetMapping(path = "/sendEmail", produces = "application/json")
+	public @ResponseBody String sendEmail(
+			@RequestParam("email") String email , @RequestParam("text") String text) {
+		 	 Mail mail=new Mail();
+		 	 mail.sendMail(email, "【UYAYI】來自診所的通知", text);
+		 	 System.out.println(email+text);
+		 	 return null;
+		 			 
+	}
+	
+	
 
 }

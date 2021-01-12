@@ -191,15 +191,15 @@
 			</div>
 		</div>
 		
-<!-- 預約彈窗 -->
+<!-- 預約詳細彈窗 -->
 <div id="AppointmentModal" class="modal fade" style="color:black">
 	<div class="modal-dialog">
 	    <div class="modal-content">
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="modalTitle" class="modal-title"  style="color:black">預約詳細</h4>
+	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">預約詳細</h4>
 	        </div>
-	        <div id="modalBody" class="modal-body"  style="color:black">
+	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
 	        	病患姓名：<span id="patientName"></span>
 	        	<br>
 	        	病患電話：<span id="patientPhone"></span>
@@ -216,9 +216,27 @@
 	  
 	        </div>
 	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default" >連絡病患</button>
+	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" >連絡病患</button>
 	        	<button type="button" class="btn btn-default" >未到診回報</button>
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        </div>
+	    </div>
+	</div>
+</div>
+
+<!-- 聯絡 -->
+<div id="ContactModal" class="modal fade" style="color:black">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            <h4 id="ContactModalTitle" class="modal-title"  style="color:black"></h4>
+	        </div>
+	        <div id="ContactModalBody" class="modal-body"  style="color:black">
+	        	
+	        </div>
+	        <div class="modal-footer">
+	        	
 	        </div>
 	    </div>
 	</div>
@@ -270,8 +288,33 @@
 	
 	
 	<script>
+// 	function mailMember(){
+// 		$.ajax({
+// 			url : 'sendEmail',
+// 			type : 'GET',
+// 			async:false,
+//             contentType: "application/json",
+//             dataType : "JSON",
+// 			data : {
+// 				email : memberEmail,
+// 				text : $("#mailText").val(),
+// 				method : "$.ajax()",
+// 				doWhat : "GET"
+// 			},
+// 			success : function(data) {
+// 				console.log("成功");
+// 			}
+// 		})
+// 			$("#ContactModalBody").html('成功');
+// 			$("#ContactModal").children("button").eq(0).remove();
+// 				console.log(memberEmail)
+// 	}
 
-
+// 	 $(".contactMember").on("click",function(){
+//  			   $("#ContactModalTitle").text("傳送郵件");	  
+//  			   $("#ContactModalBody").html('請輸入內容：<br><textarea name="text" rows=5 style="width:90%;resize:none"></textarea>');	  
+//  			   $("#ContactModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default mailMember" onclick="mailMember()">寄出</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>');
+//  		})
 	</script>
 	
 	</body>
