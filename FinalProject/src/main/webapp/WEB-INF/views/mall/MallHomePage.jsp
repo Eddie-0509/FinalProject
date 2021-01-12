@@ -163,7 +163,7 @@ td:hover {
 	border: none;
 }
 
-#dicon img:hover{
+#dicon img:hover {
 	opacity: 0.5;
 }
 </style>
@@ -178,6 +178,7 @@ td:hover {
 		<i class="bi bi-cart4"></i>
 		</span>
 	</div>
+
 	<div id="left">
 		<h2>Category</h2>
 		<br>
@@ -186,6 +187,7 @@ td:hover {
 		<p>牙刷</p>
 		<p>牙膏</p>
 	</div>
+	
 	<div id="title">
 		<h1>Products</h1>
 		<select class="showby" name="showby">
@@ -196,9 +198,11 @@ td:hover {
 			<option value="4">上架時間 - 由舊至新</option>
 		</select>
 	</div>
+	
 	<div id="main">
 	
 	</div>
+	
 	<div class="modal right fade" tabindex="-1" role="dialog" id="pdetail">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content" id="dcontent">
@@ -220,28 +224,6 @@ td:hover {
 					<img id="dadd" src="images/CartIconAdd.png">
 				</div>	
 					<button type="button" class="btn btn-primary">加入購物車</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	</div>
-	<div class="modal right fade" tabindex="-1" role="dialog" id="cart">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 id="ctitle" class="modal-title"><br></h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<figure class="dfigure">123</figure>
-					<p class="dprice">456</p>
-					<p class="dprofile">789</p>
-					<p class="dspec"></p>
-				</div>
-				<div class="modal-footer">	
-					<button type="button" class="btn btn-primary">結帳</button>
 				</div>
 			</div>
 		</div>
@@ -269,7 +251,7 @@ td:hover {
 					$("#main").html(str1);
 
 					$(".bi-cart4").click(function(){
-						$("#cart").modal("show");
+// 						===================
 					});
 
 					$("#dadd").click(function(){				
@@ -418,7 +400,8 @@ td:hover {
 
 				let pspec = products[pnum].productSpec;
 				let restr = /\|/gi;
-				$("#dspec").html(pspec.replace(restr, '<br>'));			
+				$("#dspec").html(pspec.replace(restr, '<br>'));		
+
 				$("#pdetail").modal("show"); 
 			});
 		}
