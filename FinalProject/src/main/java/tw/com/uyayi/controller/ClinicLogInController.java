@@ -3,13 +3,17 @@ package tw.com.uyayi.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tw.com.uyayi.model.Appointment;
@@ -19,7 +23,7 @@ import tw.com.uyayi.service.ClinicCalendarService;
 import tw.com.uyayi.service.ClinicLogInService;
 
 @Controller
-@SessionAttributes({"clinic"}) 
+@SessionAttributes({"clinic","DentistIdList","DentistNameList","AllAppointmentList"}) 
 public class ClinicLogInController {
 	@Autowired
 	ClinicLogInService clinicLogInservce;
@@ -54,6 +58,16 @@ public class ClinicLogInController {
 			redAttributes.addFlashAttribute("logInFail","帳號密碼錯誤");
 			return "redirect:/clinicIndex";
 		}
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session,  Model model, SessionStatus status,
+			RedirectAttributes redirectAtt
+			) {	
+		// 登出時執行下列兩敘述
+		status.setComplete();		// 移除@SessionAttributes({"LoginOK"}) 標示的屬性物件
+		session.invalidate();		// 此敘述不能省略		
+		return "redirect:/";	
 	}
 	
 }

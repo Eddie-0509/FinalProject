@@ -153,7 +153,7 @@
 				<li class="animate-box"><a href="#" class="transition">醫師資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">報表</a></li>
 			</ul>
-			<a href="#" class="transition style-logout">登出</a>
+			<a href="<c:url value='logout'/>" class="transition style-logout">登出</a>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
