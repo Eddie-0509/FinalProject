@@ -97,10 +97,22 @@ td:hover {
 	cursor: pointer;
 }
 
+.pnum {
+	display: none;
+}
+
 .price {
 	color: #F75000;
 	font-weight: 900;
 	font-family: Calibri;
+}
+
+.dpic {
+	background-color: lightgreen;
+	height: 300px;
+	width: 300px;
+	float: left;
+	
 }
 </style>
 </head>
@@ -144,12 +156,15 @@ td:hover {
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>我們要呈現在Modal裡的內容</p>
+					<figure class="dpic">
+						【PICTURES HERE】
+					</figure>
+					<p class="dprice">我們要呈現在Modal裡的內容</p>
+					<p class="dprofile"></p>
+					<p class="dspec"></p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-primary">加入購物車</button>
 				</div>
 			</div>
 		</div>
@@ -164,7 +179,7 @@ td:hover {
 
 					let str1 = "<table class='ptable'><tr>";
 					for (let i = 0; i < products.length; i++) {
-						str1 += "<td>" + products[i].productImage + "<br>"+ products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice + "</span></td>";
+						str1 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage + "<br>"+ products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice + "</span></td>";
 
 						if (j % 3 == 0) {
 							str1 += "</tr>";
@@ -193,7 +208,7 @@ td:hover {
 								let str2 = "<table class='ptable'><tr>";
 
 								for (let i = 0; i < data.length; i++) {
-									str2 += "<td>" + data[i].productImage+ "<br>" + data[i].productName+ "<br><span class='price'>NTD$ "+ data[i].productPrice+ "</span></td>";
+									str2 += "<td><span class='pnum'>" + i + "</span>" + data[i].productImage+ "<br>" + data[i].productName+ "<br><span class='price'>NTD$ "+ data[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str2 += "</tr>";
@@ -217,7 +232,7 @@ td:hover {
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -237,7 +252,7 @@ td:hover {
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -257,7 +272,7 @@ td:hover {
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -277,7 +292,7 @@ td:hover {
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td><span class='pnum'>" + i + "</span>" + products[i].productImage+ "<br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -294,8 +309,17 @@ td:hover {
 		
 		function beReady() {
 			$("td").click(function() {
-				console.log(products);
-				console.log($(this));
+				let pnum = $(this).children(".pnum").text();
+				console.log(products[pnum]);
+				$(".modal-title").text(products[pnum].productName);
+				$(".modal-body").children(".dprice").text("NTD $ " + products[pnum].productPrice);
+				$(".modal-body").children(".dprofile").text(products[pnum].productProfile);
+
+				let pspec = products[pnum].productSpec;
+				console.log("pspec = " + pspec);
+				console.log("newpspec = " + pspec.replace('|', '<br>'));
+				$(".modal-body").children(".dspec").text(products[pnum].productSpec);
+				
 				$("#pdetail").modal("show"); 
 			})
 		}
