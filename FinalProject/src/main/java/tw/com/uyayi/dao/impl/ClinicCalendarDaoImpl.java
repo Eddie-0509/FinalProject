@@ -3,7 +3,6 @@ package tw.com.uyayi.dao.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -87,18 +86,18 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Appointment> queryAppointmentByIdNumber(String IdNumber) {
+	public ArrayList<Appointment> queryAppointmentByPhone(String phone) {
 		Session session=factory.getCurrentSession();
-		String hqlmem = "from Member mem where mem.memberIdNumber =:memberIdNumber";
-		Member member=(Member) session.createQuery(hqlmem).setParameter("memberIdNumber", IdNumber).getSingleResult();
+		String hqlmem = "from Member mem where mem.memberPhone =:memberPhone";
+		Member member=(Member) session.createQuery(hqlmem).setParameter("memberPhone", phone).getSingleResult();
 		String hqlapp="";
 		ArrayList<Appointment> list=new ArrayList<Appointment>();
 		if (member!=null) {
 			 hqlapp = "from Appointment app where app.memberBean =:member";
 			 list = (ArrayList<Appointment>) session.createQuery(hqlapp).setParameter("member",member).getResultList();
 		}else {
-			hqlapp = "from Appointment app where app.patientIdNumber =:IdNumber";	
-			list =  (ArrayList<Appointment>) session.createQuery(hqlapp).setParameter("IdNumber",IdNumber).getResultList();
+			hqlapp = "from Appointment app where app.patientPhone =:phone";	
+			list =  (ArrayList<Appointment>) session.createQuery(hqlapp).setParameter("phone",phone).getResultList();
 		}
 		
 		

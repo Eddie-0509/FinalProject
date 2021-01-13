@@ -291,33 +291,6 @@
 	
 	<script>
 
-// 	function mailMember(){
-// 		$.ajax({
-// 			url : 'sendEmail',
-// 			type : 'GET',
-// 			async:false,
-//             contentType: "application/json",
-//             dataType : "JSON",
-// 			data : {
-// 				email : memberEmail,
-// 				text : $("#mailText").val(),
-// 				method : "$.ajax()",
-// 				doWhat : "GET"
-// 			},
-// 			success : function(data) {
-// 				console.log("成功");
-// 			}
-// 		})
-// 			$("#ContactModalBody").html('成功');
-// 			$("#ContactModal").children("button").eq(0).remove();
-// 				console.log(memberEmail)
-// 	}
-
-// 	 $(".contactMember").on("click",function(){
-//  			   $("#ContactModalTitle").text("傳送郵件");	  
-//  			   $("#ContactModalBody").html('請輸入內容：<br><textarea name="text" rows=5 style="width:90%;resize:none"></textarea>');	  
-//  			   $("#ContactModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default mailMember" onclick="mailMember()">寄出</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>');
-//  		})
 	</script>
 	
 	</body>

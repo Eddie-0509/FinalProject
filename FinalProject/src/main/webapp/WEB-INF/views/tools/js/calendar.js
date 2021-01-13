@@ -316,13 +316,13 @@ $(document).ready(function(){
 	
 	$("#queryBut").on("click",function(){
 			   $("#qmodalTitle").text("查詢預約紀錄");
-	 		   $("#qmodalBody").html("請輸入身分證字號："+'<input type="text" id="IdNumberToQuery"></input>')
+	 		   $("#qmodalBody").html("請輸入電話號碼："+'<input type="text" id="PhoneToQuery"></input>')
 			   $("#QueryModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default" id="queryAppointment" onclick="queryAppointment()">查詢</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>')
 	})		   
 	
 	$("#queryClose").on("click",function(){
 			   $("#qmodalTitle").text("查詢預約紀錄");
-			   $("#qmodalBody").html("請輸入身分證字號："+'<input type="text" id="IdNumberToQuery"></input>')
+			   $("#qmodalBody").html("請輸入電話號碼："+'<input type="text" id="PhoneIdNumberToQuery"></input>')
 			   $("#QueryModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default" id="queryAppointment" onclick="queryAppointment()">查詢</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>')
 		
 	})
@@ -366,7 +366,7 @@ function mailMember(){
              contentType: "application/json",
              dataType : "JSON",
              data:{
-            	 IdNumber : $("#IdNumberToQuery").val()
+            	 Phone : $("#PhoneToQuery").val()
              },//請求方式
              success: function (result) {
              	 $("#qmodalTitle").text(result[0].memberBean.memberName+"的預約紀錄");
