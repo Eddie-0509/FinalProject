@@ -81,6 +81,7 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		appointmentDetail.put("time", result.getTimeTableBean().getTimes());
 		appointmentDetail.put("reply", result.getMemberReply());
 		appointmentDetail.put("email", result.getMemberBean().getMemberAccount());
+//		appointmentDetail.put("memberID", Integer.toString(result.getMemberBean().getMemberPkId()));		
 		return appointmentDetail;
 	}
 
@@ -102,6 +103,13 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		
 		
 		return list;
+	}
+
+	@Override
+	public void absentReport(Integer appointmentID) {
+		Session session=factory.getCurrentSession();
+		String hql = "update Appointment app set app.arrive = 'false' where app.appointmentPkId= :appointmentID";
+		session.createQuery(hql).setParameter("appointmentID", appointmentID).executeUpdate();
 	}
 
 	

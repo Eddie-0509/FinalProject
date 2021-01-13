@@ -3,7 +3,6 @@ package tw.com.uyayi.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -12,14 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.com.uyayi.dao.impl.ComparatorDate;
 import tw.com.uyayi.dao.impl.Mail;
 import tw.com.uyayi.model.Appointment;
-import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.service.ClinicCalendarService;
 
 
@@ -89,6 +87,7 @@ public class ClinicCalendarController {
 		return "clinic/clinicCreateAppointment";
 	}
 	
+	//用電話號碼查詢所有紀錄
 	@GetMapping(path = "/queryAppointment", produces = "application/json")
 	public @ResponseBody ArrayList<Appointment> queryAppointment(
 			@RequestParam("Phone") String Phone) {
@@ -102,6 +101,7 @@ public class ClinicCalendarController {
 			 } 
 	}
 	
+	//寄信給會員
 	@GetMapping(path = "/sendEmail", produces = "application/json")
 	public @ResponseBody String sendEmail(
 			@RequestParam("email") String email , @RequestParam("text") String text) {
@@ -110,6 +110,14 @@ public class ClinicCalendarController {
 		 	 System.out.println(email+text);
 		 	 return null;
 		 			 
+	}
+	
+	//回報未到診
+	@PostMapping(path =  "/absentReport", produces = "application/json")
+	public @ResponseBody String sbsentReport(
+			@RequestParam("appointmentID") Integer appointmentID ) {
+		 caService.absentReport(appointmentID);
+		 return "回報成功";
 	}
 	
 	

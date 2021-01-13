@@ -14,4 +14,5 @@ public interface ClinicCalendarDao {
 	List<Dentist> getDentistList(Integer clinicID);
 	LinkedHashMap<String,String> getAppointmentDetail(Integer appointmentID);
 	ArrayList<Appointment> queryAppointmentByPhone(String phone);
+	void absentReport(Integer appointmentID);
 }

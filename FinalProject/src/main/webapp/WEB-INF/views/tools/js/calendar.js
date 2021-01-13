@@ -1,4 +1,5 @@
 var memberEmail="";
+var appointmentID="";
 
 //格式化奇怪的日期
 	function formatDate(NewDtime) {
@@ -137,7 +138,7 @@ $(document).ready(function(){
 					 $.ajax({
 			             url: 'getAppointmentDetail',    //url位置
 			             type: 'get',
-			             async:false,
+			             //async:false,
 			             contentType: "application/json",
 			             dataType : "JSON",
 			             data:{
@@ -277,7 +278,8 @@ $(document).ready(function(){
 						 $("#time").text(result.time);
 						 $("#reply").text(result.reply);
 						 memberEmail=result.email;
-						 console.log("283="+memberEmail);
+						 appointmentID=event.id;
+						 console.log("283="+memberEmail+",ID:"+appointmentID);
 		             }
 		        })
 			}		             

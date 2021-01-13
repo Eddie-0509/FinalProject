@@ -134,7 +134,9 @@
 	<!-- calendar JS&CSS  BySCONE-->
 	<script src="js/calendar.js"></script>
 	<link rel="stylesheet" href="css/calendar.css"></link>
-
+<!-- 	確認彈窗 -->
+	<link rel="stylesheet" href="css/confirm-modal.css"></link>
+	<script src="js/confirm-modal.js"></script>
 
 	</head>
 
@@ -218,8 +220,8 @@
 	  
 	        </div>
 	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" >連絡病患</button>
-	        	<button type="button" class="btn btn-default" >未到診回報</button>
+	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal">連絡病患</button>
+	        	<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button>
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        </div>
 	    </div>
@@ -290,7 +292,19 @@
 	
 	
 	<script>
+	async function openConfirmModal() {
+        this.myModal = new SimpleModal("確認", "確定回報此病患未到診？", "是", "否");
 
+        try {
+          const modalResponse = await myModal.question();
+         // alert(`The response is ${modalResponse}`);
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	
+	
 	</script>
 	
 	</body>

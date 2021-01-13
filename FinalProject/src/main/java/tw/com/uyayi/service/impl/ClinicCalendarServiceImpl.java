@@ -49,6 +49,11 @@ public class ClinicCalendarServiceImpl implements ClinicCalendarService {
 		return caDao.queryAppointmentByPhone(phone);
 	}
 
+	@Override
+	public void absentReport(Integer appointmentID) {
+		caDao.absentReport(appointmentID);		
+	}
+
 
 
 }
