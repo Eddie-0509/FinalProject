@@ -86,13 +86,13 @@
   box-shadow: 0 0 5px 2px #467BF4;    
 }
 
-td {
+.ptd {
 	width: 300px;
 	border: 15px solid white;
 	padding: 20px;
 }
 
-td:hover {
+.ptd:hover {
 	cursor: pointer;
 }
 
@@ -166,6 +166,11 @@ td:hover {
 	opacity: 0.5;
 }
 
+.cpic {
+	hieght: 100px;
+	width: 100px;
+}
+
 .modal.right .modal-dialog {
 position: fixed;
 margin: auto; 
@@ -179,7 +184,9 @@ transform: translate3d(200%, 0, 0);
 
 .modal.right .modal-content {   
 height: 100vh;
-width:40vw;
+width: 35vw;
+max-height: height_body;
+overflow: auto;
 }   
 
 .modal.right.fade .modal-dialog{
@@ -191,23 +198,6 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 </style>
 </head>
 <body>
-    <div class="modal fade right" id= "experimentMakeAnOffer2">
-        <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-            <h4 id="ctitle" class="modal-title">購物車</h4></div>
-            <div class="modal-body experimentMakeAnOffer">
-            	<p>您還未選購任何商品 T_T</p>         
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary submitOffer btn-lg" data-dismiss="modal">結帳</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
 	<div id="topBar">
 		<span class=sp1>U YA MALL</span>
 		<span class=sp2>for a better teeth health</span>
@@ -262,22 +252,38 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					<input type="text" id="dqty" value="1">
 					<img id="dadd" src="images/CartIconAdd.png">
 				</div>	
-					<button type="button" class="btn btn-primary">加入購物車</button>
+					<button type="button" class="btn btn-primary" id="djoin">加入購物車</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	    <div class="modal fade right" id= "cart">
+        <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+            <h4 id="ctitle" class="modal-title">購物車</h4></div>
+            <div class="modal-body experimentMakeAnOffer" id="ccontent">
+            	<p id="empty" style="font-size: 35px; text-align: center;"><br><br><br>您還未選購任何商品 Q_Q</p>         
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary submitOffer btn-lg" data-dismiss="modal">結帳</button>
+            </div>
+        </div>
+    </div>
+</div>
 	<script>
 		let trans = ${products};
 		let products = trans.productList;
-
+		let pnum;
+		
 		$(document).ready(
 				function() {
 					let j = 1;
-
 					let str1 = "<table class='ptable'><tr>";
 					for (let i = 0; i < products.length; i++) {
-						str1 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice + "</span></td>";
+						str1 += "<td class='ptd'><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice + "</span></td>";
 
 						if (j % 3 == 0) {
 							str1 += "</tr>";
@@ -289,8 +295,12 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					str1 += "</table>";
 					$("#main").html(str1);
 
+					$(".bi-house").click(function(){
+						
+					});
+					
 					$(".bi-cart4").click(function(){
-						$("#experimentMakeAnOffer2").modal("show");
+						$("#cart").modal("show");
 					});
 
 					$("#dadd").click(function(){				
@@ -328,7 +338,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 								let str2 = "<table class='ptable'><tr>";
 
 								for (let i = 0; i < data.length; i++) {
-									str2 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + data[i].productName+ "<br><span class='price'>NTD$ "+ data[i].productPrice+ "</span></td>";
+									str2 += "<td class='ptd'><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + data[i].productName+ "<br><span class='price'>NTD$ "+ data[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str2 += "</tr>";
@@ -352,7 +362,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td class='ptd'><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -372,7 +382,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td class='ptd'><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -392,7 +402,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td class='ptd'><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -412,7 +422,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 								let j = 1;
 								let str3 = "<table class='ptable'><tr>";
 								for (let i = 0; i < newlist.length; i++) {
-									str3 += "<td><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
+									str3 += "<td class='ptd'><span class='pnum'>" + i + "</span><img class='ppic' src='" + products[i].productImage + "'/><br>" + products[i].productName+ "<br><span class='price'>NTD$ "+ products[i].productPrice+ "</span></td>";
 
 									if (j % 3 == 0) {
 										str3 += "</tr>";
@@ -428,10 +438,10 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 
 		
 		function beReady() {
-			$("td").click(function() {
+			$(".ptd").click(function() {
 				$("#dqty").val(1);
 				
-				let pnum = $(this).children(".pnum").text();
+				pnum = $(this).children(".pnum").text();
 				$("#dtitle").text(products[pnum].productName);
 				$("#dfigure").html("<img class='dpic' src='" + products[pnum].productImage + "'/>");
 				$("#dprice").text("NTD $ " + products[pnum].productPrice);
@@ -444,6 +454,20 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 				$("#pdetail").modal("show"); 
 			});
 		}
+		
+			$("#djoin").click(function(){
+				$("#pdetail").modal("hide");
+				$("#empty").hide();
+				
+				let cstr = "<table class='ctable'><tr><td class='ctd'><span id='pkid' style='display: none;'>"
+					+ products[pnum].productPkId + "</span><img class='cpic' src='"
+					+ products[pnum].productImage + "'/>"
+					+ "</td><td>" + products[pnum].productName 
+					+ "<br>" + products[pnum].productPrice;
+					
+				$("#ccontent").append(cstr);
+				$("#cart").modal("show");
+			});
 	</script>
 </body>
 </html>
