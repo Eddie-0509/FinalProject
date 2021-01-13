@@ -166,9 +166,44 @@
 	opacity: 0.5;
 }
 
+.ctable {
+	width: 100%;
+	font-size: 15px;
+}
+
+.ctable th {
+	text-align: center;
+	color: blue;
+}
+
+.ctable th, .ctable td {
+/*  	border: 2px solid red;  */
+	text-align: center;
+}
+
 .cpic {
-	hieght: 100px;
-	width: 100px;
+/* 	hieght: 100px; */
+	width: 30%;
+}
+
+.cname {
+	width: 50%;
+}
+
+.cprice {
+	width: 10%;
+}
+
+.cqty {
+	width: 10%;
+}
+
+.cdel {
+	width: 10%;
+}
+
+#ctotal {
+	location: absolute;
 }
 
 .modal.right .modal-dialog {
@@ -184,7 +219,7 @@ transform: translate3d(200%, 0, 0);
 
 .modal.right .modal-content {   
 height: 100vh;
-width: 35vw;
+width: 45vw;
 max-height: height_body;
 overflow: auto;
 }   
@@ -267,7 +302,9 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
             	<p id="empty" style="font-size: 35px; text-align: center;"><br><br><br>您還未選購任何商品 Q_Q</p>         
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                <span  id="ctotal">
+                	總計：<span>123</span>
+                </span>
                 <button type="button" class="btn btn-primary submitOffer btn-lg" data-dismiss="modal">結帳</button>
             </div>
         </div>
@@ -458,12 +495,16 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 			$("#djoin").click(function(){
 				$("#pdetail").modal("hide");
 				$("#empty").hide();
+				let qty = $("#dqty").val();
 				
-				let cstr = "<table class='ctable'><tr><td class='ctd'><span id='pkid' style='display: none;'>"
+				let cstr = "<table class='ctable'>"
+					+ "<tr><td><span id='pkid' style='display: none;'>"
 					+ products[pnum].productPkId + "</span><img class='cpic' src='"
 					+ products[pnum].productImage + "'/>"
-					+ "</td><td>" + products[pnum].productName 
-					+ "<br>" + products[pnum].productPrice;
+					+ "</td><td class='cname'>" + products[pnum].productName 
+					+ "</td><td class='cprice'>" + products[pnum].productPrice
+					+ "</td><td class='cqty'>" + qty + "</td>"
+					+ "<td class'cdel'><i class='bi bi-trash'></i></td>";
 					
 				$("#ccontent").append(cstr);
 				$("#cart").modal("show");
