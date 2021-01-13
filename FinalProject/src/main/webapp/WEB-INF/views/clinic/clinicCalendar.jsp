@@ -159,6 +159,7 @@
 				<span class="fh5co-circle"></span>
 			</a>
 		</nav>
+		</div>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
@@ -288,6 +289,7 @@
 	
 	
 	<script>
+
 // 	function mailMember(){
 // 		$.ajax({
 // 			url : 'sendEmail',

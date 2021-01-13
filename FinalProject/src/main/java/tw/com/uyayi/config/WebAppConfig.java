@@ -1,14 +1,18 @@
 package tw.com.uyayi.config;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -17,7 +21,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan("tw.com.uyayi")
 public class WebAppConfig implements WebMvcConfigurer {
-
+	@Autowired
+	SessionFactory factory;
 	@Bean
 	public ViewResolver resolver() {
 		InternalResourceViewResolver vr = new InternalResourceViewResolver();
@@ -56,6 +61,18 @@ public class WebAppConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/sass/**").addResourceLocations("/WEB-INF/views/tools/sass/");
 
 	}
+	
+	@Override
+    public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new CheckLoginInterceptor());
+		DisableCacheInterceptor  disableCacheInterceptor = new DisableCacheInterceptor();
+        registry.addInterceptor(disableCacheInterceptor);
+        
+        OpenSessionInViewInterceptor openSessionInViewInterceptor = new OpenSessionInViewInterceptor();
+	    openSessionInViewInterceptor.setSessionFactory(factory);
+	    registry.addWebRequestInterceptor(openSessionInViewInterceptor).addPathPatterns("/_05_orderProcess/orderDetail");
+    }
+	
 	
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
