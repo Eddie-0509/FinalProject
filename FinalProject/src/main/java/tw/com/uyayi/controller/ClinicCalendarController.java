@@ -91,10 +91,10 @@ public class ClinicCalendarController {
 	
 	@GetMapping(path = "/queryAppointment", produces = "application/json")
 	public @ResponseBody ArrayList<Appointment> queryAppointment(
-			@RequestParam("patientPhone") String patientPhone) {
+			@RequestParam("IdNumber") String IdNumber) {
 		 	 try {
-			 ArrayList<Appointment> patientallapp = caService.queryAppointmentByPhone(patientPhone);
-			 System.out.print(patientPhone);
+			 ArrayList<Appointment> patientallapp = caService.queryAppointmentByIdNumber(IdNumber);
+			 System.out.print(IdNumber);
 			 Collections.sort(patientallapp,new ComparatorDate());
 			 return patientallapp;
 		 	 }catch (NoResultException e) {

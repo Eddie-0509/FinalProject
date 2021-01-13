@@ -1,5 +1,18 @@
 var memberEmail="";
 
+//格式化奇怪的日期
+	function formatDate(NewDtime) {
+	    var dt = new Date(parseInt(NewDtime));
+	    var year = dt.getFullYear();
+	    var month = dt.getMonth() + 1;
+	    month=("0"+month);
+	    month=month.substring(month.length-2);
+	    var date = dt.getDate();
+	    date=("0"+date);
+		date=date.substring(date.length-2);
+	    return year + "-" + month + "-" + date ;
+	}
+
 $(document).ready(function(){
 //	var dnl="${DentistNameList}"
 	var afterdnl=dnl.substring(1,dnl.length-1);
@@ -61,18 +74,7 @@ $(document).ready(function(){
 	// $("#doctor0").addClass("fc-unthemed")
 	// $("#doctor0").addClass("fc-ltr")
 	
-	//格式化奇怪的日期
-	function formatDate(NewDtime) {
-	    var dt = new Date(parseInt(NewDtime));
-	    var year = dt.getFullYear();
-	    var month = dt.getMonth() + 1;
-	    month=("0"+month);
-	    month=month.substring(month.length-2);
-	    var date = dt.getDate();
-	    date=("0"+date);
-		date=date.substring(date.length-2);
-	    return year + "-" + month + "-" + date ;
-	}
+	
 	
 	
 	//綁定TAB動態事件，點選TAB抓取該醫生預約資料
@@ -283,35 +285,45 @@ $(document).ready(function(){
 	
 	console.log("283="+memberEmail);
 	
-	$("#queryAppointment").on("click",function(){
-		$.ajax({
-             url: 'queryAppointment',    //url位置
-             type: 'get',
-             async:false,
-             contentType: "application/json",
-             dataType : "JSON",
-             data:{
-            	 patientPhone : $("#phoneToQuery").val()
-             },//請求方式
-             success: function (result) {
-             	 $("#qmodalTitle").text("病患"+result[0].memberBean.memberName+"的紀錄");
-             	 $("#qmodalBody").html('<table id="queryTable"><thead><tr><th>預約日期</th><th>預約時間</th><th>預約醫師</th><th>預約項目</th></tr></thead><tbody></tbody></table>')
-				 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td></tr>')
-				 for(let i=1;i<result.length;i++){
-				 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td></tr>')
-				 }
-				 console.log(result)
-				 
-             },
-             error: function(){
-             	$("#qmodalBody").text("查無資料")
-             }
-             
-        })
-	})
+//	$("#queryAppointment").on("click",function(){
+//		$.ajax({
+//             url: 'queryAppointment',    //url位置
+//             type: 'get',
+//             async:false,
+//             contentType: "application/json",
+//             dataType : "JSON",
+//             data:{
+//            	 IdNumber : $("#IdNumberToQuery").val()
+//             },//請求方式
+//             success: function (result) {
+//             	 $("#qmodalTitle").text(result[0].memberBean.memberName+"的預約紀錄");
+//             	 $("#qmodalBody").html('<table id="queryTable"><thead><tr><th>預約日期</th><th>預約時間</th><th>預約醫師</th><th>預約項目</th></tr></thead><tbody></tbody></table>')
+//				 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td></tr>')
+//				 for(let i=1;i<result.length;i++){
+//				 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td></tr>')
+//				 }
+//				 $("#queryAppointment").remove();
+//				 console.log(result)
+//				 
+//             },
+//             error: function(){
+//             	$("#qmodalBody").text("查無資料")
+//             	$("#queryAppointment").remove();
+//             }
+//             
+//        })
+//	})
+	
+	$("#queryBut").on("click",function(){
+			   $("#qmodalTitle").text("查詢預約紀錄");
+	 		   $("#qmodalBody").html("請輸入身分證字號："+'<input type="text" id="IdNumberToQuery"></input>')
+			   $("#QueryModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default" id="queryAppointment" onclick="queryAppointment()">查詢</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>')
+	})		   
 	
 	$("#queryClose").on("click",function(){
-			   $("#qmodalBody").html("請輸入病患電話："+'<input type="text" id="phoneToQuery"></input>')	  
+			   $("#qmodalTitle").text("查詢預約紀錄");
+			   $("#qmodalBody").html("請輸入身分證字號："+'<input type="text" id="IdNumberToQuery"></input>')
+			   $("#QueryModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default" id="queryAppointment" onclick="queryAppointment()">查詢</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>')
 		
 	})
 	
@@ -345,3 +357,40 @@ function mailMember(){
 			$("#ContactModal").children("button").eq(0).remove();
 				console.log("?")
 	}
+	
+	function queryAppointment(){
+		$.ajax({
+             url: 'queryAppointment',    //url位置
+             type: 'get',
+             async:false,
+             contentType: "application/json",
+             dataType : "JSON",
+             data:{
+            	 IdNumber : $("#IdNumberToQuery").val()
+             },//請求方式
+             success: function (result) {
+             	 $("#qmodalTitle").text(result[0].memberBean.memberName+"的預約紀錄");
+             	 $("#qmodalBody").html('<table id="queryTable"><thead><tr><th>預約日期</th><th>預約時間</th><th>預約醫師</th><th>預約項目</th></tr></thead><tbody></tbody></table>')
+				 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td></tr>')
+				 for(let i=1;i<result.length;i++){
+				 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td></tr>')
+				 }
+				 $("#queryAppointment").remove();
+				 console.log(result)
+				 
+             },
+             error: function(){
+             	$("#qmodalBody").text("查無資料")
+             	$("#queryAppointment").remove();
+             }
+             
+        })
+	}
+	
+	
+//$("#queryClose").on("click",function(){
+//			   $("#qmodalTitle").text("查詢預約紀錄");
+//			   $("#qmodalBody").html("請輸入病患身分證字號："+'<input type="text" id="IdNumberToQuery"></input>')
+//			   $("#QueryModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default" id="queryAppointment">查詢</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>')
+//		
+//	})

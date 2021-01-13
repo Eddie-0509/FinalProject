@@ -14,7 +14,7 @@ public interface ClinicCalendarService {
 	List<Appointment> getAllAppointmentByClinic(Integer clinicID);
 	List<Dentist> getDentistList(Integer clinicID);
 	LinkedHashMap<String,String> getAppointmentDetail(Integer appointmentID);
-	ArrayList<Appointment> queryAppointmentByPhone(String phone);
+	ArrayList<Appointment> queryAppointmentByIdNumber(String IdNumber);
 
 
 }

@@ -169,7 +169,7 @@
 								<input type="button" value="WEEK" style="color: black;" id="weekBut"></input>
 								<input type="button" value="LIST" style="color: black;" id="listBut"></input>
 								<input type="button" value="醫師別" style="color: black;" id="doctorBut"></input>
-								<input type="button" value="查詢病患預約" style="color: black;" data-toggle="modal" data-target="#QueryModal"></input>
+								<input type="button" value="查詢病患預約" style="color: black;" data-toggle="modal" data-target="#QueryModal" id="queryBut"></input>
 								<br>
 							</div>
 								<div id="colorsetumeis" class="animate-box">
@@ -249,14 +249,14 @@
 	    <div class="modal-content">
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="qmodalTitle" class="modal-title"  style="color:black">查詢病患預約紀錄</h4>
+	            <h4 id="qmodalTitle" class="modal-title"  style="color:black">查詢預約紀錄</h4>
 	        </div>
 	        <div id="qmodalBody" class="modal-body"  style="color:black">
-	        	請輸入病患電話：<input type="text" id="phoneToQuery"></input>	  
+<!-- 	        	請輸入病患身分證字號：<input type="text" id="IdNumberToQuery"></input>	   -->
 	        </div>
 	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default" id="queryAppointment">查詢</button>
-	            <button type="button" class="btn btn-default" data-dismiss="modal" id="queryClose">Close</button>	            
+<!-- 	        	<button type="button" class="btn btn-default" id="queryAppointment">查詢</button> -->
+<!-- 	            <button type="button" class="btn btn-default" data-dismiss="modal" id="queryClose">Close</button>	             -->
 	        </div>
 	    </div>
 	</div>

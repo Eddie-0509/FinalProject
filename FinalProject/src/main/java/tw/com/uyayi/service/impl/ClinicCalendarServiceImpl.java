@@ -45,8 +45,8 @@ public class ClinicCalendarServiceImpl implements ClinicCalendarService {
 	}
 
 	@Override
-	public ArrayList<Appointment> queryAppointmentByPhone(String phone) {
-		return caDao.queryAppointmentByPhone(phone);
+	public ArrayList<Appointment> queryAppointmentByIdNumber(String IdNumber) {
+		return caDao.queryAppointmentByIdNumber(IdNumber);
 	}
 
 

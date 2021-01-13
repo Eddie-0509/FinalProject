@@ -87,18 +87,18 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Appointment> queryAppointmentByPhone(String phone) {
+	public ArrayList<Appointment> queryAppointmentByIdNumber(String IdNumber) {
 		Session session=factory.getCurrentSession();
-		String hqlmem = "from Member mem where mem.memberPhone =:memberPhone";
-		Member member=(Member) session.createQuery(hqlmem).setParameter("memberPhone", phone).getSingleResult();
+		String hqlmem = "from Member mem where mem.memberIdNumber =:memberIdNumber";
+		Member member=(Member) session.createQuery(hqlmem).setParameter("memberIdNumber", IdNumber).getSingleResult();
 		String hqlapp="";
 		ArrayList<Appointment> list=new ArrayList<Appointment>();
 		if (member!=null) {
 			 hqlapp = "from Appointment app where app.memberBean =:member";
 			 list = (ArrayList<Appointment>) session.createQuery(hqlapp).setParameter("member",member).getResultList();
 		}else {
-			hqlapp = "from Appointment app where app.patientPhone =:phone";	
-			list =  (ArrayList<Appointment>) session.createQuery(hqlapp).setParameter("phone",phone).getResultList();
+			hqlapp = "from Appointment app where app.patientIdNumber =:IdNumber";	
+			list =  (ArrayList<Appointment>) session.createQuery(hqlapp).setParameter("IdNumber",IdNumber).getResultList();
 		}
 		
 		
