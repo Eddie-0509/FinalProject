@@ -49,19 +49,18 @@ public class AdminController {
 		return "admin/memberManage";
 	}
 	
-	@GetMapping(value = "/addProductForm")
-	public String addProductForm(Model model) {
-		Products product = new Products();
-		model.addAttribute("product",product);
-		return "admin/addProductForm";
-	}
-	
+//	@GetMapping(value = "/addProductForm")
+//	public String addProductForm(Model model) {
+//		Products product = new Products();
+//		model.addAttribute("product",product);
+//		return "admin/addProductForm";
+//	}
+//	
 	@PostMapping(value = "/addProduct")
 	public String addProduct(@ModelAttribute("product") Products product) {
 		Date sqldate = service.getToday();
 		product.setProductUpdateDate(sqldate);
-		service.insertProduct(product);
-		
+		service.insertProduct(product);	
 		return "redirect:/productManage";
 	}
 	

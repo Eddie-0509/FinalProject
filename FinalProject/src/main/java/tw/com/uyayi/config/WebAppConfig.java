@@ -65,6 +65,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new CheckLoginInterceptor());
+		registry.addInterceptor(new MemberCheckLoginInterceptor());
 		DisableCacheInterceptor  disableCacheInterceptor = new DisableCacheInterceptor();
         registry.addInterceptor(disableCacheInterceptor);
         

@@ -64,8 +64,8 @@ public class ClinicLogInController {
 	public String logout(HttpSession session,  Model model, SessionStatus status,
 			RedirectAttributes redirectAtt
 			) {	
-		String farewellMessage="";
-		redirectAtt.addFlashAttribute("FlashMSG_farewell", farewellMessage);
+//		String farewellMessage="";
+//		redirectAtt.addFlashAttribute("FlashMSG_farewell", farewellMessage);
 
 		// 登出時執行下列兩敘述
 		status.setComplete();		// 移除@SessionAttributes({"LoginOK"}) 標示的屬性物件

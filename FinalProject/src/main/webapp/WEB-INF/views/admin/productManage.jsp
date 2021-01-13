@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="form"  uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -36,18 +36,18 @@
 	 -->
 
 <!-- Facebook and Twitter integration -->
-<meta property="og:title" content="" />
-<meta property="og:image" content="" />
-<meta property="og:url" content="" />
-<meta property="og:site_name" content="" />
-<meta property="og:description" content="" />
-<meta name="twitter:title" content="" />
-<meta name="twitter:image" content="" />
-<meta name="twitter:url" content="" />
-<meta name="twitter:card" content="" />
+<!-- <meta property="og:title" content="" /> -->
+<!-- <meta property="og:image" content="" /> -->
+<!-- <meta property="og:url" content="" /> -->
+<!-- <meta property="og:site_name" content="" /> -->
+<!-- <meta property="og:description" content="" /> -->
+<!-- <meta name="twitter:title" content="" /> -->
+<!-- <meta name="twitter:image" content="" /> -->
+<!-- <meta name="twitter:url" content="" /> -->
+<!-- <meta name="twitter:card" content="" /> -->
 
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<link rel="shortcut icon" href="favicon.ico">
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
 
 <link
 	href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700'
@@ -63,13 +63,10 @@
 <link rel="stylesheet" href="css/icomoon.css">
 <!-- Bootstrap  -->
 <link rel="stylesheet" href="css/bootstrap.css">
-
 <link rel="stylesheet" id="theme-switch" href="css/style.css">
-
 
 <!-- jQuery -->
 <script src="js/jquery.min.js"></script>
-
 <!-- jQuery Cookie -->
 <script src="js/jquery.cookie.js"></script>
 <script>
@@ -91,9 +88,6 @@
 <!-- Viewport Units Buggyfill -->
 <script src="js/viewport-units-buggyfill.js"></script>
 
-
-
-
 <!-- Main JS  -->
 <script src="js/main.js"></script>
 <!-- Modernizr JS -->
@@ -107,12 +101,12 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.0/moment.min.js"></script>
 <!-- FullCalendar v3.8.1 -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css"
-	rel="stylesheet" />
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css"
-	rel="stylesheet" media="print">
+<!-- <link -->
+<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" -->
+<!-- 	rel="stylesheet" /> -->
+<!-- <link -->
+<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" -->
+<!-- 	rel="stylesheet" media="print"> -->
 </script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>
@@ -151,12 +145,55 @@
 				<li class="animate-box"><a
 					href="<c:url value='commentManage'/>" class="transition">評論管理</a></li>
 			</ul>
-			<a href="<c:url value='index'/>" class="transition style-logout">登出</a>
+			<a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
 			</a>
 		</nav>
+		<!--新增/修改產品表單-->
+	<div class="modal fade" id="productFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<form:form action="${pageContext.request.contextPath}/addProduct" method="POST" modelAttribute="product" enctype="multipart/form-data">
+				<div class="formcontainer">
+					<div class="containerF">
+						<label><i class="fas fa-tooth"></i>產品資料</label><br> 
+						<label for="productCategory" ><strong>產品類別</strong></label><span id="checkCategory"></span>
+					<select name="productCategory" id="Category">
+						<option value="電動牙刷" selected>電動牙刷</option>
+						<option value="沖牙機">沖牙機</option>
+						<option value="牙刷">牙刷</option>
+						<option value="牙膏">牙膏</option>
+					</select><br/>
+						<label for="productName"><strong>產品名稱</strong></label><span id="checkName"></span>
+						<input type="text" id="productName" name="productName" placeholder="請輸入產品名稱"/><br/>						
+						<label for="productProfile" ><strong>產品簡介</strong></label><span id="checkProfile"></span>
+						<textarea id="productProfile" name="productProfile" placeholder="請輸入產品簡介"></textarea><br/>						
+						<label for="productSpec"><strong>產品規格</strong></label><span id="checkSpec"></span>
+						<textarea id="productSpec" name="productSpec" placeholder="請輸入產品規格"></textarea><br/>						
+						<label for="productPrice"><strong>產品價格</strong></label><span id="checkPrice"></span>
+						<input type="text" id="productPrice" name="productPrice" placeholder="請輸入產品價格"/><br/>																
+						<label for="productQuantity"><strong>產品數量</strong></label><span id="checkPrice"></span>
+						<input type="text" id="productQuantity" name="productQuantity" placeholder="請輸入產品數量"/><br/>																
+						<label for="productStutas"><strong>產品狀態</strong></label>
+						<input type="radio" id="launch" name="productStatus" value="下架" checked>下	架
+						<input type="radio" id="unLaunch" name="productStatus" value="上架" >上架<br/>
+						<div>
+							<label for="upload">上傳產品圖片</label>
+  							<input id="upload" type="file" accept="image/*" multiple="multiple" />
+  							<img id="preview_productImg" src="#" alt="your image" />
+  							<input type="button"  type="button" id="imageUpload" value="上傳"><br/>
+  							<input type='hidden' id='hiddenProductImage' name='productImage' value='#' >
+						</div>
+						<button class="btn btn-primary" type="submit">提交</button>
+					</div>
+				</div>
+				</form:form>	
+			</div>			
+		</div>
+	</div>		
+		
 
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main"
 			data-colorbg="">
@@ -214,7 +251,7 @@
 							let str = "";
 							for (let i = 0; i < products.length; i++) {
 								let j = i + 1;
-								str += "<tr><td>" + j + "</td>";
+								str += "<tr id='bean"+products[i].productPkId+"'><td>" + j + "</td>";
 								str += "<td>"+ "<img src='"+products[i].productImage+"' style='width:180px' />'"+ "</td>";
 								str += "<td>" + products[i].productCategory+ "</td>";
 								str += "<td>" + products[i].productName+ "</td>";
@@ -224,16 +261,63 @@
 								str += "<td>" + products[i].productQuantity+ "</td>";
 								str += "<td>" + products[i].productUpdateDate+ "</td>";
 								str += "<td>" + products[i].productStatus+ "</td>";
-								str += "<td><input type='button' id='updateProduct' value='修改' style='color:black'/></td>"
+								str += "<td><button type='button' id='updateProduct"+products[i].productPkId+"' value='bean"+products[i].productPkId+"'>修改</button></td>"
 								str += "</tr>"
-							}
-
+							};
 							$("#productBody").html(str);
-							
+							for (let i = 0; i < products.length; i++) {
+							$("#updateProduct"+products[i].productPkId).click(function(){
+								$("#productFormModal").modal('show');
+							});	
+							};
 							$("#addProduct").click(function(){
-								window.location.replace("<c:url value='addProductForm'/>")
-							})
-						})
+								$("#productFormModal").modal('show');
+							});
+						});
+							
+	var targetImage="";		//Image物件陣列(input內有限制Image檔案類別)
+	
+	
+	$("#upload").change(function(e){
+		readURL(this);
+		targetImage = e.target.files[0]; 
+		//e.target.files 會是一個陣列，裡面可以取得使用者所有想要上傳的檔案，陣列裡都是該檔案的 Blob 物件，而不是一般的物件。
+		//只有上傳一個檔案，所以使用 e.target.files[0] 即可取得使用者想要上傳的檔案	
+	});
+
+	
+	$("#imageUpload").click(function(){
+		var str="";
+		var form = new FormData();
+		form.append("image", targetImage);   //設定 圖片file值
+// 		form.append("album", 'gMbwr3Z')  // 設定圖片存到哪一個相簿
+		
+		//Setting內為Imgur Api required dateformat
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"processData": false,
+			"contentType": false,
+			"url": "https://api.imgur.com/3/image",
+			"method": "POST","timeout": 0,
+			"headers": {
+				"Authorization": 'Bearer ' + "bccfb85ad1d0f01076103c177dba532354ac9cc2"
+				},//Oath2 Api token
+			"processData": false,
+			"mimeType": "multipart/form-data",
+			"contentType": false,
+			"data": form
+			};
+			$.ajax(settings).done(function (response) {  // 使用ajax 取得imgur網址
+				let resJSON = JSON.parse(response);  
+				let imageStr = resJSON.data.link;
+				console.log(imageStr);
+				$("#hiddenProductImage").val(imageStr);
+				window.alert("上傳成功");
+			});
+	})
+	
+
 	</script>
 
 </body>

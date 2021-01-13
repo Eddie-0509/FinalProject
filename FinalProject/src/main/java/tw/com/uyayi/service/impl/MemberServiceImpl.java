@@ -1,7 +1,5 @@
 package tw.com.uyayi.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +15,14 @@ public class MemberServiceImpl implements MemberService {
 	MemberDao memberDao;
 	
 	@Override
-	public Member getMember(String account, String pwd) {
-		return memberDao.getMember(account,pwd);
+	public Member getMemberByAccount(String account) {
+		return memberDao.getMemberByAccount(account);
+	}
+
+
+	@Override
+	public boolean checkLogin(String account, String pwd) {
+		return memberDao.checkLogin(account,pwd);
 	}
 	
 }

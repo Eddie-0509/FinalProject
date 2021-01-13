@@ -4,6 +4,8 @@ import tw.com.uyayi.model.Member;
 
 public interface MemberDao {
 	
-	Member getMember(String account, String pwd);
+	Member getMemberByAccount(String account);
+
+	boolean checkLogin(String account, String pwd);
 	
 }

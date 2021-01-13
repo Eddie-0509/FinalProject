@@ -16,18 +16,35 @@ public class MemberDaoImpl implements MemberDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Member getMember(String account, String pwd) {
+	public boolean checkLogin(String account, String pwd) {
 		String hql = "From Member where memberAccount =:mAccount and memberPwd =:mPwd";
-		Member mb = null;
+		boolean loginStatus = false;
 		Session session = factory.getCurrentSession();
 		List<Member> list = session.createQuery(hql)
 				.setParameter("mAccount", account)
 				.setParameter("mPwd", pwd)
 				.getResultList();
 		if(list.size()>0) {
+			loginStatus=true;
+		}
+		return loginStatus;
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Member getMemberByAccount(String account) {
+		String hql = "From Member where memberAccount =:mAccount";
+		Member mb = null;
+		Session session = factory.getCurrentSession();
+		List<Member> list = session.createQuery(hql)
+				.setParameter("mAccount", account)
+				.getResultList();
+		if(list.size()>0) {
 			 mb = list.get(0);
 		}
 		return mb;
 	}
+
 
 }

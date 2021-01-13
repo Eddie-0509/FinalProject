@@ -129,7 +129,7 @@
 				<li class="animate-box fh5co-active"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
 				<li class="animate-box"><a href="<c:url value='commentManage'/>" class="transition">評論管理</a></li>
 			</ul>
-			<a href="#" class="transition style-logout">登出</a>
+			<a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
