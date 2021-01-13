@@ -26,14 +26,14 @@ public class MemberController {
 		if(memberService.checkLogin(account,pwd)) {
 			Member mb = memberService.getMemberByAccount(account);
 			model.addAttribute("LoginOK",mb);
-			model.addAttribute("memberBean",mb);
+			model.addAttribute("memberBean",mb);	//設定memberBean Session傳送該帳號的會員資訊以供後續會員功能使用
 			if(mb.getMemberStatus().equals("admin")) {
 				return "redirect:/productManage";
 			}else {
 				return "redirect:/一般會員登入後頁面";
 			}
 		}else {
-			ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");
+			ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
 			return "redirect:/";
 		}
 	}
@@ -42,12 +42,10 @@ public class MemberController {
 	public String logout(HttpSession session,  Model model, SessionStatus status,
 			RedirectAttributes redirectAtt
 			) {	
-//		String farewellMessage="";
-//		redirectAtt.addFlashAttribute("FlashMSG_farewell", farewellMessage);
 
 		// 登出時執行下列兩敘述
 		status.setComplete();		// 移除@SessionAttributes({"LoginOK"}) 標示的屬性物件
-		session.invalidate();		// 此敘述不能省略		
+		session.invalidate();		// 此敘述不能省略，令目前 Session 失效		
 		return "redirect:/";	
 	}
 	

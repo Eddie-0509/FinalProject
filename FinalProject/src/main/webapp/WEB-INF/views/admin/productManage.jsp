@@ -144,8 +144,9 @@
 					class="transition">診所管理</a></li>
 				<li class="animate-box"><a
 					href="<c:url value='commentManage'/>" class="transition">評論管理</a></li>
+				<li class="animate-box"><a href="<c:url value='memberLogout'/>"
+					class="transition style-logout">登出</a></li>
 			</ul>
-			<a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
@@ -161,10 +162,10 @@
 						<label><i class="fas fa-tooth"></i>產品資料</label><br> 
 						<label for="productCategory" ><strong>產品類別</strong></label><span id="checkCategory"></span>
 					<select name="productCategory" id="Category">
-						<option value="電動牙刷" selected>電動牙刷</option>
-						<option value="沖牙機">沖牙機</option>
-						<option value="牙刷">牙刷</option>
-						<option value="牙膏">牙膏</option>
+						<option id ="電動牙刷" value="電動牙刷" selected="selected">電動牙刷</option>
+						<option id ="沖牙機" value="沖牙機">沖牙機</option>
+						<option id ="牙刷" value="牙刷">牙刷</option>
+						<option id ="牙膏" value="牙膏">牙膏</option>
 					</select><br/>
 						<label for="productName"><strong>產品名稱</strong></label><span id="checkName"></span>
 						<input type="text" id="productName" name="productName" placeholder="請輸入產品名稱"/><br/>						
@@ -177,10 +178,10 @@
 						<label for="productQuantity"><strong>產品數量</strong></label><span id="checkPrice"></span>
 						<input type="text" id="productQuantity" name="productQuantity" placeholder="請輸入產品數量"/><br/>																
 						<label for="productStutas"><strong>產品狀態</strong></label>
-						<input type="radio" id="launch" name="productStatus" value="下架" checked>下	架
+						<input type="radio" id="launch" name="productStatus" value="下架" checked="checked">下	架
 						<input type="radio" id="unLaunch" name="productStatus" value="上架" >上架<br/>
 						<div>
-							<label for="upload">上傳產品圖片</label>
+							<label for="upload" >上傳產品圖片</label>
   							<input id="upload" type="file" accept="image/*" multiple="multiple" />
   							<img id="preview_productImg" src="#" alt="your image" />
   							<input type="button"  type="button" id="imageUpload" value="上傳"><br/>
@@ -242,10 +243,19 @@
 		</footer>
 
 	</div>
-	<script>
+<script>
+// 	產品清單表格內容生成及新增修改按鈕綁定
 		let model = ${products};
 		let products = model.product;
-		console.log(products);
+		
+		let category = $("#category");
+		let name = $("#productName");
+		let profile = $("#productProfile");
+		let spec = $("#productSpec");
+		let price = $("#productPrice");
+		let quantity = $("#productQuantity");
+		let stutas = $('input[name="productStatus"]');
+		let image = $("#preview_productImg");
 
 		$(document).ready(function() {
 							let str = "";
@@ -266,19 +276,40 @@
 							};
 							$("#productBody").html(str);
 							for (let i = 0; i < products.length; i++) {
-							$("#updateProduct"+products[i].productPkId).click(function(){
-								$("#productFormModal").modal('show');
-							});	
+								$("#updateProduct"+products[i].productPkId).click(function(){
+									$("#"+products[i].productCategory).attr("selected","selected");
+									name.val(products[i].productName);
+									profile.val(products[i].productProfile);
+									spec.val(products[i].productSpec);
+									price.val(products[i].productPrice);
+									quantity.val(products[i].productQuantity);
+									let launched = "下架";
+									if(launched==products[i].productStatus){
+									stutas[0].checked = true;									
+									}else{
+									stutas[1].checked = true;																		
+									}
+									image.attr("src",products[i].productImage);
+									$("#upload").text("修改產品圖片");
+									$("#productFormModal").modal('show');
+								});	
 							};
 							$("#addProduct").click(function(){
+								$("#電動牙刷").attr("selected","selected");
+								name.val("");
+								profile.val("");
+								spec.val("");
+								price.val("");
+								quantity.val("");
+								stutas[0].checked = true;
 								$("#productFormModal").modal('show');
 							});
 						});
+		
 							
+// 圖片上傳Imgur API功能
 	var targetImage="";		//Image物件陣列(input內有限制Image檔案類別)
-	
-	
-	$("#upload").change(function(e){
+		$("#upload").change(function(e){
 		readURL(this);
 		targetImage = e.target.files[0]; 
 		//e.target.files 會是一個陣列，裡面可以取得使用者所有想要上傳的檔案，陣列裡都是該檔案的 Blob 物件，而不是一般的物件。
@@ -318,7 +349,7 @@
 	})
 	
 
-	</script>
+</script>
 
 </body>
 </html>
