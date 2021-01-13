@@ -227,10 +227,14 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   width: 100%;
   z-index: 99;
+  height:10rem;
+  background-color: rgba(0,0,0,0.97);
+  padding:2rem 0;
 }
 #fh5co-nav ul {
   padding: 0;
   margin: 0;
+   padding-inline-start: 0;
 }
 #fh5co-nav ul li {
   padding: 0;
@@ -242,7 +246,7 @@ h1, h2, h3, h4, h5, h6 {
   *display: inline;
 }
 #fh5co-nav ul li a {
-  color: rgba(0, 0, 0, 0.5);
+  color: white;
   padding: 20px 0 5px 0px;
   margin-left: 10px;
   margin-right: 10px;
@@ -262,12 +266,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 #fh5co-nav ul li a:hover, #fh5co-nav ul li a:focus, #fh5co-nav ul li a:active {
-  color: black;
-  border-bottom: black 2px solid;
+  color: white;
+  border-bottom: white 2px solid;
 }
 #fh5co-nav ul li.fh5co-active a {
-  color: black;
-  border-bottom: rgba(0, 0, 0, 0.1) 2px solid;
+  color: white;
+  border-bottom: rgba(255, 255, 255, 0.6) 2px solid;
 }
 
 #fh5co-header {
@@ -824,7 +828,7 @@ h1, h2, h3, h4, h5, h6 {
 .style-toggle {
   position: absolute;
   z-index: 999;
-  top: 25px;
+  top: 15px;
   right: 15px;
   background: #cccccc;
   width: 40px;
@@ -983,21 +987,21 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 登出樣式 bySCONE */
 
-.style-logout{
-  position: absolute;
-  z-index: 999;
-  top: 25px;
-  right: 80px;
-  color: rgba(0, 0, 0, 0.5);
-  border-bottom: none;
-  display: -moz-inline-stack;
-  display: inline-block;
-  zoom: 1;
-  *display: inline;
-  }
-  @media screen and (max-width: 768px) {
-    .style-logout{
-    top: 50px;
-    right: 25px;
-    }
-  }
+/* .style-logout{ */
+/*   position: absolute; */
+/*   z-index: 999; */
+/*   top: 25px; */
+/*   right: 80px; */
+/*   color: rgba(0, 0, 0, 0.5); */
+/*   border-bottom: none; */
+/*   display: -moz-inline-stack; */
+/*   display: inline-block; */
+/*   zoom: 1; */
+/*   *display: inline; */
+/*   } */
+/*   @media screen and (max-width: 768px) { */
+/*     .style-logout{ */
+/*     top: 50px; */
+/*     right: 25px; */
+/*     } */
+/*   } */

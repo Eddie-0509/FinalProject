@@ -148,18 +148,18 @@
 			<ul>
 				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
-				<li class="animate-box"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增及查詢</a></li>
+				<li class="animate-box"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>
 				<li class="animate-box"><a href="#" class="transition">診所資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">醫師資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">報表</a></li>
+				<li class="animate-box"><a href="<c:url value='logout'/>" class="transition style-logout">登出</a></li>
 			</ul>
-			<a href="<c:url value='logout'/>" class="transition style-logout">登出</a>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
 			</a>
 		</nav>
-		</div>
+		
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
@@ -186,7 +186,8 @@
 								
 								</ul>
 								<div class="tab-content">
-				
+								
+								</div>
 							</div>
 
 			</div>

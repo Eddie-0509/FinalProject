@@ -340,7 +340,7 @@ function mailMember(){
 		$.ajax({
 			url : 'sendEmail',
 			type : 'GET',
-			async:false,
+			//async:false,
             contentType: "application/json",
             dataType : "JSON",
 			data : {
@@ -354,7 +354,7 @@ function mailMember(){
 			}
 		})
 			$("#ContactModalBody").html('成功');
-			$("#ContactModal").children("button").eq(0).remove();
+			$(".mailMember").remove();
 				console.log("?")
 	}
 	
@@ -388,9 +388,3 @@ function mailMember(){
 	}
 	
 	
-//$("#queryClose").on("click",function(){
-//			   $("#qmodalTitle").text("查詢預約紀錄");
-//			   $("#qmodalBody").html("請輸入病患身分證字號："+'<input type="text" id="IdNumberToQuery"></input>')
-//			   $("#QueryModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default" id="queryAppointment">查詢</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>')
-//		
-//	})
