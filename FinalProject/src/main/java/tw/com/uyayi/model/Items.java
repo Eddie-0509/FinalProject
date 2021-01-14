@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ public class Items {
 	private  Integer itemPkId;
 	private  String itemName;
 	
-	@ManyToMany(mappedBy = "itemsBean", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "itemsBean", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore //scone+的
 	private Set<Dentist> dentists;
 	

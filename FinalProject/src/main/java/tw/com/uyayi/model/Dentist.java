@@ -1,9 +1,12 @@
 package tw.com.uyayi.model;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,7 +56,7 @@ public class Dentist {
         joinColumns={@JoinColumn(name="dentistPkId")},
         inverseJoinColumns={@JoinColumn(name="itemPkId")}
     )
-	private Set<Items> itemsBean;
+	private List<Items> itemsBean = new LinkedList<Items>();
 	
 	public Dentist() {
 		
@@ -144,13 +147,13 @@ public class Dentist {
 
 
 
-	public Set<Items> getItemsBean() {
+	public List<Items> getItemsBean() {
 		return itemsBean;
 	}
 
 
 
-	public void setItemsBean(Set<Items> itemsBean) {
+	public void setItemsBean(List<Items> itemsBean) {
 		this.itemsBean = itemsBean;
 	}
 

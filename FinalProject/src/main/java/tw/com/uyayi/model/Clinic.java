@@ -1,6 +1,8 @@
 package tw.com.uyayi.model;
 
 import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -62,8 +64,8 @@ public class Clinic {
 	private Set<Appointment> appointments;
 	
 	@JsonIgnore
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean")
-	private Set<Dentist> dentists;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean", fetch = FetchType.EAGER)
+	private List<Dentist> dentists = new LinkedList<Dentist>();
 	
 	
 	public Clinic() {
@@ -207,12 +209,14 @@ public class Clinic {
 		this.appointments = appointments;
 	}
 
-	public Set<Dentist> getDentists() {
+	public List<Dentist> getDentists() {
 		return dentists;
 	}
 
-	public void setDentists(Set<Dentist> dentists) {
+	public void setDentists(List<Dentist> dentists) {
 		this.dentists = dentists;
 	}
+
+	
 
 }
