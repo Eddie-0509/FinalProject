@@ -1,5 +1,6 @@
 package tw.com.uyayi.model;
 
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -40,8 +41,7 @@ public class Dentist {
 	@JsonIgnore
 	private Set<Appointment> appointments;
 	
-	@JsonIgnore //SCONE加的
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
         name="dentistTime",
         joinColumns={@JoinColumn(name="dentistPkId")},
@@ -49,14 +49,13 @@ public class Dentist {
     )
 	private Set<TimeTable> timeTables;
 	
-	@JsonIgnore //SCONE加ㄉ
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
         name="dentistItem",
         joinColumns={@JoinColumn(name="dentistPkId")},
         inverseJoinColumns={@JoinColumn(name="itemPkId")}
     )
-	private List<Items> itemsBean = new LinkedList<Items>();
+	private Set<Items> itemsBean = new LinkedHashSet<Items>();
 	
 	public Dentist() {
 		
@@ -147,13 +146,13 @@ public class Dentist {
 
 
 
-	public List<Items> getItemsBean() {
+	public Set<Items> getItemsBean() {
 		return itemsBean;
 	}
 
 
 
-	public void setItemsBean(List<Items> itemsBean) {
+	public void setItemsBean(Set<Items> itemsBean) {
 		this.itemsBean = itemsBean;
 	}
 
