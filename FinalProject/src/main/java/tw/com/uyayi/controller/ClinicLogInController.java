@@ -23,7 +23,7 @@ import tw.com.uyayi.service.ClinicCalendarService;
 import tw.com.uyayi.service.ClinicLogInService;
 
 @Controller
-@SessionAttributes({"LoginOK","DentistIdList","DentistNameList","AllAppointmentList"}) 
+@SessionAttributes({"loginOK","DentistIdList","DentistNameList","AllAppointmentList"}) 
 public class ClinicLogInController {
 	@Autowired
 	ClinicLogInService clinicLogInservce;
@@ -38,7 +38,7 @@ public class ClinicLogInController {
 			) {
 		if(clinicLogInservce.checkLogin(clinicAccount, clinicPwd)) {
 			Clinic clinic = clinicLogInservce.getClinicByAccount(clinicAccount);
-			model.addAttribute("LoginOK",clinic);
+			model.addAttribute("loginOK",clinic);
 //			redAttributes.addFlashAttribute("clinicID",clinic.getClinicPkId());
 			Integer clinicID = clinic.getClinicPkId();
 			System.out.println(clinicID);
