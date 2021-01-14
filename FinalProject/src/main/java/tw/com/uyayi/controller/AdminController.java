@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Member;
@@ -29,6 +31,18 @@ public class AdminController {
 		json.put("product", beans);
 		model.addAttribute("products",json);
 		return "admin/productManage";
+	}
+	
+	@GetMapping(value  = "/getAllProductsByCategory", produces = "application/json")
+	public @ResponseBody List<Products> getProductsByCategory(@RequestParam String h_productCategory) {
+		List<Products> beans= null;
+		if(h_productCategory.equals("all")) {
+			beans = service.getAllProducts();			
+		}else {
+			beans = (List<Products>)service.getAllProductsByCategory(h_productCategory);	
+
+		}
+		return beans;
 	}
 	
 	@GetMapping(value = "/clinicManage")
@@ -58,6 +72,7 @@ public class AdminController {
 //	
 	@PostMapping(value = "/addProduct")
 	public String addProduct(@ModelAttribute("product") Products product) {
+		System.out.println("productProfile:"+product.getProductProfile());
 		Date sqldate = service.getToday();
 		product.setProductUpdateDate(sqldate);
 		service.insertProduct(product);	

@@ -204,13 +204,33 @@
 						<tr>
 							<th style='width: 60px;'>序號</th>
 							<th style='width: 180px;'>產品圖片</th>
-							<th style='width: 140px;'>產品類別</th>
+							<th style='width: 140px;'>
+								<select name="h_productCategory" id="h_Category">
+									<option id ="產品類別" value="all" selected="selected">產品類別</option>
+									<option id ="電動牙刷" value="電動牙刷" >電動牙刷</option>
+									<option id ="沖牙機" value="沖牙機">沖牙機</option>
+									<option id ="牙刷" value="牙刷">牙刷</option>
+									<option id ="牙膏" value="牙膏">牙膏</option>
+								</select>
+							</th>
 							<th style='width: 150px;'>名稱</th>
 							<th style='width: 200px;'>簡介</th>
 							<th style='width: 200px;'>規格</th>
-							<th style='width: 60px;'>價格</th>
+							<th style='width: 60px;'>
+								<select name="h_price" id="h_price">
+									<option id ="價格" value="價格" selected="selected">價格</option>
+									<option id ="高到低" value="高到低" >高到低</option>
+									<option id ="低到高" value="低到高" >低到高</option>
+								</select>
+							</th>
 							<th style='width: 60px;'>數量</th>
-							<th style='width: 120px;'>更新時間</th>
+							<th style='width: 120px;'>
+								<select name="h_updateTime" id="h_updateTime">
+									<option id ="更新時間" value="更新時間" >更新時間</option>
+									<option id ="舊到新" value="舊到新" selected="selected">舊到新</option>
+									<option id ="新到舊" value="新到舊" >新到舊</option>
+								</select>
+							</th>
 							<th style='width: 80px;'>狀態</th>
 							<th style='width: 80px;'></th>
 						</tr>
@@ -256,44 +276,48 @@
 		let quantity = $("#productQuantity");
 		let stutas = $('input[name="productStatus"]');
 		let image = $("#preview_productImg");
-
+		function showData(){			//顯示產品資料
+			let str = "";
+			for (let i = 0; i < products.length; i++) {
+				let j = i + 1;
+				let localDate = new Date(products[i].productUpdateDate).toLocaleDateString("zh-TW");
+				str += "<tr id='bean"+products[i].productPkId+"'><td>" + j + "</td>";
+				str += "<td>"+ "<img src='"+products[i].productImage+"' style='width:180px' />'"+ "</td>";
+				str += "<td>" + products[i].productCategory+ "</td>";
+				str += "<td>" + products[i].productName+ "</td>";
+				str += "<td>" + products[i].productProfile+ "</td>";
+				str += "<td>" + products[i].productSpec+ "</td>";
+				str += "<td>" + products[i].productPrice+ "</td>";
+				str += "<td>" + products[i].productQuantity+ "</td>";
+				str += "<td>" + localDate + "</td>";
+				str += "<td>" + products[i].productStatus+ "</td>";
+				str += "<td><button type='button' id='updateProduct"+products[i].productPkId+"' value='bean"+products[i].productPkId+"'>修改</button></td>"
+				str += "</tr>"
+			};
+			$("#productBody").html(str);
+			for (let i = 0; i < products.length; i++) {
+				$("#updateProduct"+products[i].productPkId).click(function(){
+					$("#"+products[i].productCategory).attr("selected","selected");
+					name.val(products[i].productName);
+					profile.val(products[i].productProfile);
+					spec.val(products[i].productSpec);
+					price.val(products[i].productPrice);
+					quantity.val(products[i].productQuantity);
+					let launched = "下架";
+					if(launched==products[i].productStatus){
+					stutas[0].checked = true;									
+					}else{
+					stutas[1].checked = true;																		
+					}
+					image.attr("src",products[i].productImage);
+					$("#upload").text("上傳產品圖片");
+					$("#productFormModal").modal('show');
+				});	
+			};
+		};
+		
 		$(document).ready(function() {
-							let str = "";
-							for (let i = 0; i < products.length; i++) {
-								let j = i + 1;
-								str += "<tr id='bean"+products[i].productPkId+"'><td>" + j + "</td>";
-								str += "<td>"+ "<img src='"+products[i].productImage+"' style='width:180px' />'"+ "</td>";
-								str += "<td>" + products[i].productCategory+ "</td>";
-								str += "<td>" + products[i].productName+ "</td>";
-								str += "<td>" + products[i].productProfile+ "</td>";
-								str += "<td>" + products[i].productSpec+ "</td>";
-								str += "<td>" + products[i].productPrice+ "</td>";
-								str += "<td>" + products[i].productQuantity+ "</td>";
-								str += "<td>" + products[i].productUpdateDate+ "</td>";
-								str += "<td>" + products[i].productStatus+ "</td>";
-								str += "<td><button type='button' id='updateProduct"+products[i].productPkId+"' value='bean"+products[i].productPkId+"'>修改</button></td>"
-								str += "</tr>"
-							};
-							$("#productBody").html(str);
-							for (let i = 0; i < products.length; i++) {
-								$("#updateProduct"+products[i].productPkId).click(function(){
-									$("#"+products[i].productCategory).attr("selected","selected");
-									name.val(products[i].productName);
-									profile.val(products[i].productProfile);
-									spec.val(products[i].productSpec);
-									price.val(products[i].productPrice);
-									quantity.val(products[i].productQuantity);
-									let launched = "下架";
-									if(launched==products[i].productStatus){
-									stutas[0].checked = true;									
-									}else{
-									stutas[1].checked = true;																		
-									}
-									image.attr("src",products[i].productImage);
-									$("#upload").text("修改產品圖片");
-									$("#productFormModal").modal('show');
-								});	
-							};
+			showData();
 							$("#addProduct").click(function(){
 								$("#電動牙刷").attr("selected","selected");
 								name.val("");
@@ -304,8 +328,36 @@
 								stutas[0].checked = true;
 								$("#productFormModal").modal('show');
 							});
+							$("#h_Category").change(function(){
+								console.log($("#h_Category option:selected" ).text());
+									fetch("http://localhost:9998/FinalProject/getAllProductsByCategory?"+ "h_productCategory=" + $(this).val(), {
+										method : "GET"
+										}).then(function(response) {
+											return response.json();
+											}).then(function(data) {
+										products = data;
+										showData();
+									});	
+							});
+							
 						});
-		
+		$("#h_updateTime").change(function(){
+			$("#價格").attr("selected","selected");
+			let v = $("#h_updateTime option:selected").text();
+			if(v!="更新時間"){
+				if(v=="新到舊"){
+					products = products.sort(function (a, b) {
+						 return a.productUpdateDate < b.productUpdateDate ? 1 : -1;
+						});
+					showData();
+				}else{
+					products = products.sort(function (a, b) {
+						 return a.productUpdateDate > b.productUpdateDate ? 1 : -1;
+						});
+					showData();
+				}
+			};
+		});
 							
 // 圖片上傳Imgur API功能
 	var targetImage="";		//Image物件陣列(input內有限制Image檔案類別)
@@ -346,7 +398,8 @@
 				$("#hiddenProductImage").val(imageStr);
 				window.alert("上傳成功");
 			});
-	})
+	});
+	
 	
 
 </script>

@@ -10,6 +10,8 @@ import tw.com.uyayi.model.Products;
 public interface AdminService {
 	//取得所有產品資料
 	List<Products> getAllProducts();
+	//By類別取得產品資料
+	List<Products> getAllProductsByCategory(String h_productCategory);
 	//新增產品
 	void insertProduct(Products product);
 	//修改產品
