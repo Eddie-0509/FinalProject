@@ -1,4 +1,4 @@
-package tw.com.uyayi.model;
+ package tw.com.uyayi.model;
 
 import java.util.Set;
 
@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Table(name = "member")
