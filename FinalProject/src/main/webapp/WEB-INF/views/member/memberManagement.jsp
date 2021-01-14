@@ -24,8 +24,6 @@
             
                 <li><a href="<c:url value='memberLogout'/>">登出</a></li>
                 
-              
-                
             </ul>
         </div>
     </div>
