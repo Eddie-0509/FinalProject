@@ -76,8 +76,7 @@ public class AdminDaoImpl implements AdminDao {
 			+ "productSpec = :pSpec  " 
 			+ "where productPkId = :pId";
 		Session session = factory.getCurrentSession();
-
-		int n =session.createQuery(hql)
+			session	.createQuery(hql)
 		.setParameter("pName", product.getProductName())
 		.setParameter("pUpdateDate", product.getProductUpdateDate())
 		.setParameter("pPrice", product.getProductPrice())

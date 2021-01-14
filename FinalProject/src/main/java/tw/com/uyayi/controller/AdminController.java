@@ -71,11 +71,17 @@ public class AdminController {
 //	}
 //	
 	@PostMapping(value = "/addProduct")
-	public String addProduct(@ModelAttribute("product") Products product) {
-		System.out.println("productProfile:"+product.getProductProfile());
+	public String addProduct(@ModelAttribute("addProduct") Products product) {
 		Date sqldate = service.getToday();
 		product.setProductUpdateDate(sqldate);
 		service.insertProduct(product);	
+		return "redirect:/productManage";
+	}
+	@PostMapping(value = "/updateProduct")
+	public String updateProduct(@ModelAttribute("updateProduct") Products product) {
+		Date sqldate = service.getToday();
+		product.setProductUpdateDate(sqldate);
+		service.updateProduct(product);	
 		return "redirect:/productManage";
 	}
 	
