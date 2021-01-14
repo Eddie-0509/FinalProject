@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
 <style>
 #topBar {
 	height: 150px;
@@ -337,6 +338,9 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					str1 += "</table>";
 					$("#main").html(str1);
 
+					$("#ccontent").html(Cookies.get("cart"));
+					cal();
+
 					$(".bi-house").click(function(){
 						window.location.href="http://localhost:9998/FinalProject/";
 					});
@@ -508,37 +512,38 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 
 				checkExist();
 
-
 				$("#ctotal").text(parseInt($("#ctotal").text()) + parseInt(products[pnum].productPrice, 10) * parseInt(qty, 10));			
 				
-				$(".bi-trash").on("click", del);
 				$("#cart").modal("show");
+				
 			});
 
 
 			function del(){	
-				qty = $(this).parent().prev().prev().text();
-				let deln = $(this).parent().prev().text() * qty;
-				$("#ctotal").text($("#ctotal").text() - deln);
+				let np = parseInt($("#ctotal").text(), 10) - parseInt($(this).parent().prev().text(), 10);
+				$("#ctotal").text(np);
 				
 				$(this).parentsUntil("table").remove();
 				if($("#ccontent .cname").text() == ""){
 					$("#empty").show();
-				}			
+				}	
 			}
 
 
 			function checkExist(){
-				let flag = true;
-				
+				let flag = true;			
 				let npid = products[pnum].productPkId;
+				
 	 			if($(".pkid").text() == ""){
 	 				addToCart();
 	 				
 	 			} else {
 				$(".pkid").each(function(){
 	 				if(npid == $(this).text()) {
-						$(this).parent().next("td").next("td").text(parseInt($(this).parent().next("td").next("td").text(), 10)+1);
+						$(this).parent().next("td").next("td").text(parseInt($(this).parent().next("td").next("td").text(), 10) + parseInt(qty, 10));
+						let pri = parseInt(products[pnum].productPrice, 10);
+						let nqty = parseInt($(this).parent().next("td").next("td").text());
+ 						$(this).parent().next("td").next("td").next("td").text(pri * nqty);
 						flag = false;
 	 				}
 				});
@@ -559,6 +564,54 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					+ "</td><td class='cprice'>" + parseInt(products[pnum].productPrice, 10) * parseInt(qty, 10)
 					+ "<td class='cdel'><i class='bi bi-trash'></i></td></tr></table>";			
 				$("#ccontent").append(cstr);
+
+				let cookiestr = $("#ccontent").html();
+				Cookies.set("cart", cookiestr, { expires: 7 });
+				
+				$(".bi-trash").click(function(){				
+					$(this).parentsUntil("table").remove();
+					if($("#ccontent .cname").text() == ""){
+						$("#empty").show();
+						$("#ctotal").text(0);
+					}
+
+					let np = 0;
+					$(".cprice").each(function(){
+						np += parseInt($(this).text(), 10);
+						$("#ctotal").text(np);
+					});
+
+					let cookiestr = $("#ccontent").html();
+					console.log(cookiestr);
+					Cookies.set("cart", cookiestr, { expires: 7 });	
+				});
+			}
+
+
+			function cal(){
+				let np = 0;
+				$(".cprice").each(function(){
+					np += parseInt($(this).text(), 10);
+					$("#ctotal").text(np);
+				});
+				
+				$(".bi-trash").click(function(){				
+					$(this).parentsUntil("table").remove();
+					if($("#ccontent .cname").text() == ""){
+						$("#empty").show();
+						$("#ctotal").text(0);
+					}
+
+					let cookiestr = $("#ccontent").html();
+					console.log(cookiestr);
+					Cookies.set("cart", cookiestr, { expires: 7 });	
+
+					let np = 0;
+					$(".cprice").each(function(){
+						np += parseInt($(this).text(), 10);
+						$("#ctotal").text(np);
+					});
+				});
 			}
 	</script>
 </body>
