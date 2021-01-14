@@ -59,7 +59,7 @@ public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 
-		Clinic loginToken = (Clinic) session.getAttribute("LoginOK");
+		Clinic loginToken = (Clinic) session.getAttribute("loginOK");
 		if (loginToken == null) {
 			return false;
 		} else {
