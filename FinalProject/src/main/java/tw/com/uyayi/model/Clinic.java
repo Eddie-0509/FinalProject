@@ -1,6 +1,7 @@
 package tw.com.uyayi.model;
 
 import java.sql.Date;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class Clinic {
 	
 	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean", fetch = FetchType.EAGER)
-	private List<Dentist> dentists = new LinkedList<Dentist>();
+	private Set<Dentist> dentists=new LinkedHashSet<Dentist>();
 	
 	
 	public Clinic() {
@@ -209,11 +210,11 @@ public class Clinic {
 		this.appointments = appointments;
 	}
 
-	public List<Dentist> getDentists() {
+	public Set<Dentist> getDentists() {
 		return dentists;
 	}
 
-	public void setDentists(List<Dentist> dentists) {
+	public void setDentists(Set<Dentist> dentists) {
 		this.dentists = dentists;
 	}
 
