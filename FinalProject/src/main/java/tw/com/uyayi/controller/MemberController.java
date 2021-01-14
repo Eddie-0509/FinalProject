@@ -28,9 +28,9 @@ public class MemberController {
 			model.addAttribute("LoginOK",mb);
 			model.addAttribute("memberBean",mb);	//設定memberBean Session傳送該帳號的會員資訊以供後續會員功能使用
 			if(mb.getMemberStatus().equals("admin")) {
-				return "redirect:/productManage";
+				return "redirect:/productManage";//管理者登入後頁面
 			}else {
-				return "member/memberModification";
+				return "member/memberManagement";//一般會員登入後頁面
 			}
 		}else {
 			ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
