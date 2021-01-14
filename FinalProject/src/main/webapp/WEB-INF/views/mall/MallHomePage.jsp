@@ -182,8 +182,8 @@
 }
 
 .cpic {
-/* 	hieght: 100px; */
-	width: 30%;
+ 	hieght: 7vh; 
+ 	width: 7vw; 
 }
 
 .cname {
@@ -202,8 +202,14 @@
 	width: 10%;
 }
 
+#ccal {
+ 	margin-right: 25vw;
+ 	font-weight: 900;
+ 	font-size: 25px;
+}
+
 #ctotal {
-	location: absolute;
+	color: red;
 }
 
 .modal.right .modal-dialog {
@@ -211,10 +217,10 @@ position: fixed;
 margin: auto; 
 width: 500px;
 height: 100%;
--webkit-transform: translate3d(200%, 0, 0);
--ms-transform: translate3d(200%, 0, 0);
-o-transform: translate3d(200%, 0, 0);
-transform: translate3d(200%, 0, 0);
+-webkit-transform: translate3d(165%, 0, 0);
+-ms-transform: translate3d(165%, 0, 0);
+o-transform: translate3d(165%, 0, 0);
+transform: translate3d(165%, 0, 0);
 }
 
 .modal.right .modal-content {   
@@ -299,13 +305,13 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
             <div class="modal-header">
             <h4 id="ctitle" class="modal-title">購物車</h4></div>
             <div class="modal-body experimentMakeAnOffer" id="ccontent">
-            	<p id="empty" style="font-size: 35px; text-align: center;"><br><br><br>您還未選購任何商品 Q_Q</p>         
+            	<p id="empty" style="font-size: 35px; text-align: center;"><br><br><br>購物車是空的 Q_Q</p>         
             </div>
             <div class="modal-footer">
-                <span  id="ctotal">
-                	總計：<span>123</span>
+                <span  id="ccal">
+                	總計：&ensp;<span id="ctotal">0</span>&emsp;元
                 </span>
-                <button type="button" class="btn btn-primary submitOffer btn-lg" data-dismiss="modal">結帳</button>
+                <button type="button" id="check" class="btn btn-primary submitOffer btn-lg" data-dismiss="modal">結帳</button>
             </div>
         </div>
     </div>
@@ -314,9 +320,9 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 		let trans = ${products};
 		let products = trans.productList;
 		let pnum;
+		let qty;
 		
-		$(document).ready(
-				function() {
+		$(document).ready(function() {
 					let j = 1;
 					let str1 = "<table class='ptable'><tr>";
 					for (let i = 0; i < products.length; i++) {
@@ -325,7 +331,6 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 						if (j % 3 == 0) {
 							str1 += "</tr>";
 						}
-
 						j++;
 					}
 
@@ -333,7 +338,11 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					$("#main").html(str1);
 
 					$(".bi-house").click(function(){
-						
+						window.location.href="http://localhost:8080/FinalProject/";
+					});
+
+					$(".bi-person-circle").click(function(){
+						alert("...");
 					});
 					
 					$(".bi-cart4").click(function(){
@@ -495,20 +504,62 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 			$("#djoin").click(function(){
 				$("#pdetail").modal("hide");
 				$("#empty").hide();
-				let qty = $("#dqty").val();
+				qty = $("#dqty").val();
+
+				checkExist();
+
+
+				$("#ctotal").text(parseInt($("#ctotal").text()) + parseInt(products[pnum].productPrice, 10) * parseInt(qty, 10));			
 				
+				$(".bi-trash").on("click", del);
+				$("#cart").modal("show");
+			});
+
+
+			function del(){	
+				qty = $(this).parent().prev().prev().text();
+				let deln = $(this).parent().prev().text() * qty;
+				$("#ctotal").text($("#ctotal").text() - deln);
+				
+				$(this).parentsUntil("table").remove();
+				if($("#ccontent .cname").text() == ""){
+					$("#empty").show();
+				}			
+			}
+
+
+			function checkExist(){
+				let flag = true;
+				
+				let npid = products[pnum].productPkId;
+	 			if($(".pkid").text() == ""){
+	 				addToCart();
+	 				
+	 			} else {
+				$(".pkid").each(function(){
+	 				if(npid == $(this).text()) {
+						$(this).parent().next("td").next("td").text(parseInt($(this).parent().next("td").next("td").text(), 10)+1);
+						flag = false;
+	 				}
+				});
+					if (flag) {
+						addToCart();
+					}
+				}
+			}
+
+
+			function addToCart(){			
 				let cstr = "<table class='ctable'>"
-					+ "<tr><td><span id='pkid' style='display: none;'>"
+					+ "<tr><td><span class='pkid' style='display: none;'>"
 					+ products[pnum].productPkId + "</span><img class='cpic' src='"
 					+ products[pnum].productImage + "'/>"
 					+ "</td><td class='cname'>" + products[pnum].productName 
-					+ "</td><td class='cprice'>" + products[pnum].productPrice
 					+ "</td><td class='cqty'>" + qty + "</td>"
-					+ "<td class'cdel'><i class='bi bi-trash'></i></td>";
-					
+					+ "</td><td class='cprice'>" + parseInt(products[pnum].productPrice, 10) * parseInt(qty, 10)
+					+ "<td class='cdel'><i class='bi bi-trash'></i></td></tr></table>";			
 				$("#ccontent").append(cstr);
-				$("#cart").modal("show");
-			});
+			}
 	</script>
 </body>
 </html>
