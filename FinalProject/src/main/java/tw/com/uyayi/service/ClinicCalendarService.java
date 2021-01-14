@@ -15,7 +15,7 @@ public interface ClinicCalendarService {
 	List<Dentist> getDentistList(Integer clinicID);
 	LinkedHashMap<String,String> getAppointmentDetail(Integer appointmentID);
 	ArrayList<Appointment> queryAppointmentByPhone(String Phone);
-	void absentReport(Integer appointmentID);
+	String absentReport(Integer appointmentID);
 
 
 }

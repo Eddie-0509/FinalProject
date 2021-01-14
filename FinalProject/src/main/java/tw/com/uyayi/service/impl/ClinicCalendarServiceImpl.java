@@ -50,8 +50,8 @@ public class ClinicCalendarServiceImpl implements ClinicCalendarService {
 	}
 
 	@Override
-	public void absentReport(Integer appointmentID) {
-		caDao.absentReport(appointmentID);		
+	public String absentReport(Integer appointmentID) {
+		return caDao.absentReport(appointmentID);		
 	}
 
 

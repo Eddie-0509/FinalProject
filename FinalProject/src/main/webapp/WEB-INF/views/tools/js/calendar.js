@@ -1,5 +1,7 @@
 var memberEmail="";
 var appointmentID="";
+var memberID="";
+var patientName="";
 
 //格式化奇怪的日期
 	function formatDate(NewDtime) {
@@ -152,6 +154,12 @@ $(document).ready(function(){
 							 $("#date").text(result.date);
 							 $("#time").text(result.time);
 							 $("#reply").text(result.reply);
+							 appointmentID=event.id;
+							 memberEmail=result.email;
+							 memberID=result.memberID;
+							 patientName=result.patientName;
+							 console.log("159="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
+							 
 			             }
 			        })
 			}
@@ -279,13 +287,15 @@ $(document).ready(function(){
 						 $("#reply").text(result.reply);
 						 memberEmail=result.email;
 						 appointmentID=event.id;
-						 console.log("283="+memberEmail+",ID:"+appointmentID);
+						 memberID=result.memberID;
+						 patientName=result.patientName;
+						 console.log("292="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
 		             }
 		        })
 			}		             
 		});
 	
-	console.log("283="+memberEmail);
+	console.log("298="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
 	
 //	$("#queryAppointment").on("click",function(){
 //		$.ajax({

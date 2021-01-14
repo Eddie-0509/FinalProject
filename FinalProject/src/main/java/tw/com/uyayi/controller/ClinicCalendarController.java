@@ -114,10 +114,16 @@ public class ClinicCalendarController {
 	
 	//回報未到診
 	@PostMapping(path =  "/absentReport", produces = "application/json")
-	public @ResponseBody String sbsentReport(
-			@RequestParam("appointmentID") Integer appointmentID ) {
-		 caService.absentReport(appointmentID);
-		 return "回報成功";
+	public @ResponseBody String absentReport(
+			@RequestParam("appointmentID") Integer appointmentID,
+			@RequestParam("memberEmail") String memberEmail,
+			@RequestParam("patientName") String patientName) {
+		 String msg=caService.absentReport(Integer.valueOf(appointmentID));
+		 Mail mail=new Mail();
+		 String text=patientName+" 先生/小姐　您好：\n\n　　診所通知您未前往看診，累積三次未到診您將會被暫停預約功能30日。如有疑問請洽UYAYI客服信箱，謝謝。\n\nUYAYI";
+		 mail.sendMail(memberEmail,"【UYAYI】未到診提醒",text);
+		 System.out.println(msg);
+		 return msg;
 	}
 	
 	

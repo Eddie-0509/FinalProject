@@ -25,23 +25,29 @@ class SimpleModal {
         return;
       }
       this.acceptButton.focus();
-
+	  
       this.acceptButton.addEventListener("click", () => {
         resolve(true);
-        console.log(appointmentID);
+        console.log("modal_31memberEmail:"+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);        
         $.ajax({
 				url : 'absentReport',
 				type : 'POST',
+  				dataType: "text",			
 				data : {
-					appointmentID : appointmentID,	
+					appointmentID : appointmentID,
+					memberEmail : memberEmail,	
+					patientName : patientName,
 					method : "$.ajax()",
 					doWhat : "POST"
 				},
-				success : function(data) {
-					console.log("HI")
+				success : function(msg) {
+					$(".simple-modal-text").text(msg);
+					$("body > dialog > div > div.simple-modal-button-group").children().remove();
 				}
 			})
-        this._destroyModal();
+	 console.log("modal_49memberEmail:"+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);        
+			
+        //this._destroyModal();
       });
 
       this.cancelButton.addEventListener("click", () => {

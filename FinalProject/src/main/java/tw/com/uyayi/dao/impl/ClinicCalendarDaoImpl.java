@@ -81,7 +81,7 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		appointmentDetail.put("time", result.getTimeTableBean().getTimes());
 		appointmentDetail.put("reply", result.getMemberReply());
 		appointmentDetail.put("email", result.getMemberBean().getMemberAccount());
-//		appointmentDetail.put("memberID", Integer.toString(result.getMemberBean().getMemberPkId()));		
+		appointmentDetail.put("memberID", Integer.toString(result.getMemberBean().getMemberPkId()));		
 		return appointmentDetail;
 	}
 
@@ -104,12 +104,26 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		
 		return list;
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public void absentReport(Integer appointmentID) {
+	public String absentReport(Integer appointmentID) {
 		Session session=factory.getCurrentSession();
-		String hql = "update Appointment app set app.arrive = 'false' where app.appointmentPkId= :appointmentID";
-		session.createQuery(hql).setParameter("appointmentID", appointmentID).executeUpdate();
+		String hql0 = "from Appointment app where app.appointmentPkId= :appointmentID";
+		
+		List<Appointment> list=session.createQuery(hql0).setParameter("appointmentID", appointmentID).getResultList();
+		System.out.println(list.get(0).getArrive());
+		String msg="";
+		if(list.get(0).getArrive().equals("false")) {
+			msg= "您已回報過此人未到診";
+		}else if(list.isEmpty()){
+			msg= "錯誤";
+		}else {
+			String hql = "update Appointment app set app.arrive = 'false' where app.appointmentPkId= :appointmentID";
+			session.createQuery(hql).setParameter("appointmentID", appointmentID).executeUpdate();
+			msg= "回報成功";			
+		}
+		return msg;
 	}
 
 	
