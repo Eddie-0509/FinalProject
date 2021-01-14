@@ -338,7 +338,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					$("#main").html(str1);
 
 					$(".bi-house").click(function(){
-						window.location.href="http://localhost:8080/FinalProject/";
+						window.location.href="http://localhost:9998/FinalProject/";
 					});
 
 					$(".bi-person-circle").click(function(){
@@ -373,7 +373,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 		$("#left p").click(function() {
 					$(".showby .zero").prop('selected', true);
 					j = 1;
-					fetch("http://localhost:8080/FinalProject/productsByCategory?"+ "productCategoty=" + $(this).text(), {
+					fetch("http://localhost:9998/FinalProject/productsByCategory?"+ "productCategoty=" + $(this).text(), {
 								method : "GET"
 
 							}).then(function(response) {
