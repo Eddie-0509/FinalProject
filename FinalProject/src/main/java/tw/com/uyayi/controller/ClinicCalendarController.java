@@ -81,12 +81,7 @@ public class ClinicCalendarController {
 //		return appdetail;
 //	}
 	
-	//點預約紀錄
-	@GetMapping(value="/clinicAppoint")
-	public  String appoint(@RequestParam Integer clinicID,Model model) {
-		return "clinic/clinicCreateAppointment";
-	}
-	
+
 	//用電話號碼查詢所有紀錄
 	@GetMapping(path = "/queryAppointment", produces = "application/json")
 	public @ResponseBody ArrayList<Appointment> queryAppointment(

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    		
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 	   		
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -129,8 +130,9 @@
 				<li class="animate-box"><a href="#" class="transition">診所資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">醫師資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">報表</a></li>
+				<li class="animate-box"><a href="<c:url value='logout'/>" class="transition style-logout">登出</a></li>
 			</ul>
-			<a href="#" class="transition style-logout">登出</a>
+			
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
@@ -140,7 +142,23 @@
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
 				<div>
-					
+					請選擇治療項目：
+					<select>
+        			<option value="" onchange="">請選擇</option>
+	        			<c:forEach items="${itemlist}" var="itemlist" varStatus="vs" >
+	        				<c:set var="str" value="${itemlist.itemName}"/>
+	        				<c:set var="str2" value="${fn:substring(str, 1, str.length()-1)}"/>
+							<option value="str" onchange="">${str}</option>
+						</c:forEach>
+   					</select>
+					請選擇醫師：
+					<select>
+        			<option value="" onchange="">請選擇</option>
+   					</select>
+					請選擇時間：
+					<select>
+        			<option value="" onchange="">請選擇</option>
+   					</select>
 				
 				</div>
 			</div>
