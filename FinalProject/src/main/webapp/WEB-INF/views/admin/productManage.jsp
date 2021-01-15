@@ -463,7 +463,7 @@
 	//圖片上傳Imgur API功能
 	var a_targetImage="";		//Image物件陣列(input內有限制Image檔案類別)
 		$("#a_upload").change(function(e){
-		targetImage = e.target.files[0]; 
+		a_targetImage = e.target.files[0]; 
 		//e.target.files 會是一個陣列，裡面可以取得使用者所有想要上傳的檔案，陣列裡都是該檔案的 Blob 物件，而不是一般的物件。
 		//只有上傳一個檔案，所以使用 e.target.files[0] 即可取得使用者想要上傳的檔案	
 	});
@@ -503,7 +503,7 @@
 		//e.target.files 會是一個陣列，裡面可以取得使用者所有想要上傳的檔案，陣列裡都是該檔案的 Blob 物件，而不是一般的物件。
 		//只有上傳一個檔案，所以使用 e.target.files[0] 即可取得使用者想要上傳的檔案	
 	});
-	$("#imageUpload").click(function(){
+	$("#u_imageUpload").click(function(){
 		let form = new FormData();
 		form.append("image", u_targetImage);   //設定 圖片file值		
 		//Setting內為Imgur Api required dateformat
