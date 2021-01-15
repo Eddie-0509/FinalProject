@@ -30,7 +30,12 @@ public class AdminServiceImpl implements AdminService {
 	public List<Products> getAllProductsByCategory(String h_productCategory) {
 		return adminDao.getAllProductsByCategory(h_productCategory);
 	}
-
+	
+	@Override
+	public List<Products> getAllProductsByName(String keyName) {
+		return adminDao.getAllProductsByName(keyName);
+	}
+	
 	@Override
 	public void insertProduct(Products product) {
 		adminDao.insertProduct(product);
@@ -56,6 +61,7 @@ public class AdminServiceImpl implements AdminService {
 	public List<Member> getAllMember() {
 		return adminDao.getAllMember();
 	}
+
 
 	
 

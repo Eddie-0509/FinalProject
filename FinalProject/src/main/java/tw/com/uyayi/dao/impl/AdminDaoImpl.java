@@ -38,6 +38,16 @@ public class AdminDaoImpl implements AdminDao {
 				.getResultList();
 		return list;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Products> getAllProductsByName(String keyName) {
+		String hql ="From Products where productName like :pName";
+		Session session = factory.getCurrentSession();
+		List<Products> list = session.createQuery(hql)
+				.setParameter("pName", "%"+keyName+"%")
+				.getResultList();
+		return list;
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -98,6 +108,7 @@ public class AdminDaoImpl implements AdminDao {
 		Date sqldate = Date.valueOf(df.format(today));
 		return sqldate;
 	}
+
 
 
 

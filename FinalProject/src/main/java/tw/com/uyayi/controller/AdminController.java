@@ -45,6 +45,17 @@ public class AdminController {
 		return beans;
 	}
 	
+	@GetMapping(value  = "/getAllProductsByName", produces = "application/json")
+	public @ResponseBody List<Products> getProductsByName(@RequestParam String keyName) {
+		List<Products> beans= null;
+		if(keyName.equals("")) {
+			beans = service.getAllProducts();
+		}else {
+			beans = service.getAllProductsByName(keyName);
+		}
+		return beans;
+	}
+	
 	@GetMapping(value = "/clinicManage")
 	public String getAllClinic(Model model) {
 		List<Clinic> beans = service.getAllClinic();
@@ -63,13 +74,6 @@ public class AdminController {
 		return "admin/memberManage";
 	}
 	
-//	@GetMapping(value = "/addProductForm")
-//	public String addProductForm(Model model) {
-//		Products product = new Products();
-//		model.addAttribute("product",product);
-//		return "admin/addProductForm";
-//	}
-//	
 	@PostMapping(value = "/addProduct")
 	public String addProduct(@ModelAttribute("addProduct") Products product) {
 		Date sqldate = service.getToday();

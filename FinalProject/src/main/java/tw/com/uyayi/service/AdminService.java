@@ -12,6 +12,8 @@ public interface AdminService {
 	List<Products> getAllProducts();
 	//By類別取得產品資料
 	List<Products> getAllProductsByCategory(String h_productCategory);
+	//模糊查詢
+	List<Products> getAllProductsByName(String keyName);
 	//新增產品
 	void insertProduct(Products product);
 	//修改產品
