@@ -420,7 +420,7 @@ memberPhone nvarchar(15)  not null,			--會員電話--
 memberStatus nvarchar(20)  not null			--會員狀態(是否被鎖權限)--
 );
 
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('admin','admin123','F123456789','admin','台北市信義區信義路三段390號','0266316666','admin');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('admin','admin123','admin','admin','台北市信義區信義路三段390號','0266316666','admin');
 insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Tanjirou@gmail.com.tw','P@ssw0rd123','F123456789','炭治郎','台北市信義區信義路一段1號','0911111111','true');
 insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Nezuko@gmail.com.tw','P@ssw0rd123','A123456789','彌豆子','新北市板橋區板橋路一段2號','0922222222','true');
 insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Zenitsu@gmail.com.tw','P@ssw0rd123','B123456789','善逸','桃園市桃園區桃園路一段3號','0933333333','true');
