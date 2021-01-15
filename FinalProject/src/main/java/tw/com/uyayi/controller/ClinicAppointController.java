@@ -9,9 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.com.uyayi.model.Clinic;
+import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
 import tw.com.uyayi.service.ClinicAppointService;
 
@@ -36,5 +40,25 @@ public class ClinicAppointController {
 			List<Items> itemlist2 = new ArrayList<Items>(itemlist);
 			model.addAttribute("itemlist",itemlist2);
 			return "clinic/clinicCreateAppointment";
+		}
+		
+		//點完項目得出可看診醫師
+		@PostMapping(path =  "/getDentist", produces = "application/json")
+		public @ResponseBody List<Dentist> getDentist(
+				@ModelAttribute("loginOK") Clinic clinic,
+				@RequestParam("item") String item){
+//			System.out.println("=================================");
+//			System.out.println("CONitem"+item+"CONlist"+cappService.getDentist(clinic, item));
+//			System.out.println("=================================");
+			 return cappService.getDentist(clinic, item);
+		}
+		
+		//點完醫生，得到該醫生可預約時間
+		@PostMapping(path =  "/getDentistTime", produces = "application/json")
+		public @ResponseBody List<Dentist> getDentistTime(
+				@ModelAttribute("loginOK") Clinic clinic,
+				@RequestParam("dentist") String dentist){
+			
+			 return null;
 		}
 }

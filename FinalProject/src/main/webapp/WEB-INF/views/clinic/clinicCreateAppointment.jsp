@@ -84,8 +84,8 @@
 	<script src="js/viewport-units-buggyfill.js"></script>
 
 	<!-- Googgle Map -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-	<script src="js/google_map.js"></script>
+<!-- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script> -->
+<!-- 	<script src="js/google_map.js"></script> -->
 
 	
 	<!-- Main JS  -->
@@ -143,21 +143,20 @@
 			<div class="container">
 				<div>
 					請選擇治療項目：
-					<select>
-        			<option value="" onchange="">請選擇</option>
+					<select id="item" onchange="getDentist()">
+        			<option value="" >請選擇</option>
 	        			<c:forEach items="${itemlist}" var="itemlist" varStatus="vs" >
 	        				<c:set var="str" value="${itemlist.itemName}"/>
-	        				<c:set var="str2" value="${fn:substring(str, 1, str.length()-1)}"/>
-							<option value="str" onchange="">${str}</option>
+	        				<option value="${str}" >${str}</option>
 						</c:forEach>
    					</select>
 					請選擇醫師：
-					<select>
-        			<option value="" onchange="">請選擇</option>
+					<select id="dentist" onchange="getDentistTime()">
+        				<option value="" >請選擇</option>
    					</select>
 					請選擇時間：
-					<select>
-        			<option value="" onchange="">請選擇</option>
+					<select id="dentistTime" onchange="">
+        				<option value="">請選擇</option>
    					</select>
 				
 				</div>
@@ -189,7 +188,48 @@
 		</footer>
 
 	</div>
-
+	
+	<script>
+		function getDentist(){
+			console.log($("#item").val())
+			 $.ajax({
+					url : 'getDentist',
+					type : 'POST',		
+					data : {
+						item : $("#item").val(),
+						method : "$.ajax()",
+						doWhat : "POST"
+					},
+					success : function(data) {
+						console.log(data.length)
+						for (let i=0;i<data.length;i++){
+							$("#dentist").html("<option value='' >請選擇</option><option value='anyone' >不限醫師</option><option value="+data[i].dentistName+">"+data[i].dentistName+"</option>")
+						}
+					}
+				})
+		}
+		function getDentistTime(){
+			console.log($("#dentist").val())
+			 $.ajax({
+					url : 'getDentist',
+					type : 'POST',		
+					data : {
+						item : $("#dentist").val(),
+						method : "$.ajax()",
+						doWhat : "POST"
+					},
+					success : function(data) {
+						console.log(data.length)
+						for (let i=0;i<data.length;i++){
+							$("#dentist").html("<option value='' >請選擇</option><option value="+data[i].dentistName+">"+data[i].dentistName+"</option>")
+						}
+					}
+				})
+		}
+		
+		
+	
+	</script>
 	
 	</body>
 </html>
