@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,7 +27,7 @@ public class Dentist {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int dentistPkId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "clinicPkId")
 	private Clinic clinicBean;
 	
@@ -37,11 +38,11 @@ public class Dentist {
 	private String dentistGender;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="dentistBean")
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy="dentistBean")
 	@JsonIgnore
 	private Set<Appointment> appointments;
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
         name="dentistTime",
         joinColumns={@JoinColumn(name="dentistPkId")},
@@ -49,13 +50,18 @@ public class Dentist {
     )
 	private Set<TimeTable> timeTables;
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
         name="dentistItem",
         joinColumns={@JoinColumn(name="dentistPkId")},
         inverseJoinColumns={@JoinColumn(name="itemPkId")}
     )
 	private Set<Items> itemsBean = new LinkedHashSet<Items>();
+	
+	@Transient
+	private String[] timeCheckBox;
+	@Transient
+	private String[] itemCheckBox;
 	
 	public Dentist() {
 		
@@ -154,6 +160,30 @@ public class Dentist {
 
 	public void setItemsBean(Set<Items> itemsBean) {
 		this.itemsBean = itemsBean;
+	}
+
+
+
+	public String[] getTimeCheckBox() {
+		return timeCheckBox;
+	}
+
+
+
+	public void setTimeCheckBox(String[] timeCheckBox) {
+		this.timeCheckBox = timeCheckBox;
+	}
+
+
+
+	public String[] getItemCheckBox() {
+		return itemCheckBox;
+	}
+
+
+
+	public void setItemCheckBox(String[] itemCheckBox) {
+		this.itemCheckBox = itemCheckBox;
 	}
 
 }

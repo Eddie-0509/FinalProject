@@ -30,7 +30,7 @@ public class ClinicLogInDaoImpl implements ClinicLogInDao {
 
 	@Override
 	public Clinic getClinicByAccount(String clinicAccount) {
-		Session session = factory.openSession();
+		Session session = factory.getCurrentSession();
 		String hql = "from Clinic where clinicAccount = :cA";
 		Clinic clinicBean  = (Clinic) session.createQuery(hql).setParameter("cA", clinicAccount).getSingleResult();
 		return clinicBean;

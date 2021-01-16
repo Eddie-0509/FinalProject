@@ -201,28 +201,33 @@ a.oneClick:hover{
 	    <div class="modal-content">
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">新增醫師</h4>
+	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">${loginOK.clinicName}</h4>
 	        </div>
 	        <div id="newDentistBody" class="modal-body"  style="color:black">
 	        	<form:form modelAttribute="newDentist" action="${pageContext.request.contextPath}/newDentist" id="dentistForm" class='form-horizontal' enctype="multipart/form-data">
 	        	<label for="dentistName">醫師姓名:</label>
 	        	<input type="text" name="dentistName">
+	        	<label for="dentistGender">醫師性別:</label>
+	        	<select name="dentistGender">
+	        	<option value="男">男</option>
+	        	<option value="女">女</option>
+	        	</select>
 	        	<br/>
 	        	<label for="dentistItem">主治項目:</label>
 	        	<br/>
-	        	<input type="checkbox" name="dentistItem" value="1">齬齒
-	        	<input type="checkbox" name="dentistItem" value="2">洗牙
-	        	<input type="checkbox" name="dentistItem" value="3">牙周病
-	        	<input type="checkbox" name="dentistItem" value="4">人工贋復
-	        	<input type="checkbox" name="dentistItem" value="5">根管治療
-	        	<input type="checkbox" name="dentistItem" value="6">顯微根管
-	        	<input type="checkbox" name="dentistItem" value="7">冷光美白
-	        	<input type="checkbox" name="dentistItem" value="8">全口矯正
-	        	<input type="checkbox" name="dentistItem" value="9">兒童牙科
-	        	<input type="checkbox" name="dentistItem" value="10">敏感性牙齒
+	        	<input type="checkbox" name="itemCheckBox" value="1">齬齒
+	        	<input type="checkbox" name="itemCheckBox" value="2">洗牙
+	        	<input type="checkbox" name="itemCheckBox" value="3">牙周病
+	        	<input type="checkbox" name="itemCheckBox" value="4">人工贋復
+	        	<input type="checkbox" name="itemCheckBox" value="5">根管治療
+	        	<input type="checkbox" name="itemCheckBox" value="6">顯微根管
+	        	<input type="checkbox" name="itemCheckBox" value="7">冷光美白
+	        	<input type="checkbox" name="itemCheckBox" value="8">全口矯正
+	        	<input type="checkbox" name="itemCheckBox" value="9">兒童牙科
+	        	<input type="checkbox" name="itemCheckBox" value="10">敏感性牙齒
 	        	<br/>
 	        	<label for="dentistTime">看診時間:</label>       
-	  			<table style="margin:'0 auto'">
+	  			<table class="newTable"style="margin:'0 auto'">
 	        	<thead>
 	        	<tr>
 	        	<th class="tableWidth timeth">時間</th>
@@ -268,13 +273,13 @@ a.oneClick:hover{
 	        	<c:forEach var="time" items="${timeStringList}" varStatus="timeCount">
 	        	<tr>
 	        	<td class="tableWidth timeth">${time}</td>
-	        	<td class="tableWidth time" ><input type="checkbox" name="dentistTime" value="${timeCount.count}"></td>
-	        	<td class="tableWidth time" ><input type="checkbox" name="dentistTime" value="${timeCount.count+28}"></td>
-	        	<td class="tableWidth time" ><input type="checkbox" name="dentistTime" value="${timeCount.count+56}"></td>
-	        	<td class="tableWidth time" ><input type="checkbox" name="dentistTime" value="${timeCount.count+84}"></td>
-	        	<td class="tableWidth time" ><input type="checkbox" name="dentistTime" value="${timeCount.count+112}"></td>
-	        	<td class="tableWidth time" ><input type="checkbox" name="dentistTime" value="${timeCount.count+140}"></td>
-	        	<td class="tableWidth time" ><input type="checkbox" name="dentistTime" value="${timeCount.count+168}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="timeCheckBox" value="${timeCount.count}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="timeCheckBox" value="${timeCount.count+28}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="timeCheckBox" value="${timeCount.count+56}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="timeCheckBox" value="${timeCount.count+84}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="timeCheckBox" value="${timeCount.count+112}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="timeCheckBox" value="${timeCount.count+140}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="timeCheckBox" value="${timeCount.count+168}"></td>
 	        	</tr>
 	        	</c:forEach>
 	        	</tbody>
@@ -283,7 +288,7 @@ a.oneClick:hover{
 	        	
 	        </div>
 	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal">確定新增</button>
+	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal" id="newSubmit">確定新增</button>
 	            <input type="reset" class="btn btn-default" id="clearForm" value="清空">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        </div>
@@ -291,6 +296,106 @@ a.oneClick:hover{
 	</div>
 </div>
 	
+	
+<!-- 	修改醫師資料的modal -->
+<div id="reviseDentist" class="modal fade" style="color:black; ">
+	<div class="modal-dialog"  style="width:1000px">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">${loginOK.clinicName}</h4>
+	        </div>
+	        <div id="reviseDentistBody" class="modal-body"  style="color:black">
+	        	<form:form action="${pageContext.request.contextPath}/reviseDentist" id="reviseForm" class='form-horizontal' enctype="multipart/form-data">
+	        	<input type="hidden" name="dentistPkId"> 	        	
+	        	
+	        	醫師姓名: <span id="reviseDentistName"></span>
+	        	<br/>
+	        	醫師性別: <span id="reviseDentistGender"></span>
+	        	<br/>
+	        	<label for="dentistItem">主治項目:</label>
+	        	<br/>
+	        	<input type="checkbox" name="reviseItem" value="1">齬齒
+	        	<input type="checkbox" name="reviseItem" value="2">洗牙
+	        	<input type="checkbox" name="reviseItem" value="3">牙周病
+	        	<input type="checkbox" name="reviseItem" value="4">人工贋復
+	        	<input type="checkbox" name="reviseItem" value="5">根管治療
+	        	<input type="checkbox" name="reviseItem" value="6">顯微根管
+	        	<input type="checkbox" name="reviseItem" value="7">冷光美白
+	        	<input type="checkbox" name="reviseItem" value="8">全口矯正
+	        	<input type="checkbox" name="reviseItem" value="9">兒童牙科
+	        	<input type="checkbox" name="reviseItem" value="10">敏感性牙齒
+	        	<br/>
+	        	<label for="dentistTime">看診時間:</label>       
+	  			<table class="reviseTable" style="margin:'0 auto'">
+	        	<thead>
+	        	<tr>
+	        	<th class="tableWidth timeth">時間</th>
+	        	<th class="tableWidth timeth">Sunday</th>
+	        	<th class="tableWidth timeth">Monday</th>
+	        	<th class="tableWidth timeth">Tuesday</th>
+	        	<th class="tableWidth timeth">Wednesday</th>
+	        	<th class="tableWidth timeth">Thursday</th>
+	        	<th class="tableWidth timeth">Friday</th>
+	        	<th class="tableWidth timeth">Saturday</th>
+	        	</tr>
+	        	<tr>
+	        	<th class="tableWidth timeth" rowspan="3">快速選填</th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick "><i class="fas fa-check-square"></i>上午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>上午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>上午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>上午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>上午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>上午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>上午</a></th>
+	        	</tr>
+	        	<tr>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>下午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>下午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>下午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>下午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>下午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>下午</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>下午</a></th>
+	        	</tr>
+	        	<tr>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>晚間</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>晚間</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>晚間</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>晚間</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>晚間</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>晚間</a></th>
+	        	<th class="tableWidth timeth tableBtn"><a class="oneClick"><i class="fas fa-check-square"></i>晚間</a></th>
+	        	</tr>
+	        	
+	        	</thead>
+	        	<tbody>
+	        	<c:forEach var="time" items="${timeStringList}" varStatus="timeCount">
+	        	<tr>
+	        	<td class="tableWidth timeth">${time}</td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="reviseTimeCheckBox" value="${timeCount.count}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="reviseTimeCheckBox" value="${timeCount.count+28}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="reviseTimeCheckBox" value="${timeCount.count+56}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="reviseTimeCheckBox" value="${timeCount.count+84}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="reviseTimeCheckBox" value="${timeCount.count+112}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="reviseTimeCheckBox" value="${timeCount.count+140}"></td>
+	        	<td class="tableWidth time" ><input type="checkbox" name="reviseTimeCheckBox" value="${timeCount.count+168}"></td>
+	        	</tr>
+	        	</c:forEach>
+	        	</tbody>
+	        	</table>
+	        	</form:form>
+	        	
+	        </div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal" id="reviseFormSubmit">確定新增</button>
+	            <input type="reset" class="btn btn-default" id="clearReviseForm" value="清空">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        </div>
+	    </div>
+	</div>
+</div>
+
 
 	<!-- Loader -->
 	<div class="fh5co-loader"></div>
@@ -317,7 +422,7 @@ a.oneClick:hover{
 			data-colorbg="">
 			<div class="container">
 			
-			<c:forEach items="${loginOK.dentists}" var="dentists" varStatus="vsDentist">
+			<c:forEach items="${dentistList}" var="dentists" varStatus="vsDentist">
 				<button type="button" class="btn btn-success dentistBtn" value="${dentists.dentistPkId}">${dentists.dentistName}</button>
 			<c:if test="${vsDentist.last}"><button type="button" class="btn btn-info" id="newDentistBtn">新增醫師</button></c:if>	
 			</c:forEach>
@@ -328,7 +433,7 @@ a.oneClick:hover{
 	        	<br>
 	        	看診時間：<span id='dentistTime'></span>
 	        	<div id="colorsetumeis" class="animate-box">
-	        	    <button type="button" class="btn btn-warning">修改醫師資料</button>
+	        	    <button type="button" class="btn btn-warning" id="reviseBtn">修改醫師資料</button>
 	        	    <button type="button" class="btn btn-danger">刪除醫師</button>
 					<label class="colorsetumei" style="background-color:#D0D0D0" ></label>醫師休診時間
 					<label class="colorsetumei" style="background-color:#84C1FF" ></label>醫師看診時間
@@ -387,12 +492,24 @@ a.oneClick:hover{
 	</div>
 	<script>
 	$(function(){
+	$("#newSubmit").click(function(){
+	$("#dentistForm").trigger("submit");
+	});
 	$("#clearForm").click(function(){
 	$("#dentistForm").trigger("reset");
 		});
 		
 	$("#newDentistBtn").click(function(){
 		$("#newDentist").modal("show");
+	});
+	
+	$("#reviseFormSubmit").click(function(){
+		$("#reviseForm").trigger("submit");
+	});
+	
+	$("#clearReviseForm").click(function(){
+		$("#reviseForm").trigger("reset");
+
 	});
 	
 	<c:forEach step="1" begin="2" end="8" var="j">
@@ -423,6 +540,11 @@ a.oneClick:hover{
 		};
 	});
 	</c:forEach>
+	
+	
+	$("#reviseBtn").click(function(){
+		$("#reviseDentist").modal("show");
+	})
 		
 	});
 	
@@ -442,17 +564,26 @@ a.oneClick:hover{
 			return response.json();
 		}).then(function(data) {
 			console.log(data);
+			$("#reviseForm").trigger("reset");
 			$("#dentistName").html(data.dentistName);
+			$("#reviseDentistName").html(data.dentistName);
+			$("#reviseForm > input[type=hidden]:nth-child(1)").val(data.dentistPkId);
+			$("#reviseDentistGender").html(data.dentistGender);
 			var itemStr = "";
 			for(let i =0; i<data.itemsBean.length; i++){
 				itemStr+=data.itemsBean[i].itemName+", ";
+				let reviseItemStr = "#reviseForm > input[type=checkbox]:nth-child("+(data.itemsBean[i].itemPkId+6)+")";
+				$(reviseItemStr).prop("checked",true);
 			}
 			itemStr=itemStr.substring(0,itemStr.length-2);
 			$("#dentistItem").html(itemStr);
 			
 			for(let j=0; j<data.timeTables.length; j++){
 				let timeStr = "#"+data.timeTables[j].timeTablePkId;
+				let reviseTimeStr = "#reviseForm > table > tbody > tr > td > input[value='"+data.timeTables[j].timeTablePkId+"']";
 				$(timeStr).css("background-color", "#84C1FF");
+				$(reviseTimeStr).prop("checked",true);
+
 			}
 		$("#dentistDetail").removeAttr("hidden");
 			
