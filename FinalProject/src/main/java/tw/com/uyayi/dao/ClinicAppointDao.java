@@ -1,7 +1,10 @@
 package tw.com.uyayi.dao;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
@@ -11,5 +14,6 @@ import tw.com.uyayi.model.TimeTable;
 public interface ClinicAppointDao {
 	LinkedHashSet<Items> getClinicItem(Clinic clinic);
 	List<Dentist> getDentist(Clinic clinic,String item);
-	List<TimeTable> getDentistTime(Clinic clinic,String item);
+	Set<String> getDentistTime(Clinic clinic,String item, String dentist);
+	LinkedHashMap<String,ArrayList<TimeTable>>getAppointable(Clinic clinic,String item, String dentist,String timeInterval);
  }

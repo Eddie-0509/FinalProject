@@ -23,6 +23,8 @@ public class TimeTable {
 	
 	private String times;
 	
+	private String timeInterval;
+	
 	@ManyToMany(mappedBy = "timeTables",cascade = CascadeType.ALL)
 	@JsonIgnore //scone加ㄉ
 	private Set<Dentist> dentists;
@@ -79,6 +81,16 @@ public class TimeTable {
 
 	public void setAppointments(Set<Appointment> appointments) {
 		this.appointments = appointments;
+	}
+	
+
+	public String getTimeInterval() {
+		return timeInterval;
+	}
+
+
+	public void setTimeInterval(String timeInterval) {
+		this.timeInterval = timeInterval;
 	}
 
 	

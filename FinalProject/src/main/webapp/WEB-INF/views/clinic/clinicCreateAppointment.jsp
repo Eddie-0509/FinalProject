@@ -113,7 +113,18 @@
 
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
-	
+	<style>
+		input,select{
+		 color:black
+		}
+		#appFilter{
+		width:70%;
+		margin:auto;
+		border:1rem double #6C6C6C;
+		padding:2rem;
+		position:relative;
+		}
+	</style>
 	</head>
 
 	<body>
@@ -126,9 +137,9 @@
 			<ul>
 				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
-				<li class="animate-box fh5co-active"><a href="#" class="transition">預約新增及查詢</a></li>
+				<li class="animate-box fh5co-active"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>
 				<li class="animate-box"><a href="#" class="transition">診所資料</a></li>
-				<li class="animate-box"><a href="#" class="transition">醫師資料</a></li>
+				<li class="animate-box"><a href="<c:url value='getDentist'/>" class="transition">醫師資料</a></li>
 				<li class="animate-box"><a href="#" class="transition">報表</a></li>
 				<li class="animate-box"><a href="<c:url value='logout'/>" class="transition style-logout">登出</a></li>
 			</ul>
@@ -141,7 +152,8 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
-				<div>
+			
+				<div id="appFilter">
 					請選擇治療項目：
 					<select id="item" onchange="getDentist()">
         			<option value="" >請選擇</option>
@@ -150,15 +162,21 @@
 	        				<option value="${str}" >${str}</option>
 						</c:forEach>
    					</select>
+   					<br>
 					請選擇醫師：
 					<select id="dentist" onchange="getDentistTime()">
         				<option value="" >請選擇</option>
    					</select>
-					請選擇時間：
-					<select id="dentistTime" onchange="">
+   					<br>
+					請選擇時段：
+					<select id="dentistTimeInterval" onchange="">
         				<option value="">請選擇</option>
    					</select>
-				
+   					<br>
+					<input type="button" value="查詢" onclick="getResult()" style="margin:1rem auto 0 auto;text-align: center;display: block">
+				</div>
+				<div id="appFilterResult" style="display:none">
+					
 				</div>
 			</div>
 		</div>
@@ -202,29 +220,64 @@
 					},
 					success : function(data) {
 						console.log(data.length)
+						$("#dentist").html("<option value='' >請選擇</option><option value='anyone' >不限醫師</option>")
 						for (let i=0;i<data.length;i++){
-							$("#dentist").html("<option value='' >請選擇</option><option value='anyone' >不限醫師</option><option value="+data[i].dentistName+">"+data[i].dentistName+"</option>")
+							$("#dentist option").eq(1).after("<option value="+data[i].dentistName+">"+data[i].dentistName+"</option>")
 						}
 					}
 				})
 		}
 		function getDentistTime(){
-			console.log($("#dentist").val())
+			console.log($("#dentist").val());
 			 $.ajax({
-					url : 'getDentist',
+					url : 'getDentistTime',
 					type : 'POST',		
 					data : {
-						item : $("#dentist").val(),
+						item : $("#item").val(),
+						dentist : $("#dentist").val(),
 						method : "$.ajax()",
 						doWhat : "POST"
 					},
 					success : function(data) {
-						console.log(data.length)
-						for (let i=0;i<data.length;i++){
-							$("#dentist").html("<option value='' >請選擇</option><option value="+data[i].dentistName+">"+data[i].dentistName+"</option>")
+						console.log(data)
+						$("#dentistTimeInterval").html("<option value='' >請選擇</option>")
+						if($.inArray( "上午", data )>-1 && $.inArray( "下午", data )>-1 &&$.inArray( "晚間", data )>-1){
+							$("#dentistTimeInterval option").eq(0).after("<option value='anytime' >不限時段</option><option value='上午'>上午</option><option value='下午'>下午</option><option value='晚間'>晚間</option>")
+						}else if($.inArray( "上午", data )>-1 && $.inArray( "下午", data )>-1){
+							$("#dentistTimeInterval option").eq(0).after("<option value='anytime' >不限時段</option><option value='上午'>上午</option><option value='下午'>下午</option>")
+						}else if($.inArray( "上午", data )>-1 && $.inArray( "晚間", data )>-1){
+							$("#dentistTimeInterval option").eq(0).after("<option value='anytime' >不限時段</option><option value='上午'>上午</option><option value='晚間'>晚間</option>")
+						}else if($.inArray( "下午", data )>-1 && $.inArray( "晚間", data )>-1){
+							$("#dentistTimeInterval option").eq(0).after("<option value='anytime' >不限時段</option><option value='下午'>下午</option><option value='晚間'>晚間</option>")
+						}else{
+							$("#dentistTimeInterval option").eq(0).after("<option value='"+data[0]+"'>"+data[0]+"</option>")
 						}
+						
 					}
-				})
+			})
+		}
+		
+		function getResult(){
+			$("#appFilter").css("display","none");
+			$("#appFilterResult").css("display","block");
+			$.ajax({
+				url : 'getAppointable',
+				type : 'POST',		
+				data : {
+					item : $("#item").val(),
+					dentist : $("#dentist").val(),
+					timeInterval : $("#dentistTimeInterval").val(),
+					method : "$.ajax()",
+					doWhat : "POST"
+				},
+				success : function(data) {
+					console.log(data)
+				},
+				error : function(data) {
+					console.log("NULL")
+				},
+		
+			})
 		}
 		
 		
