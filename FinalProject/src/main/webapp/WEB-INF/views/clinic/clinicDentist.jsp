@@ -540,6 +540,34 @@ a.oneClick:hover{
 		};
 	});
 	</c:forEach>
+	<c:forEach step="1" begin="2" end="8" var="j">
+	$("#reviseForm > table > thead > tr:nth-child(2) > th:nth-child("+${j}+") > a").click(function(){
+		for (var i = 1; i < 9; i++) {
+			if($("#dentistForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j}+") > input[type=checkbox]").prop("checked")){
+		$("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j}+") > input[type=checkbox]").prop("checked", false);
+			}else $("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j}+") > input[type=checkbox]").prop("checked", true);
+		};
+	});
+	</c:forEach>
+		
+	
+	<c:forEach step="1" begin="1" end="7" var="j">
+	$("#reviseForm > table > thead > tr:nth-child(3) > th:nth-child("+${j}+") > a").click(function(){
+		for (var i = 13; i < 19; i++) {
+			if($("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked")){
+		$("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked", false);
+			}else $("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked", true);
+		};
+	});
+	
+	$("#reviseForm > table > thead > tr:nth-child(4) > th:nth-child("+${j}+") > a").click(function(){
+		for (var i = 22; i < 29; i++) {
+			if($("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked")){
+		$("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked", false);
+			}else $("#dentistForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked", true);
+		};
+	});
+	</c:forEach>
 	
 	
 	$("#reviseBtn").click(function(){

@@ -1,5 +1,6 @@
 package tw.com.uyayi.dao.impl;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -78,8 +79,22 @@ public class DentistDaoImpl implements DentistDao {
 	@Override
 	public void reviseDentist(int dentistPkId, Set<Items> itemsSet, Set<TimeTable> timeSet) {
 		Session session = factory.getCurrentSession();
-		String hql = "update Dentist d set d.timeTables=:time, d.itemsBean=:item where d.dentistPkId = :id";
-		session.createQuery(hql).setParameter("time", timeSet).setParameter("item", itemsSet).setParameter("id", dentistPkId).executeUpdate();
+		String hqlItem = "delete from dentistItem where dentistPkId = :id";
+		String hqlTime = "delete from dentistTime where dentistPkId = :id";
+		String hqlInsertItem ="Insert into dentistItem(dentistPkId, itemPkId)values(:dId,:iId)";
+		String hqlInsertTime ="Insert into dentistTime(dentistPkId, timeTablePkId)values(:dId,:tId)";
+		session.createSQLQuery(hqlItem).setParameter("id", dentistPkId).executeUpdate();
+		session.createSQLQuery(hqlTime).setParameter("id", dentistPkId).executeUpdate();
+		Iterator<Items> itemIter = itemsSet.iterator();
+		while(itemIter.hasNext()) {
+			session.createSQLQuery(hqlInsertItem).setParameter("dId", dentistPkId).setParameter("iId", itemIter.next().getItemPkId()).executeUpdate();
+		}
+		
+		Iterator<TimeTable> timeIter = timeSet.iterator();
+		while(timeIter.hasNext()) {
+			session.createSQLQuery(hqlInsertTime).setParameter("dId", dentistPkId).setParameter("tId", timeIter.next().getTimeTablePkId()).executeUpdate();			
+		}
+		
 	}
 
 }
