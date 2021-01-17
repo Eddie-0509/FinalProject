@@ -15,5 +15,5 @@ public interface ClinicAppointDao {
 	LinkedHashSet<Items> getClinicItem(Clinic clinic);
 	List<Dentist> getDentist(Clinic clinic,String item);
 	Set<String> getDentistTime(Clinic clinic,String item, String dentist);
-	LinkedHashMap<String,ArrayList<TimeTable>>getAppointable(Clinic clinic,String item, String dentist,String timeInterval);
+	LinkedHashMap<String,ArrayList<String>>getAppointable(Clinic clinic,String item, String dentist,String timeInterval);
  }

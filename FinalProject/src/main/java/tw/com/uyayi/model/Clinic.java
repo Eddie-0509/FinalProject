@@ -61,7 +61,7 @@ public class Clinic {
 	private int clinicDistId;
 	
 	@JsonIgnore
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean", fetch = FetchType.EAGER)
 	private Set<Appointment> appointments;
 	
 	@JsonIgnore

@@ -869,6 +869,8 @@ insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTableP
 values (7,2,7,'2021-01-11',42,4,'未回覆')
 insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
 values (7,2,7,'2021-01-13',106,10,'確定前往')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (7,2,7,'2021-01-20',101,10,'確定前往')
 
 
 --看診評論資料表--

@@ -17,11 +17,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import tw.com.uyayi.dao.ClinicAppointDao;
+import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
@@ -110,19 +113,23 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 		return thisDentistTime;
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
-	public LinkedHashMap<String, ArrayList<TimeTable>> getAppointable(Clinic clinic,
+	public LinkedHashMap<String, ArrayList<String>> getAppointable(Clinic clinic,
 			String item, String dentist, String timeInterval) {
 		Set<Dentist> den = clinic.getDentists();
-		Iterator<Dentist> itr = den.iterator();
+		Iterator<Dentist> denitr = den.iterator();
+		Set<Appointment> app = clinic.getAppointments();
+		Iterator<Appointment> appitr = app.iterator();
 		int weekDay = 0;
 		long millis=System.currentTimeMillis(); 
 		Date date=new Date(millis);//取時間
 		Calendar calendar = new GregorianCalendar();
-		Set<String> datelist =new HashSet<String>();
-		LinkedHashMap<String, ArrayList<TimeTable>> appointable=new LinkedHashMap<String, ArrayList<TimeTable>>();
-		while (itr.hasNext()) {
-			Dentist bean=itr.next();
+				
+		LinkedHashMap<String, ArrayList<String>> appointable=new LinkedHashMap<String, ArrayList<String>>();
+		//找每個醫生跟選擇時間段的所有時間
+		while (denitr.hasNext()) {
+			Dentist bean=denitr.next();
 			String name=bean.getDentistName();
 			List<TimeTable> interval = bean.getTimeTables().stream().filter(a -> a.getTimeInterval().equals(timeInterval)).collect(Collectors.toList());
 			Collections.sort(interval, new Comparator<TimeTable>() {
@@ -130,21 +137,61 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
                     return object1.getTimes().compareToIgnoreCase(object2.getTimes());
                 }
             });
-
+			//找到想預約的醫生
 		    if(name.equals(dentist)) {
-			   System.out.println("名字2："+name);
-			   for(int i=0;i<interval.size();i++) {
-				   System.out.println("時段："+interval.get(i).getWeekdays()+interval.get(i).getTimes());
-				   for(int r=0;r<=90;r++) {
-				    	  calendar.setTime(date);
-					      calendar.add(calendar.DATE,+r);//把日期往前減少一天，若想把日期向後推一天則將負數改為正數
-					      Date date2=new Date(calendar.getTimeInMillis()); 
-					      int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-					      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-					      String dateString = formatter.format(date2);
-//					      System.out.println(date2+" "+dayOfWeek);
-					 
-				 switch(interval.get(i).getWeekdays()) {
+			   System.out.println("名字："+name);
+			   //把該醫生該時間段的內容存成MAP
+			   LinkedHashMap<String,ArrayList<String>> weekDayTimeMap = new LinkedHashMap<String,ArrayList<String>>();
+			   ArrayList<String> sunDayTimeMapList=new ArrayList<String>();
+			   ArrayList<String> monDayTimeMapList=new ArrayList<String>();
+			   ArrayList<String> tueDayTimeMapList=new ArrayList<String>();
+			   ArrayList<String> wedDayTimeMapList=new ArrayList<String>();
+			   ArrayList<String> thuDayTimeMapList=new ArrayList<String>();
+			   ArrayList<String> friDayTimeMapList=new ArrayList<String>();
+			   ArrayList<String> satDayTimeMapList=new ArrayList<String>();
+			   for(int x=0;x<interval.size();x++) {
+				   switch(interval.get(x).getWeekdays()) {
+				   case "Sunday" :
+					   sunDayTimeMapList.add(interval.get(x).getTimes());
+					   weekDayTimeMap.put(interval.get(x).getWeekdays(),sunDayTimeMapList);
+					   break;
+				   case "Monday" :
+					   monDayTimeMapList.add(interval.get(x).getTimes());
+					   weekDayTimeMap.put(interval.get(x).getWeekdays(),monDayTimeMapList);
+					   break;
+				   case "Tuesday" :
+				   	   tueDayTimeMapList.add(interval.get(x).getTimes());
+					   weekDayTimeMap.put(interval.get(x).getWeekdays(),tueDayTimeMapList);
+					   break;
+				   case "Wednesday" :
+				   	   wedDayTimeMapList.add(interval.get(x).getTimes());
+					   weekDayTimeMap.put(interval.get(x).getWeekdays(),wedDayTimeMapList);
+					   break;
+				   case "Thursday" :
+				   	   thuDayTimeMapList.add(interval.get(x).getTimes());
+					   weekDayTimeMap.put(interval.get(x).getWeekdays(),thuDayTimeMapList);
+					   break;
+				   case "Friday" :
+				   	   friDayTimeMapList.add(interval.get(x).getTimes());
+					   weekDayTimeMap.put(interval.get(x).getWeekdays(),friDayTimeMapList);
+					   break;
+				   case "Saturday" :
+				   	   satDayTimeMapList.add(interval.get(x).getTimes());
+					   weekDayTimeMap.put(interval.get(x).getWeekdays(),satDayTimeMapList);
+					   break;
+				   }
+			   }
+			   System.out.println("weekDayTimeMap："+weekDayTimeMap);
+				   //生成90天內的日期清單
+			   for(int r=0;r<=90;r++) {
+			    	  calendar.setTime(date);
+				      calendar.add(calendar.DATE,+r);//把日期往前減少一天，若想把日期向後推一天則將負數改為正數
+				      Date date2=new Date(calendar.getTimeInMillis()); 
+				      int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+				      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				      String dateString = formatter.format(date2);
+				 for(Object key : weekDayTimeMap.keySet()) {
+		    	  switch(key.toString()) {
 				   	case "Sunday":
 				   		weekDay=1;
 				   		break;
@@ -167,28 +214,40 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 				   		weekDay=7;
 				   		break;
 				   }
+				  //如果日期清單的星期跟醫生有門診的星期一樣，把它存入
 			      if(dayOfWeek==weekDay) {
-			    	  datelist.add(dateString);
+				      System.out.println("dateString:"+dateString);
+				      System.out.println("dayTimeTable:"+weekDayTimeMap.get(key));
+			    	  appointable.put(dateString,weekDayTimeMap.get(key));
+			    	  
 			      }
-				 }
-			    
+			      //如果已經有預約，把它刪除
+		    	  Session session = factory.getCurrentSession();
+    		      String apphql = "From Appointment a where a.dentistBean =:dentist and a.appointDate =:appointDate and a.timeTableBean =:timeTable";
+			      String tthql = "From TimeTable tt where tt.weekdays =:weekdays and tt.times =:times";
+			      for(int a=0;a<weekDayTimeMap.get(key).size();a++) {
+				      List ttlist = session.createQuery(tthql).setParameter("weekdays", key).setParameter("times", weekDayTimeMap.get(key).get(a)).getResultList();
+	    		      @SuppressWarnings("unchecked")
+					List<Appointment> apped = session.createQuery(apphql).setParameter("dentist", bean)
+				      	.setParameter("appointDate", date2).setParameter("timeTable", ttlist.get(0)).getResultList();
+	    		      	if(!apped.isEmpty()) {
+	    		      		System.out.println(apped);
+	    		      		System.out.println(dateString+" "+formatter.format(apped.get(0).getAppointDate()));
+	    		      		if(dateString.equals(formatter.format(apped.get(0).getAppointDate())) ){
+		    		      		System.out.println("一樣RRRRRRRRRRR");
+	    		      			appointable.get(formatter.format(apped.get(0).getAppointDate())).remove(weekDayTimeMap.get(key).get(a));
+	    		      		} 
+	    		      	}
+			      }
 			   }   
 		    }
 		}
-		ArrayList<String> datelist2=new ArrayList<String>(datelist);
-		Collections.sort(datelist2, new Comparator <String>() {
-		    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			public int compare(final String time1, final String time2) {
-                try {
-					return df.parse(time1).compareTo(df.parse(time2));
-				} catch (ParseException e) {
-		            throw new IllegalArgumentException(e);
+		    
+		}
 
-				}
-			} 
-        });
-		System.out.println(datelist2);
-		return null;
+		System.err.println(appointable);
+		return appointable;
 	}
+
 
 }

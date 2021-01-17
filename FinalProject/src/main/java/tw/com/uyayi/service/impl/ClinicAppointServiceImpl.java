@@ -45,7 +45,7 @@ public class ClinicAppointServiceImpl implements ClinicAppointService {
 	}
 
 	@Override
-	public LinkedHashMap<String, ArrayList<TimeTable>> getAppointable(Clinic clinic, String item, String dentist,
+	public LinkedHashMap<String, ArrayList<String>> getAppointable(Clinic clinic, String item, String dentist,
 			String timeInterval) {
 		return cappDao.getAppointable(clinic, item, dentist, timeInterval);
 	}

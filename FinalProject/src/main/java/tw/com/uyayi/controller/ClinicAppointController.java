@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,24 +71,12 @@ public class ClinicAppointController {
 		}
 		
 		@PostMapping(path =  "/getAppointable", produces = "application/json")
-		public @ResponseBody LinkedList<String> getAppointable(
+		public @ResponseBody LinkedHashMap<String, ArrayList<String>> getAppointable(
 				@ModelAttribute("loginOK") Clinic clinic,
 				@RequestParam("item") String item,
 				@RequestParam("dentist") String dentist,
 				@RequestParam("timeInterval") String timeInterval){
-			long millis=System.currentTimeMillis(); 
-			Date date=new Date(millis);//取時間
-			Calendar calendar = new GregorianCalendar();
-			LinkedList<String> datelist =new LinkedList<String>();
-		      for(int i=0;i<=90;i++) {
-		    	  calendar.setTime(date);
-			      calendar.add(calendar.DATE,+i);//把日期往前減少一天，若想把日期向後推一天則將負數改為正數
-			      Date date2=new Date(calendar.getTimeInMillis()); 
-			      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			      String dateString = formatter.format(date2);
-			      datelist.add(dateString);
-		      }
-		      cappService.getAppointable(clinic, item, dentist, timeInterval);
-			 return null;
+				
+			 return cappService.getAppointable(clinic, item, dentist, timeInterval);
 		}
 }
