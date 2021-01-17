@@ -62,4 +62,10 @@ public class DentistServiceImpl implements DentistService {
 		dentistDao.reviseDentist(dentistPkId, itemsSet, timeSet);		
 	}
 
+	@Override
+	@Transactional
+	public void deleteDentist(int dentistPkID) {
+		dentistDao.deleteDentist(dentistPkID);
+	}
+
 }

@@ -427,6 +427,9 @@ a.oneClick:hover{
 			<c:if test="${vsDentist.last}"><button type="button" class="btn btn-info" id="newDentistBtn">新增醫師</button></c:if>	
 			</c:forEach>
 			<div id='dentistDetail' class='modal-body' hidden="hidden">
+				<form action="${pageContext.request.contextPath}/deleteDentist" id="deleteForm" method="post">
+				<input type="hidden" name="dentistPkId" id="dentistDetailId">
+				</form>
 	        	醫師姓名：<span id='dentistName'></span>
 	        	<br>
 	        	看診項目：<span id='dentistItem'></span>
@@ -434,7 +437,7 @@ a.oneClick:hover{
 	        	看診時間：<span id='dentistTime'></span>
 	        	<div id="colorsetumeis" class="animate-box">
 	        	    <button type="button" class="btn btn-warning" id="reviseBtn">修改醫師資料</button>
-	        	    <button type="button" class="btn btn-danger">刪除醫師</button>
+	        	    <button type="button" class="btn btn-danger" id="deleteDoctor">刪除醫師</button>
 					<label class="colorsetumei" style="background-color:#D0D0D0" ></label>醫師休診時間
 					<label class="colorsetumei" style="background-color:#84C1FF" ></label>醫師看診時間
 				</div>
@@ -492,6 +495,9 @@ a.oneClick:hover{
 	</div>
 	<script>
 	$(function(){
+	$("#deleteDoctor").click(function(){
+		$("#deleteForm").trigger("submit");
+	});
 	$("#newSubmit").click(function(){
 	$("#dentistForm").trigger("submit");
 	});
@@ -594,6 +600,7 @@ a.oneClick:hover{
 			console.log(data);
 			$("#reviseForm").trigger("reset");
 			$("#dentistName").html(data.dentistName);
+			$("#dentistDetailId").val(data.dentistPkId);
 			$("#reviseDentistName").html(data.dentistName);
 			$("#reviseForm > input[type=hidden]:nth-child(1)").val(data.dentistPkId);
 			$("#reviseDentistGender").html(data.dentistGender);

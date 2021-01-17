@@ -97,4 +97,18 @@ public class DentistDaoImpl implements DentistDao {
 		
 	}
 
+
+	@Override
+	public void deleteDentist(int dentistPkID) {
+		Session session = factory.getCurrentSession();
+		String hqlItem = "delete from dentistItem where dentistPkId = :id";
+		String hqlTime = "delete from dentistTime where dentistPkId = :id";
+		String hqlAppoint = "delete from appointment where dentistPkId = :id";
+		session.createSQLQuery(hqlItem).setParameter("id", dentistPkID).executeUpdate();
+		session.createSQLQuery(hqlTime).setParameter("id", dentistPkID).executeUpdate();
+		session.createSQLQuery(hqlAppoint).setParameter("id", dentistPkID).executeUpdate();
+		String hqlDentist = "delete from dentist where dentistPkId = :id";
+		session.createSQLQuery(hqlDentist).setParameter("id", dentistPkID).executeUpdate();
+	}
+
 }

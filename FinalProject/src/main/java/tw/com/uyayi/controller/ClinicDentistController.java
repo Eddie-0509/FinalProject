@@ -112,4 +112,11 @@ public class ClinicDentistController {
 		
 		return "redirect:/getDentist";
 	}
+	@PostMapping(value = "deleteDentist")
+	public String deleteDentist(@RequestParam("dentistPkId") String dentistId) {
+		int dentistPkID=Integer.valueOf(dentistId);
+		dentistService.deleteDentist(dentistPkID);
+		
+		return "redirect:/getDentist";
+	}
 }

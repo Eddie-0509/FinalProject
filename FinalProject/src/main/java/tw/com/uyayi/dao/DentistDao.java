@@ -23,4 +23,6 @@ public interface DentistDao {
 
 	void reviseDentist(int dentistPkId, Set<Items> itemsSet, Set<TimeTable> timeSet);
 
+	void deleteDentist(int dentistPkID);
+
 }
