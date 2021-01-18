@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "appointment")
@@ -28,7 +29,7 @@ public class Appointment {
 //    @JsonIgnore
     private  Clinic clinicBean;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "dentistPkId")
 //    @JsonIgnore
     private  Dentist dentistBean;
@@ -39,13 +40,13 @@ public class Appointment {
 	
 	private  Date  appointDate;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "timeTablePkId")
 //	@JsonIgnore
 	private  TimeTable timeTableBean;
 	
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "itemPkId")
 //	@JsonIgnore
 	private  Items itemBean;
@@ -54,6 +55,13 @@ public class Appointment {
 	
 	private  String arrive;
 	private  String memberReply;
+	
+	@Transient
+	private String dentistName;
+	@Transient
+	private String itemName;
+	@Transient
+	private String times;
 	
 	public Appointment() {
 		
@@ -153,6 +161,30 @@ public class Appointment {
 
 	public void setMemberReply(String memberReply) {
 		this.memberReply = memberReply;
+	}
+
+	public String getDentistName() {
+		return dentistName;
+	}
+
+	public void setDentistName(String dentistName) {
+		this.dentistName = dentistName;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public String getTimes() {
+		return times;
+	}
+
+	public void setTimes(String times) {
+		this.times = times;
 	}
 	
 

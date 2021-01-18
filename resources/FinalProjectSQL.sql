@@ -848,7 +848,7 @@ patientPhone nvarchar(15),																			--診所主動預約非會員電話--
 appointDate Date not null,																				--預約日期--
 timeTablePkId int references timeTable(timeTablePkId) not null,			--多對一關連到開放約診時間--
 itemPkId int references items(itemPkId) not null,										----多對一關連到看診項目--
-memberReply nvarchar(15),																		--是否有回覆會到診--
+memberReply nvarchar(15) default '未回覆',																		--是否有回覆會到診--
 arrive nvarchar(10) default 'true'																							--確認是否到診---
 )
 insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
@@ -871,6 +871,8 @@ insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTableP
 values (7,2,7,'2021-01-13',106,10,'確定前往')
 insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
 values (7,2,7,'2021-01-20',101,10,'確定前往')
+insert into appointment(memberPkId,clinicPkId,dentistPkId,appointDate,timeTablePkId,itemPkId,memberReply)
+values (7,2,7,'2021-01-18',39,10,'確定前往')
 
 
 --看診評論資料表--

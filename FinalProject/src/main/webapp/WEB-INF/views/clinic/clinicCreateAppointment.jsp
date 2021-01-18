@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 	   		
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 	   		
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -101,7 +102,7 @@
 	  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.0/moment.min.js"></script>
 	  <!-- FullCalendar v3.8.1 -->
 	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.css" rel="stylesheet"  />
-	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print"></script>
+	  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.print.css" rel="stylesheet" media="print">
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.1/fullcalendar.min.js"></script>
 	  
 	
@@ -123,6 +124,23 @@
 		border:1rem double #6C6C6C;
 		padding:2rem;
 		position:relative;
+		}
+		#appFilterResult table{
+		width:100%;
+		}
+		#appFilterResult thead{
+		border-bottom:0.3rem solid #6C6C6C;
+		}
+		#appFilterResult tbody:before{
+	    content:"@";
+	    display:block;
+	    line-height:1.5rem;
+	    text-indent:-99999px;
+		}
+		 input,select{vertical-align:middle;}
+		
+		#appointModal span{
+		display:inline-block;width:200px;text-align:right;
 		}
 	</style>
 	</head>
@@ -180,7 +198,41 @@
 				</div>
 			</div>
 		</div>
-
+<!-- 填入預約資料彈窗 -->
+<div id="appointModal" class="modal fade" style="color:black">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            <h4 id="appointModalTitle" class="modal-title"  style="color:black">填寫預約資料</h4>
+	        </div>
+   	            <form:form modelAttribute="newAppoint" id="appForm" class="form-horizontal" action="${pageContext.request.contextPath}/newAppoint" method="post" enctype="multipart/form-data">
+	        <div id="appointModalBody" class="modal-body"  style="color:black;">
+	   	            <span><label for=itemName>預約項目：</label></span>
+	   	            <form:input type="text" id="itemName" path="itemName" value="" readonly="readonly"/>
+	   	             <span><label for=dentistName>預約醫師：</label></span>
+	   	            <form:input type="text" id="dentistName" path="dentistName" value="" readonly="readonly"/>
+	   	            <span><label for=appointDate>預約日期：</label></span>
+	   	            <form:input type="text" id="appointDate" path="appointDate" value="" readonly="readonly"/>
+	   	            <span><label for=times>預約時間：</label></span>
+	   	            <form:input type="text" id="times" path="times" value="" readonly="readonly"/>
+	   	            <span><label for="patientName">姓名：</label></span>
+	   	            <form:input type="text" id="patientName" path="patientName" placeholder="請輸入姓名"/>
+	   	            <br />
+		            <span><label for="patientPhone">電話：</label></span>
+			        <form:input type="text" id="patientPhone" path="patientPhone" placeholder="請輸入電話"/>
+			        <br />
+			        <span><label for="patientIdNumber">身分證字號：</label></span>
+			        <form:input type="text" id="patientIdNumber" path="patientIdNumber" placeholder="請輸入身分證字號"/>
+	        </div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-default" id="goToAppoint">預約</button>
+	            <button type="button" class="btn btn-default" data-dismiss="modal" id="queryClose">Close</button>	            
+	        </div>
+		        </form:form>
+	    </div>
+	</div>
+</div>
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">
 			<div class="container">
 				<div class="row">
@@ -260,6 +312,8 @@
 		function getResult(){
 			$("#appFilter").css("display","none");
 			$("#appFilterResult").css("display","block");
+			$("#itemName").val($("#item").val());
+			$("#dentistName").val($("#dentist").val());
 			$.ajax({
 				url : 'getAppointable',
 				type : 'POST',		
@@ -271,15 +325,58 @@
 					doWhat : "POST"
 				},
 				success : function(data) {
-					console.log(data)
-				}
-
-		
+					console.log(data);
+					let str="<h2>"+$("#dentist").val()+"醫師預約表</h2><table><thead><tr><td>日期</td><td>時間</td><td>預約</td></tr></thead><tbody></tbody></table>";
+					$("#appFilterResult").html(str);
+					let arr = Object.keys(data);
+					let len = arr.length;
+					for(let i=0;i<len;i++){
+						for(let r=0;r<data[arr[i]].length;r++){
+							$("#appFilterResult tbody").append("<tr><td>"+arr[i]+"</td><td>"+data[arr[i]][r]+"</td><td><button type='button' class='btn btn-success openAppModal' onclick='openAppModal.call(this)'>預約此時段</button></td></tr>");
+						}
+					}
+				}	
 			})
 		}
 		
+		$("#goToAppoint").on("click",function(){
+			console.log("HIIII");
+			$("#appForm").trigger("submit");
+			 $.ajax({
+					url : 'appoint',
+					type : 'POST',
+	  				dataType: "text",			
+					data : {
+// 						item : $("#itemName").val(),
+// 						dentist : $("#dentistName").val(),
+// 						date : $("#appointDate").val(),
+// 						time : $("#times").val(),
+// 						name : $("#patientName").val(),
+// 						phone : $("#patientPhone").val(),
+// 						idnum : $("#patientIdNumber").val(),
+						method : "$.ajax()",
+						doWhat : "POST"
+					},
+					success : function(msg) {
+						console.log(msg)
+					}
+				})
+		})
+		function openAppModal(){
+// 			console.log($(this));
+// 			console.log($(this).parent("td").siblings().eq(1).text());
+			$("#appointDate").val($(this).parent("td").siblings().eq(0).text());
+			$("#times").val($(this).parent("td").siblings().eq(1).text());
+			$("#appointModal").modal("show");
+			
+		}
 		
-	
+// 		$(document).ready(function() {
+// 			$(".openAppModal").on("click",function(){
+// 				console.log($(this).parent());
+// 				$("#appointModal").modal("show");
+// 			})
+// 		})
 	</script>
 	
 	</body>

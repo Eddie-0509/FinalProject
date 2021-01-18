@@ -1,8 +1,6 @@
 package tw.com.uyayi.model;
 
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;

@@ -1,5 +1,6 @@
 package tw.com.uyayi.service.impl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.uyayi.dao.ClinicAppointDao;
+import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
@@ -45,9 +47,30 @@ public class ClinicAppointServiceImpl implements ClinicAppointService {
 	}
 
 	@Override
-	public LinkedHashMap<String, ArrayList<String>> getAppointable(Clinic clinic, String item, String dentist,
+	public LinkedHashMap<String, List<String>> getAppointable(Clinic clinic, String item, String dentist,
 			String timeInterval) {
 		return cappDao.getAppointable(clinic, item, dentist, timeInterval);
+	}
+
+	@Override
+	public Items getItemBean(String itemName) {
+		return cappDao.getItemBean(itemName);
+	}
+
+	@Override
+	public Dentist getDentistBean(String dentistName) {
+		return cappDao.getDentistBean(dentistName);
+	}
+
+	@Override
+	public TimeTable getTimeTableBean(Date appointDate, String times) {
+		return cappDao.getTimeTableBean(appointDate, times);
+	}
+
+	@Override
+	public void addAppointment(Appointment np) {
+		cappDao.addAppointment(np);
+		
 	}
 
 }
