@@ -381,7 +381,11 @@ function mailMember(){
             	 Phone : $("#PhoneToQuery").val()
              },//請求方式
              success: function (result) {
-             	 $("#qmodalTitle").text(result[0].memberBean.memberName+"的預約紀錄");
+             	if(result[0].memberBean!=null){
+             		$("#qmodalTitle").text(result[0].memberBean.memberName+"的預約紀錄");
+             	}else{
+             		$("#qmodalTitle").text(result[0].patientName+"的預約紀錄");
+             	}
              	 $("#qmodalBody").html('<table id="queryTable"><thead><tr><th>預約日期</th><th>預約時間</th><th>預約醫師</th><th>預約項目</th></tr></thead><tbody></tbody></table>')
 				 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td></tr>')
 				 for(let i=1;i<result.length;i++){

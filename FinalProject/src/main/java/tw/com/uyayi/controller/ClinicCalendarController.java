@@ -92,6 +92,7 @@ public class ClinicCalendarController {
 			 Collections.sort(patientallapp,new ComparatorDate());
 			 return patientallapp;
 		 	 }catch (NoResultException e) {
+		 		 e.printStackTrace();
 				 return null;
 			 } 
 	}

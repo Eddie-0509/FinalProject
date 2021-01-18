@@ -68,11 +68,14 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		String hql = "from Appointment app where app.appointmentPkId =:appointmentID";
 		LinkedHashMap<String, String> appointmentDetail=new LinkedHashMap<String, String>();
 		Appointment result = (Appointment) session.createQuery(hql).setParameter("appointmentID",appointmentID).getSingleResult();
-		appointmentDetail.put("patientName",result.getMemberBean().getMemberName());
-		appointmentDetail.put("patientPhone", result.getMemberBean().getMemberPhone());
 		if (result.getMemberBean()==null) {
 			appointmentDetail.put("patientName", result.getPatientName());			
 			appointmentDetail.put("patientPhone", result.getPatientPhone());			
+		}else {
+		appointmentDetail.put("patientName",result.getMemberBean().getMemberName());
+		appointmentDetail.put("patientPhone", result.getMemberBean().getMemberPhone());
+		appointmentDetail.put("email", result.getMemberBean().getMemberAccount());
+		appointmentDetail.put("memberID", Integer.toString(result.getMemberBean().getMemberPkId()));		
 		}
 		appointmentDetail.put("item", result.getItemBean().getItemName());
 		appointmentDetail.put("dentistName", result.getDentistBean().getDentistName());
@@ -80,8 +83,7 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		appointmentDetail.put("date", sdf.format(result.getAppointDate()));
 		appointmentDetail.put("time", result.getTimeTableBean().getTimes());
 		appointmentDetail.put("reply", result.getMemberReply());
-		appointmentDetail.put("email", result.getMemberBean().getMemberAccount());
-		appointmentDetail.put("memberID", Integer.toString(result.getMemberBean().getMemberPkId()));		
+		
 		return appointmentDetail;
 	}
 
@@ -90,10 +92,10 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 	public ArrayList<Appointment> queryAppointmentByPhone(String phone) {
 		Session session=factory.getCurrentSession();
 		String hqlmem = "from Member mem where mem.memberPhone =:memberPhone";
-		Member member=(Member) session.createQuery(hqlmem).setParameter("memberPhone", phone).getSingleResult();
+		 List member = session.createQuery(hqlmem).setParameter("memberPhone", phone).getResultList();
 		String hqlapp="";
 		ArrayList<Appointment> list=new ArrayList<Appointment>();
-		if (member!=null) {
+		if (!member.isEmpty()) {
 			 hqlapp = "from Appointment app where app.memberBean =:member";
 			 list = (ArrayList<Appointment>) session.createQuery(hqlapp).setParameter("member",member).getResultList();
 		}else {
