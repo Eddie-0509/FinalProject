@@ -354,8 +354,9 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
          <div class="modal-content">
             <div class="modal-header">
             <h4 id="ctitle" class="modal-title">購物車</h4></div>
-            <div class="modal-body experimentMakeAnOffer" id="ccontent">
-            	<p id="empty" style="font-size: 35px; text-align: center;"><br><br><br>購物車是空的 Q_Q</p>         
+            <div class="modal-body experimentMakeAnOffer">
+            	<p id="empty" style="font-size: 35px; text-align: center;"><br><br><br>購物車是空的 Q_Q</p>
+            	<div id="ccontent"></div>         
             </div>
             <div class="modal-footer">
                 <span  id="ccal">
@@ -410,6 +411,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 		let products = trans.productList;
 		let pnum;
 		let qty;
+		let cookiestr = Cookies.get("cart");
 		
 		$(document).ready(function() {
 					let j = 1;
@@ -426,9 +428,15 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					str1 += "</table>";
 					$("#main").html(str1);
 
-					$("#ccontent").html(Cookies.get("cart"));
+					if (cookiestr != "") {
+					$("#ccontent").html(cookiestr);
 					cal();
+					}
 
+					if ($(".cname").text() != "") {
+						$("#empty").hide();
+					}
+					
 					$(".bi-house").click(function(){
 						window.location.href="${pageContext.request.contextPath}";
 					});
@@ -675,11 +683,12 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					+ "<td class='cdel'><i class='bi bi-trash'></i></td></tr></table>";			
 				$("#ccontent").append(cstr);
 
-				let cookiestr = $("#ccontent").html();
+				cookiestr = $("#ccontent").html();
+				console.log(cookiestr);
 				Cookies.set("cart", cookiestr, { expires: 7 });
 				
 				$(".bi-trash").click(function(){				
-					$(this).parentsUntil("table").remove();
+					$(this).parents("table").remove();
 					if($("#ccontent .cname").text() == ""){
 						$("#empty").show();
 						$("#ctotal").text(0);
@@ -691,7 +700,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 						$("#ctotal").text(np);
 					});
 
-					let cookiestr = $("#ccontent").html();
+					cookiestr = $("#ccontent").html();
 					console.log(cookiestr);
 					Cookies.set("cart", cookiestr, { expires: 7 });	
 				});
@@ -706,13 +715,13 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 				});
 				
 				$(".bi-trash").click(function(){				
-					$(this).parentsUntil("table").remove();
+					$(this).parents("table").remove();
 					if($("#ccontent .cname").text() == ""){
 						$("#empty").show();
 						$("#ctotal").text(0);
 					}
 
-					let cookiestr = $("#ccontent").html();
+					cookiestr = $("#ccontent").html();
 					console.log(cookiestr);
 					Cookies.set("cart", cookiestr, { expires: 7 });	
 

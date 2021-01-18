@@ -48,6 +48,16 @@
 .bi-plus-square:hover, .bi-dash-square:hover {
 	opacity: 0.5;
 }
+
+#main {
+	background-color: lightgreen;
+	width: 1000px;
+	margin: auto;
+}
+
+#orders table {
+	margin-top: 20px;
+}
 </style>
 </head>
 <body>
@@ -60,7 +70,17 @@
 			<i class="bi bi-cart4"></i>
 		</span>
 	</div>
+<div id="main">
+<table>
+	<tr>
+		<th colspan="2">商品</th>
+		<th>數量</th>
+		<th>小計</th>
+		<th>刪除</th>
+	</tr>
+</table>	
 <div id="orders"></div>
+</div>
 </body>
 <script>
 	$(document).ready(function(){
@@ -76,13 +96,27 @@
 		allqty.each(function(){
 			let qty = $(this).text();
 			console.log(qty);
-			$(this).html("<i class='bi bi-plus-square'></i>" + qty + "<i class='bi bi-dash-square'></i>");
+			$(this).html("<i class='bi bi-plus-square'></i><span>" + qty + "</span><i class='bi bi-dash-square'></i>");
 		});
 
 		$(".bi-plus-square").click(function(){
-			console.log($("#"));
-			let unitprice = 
-		})
+			let qty = parseInt($(this).parent().text(), 10);
+			let unitPrice = parseInt($(this).parent("td").next().text(), 10) / qty;
+			$(this).next("span").text(qty + 1);
+			$(this).parent().next("td").text(parseInt($(this).next("span").text(), 10) * unitPrice);
+		});
+
+		$(".bi-dash-square").click(function(){
+			let qty = parseInt($(this).parent().text(), 10);
+			let unitPrice = parseInt($(this).parent("td").next().text(), 10) / qty;
+			$(this).prev("span").text(qty - 1);
+
+			if ($(this).prev("span").text() < 1) {
+				$(this).prev("span").text(1)
+			}
+			
+			$(this).parent().next("td").text(parseInt($(this).prev("span").text(), 10) * unitPrice);
+		});
 	}
 </script>
 </html>
