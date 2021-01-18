@@ -22,6 +22,11 @@ public class Home {
 		return "member/memberSignUp";
 	}
 	
+	@GetMapping("/orderConfirm")
+	public String orderConfirm() {
+		return "mall/OrderCheck";
+	}
+	
 //	@GetMapping("/memberSingupOK")
 //	public String memberSingupOK() {
 //		return "member/MemberSingupOK";

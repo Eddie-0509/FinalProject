@@ -52,6 +52,7 @@
 
 #title h1 {
 	display: inline;
+	font-family: Arial Black;
 }
 
 #left {
@@ -60,6 +61,8 @@
 	text-align: center;
 	padding-top: 60px;
 	margin-left: 5vw;
+	font-family: Matura MT Script Capitals;
+	font-weight: 900;
 }
 
 #left p {
@@ -213,6 +216,53 @@
 	color: red;
 }
 
+#lhead {
+	background-color: black;
+	margin: 5px;
+}
+
+#ltitle {
+	color: white;
+	font-weight: 900;
+}
+
+#licon {
+	height: 220px;
+	width: 120px;
+	font-size: 120px; 
+	margin: auto;
+}
+
+#lchoose {
+	text-align: center;
+}
+
+#lchoose a {
+	font-size: 35px;
+ 	margin: 50px;
+}
+
+#lcontainer {
+/*  	background-color: lightgreen;  */
+	width: 310px;
+	padding: 15px;
+	margin: auto;
+}
+
+#lcontainer label {
+	margin-right: 10px;
+}
+
+#formcontainer button {
+ 	margin-left: 200px;
+ 	width: 100px;
+}
+
+#lbot span {
+	float: right;
+	margin-right: 20px;
+}
+
 .modal.right .modal-dialog {
 position: fixed;
 margin: auto; 
@@ -245,7 +295,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 		<span class=sp2>for a better teeth health</span>
 		<span class=icon>
 		<i class="bi bi-house"></i>
-		<i class="bi bi-person-circle"></i>
+		<i class="bi bi-person-fill"></i>
 		<i class="bi bi-cart4"></i>
 		</span>
 	</div>
@@ -279,9 +329,8 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 			<div class="modal-content" id="dcontent">
 				<div class="modal-header">
 					<h5 id="dtitle" class="modal-title"><br></h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+				</div>			
 				<div class="modal-body" id="dbody">
 					<figure id="dfigure"></figure>
 					<p id="dprice"></p>
@@ -317,6 +366,45 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
         </div>
     </div>
 </div>
+
+<div class="modal left fade" tabindex="-1" role="dialog" id="login">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" id="lhead">
+					<h2 class="modal-title" id="ltitle">會員登入</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+				</div>			
+				<div class="modal-content" id="lbody">
+					<div id="licon">
+						<i id="lpcircle" class="bi bi-person-circle"></i>
+					</div>
+<!-- 					<form action="mallCheckLogin" method="POST"> -->
+							<div id="lchoose">
+								<a href="">登入</a>
+								<a href="">註冊</a>
+							</div>
+								<div id="formcontainer">
+								<div id="lcontainer">
+									<span id="errorMsg" style="color: red; text-align: center; display:block;">${errorMsg}</span><br/>
+									<label for="uname"><strong>身分證字號</strong></label>
+									<input type="text" placeholder="請輸入身分證字號" name="account" id="uname" required autofocus><br><br>
+					
+									<label for="upsw"><strong>密　　　碼</strong></label>
+									<input type="password" placeholder="請輸入密碼" name="pwd" id="upsw" required>
+								</div><br>
+								<button type="button" id="loginbtn" class="btn btn-primary submitOffer btn-lg"><strong>登入</strong></button>
+								<div id="lbot">
+									<br><span><a href="#" class="link">忘記密碼?</a></span>
+								</div>
+							</div>
+<!-- 						</form> -->
+				</div>
+				<div class="modal-footer">
+				
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
 		let trans = ${products};
 		let products = trans.productList;
@@ -342,10 +430,10 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					cal();
 
 					$(".bi-house").click(function(){
-						window.location.href="http://localhost:9998/FinalProject/";
+						window.location.href="${pageContext.request.contextPath}";
 					});
 
-					$(".bi-person-circle").click(function(){
+					$(".bi-person-fill").click(function(){
 						alert("...");
 					});
 					
@@ -371,13 +459,45 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 						}
 					});
 
+					$("#check").click(function(){
+						if ("${LoginOK}" == "") {
+							$("#login").modal("show");
+						} else {
+							window.location.href="${pageContext.request.contextPath}/orderConfirm";
+						}
+					});
+
+					$("#loginbtn").click(function(){
+						let urlQuery = new URLSearchParams({
+							account : $("#uname").val(),
+							pwd : $("#upsw").val(),
+							method : "fetch()",
+							doWhat : "post"
+						});
+
+						fetch("mallCheckLogin", {
+							method : "POST",
+							body : urlQuery
+							
+						}).then(function(response) {
+							return response.json();
+
+						}).then(function(data) {
+							if (data) {
+								window.location.href="${pageContext.request.contextPath}/orderConfirm";
+							} else {
+								$("#errorMsg").text("帳號密碼錯誤");
+							}			
+						});
+					});
+
 					beReady();
 				});
 
 		$("#left p").click(function() {
 					$(".showby .zero").prop('selected', true);
 					j = 1;
-					fetch("http://localhost:9998/FinalProject/productsByCategory?"+ "productCategoty=" + $(this).text(), {
+					fetch("${pageContext.request.contextPath}/productsByCategory?" + "productCategoty=" + $(this).text(), {
 								method : "GET"
 
 							}).then(function(response) {
@@ -504,6 +624,7 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 				$("#pdetail").modal("show"); 
 			});
 		}
+
 		
 			$("#djoin").click(function(){
 				$("#pdetail").modal("hide");
@@ -517,17 +638,6 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 				$("#cart").modal("show");
 				
 			});
-
-
-			function del(){	
-				let np = parseInt($("#ctotal").text(), 10) - parseInt($(this).parent().prev().text(), 10);
-				$("#ctotal").text(np);
-				
-				$(this).parentsUntil("table").remove();
-				if($("#ccontent .cname").text() == ""){
-					$("#empty").show();
-				}	
-			}
 
 
 			function checkExist(){
