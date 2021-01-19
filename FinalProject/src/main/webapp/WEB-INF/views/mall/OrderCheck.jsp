@@ -229,7 +229,11 @@ tr {
 	<h4>&ensp;訂單資訊</h4>
 	<div>
 		<span>金額小計</span><span id="total">123</span><br><br><br>
-		<span id="ucoupon">使用優惠碼</span><span id="discount"></span><br><br>
+		<span id="ucoupon">使用優惠碼</span>
+		<span id="discount">
+			<span id="cpname"></span>
+			<span id="cpdis"></span>
+		</span><br><br>
 		<span id="icoupon">
 			<input type="text" id="coupon"><button type="button" class="btn btn-primary">套用</button><br><br>
 		</span>
@@ -333,7 +337,7 @@ tr {
 
 	function checkCoupon(){
 		let urlQuery = new URLSearchParams({
-			couponCode : $("#coupon").text(),
+			couponCode : $("#coupon").val(),
 			method : "fetch()",
 			doWhat : "POST"
 		});
@@ -341,9 +345,13 @@ tr {
 		fetch("checkCoupon?" + urlQuery, {
 			method : "POST"
 		}).then(function(response){
-			return;
+			return response.json();
 		}).then(function(data){
-			
+			let cpName = data[0].couponName;
+			let cpDis = parseFloat(data[0].couponContext);
+			console.log(cpName);
+			console.log(cpDis);
+			$("#cpname").text(cpName);
 		});
 	}
 </script>

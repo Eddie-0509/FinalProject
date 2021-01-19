@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tw.com.uyayi.model.City;
+import tw.com.uyayi.model.Coupon;
 import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.Products;
@@ -72,8 +73,8 @@ public class MallController {
 	}
 	
 	@PostMapping("/checkCoupon")
-	public @ResponseBody String checkCoupon(@RequestParam String couponCode) {
-		
-		return null;	
+	public @ResponseBody List<Coupon> checkCoupon(@RequestParam String couponCode) {
+		List<Coupon> bean = (List<Coupon>) pService.checkCoupon(couponCode);
+		return bean;	
 	}
 }

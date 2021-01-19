@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "coupon")
 public class Coupon {
@@ -24,6 +26,7 @@ public class Coupon {
 	private Date couponEndTime;
 	private String couponStatus;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "couponBean")
 	private Set<Orders> orders;
 
