@@ -3,6 +3,7 @@ package tw.com.uyayi.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -21,6 +22,7 @@ import tw.com.uyayi.dao.impl.ComparatorDate;
 import tw.com.uyayi.dao.impl.Mail;
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
+import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
 import tw.com.uyayi.service.ClinicCalendarService;
 
@@ -44,17 +46,17 @@ public class ClinicCalendarController {
 	@GetMapping(value="/clinicCalendar")
 	public  String getData(@ModelAttribute("loginOK") Clinic clinic,Model model) {
 		int clinicID=clinic.getClinicPkId();
-//		List<Dentist> dentistlist = caService.getDentistList(clinicID);
-//		LinkedList<String>DentistNameList = new LinkedList<String>();
-//		LinkedList<Integer>DentistIdList = new LinkedList<Integer>();
-//		for (Dentist dentistBean :dentistlist) {
-//			DentistNameList.add(dentistBean.getDentistName());
-//			DentistIdList.add(dentistBean.getDentistPkId());
-//		}
+		List<Dentist> dentistlist = caService.getDentistList(clinicID);
+		LinkedList<String>DentistNameList = new LinkedList<String>();
+		LinkedList<Integer>DentistIdList = new LinkedList<Integer>();
+		for (Dentist dentistBean :dentistlist) {
+			DentistNameList.add(dentistBean.getDentistName());
+			DentistIdList.add(dentistBean.getDentistPkId());
+		}
 
 		List<Appointment> applist = caService.getAllAppointmentByClinic(clinicID);
-//		 model.addAttribute("DentistIdList",DentistIdList);
-//		 model.addAttribute("DentistNameList",DentistNameList);
+		 model.addAttribute("DentistIdList",DentistIdList);
+		 model.addAttribute("DentistNameList",DentistNameList);
 		 model.addAttribute("AllAppointmentList",applist);
 		 return "clinic/clinicCalendar";
 	}

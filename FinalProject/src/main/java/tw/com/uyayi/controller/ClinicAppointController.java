@@ -38,8 +38,6 @@ public class ClinicAppointController {
 		@GetMapping(value={"/clinicAppoint","/newAppoint"})
 		public  String appoint(@ModelAttribute("loginOK") Clinic clinic,Model model) {
 			LinkedHashSet<Items> itemlist = cappService.getClinicItem(clinic);
-//			System.out.println("clinic.getDentists="+clinic.getDentists());
-//			System.out.println(itemlist);
 			List<Items> itemlist2 = new ArrayList<Items>(itemlist);
 			model.addAttribute("itemlist",itemlist2);
 			Appointment app = new Appointment();

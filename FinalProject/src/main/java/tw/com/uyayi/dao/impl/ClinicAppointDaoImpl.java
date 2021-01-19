@@ -36,29 +36,34 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 	
 	@Override
 	public LinkedHashSet<Items> getClinicItem(Clinic clinic) {
-//		Session session=factory.getCurrentSession();
-//		String hqld = "from Dentist d where d.clinicBean =:clinic";
-//		ArrayList<Dentist> dentistlist = (ArrayList<Dentist>) session.createQuery(hqld).setParameter("clinic",clinic).getResultList();
-		Set<Dentist> den = clinic.getDentists();
-		List<Dentist> denn = new ArrayList<Dentist>(den);
+		Session session=factory.getCurrentSession();
+		String hqld = "from Dentist d where d.clinicBean =:clinic";
+		ArrayList<Dentist> dentistlist = (ArrayList<Dentist>) session.createQuery(hqld).setParameter("clinic",clinic).getResultList();
+//		Set<Dentist> den = clinic.getDentists();
+//		List<Dentist> denn = new ArrayList<Dentist>(den);
 		LinkedHashSet<Items> itemlist =new LinkedHashSet<Items>();
-		for (int i=0;i<denn.size();i++) {
-			itemlist.addAll((denn.get(i).getItemsBean()));
+		for (int i=0;i<dentistlist.size();i++) {
+			itemlist.addAll((dentistlist.get(i).getItemsBean()));
 		}
 		return itemlist;
 	}
 
 	@Override
 	public List<Dentist> getDentist(Clinic clinic,String item) {
-		Set<Dentist> den = clinic.getDentists();
-		List<Dentist> denn = new ArrayList<Dentist>(den);
+		Session session=factory.getCurrentSession();
+		String hqld = "from Dentist d where d.clinicBean =:clinic";
+		@SuppressWarnings("unchecked")
+		List<Dentist> dentistlist = session.createQuery(hqld)
+				.setParameter("clinic",clinic).getResultList();
+//		Set<Dentist> den = clinic.getDentists();
+//		List<Dentist> denn = new ArrayList<Dentist>(den);
 		List<Dentist> thisDentistList=new ArrayList<Dentist>();
 //		System.out.println("=================================");
 //		System.out.println("denn"+denn);
 //		System.out.println("=================================");
-		for (int i=0;i<denn.size();i++) {
+		for (int i=0;i<dentistlist.size();i++) {
 //			System.out.println("dennItemBean"+denn.get(i).getItemsBean());
-			Set<Items> itemsBean = denn.get(i).getItemsBean();
+			Set<Items> itemsBean = dentistlist.get(i).getItemsBean();
 			List<Items> itemsBeann=new ArrayList<Items>(itemsBean);
 			for(int r=0;r<itemsBeann.size();r++) {
 				String name = itemsBeann.get(r).getItemName();
@@ -66,7 +71,7 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 //				System.out.println("name"+name);
 //				System.out.println("=================================");
 				if(name.equals(item)) {					
-					thisDentistList.add(denn.get(i));
+					thisDentistList.add(dentistlist.get(i));
 //					System.out.println("thisDentistList"+thisDentistList);
 				}
 			}
@@ -78,17 +83,20 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 
 	@Override
 	public Set<String> getDentistTime(Clinic clinic,String item, String dentist) {
-		Set<Dentist> den = clinic.getDentists();
-		List<Dentist> denn = new ArrayList<Dentist>(den);
+		Session session=factory.getCurrentSession();
+		String hqld = "from Dentist d where d.clinicBean =:clinic";
+		@SuppressWarnings("unchecked")
+		List<Dentist> dentistlist = session.createQuery(hqld)
+				.setParameter("clinic",clinic).getResultList();
 		Set<String> thisDentistTime=new HashSet<String>();
 		
 	
-		for (int i=0;i<denn.size();i++) {
-			Set<Items> itemsBean = denn.get(i).getItemsBean();
+		for (int i=0;i<dentistlist.size();i++) {
+			Set<Items> itemsBean = dentistlist.get(i).getItemsBean();
 			ArrayList<Items> itemsBeann=new ArrayList<Items>(itemsBean);
 	
-			if(denn.get(i).getDentistName().equals(dentist)) {
-				Set<TimeTable> timeTable = denn.get(i).getTimeTables();
+			if(dentistlist.get(i).getDentistName().equals(dentist)) {
+				Set<TimeTable> timeTable = dentistlist.get(i).getTimeTables();
 				List<TimeTable> timeTablee=new ArrayList<TimeTable>(timeTable);
 				for(int x=0;x<timeTablee.size();x++) {
 					thisDentistTime.add(timeTablee.get(x).getTimeInterval());
@@ -98,7 +106,7 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 				for(int r=0;r<itemsBeann.size();r++) {		
 					if(itemsBeann.get(r).getItemName().equals(item)) {
 //						System.out.println(itemsBeann.get(r).getItemName());
-						Set<TimeTable> timeTable = denn.get(i).getTimeTables();
+						Set<TimeTable> timeTable = dentistlist.get(i).getTimeTables();
 						List<TimeTable> timeTablee=new ArrayList<TimeTable>(timeTable);
 						for(int x=0;x<timeTablee.size();x++) {
 							thisDentistTime.add(timeTablee.get(x).getTimeInterval());
