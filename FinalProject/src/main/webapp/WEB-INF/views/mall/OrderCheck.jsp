@@ -174,6 +174,10 @@ tr {
 	font-weight: 900;
 	margin-left: 125px;
 }
+
+#discount {
+	color: red;
+}
 </style>
 </head>
 <body>
@@ -228,24 +232,26 @@ tr {
 <div id="detail">
 	<h4>&ensp;訂單資訊</h4>
 	<div>
-		<span>金額小計</span><span id="total">123</span><br><br><br>
+		<span>金額小計</span><span id="total">0</span><br><br><br>
 		<span id="ucoupon">使用優惠碼</span>
 		<span id="discount">
 			<span id="cpname"></span>
-			<span id="cpdis"></span>
+			&ensp;&ensp;<span id="cpdis">0</span>
 		</span><br><br>
 		<span id="icoupon">
 			<input type="text" id="coupon"><button type="button" class="btn btn-primary">套用</button><br><br>
 		</span>
-		<span>運費</span><span id="fcharge">NTD$ 150</span><br><br>
-		<hr><br>
-		<label><strong>合計</strong></label><span id="gtotal">321</span><br><br><br>
+		<span>運費</span><span id="fcharge">150</span><br><br>
+		<hr/><br>
+		<label><strong>合計</strong></label><span id="gtotal">0</span><br><br><br>
 		<button type="button" id="submit" class="btn btn-success">提交訂單</button>
 	</div>
 </div>
 </div>
 </body>
 <script>
+	let cpDis;
+
 	$(document).ready(function(){	
 		beReady();
 
@@ -332,6 +338,25 @@ tr {
 		});
 
 		$("#total").text(total);
+		$("#cpdis").text(Math.round(parseInt($("#total").text(), 10) - parseInt($("#total").text(), 10) * cpDis));
+
+		if ($("#cpdis").text() == "NaN") {
+			$("#cpdis").text(0);
+		}
+		
+		let gtotal = total - parseInt($("#cpdis").text(), 10);
+
+		if (total == 0) {
+			$("#gtotal").text(0);
+		}
+
+		if (gtotal > 1000) {
+			$("#fcharge").text(0);
+		} else {
+			$("#fcharge").text(150);
+		}
+
+		$("#gtotal").text(total - parseInt($("#cpdis").text(), 10) + parseInt($("#fcharge").text(), 10));
 	}
 
 
@@ -347,11 +372,16 @@ tr {
 		}).then(function(response){
 			return response.json();
 		}).then(function(data){
+			if (data == "") {
+				$("#cpname").text("優惠碼不存在");
+				$("#cpdis").text(0);
+			} else {
 			let cpName = data[0].couponName;
-			let cpDis = parseFloat(data[0].couponContext);
-			console.log(cpName);
-			console.log(cpDis);
+			cpDis = parseFloat(data[0].couponContext);
 			$("#cpname").text(cpName);
+			$("#cpdis").text(Math.round(parseInt($("#total").text(), 10) - parseInt($("#total").text(), 10) * cpDis));
+			}
+			cal();
 		});
 	}
 </script>
