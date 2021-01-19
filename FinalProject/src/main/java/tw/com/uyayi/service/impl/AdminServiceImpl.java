@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.uyayi.dao.AdminDao;
+import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
 import tw.com.uyayi.service.AdminService;
 
@@ -72,6 +74,26 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Member> getAllMember() {
 		return adminDao.getAllMember();
+	}
+	@Override
+	public void updateMemberStatus(int memberPkId,String string) {
+		adminDao.updateMemberStatus(memberPkId ,string);
+	}
+	@Override
+	public List<Appointment> getMemberAppointmentFromId(int memberPkId) {
+		return adminDao.getMemberAppointmentFromId(memberPkId);
+	}
+	@Override
+	public List<Orders> getMemberOrderFromId(int memberPkId) {
+		return adminDao.getMemberOrderFromId(memberPkId);
+	}
+	@Override
+	public List<Member> getAllMemberByStatus(String h_memberStatus) {
+		return adminDao.getAllMemberByStatus(h_memberStatus);
+	}
+	@Override
+	public List<Member> getAllMemberByName(String keyName) {
+		return adminDao.getAllMemberByName(keyName);
 	}
 	
 

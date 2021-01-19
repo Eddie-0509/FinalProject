@@ -3,8 +3,10 @@ package tw.com.uyayi.dao;
 import java.sql.Date;
 import java.util.List;
 
+import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
 
 public interface AdminDao {
@@ -30,5 +32,15 @@ public interface AdminDao {
 		List<Clinic> getAllClinic();
 		//取得所有會員資料
 		List<Member> getAllMember();
+		//修改會員權限
+		void updateMemberStatus(int memberPkId,String string);
+		//ID取得會員預約紀錄
+		List<Appointment> getMemberAppointmentFromId(int memberPkId);
+		//ID取得會員訂單紀錄
+		List<Orders> getMemberOrderFromId(int memberPkId);
+		//By狀態取得會員資料
+		List<Member> getAllMemberByStatus(String h_memberStatus);
+		//會員名稱或Mail搜尋會員資料
+		List<Member> getAllMemberByName(String keyName);
 		
 }

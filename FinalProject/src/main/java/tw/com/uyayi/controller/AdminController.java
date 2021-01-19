@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
 import tw.com.uyayi.service.AdminService;
 
@@ -100,15 +102,48 @@ public class AdminController {
 		model.addAttribute("members",json);
 		return "admin/memberManage";
 	}
+	//會員管理頁面(修改會員狀態)
 	@PostMapping(value = "/updateMemberStatus")
-	public String updateMemberStatus(@RequestParam String memberStatus) {
+	public String updateMemberStatus(String memberStatus,int memberPkId) {
 		if(memberStatus.equals("停權")) {
-			service.updateMemberStatus("已填寫");
+			service.updateMemberStatus(memberPkId,"已填寫");
 		}else {
-			service.updateMemberStatus("停權");
+			service.updateMemberStatus(memberPkId,"停權");
 		}
-		return "admin/memberManage";
-		
+		return "redirect:/memberManage";	
+	}
+	//會員管理頁面(依狀態顯示會員)
+	@GetMapping(value  = "/getAllMemberByStatus", produces = "application/json")
+	public @ResponseBody List<Member> getAllMemberByStatus(@RequestParam String h_memberStatus) {
+		List<Member> beans= null;
+		if(h_memberStatus.equals("狀態")) {
+			beans = service.getAllMember();
+		}else {
+			beans = service.getAllMemberByStatus(h_memberStatus);
+		}
+		return beans;
+	}
+	//會員管理頁面(依會員名稱搜尋會員資料)
+	@GetMapping(value  = "/getAllMemberByName", produces = "application/json")
+	public @ResponseBody List<Member> getAllMemberByName(@RequestParam String keyName) {
+		List<Member> beans= null;
+		if(keyName.equals("")) {
+			beans = service.getAllMember();
+		}else if(keyName.equals("admin")) {
+			beans= null;
+		}else {
+			beans = service.getAllMemberByName(keyName);
+		}
+		return beans;
+	}
+	//會員管理頁面(會員預約及訂單紀錄)
+	@GetMapping(value = "/memberManage_Detail")
+	public String getMemberDetailFromId(Model model,int memberPkId) {
+		List<Appointment> Appointment = service.getMemberAppointmentFromId(memberPkId);
+		List<Orders> Orders = service.getMemberOrderFromId(memberPkId);
+		model.addAttribute("Appointment",Appointment);
+		model.addAttribute("Orders",Orders);
+		return "admin/memberManage_Detail";
 	}
 	
 	

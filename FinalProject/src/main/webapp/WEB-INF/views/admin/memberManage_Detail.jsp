@@ -149,7 +149,7 @@
 							<th style='width: 200px;'>姓名</th>
 							<th style='width: 100px;'>
 							<select name="h_memberStatus" id="h_memberStatus">
-									<option id ="狀態" value="狀態" selected="selected">狀態</option>
+									<option id ="權限" value="權限" selected="selected">權限</option>
 									<option id ="未開通" value="未開通" >未開通</option>
 									<option id ="已開通" value="已開通" >已開通</option>
 									<option id ="已填寫" value="已填寫" >已填寫</option>
@@ -192,89 +192,46 @@
 
 	</div>
 	<script>
-	let model = ${members};
-	let members = model.member;
-	console.log(members);
-	$(document).ready(function(){
-		showData();
-		$("#h_memberStatus").change(function(){
-			members = model.member;
-			if($("#h_memberStatus option:selected").val()!="狀態"){
-				m=[];
-				for(i = 0; i<members.length; i++){
-					if(members[i].memberStatus==($("#h_memberStatus option:selected").val())){
-						m.push(members[i]);
-					}
-				}
-				members = m;
-				showData();
-			}else{
-				let urlQuery = new URLSearchParams({
-	 				h_memberStatus : $("#h_memberStatus option:selected").val(),
-	 				method : "fetch()",
-	 				doWhat : "GET"
-	 			});
-	 			fetch("getAllMemberByStatus?" + urlQuery, {
-	 				method : "GET"
-	 			}).then(function(response) {
-	 				return response.json();
-	 			}).then(function(data) {
-	 				members = data;
-	 				showData();
-	 			});
-			}
-		});
-		$("#searchData").click(function(){
-			console.log($("#searchBar").val());
-			let urlQuery = new URLSearchParams({
-				keyName : $("#searchBar").val(),
-				method : "fetch()",
-				doWhat : "GET"
-			});
-			fetch("getAllMemberByName?" + urlQuery, {
-				method : "GET"
-			}).then(function(response) {
-				return response.json();
-			}).then(function(data) {
-				members = data;
-				showData();
-			});
-		});
-	});
-	//會員清單表格內容生成及修改按鈕綁定
-	function showData(){			
-		//顯示會員資料
-		let str = "";
-		for (let i = 0; i < members.length; i++) {
-			let j = i + 1;
-			str += "<tr id='bean"+members[i].memberPkId+"'><td>" + j + "</td>";
-			str += "<td>" + members[i].memberAccount+ "</td>";
-			str += "<td>" + members[i].memberName+ "</td>";
-			str += "<td>" + members[i].memberStatus+ "</td>";
-			if(members[i].memberStatus=="停權"){
-				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>開放</button> "	;	
-			}else{
-				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>停權</button> "	;	
-			}
-			str += "<button type ='button' id='memberDetail"+members[i].memberPkId+"'>歷史紀錄</button>";
-			str += "<div style='display:none'><form id='update_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/updateMemberStatus' method='post'><input name='memberPkId' value='"+members[i].memberPkId+"'/><input name='memberStatus' value='"+members[i].memberStatus+"'/></form></div>";
-			str += "<div style='display:none'><form id='show_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/memberManage_Detail' method='get'><input name='memberPkId' value='"+members[i].memberPkId+"'/></form></div></td>";
-			str += "</tr>";
-		}
-		$("#memberBody").html(str);
-		for(let i = 0; i < members.length; i++) {
-			$("#updateBtn"+members[i].memberPkId).click(function(){
-				if(members[i].memberStatus=="未開通"||members[i].memberStatus=="已開通"){
-					alert("會員尚未完成註冊，無法變更權限");
-				}else{
-					$("#update_form"+members[i].memberPkId).trigger("submit");
-				}
-				});
-			$("#memberDetail"+members[i].memberPkId).click(function(){
-				$("#show_form"+members[i].memberPkId).trigger("submit");
-			});
-		}
-	}
+	console.log(${Orders});
+	console.log(${Appointment});
+	
+// 	$(document).ready(function(){
+// 		showData();
+// 	});
+// 	//會員清單表格內容生成及修改按鈕綁定
+// 	function showData(){			
+// 		//顯示會員資料
+// 		let str = "";
+// 		for (let i = 0; i < members.length; i++) {
+// 			let j = i + 1;
+// 			str += "<tr id='bean"+members[i].memberPkId+"'><td>" + j + "</td>";
+// 			str += "<td>" + members[i].memberAccount+ "</td>";
+// 			str += "<td>" + members[i].memberName+ "</td>";
+// 			str += "<td>" + members[i].memberStatus+ "</td>";
+// 			if(members[i].memberStatus=="停權"){
+// 				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>開放</button> "	;	
+// 			}else{
+// 				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>停權</button> "	;	
+// 			}
+// 			str += "<button type ='button' id='memberDetail"+members[i].memberPkId+"'>歷史紀錄</button>";
+// 			str += "<div style='display:none'><form id='update_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/updateMemberStatus' method='post'><input name='memberPkId' value='"+members[i].memberPkId+"'/><input name='memberStatus' value='"+members[i].memberStatus+"'/></form></div>";
+// 			str += "<div style='display:none'><form id='show_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/memberManage_Detail' method='get'><input name='memberPkId' value='"+members[i].memberPkId+"'/></form></div></td>";
+// 			str += "</tr>";
+// 		};
+// 		$("#memberBody").html(str);
+// 		for(let i = 0; i < members.length; i++) {
+// 			$("#updateBtn"+members[i].memberPkId).click(function(){
+// 				if(members[i].memberStatus=="未開通"||members[i].memberStatus=="已開通"){
+// 					alert("會員尚未完成註冊，無法變更權限");
+// 				}else{
+// 					$("#update_form"+members[i].memberPkId).trigger("submit");
+// 				}
+// 				});
+// 			$("#memberDetail"+members[i].memberPkId).click(function(){
+// 				$("#show_form"+members[i].memberPkId).trigger("submit");
+// 			});
+// 		};
+// 	};
 	
 	</script>
 	</body>

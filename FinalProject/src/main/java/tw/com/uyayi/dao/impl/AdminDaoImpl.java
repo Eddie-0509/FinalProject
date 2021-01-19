@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import tw.com.uyayi.dao.AdminDao;
+import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
 
 @Repository
@@ -81,25 +83,6 @@ public class AdminDaoImpl implements AdminDao {
 				.getResultList();
 		return list;
 	}
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Clinic> getAllClinic() {
-		String hql = "From Clinic";
-		Session session = factory.getCurrentSession();
-		List<Clinic> list = session.createQuery(hql).getResultList();
-		return list;
-	}
-	
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Member> getAllMember() {
-		String hql = "From Member where memberStatus not like 'admin'";
-		Session session = factory.getCurrentSession();
-		List<Member> list = session.createQuery(hql).getResultList();
-		return list;
-	}
-
-
 	
 	@Override
 	public void insertProduct(Products product) {
@@ -141,6 +124,74 @@ public class AdminDaoImpl implements AdminDao {
 		DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		Date sqldate = Date.valueOf(df.format(today));
 		return sqldate;
+	}
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Clinic> getAllClinic() {
+		String hql = "From Clinic";
+		Session session = factory.getCurrentSession();
+		List<Clinic> list = session.createQuery(hql).getResultList();
+		return list;
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Member> getAllMember() {
+		String hql = "From Member where memberStatus not like 'admin'";
+		Session session = factory.getCurrentSession();
+		List<Member> list = session.createQuery(hql).getResultList();
+		return list;
+	}
+
+	@Override
+	public void updateMemberStatus(int memberPkId,String string) {
+		String hql = "Update Member set memberStatus = :mStatus where memberPkId = :mId "; 
+		Session session = factory.getCurrentSession();
+		session.createQuery(hql)
+			.setParameter("mStatus", string)
+			.setParameter("mId", memberPkId)
+			.executeUpdate();
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Member> getAllMemberByStatus(String h_memberStatus) {
+		String hql = "From Member where memberStatus = :mStatus";
+		Session session = factory.getCurrentSession();
+		List<Member> list = session.createQuery(hql)
+			.setParameter("mStatus",h_memberStatus)
+			.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Member> getAllMemberByName(String keyName) {
+		String hql ="From Member where memberName like :mName ";
+		String mName = "%"+keyName + "%";
+		Session session = factory.getCurrentSession();
+		List<Member> list = session.createQuery(hql)
+		.setParameter("mName", mName)
+		.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getMemberAppointmentFromId(int memberPkId) {
+		String hql = "From Appointment where memberPkId = :mId";
+		Session session = factory.getCurrentSession();
+		List<Appointment> list = session.createQuery(hql)
+			.setParameter("mId",memberPkId)
+			.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Orders> getMemberOrderFromId(int memberPkId) {
+		String hql = "From Orders where memberPkId = :mId";
+		Session session = factory.getCurrentSession();
+		List<Orders> list = session.createQuery(hql)
+			.setParameter("mId",memberPkId)
+			.getResultList();
+		return list;
 	}
 	
 

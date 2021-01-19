@@ -346,7 +346,7 @@
 			str += "<td>" + products[i].productStatus+ "</td>";
 			str += "<td><button type='button' id='updateProductBtn"+products[i].productPkId+"' value='bean"+products[i].productPkId+"'>修改</button></td>"
 			str += "</tr>";
-		};
+		}
 		$("#productBody").html(str);
 			//綁定修改按鍵
 		for(let i = 0; i < products.length; i++) {
@@ -449,7 +449,7 @@
 		if($("#h_price option:selected").text()!="價格"){
 		$("#h_price").prepend("<option id ='價格' value='價格' selected='selected'>價格</option>");
 		$("#更新時間").remove();
-		};
+		}
 		let v = $("#h_updateTime option:selected").text();
 			if(v=="新到舊"){
 				products = products.sort(function (a, b) {
@@ -461,13 +461,13 @@
 					 return a.productUpdateDate > b.productUpdateDate ? 1 : -1;
 					});
 				showData();
-			};
+			}
 	});
 	$("#h_price").change(function(){
 		if($("#h_updateTime option:selected").text()!="更新時間"){
 		$("#h_updateTime").prepend("<option id='更新時間' value='更新時間' selected='selected'>更新時間</option>");
 		$("#價格").remove();
-		};
+		}
 		let v = $("#h_price option:selected").text();
 			if(v=="高到低"){
 				products = products.sort(function (a, b) {
@@ -479,7 +479,7 @@
 					 return a.productPrice > b.productPrice ? 1 : -1;
 					});
 				showData();
-			};
+			}
 	});
 	
 	
