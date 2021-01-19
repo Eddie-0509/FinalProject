@@ -258,6 +258,7 @@
 			<div id="container" class="container" style='width: 1350px;'>
 				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
 				<button type="button" id="searchData">搜尋</button>
+				<button type="button" id="addProductBtn" value="新增產品" >新增產品</button>
 				<table class='table table-bordered' id='showAllProductTable' >
 					<thead>
 						<tr>
@@ -283,11 +284,18 @@
 							<th style='width: 100px;'>數量</th>
 							<th style='width: 150px;'>
 								<select name="h_updateTime" id="h_updateTime">
-									<option id ="舊到新" value="舊到新" selected="selected">舊到新</option>
+									<option id ="更新時間" value="更新時間" selected="selected">更新時間</option>
+									<option id ="舊到新" value="舊到新" >舊到新</option>
 									<option id ="新到舊" value="新到舊" >新到舊</option>
 								</select>
 							</th>
-							<th style='width: 100px;'>狀態</th>
+							<th style='width: 100px;'>
+								<select name="h_Status" id="h_Status">
+									<option id ="狀態" value="all" selected="selected">狀態</option>
+									<option id ="上架" value="上架" >上架</option>
+									<option id ="下架" value="下架" >下架</option>
+								</select>
+							</th>
 							<th style='width: 100px;'></th>
 						</tr>
 					</thead>
@@ -295,8 +303,6 @@
 						
 					</tbody>
 				</table>
-						
-						<button type="button" id="addProductBtn" value="新增產品" >新增產品</button>
 			</div>
 		</div>
 
@@ -322,6 +328,7 @@
 <script>
 	let model = ${products};
 	let products = model.product;
+
 	// 	產品清單表格內容生成及新增修改按鈕綁定
 	function showData(){			
 		//顯示產品資料
@@ -386,9 +393,12 @@
 	};
 	$(document).ready(function(){
 		showData();
+		//依產品類別篩選功能
 		$("#h_Category").change(function(){
 		console.log($("#h_Category option:selected").text());
-		fetch("http://localhost:9998/FinalProject/getAllProductsByCategory?"+ "h_productCategory=" + $(this).val(), {
+		console.log($("#h_Status option:selected").text());
+		fetch("getAllProductsByCategoryAndStatus?"+ "h_productCategory=" + $("#h_Category").val()
+				+ "&h_Status=" + $("#h_Status").val(), {
 			method : "GET"
 			}).then(function(response) {
 				return response.json();
@@ -397,9 +407,24 @@
 					showData();
 					});	
 		});
+		//依產品狀態篩選功能
+		$("#h_Status").change(function(){
+		console.log($("#h_Category option:selected").text());
+		console.log($("#h_Status option:selected").text());
+		fetch("getAllProductsByCategoryAndStatus?"+ "h_productCategory=" + $("#h_Category").val() 
+				+ "&h_Status=" + $("#h_Status").val(), {
+			method : "GET"
+			}).then(function(response) {
+				return response.json();
+				}).then(function(data) {
+					products = data;
+					showData();
+					});	
+		});
+		//產品名稱模糊搜尋功能
 		$("#searchData").click(function(){
 			console.log($("#searchBar").val());
-			fetch("http://localhost:9998/FinalProject/getAllProductsByName?"+ "keyName=" + $("#searchBar").val(), {
+			fetch("getAllProductsByName?"+ "keyName=" + $("#searchBar").val(), {
 				method : "GET"
 				}).then(function(response) {
 					return response.json();
@@ -527,6 +552,7 @@
 				let imageStr = resJSON.data.link;
 				console.log(imageStr);
 				$("#u_hiddenProductImage").val(imageStr);
+				$("#u_preview_productImg").attr("src",imageStr);
 				window.alert("上傳成功");
 			});
 	});

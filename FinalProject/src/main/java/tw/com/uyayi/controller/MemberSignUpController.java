@@ -37,7 +37,7 @@ public class MemberSignUpController {
     
     @RequestMapping(value="/member/{memberPkId}",method = RequestMethod.GET )
     public String updateMemberView(@PathVariable("memberPkId") Integer memberPkId ,Model model){
-	Member member = memberSignUpService.getone(member);
+//	Member member = memberSignUpService.getone(member);
     	
     	
     	

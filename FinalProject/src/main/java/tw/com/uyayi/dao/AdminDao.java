@@ -12,8 +12,14 @@ public interface AdminDao {
 		List<Products> getAllProducts();
 		//依類別取得產品資料
 		List<Products> getAllProductsByCategory(String h_productCategory);
+		//依狀態取得產品資料
+		List<Products> getAllProductsByStatus(String h_Status);
+		//依類別及狀態取得產品資料
+		List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_Status);
 		//模糊查詢
 		List<Products> getAllProductsByName(String keyName);
+		//AutoComplete
+		List<String> getProductName(String keyName);
 		//新增產品
 		void insertProduct(Products product);
 		//修改產品

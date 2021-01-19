@@ -12,8 +12,14 @@ public interface AdminService {
 	List<Products> getAllProducts();
 	//By類別取得產品資料
 	List<Products> getAllProductsByCategory(String h_productCategory);
+	//By狀態取得產品資料
+	List<Products> getAllProductsByStatus(String h_Status);
+	//By類別及狀態取得產品資料
+	List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_Status);
 	//模糊查詢
 	List<Products> getAllProductsByName(String keyName);
+	//AutoComplete功能
+	List<String> getProdcutName(String keyName);
 	//新增產品
 	void insertProduct(Products product);
 	//修改產品
@@ -24,4 +30,7 @@ public interface AdminService {
 	List<Clinic> getAllClinic();
 	//取得所有會員資料	
 	List<Member> getAllMember();
+	//修改會員權限
+	void updateMemberStatus(String string);
+	
 }

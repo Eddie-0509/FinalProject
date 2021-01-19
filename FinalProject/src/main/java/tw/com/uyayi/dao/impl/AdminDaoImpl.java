@@ -17,9 +17,10 @@ import tw.com.uyayi.model.Products;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
+
 	@Autowired
 	SessionFactory factory;
-
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Products> getAllProducts() {
@@ -40,6 +41,28 @@ public class AdminDaoImpl implements AdminDao {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<Products> getAllProductsByStatus(String h_Status) {
+		String hql = "From Products where productStatus = :pStatus";
+		Session session = factory.getCurrentSession();
+		List<Products> list = session.createQuery(hql)
+				.setParameter("pStatus", h_Status)
+				.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_Status) {
+		String hql = "From Products where productCategory = :pCategory and productStatus = :pStatus";
+		Session session = factory.getCurrentSession();
+		List<Products> list = session.createQuery(hql)
+				.setParameter("pCategory", h_productCategory)
+				.setParameter("pStatus", h_Status)
+				.getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<Products> getAllProductsByName(String keyName) {
 		String hql ="From Products where productName like :pName";
 		Session session = factory.getCurrentSession();
@@ -48,7 +71,16 @@ public class AdminDaoImpl implements AdminDao {
 				.getResultList();
 		return list;
 	}
-
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getProductName(String keyName) {
+		String hql ="Select productName From Products where productName like :pName";
+		Session session = factory.getCurrentSession();
+		List<String> list = session.createQuery(hql)
+				.setParameter("pName", "%"+keyName+"%")
+				.getResultList();
+		return list;
+	}
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Clinic> getAllClinic() {
@@ -61,11 +93,13 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Member> getAllMember() {
-		String hql = "From Member";
+		String hql = "From Member where memberStatus not like 'admin'";
 		Session session = factory.getCurrentSession();
 		List<Member> list = session.createQuery(hql).getResultList();
 		return list;
 	}
+
+
 	
 	@Override
 	public void insertProduct(Products product) {
@@ -108,6 +142,8 @@ public class AdminDaoImpl implements AdminDao {
 		Date sqldate = Date.valueOf(df.format(today));
 		return sqldate;
 	}
+	
+
 
 
 
