@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import tw.com.uyayi.model.City;
+import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.Products;
+import tw.com.uyayi.service.ClinicSignUpService;
 import tw.com.uyayi.service.MemberService;
 import tw.com.uyayi.service.ProductService;
 
@@ -27,6 +30,9 @@ public class MallController {
 	
 	@Autowired
 	MemberService mService;
+	
+	@Autowired
+	ClinicSignUpService cService;
 
 	@GetMapping("/products")
 	public String getProducts(Model model) {
@@ -56,5 +62,18 @@ public class MallController {
 			return false;
 		}	
 		
+	}
+	
+	@GetMapping("/orderConfirm")
+	public String getAllCity(Model model) {
+		List<City> cities = cService.getAllCity();
+		model.addAttribute("cities", cities);
+		return "mall/OrderCheck";
+	}
+	
+	@PostMapping("/checkCoupon")
+	public @ResponseBody String checkCoupon(@RequestParam String couponCode) {
+		
+		return null;	
 	}
 }

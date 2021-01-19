@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.uyayi.dao.ProductDao;
+import tw.com.uyayi.model.Coupon;
 import tw.com.uyayi.model.Products;
 import tw.com.uyayi.service.ProductService;
 
@@ -29,5 +30,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Products> getProductsByCategory(String productCategoty) {
 		return pDao.getProductsByCategory(productCategoty);
+	}
+
+	@Override
+	public List<Coupon> checkCoupon(String couponCode) {
+		return pDao.checkCoupon(couponCode);
 	}
 }

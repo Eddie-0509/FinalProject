@@ -96,7 +96,7 @@
 	padding: 20px;
 }
 
-.ptd:hover {
+.ptd:hover, .bi-trash:hover {
 	cursor: pointer;
 }
 
@@ -379,7 +379,6 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 					<div id="licon">
 						<i id="lpcircle" class="bi bi-person-circle"></i>
 					</div>
-<!-- 					<form action="mallCheckLogin" method="POST"> -->
 							<div id="lchoose">
 								<a href="">登入</a>
 								<a href="">註冊</a>
