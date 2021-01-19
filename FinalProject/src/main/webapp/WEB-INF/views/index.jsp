@@ -199,8 +199,8 @@
 					<div class="fh5co-text col-md-4 animate-box " >
 						<h2>隨時隨地預約牙醫</h2>
 						<p>預約牙醫時總是被告知要等一個月後嗎？在U YA YI上可以根據您希望的時間、地點，找到適合您的牙醫，讓您立刻解決您的牙齒問題。</p>
-						<p><a href="work_1.html" class="btn btn-light btn-outline transition">立刻預約</a></p>
-					</div>
+						<p><a href="<c:url value='/appointment'/>" class="btn btn-light btn-outline transition">立刻預約</a></p>
+					</div> 
 				</div>
 
 			</div>
