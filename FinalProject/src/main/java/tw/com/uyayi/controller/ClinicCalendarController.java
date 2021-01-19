@@ -11,18 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.com.uyayi.dao.impl.ComparatorDate;
 import tw.com.uyayi.dao.impl.Mail;
 import tw.com.uyayi.model.Appointment;
+import tw.com.uyayi.model.Clinic;
+import tw.com.uyayi.model.Items;
 import tw.com.uyayi.service.ClinicCalendarService;
 
 
 
 @Controller
+@SessionAttributes("loginOK")
 public class ClinicCalendarController {
 	
 	ClinicCalendarService caService;
@@ -37,8 +42,8 @@ public class ClinicCalendarController {
 	
 	//點預約紀錄，model增加所有預約紀錄、醫師名單、醫師ID
 	@GetMapping(value="/clinicCalendar")
-	public  String getData(Model model) {
-//		int clinicID=id;
+	public  String getData(@ModelAttribute("loginOK") Clinic clinic,Model model) {
+		int clinicID=clinic.getClinicPkId();
 //		List<Dentist> dentistlist = caService.getDentistList(clinicID);
 //		LinkedList<String>DentistNameList = new LinkedList<String>();
 //		LinkedList<Integer>DentistIdList = new LinkedList<Integer>();
@@ -46,10 +51,11 @@ public class ClinicCalendarController {
 //			DentistNameList.add(dentistBean.getDentistName());
 //			DentistIdList.add(dentistBean.getDentistPkId());
 //		}
-//		List<Appointment> applist = caService.getAllAppointmentByClinic(clinicID);
+
+		List<Appointment> applist = caService.getAllAppointmentByClinic(clinicID);
 //		 model.addAttribute("DentistIdList",DentistIdList);
 //		 model.addAttribute("DentistNameList",DentistNameList);
-//		 model.addAttribute("AllAppointmentList",applist);
+		 model.addAttribute("AllAppointmentList",applist);
 		 return "clinic/clinicCalendar";
 	}
 	
@@ -101,9 +107,10 @@ public class ClinicCalendarController {
 	@GetMapping(path = "/sendEmail", produces = "application/json")
 	public @ResponseBody String sendEmail(
 			@RequestParam("email") String email , @RequestParam("text") String text) {
-		 	 Mail mail=new Mail();
-		 	 mail.sendMail(email, "【UYAYI】來自診所的通知", text);
+//		 	 Mail mail=new Mail();
+//		 	 mail.sendMail(email, "【UYAYI】來自診所的通知", text);
 		 	 System.out.println(email+text);
+		 	 
 		 	 return null;
 		 			 
 	}
@@ -115,13 +122,34 @@ public class ClinicCalendarController {
 			@RequestParam("memberEmail") String memberEmail,
 			@RequestParam("patientName") String patientName) {
 		 String msg=caService.absentReport(Integer.valueOf(appointmentID));
-		 Mail mail=new Mail();
-		 String text=patientName+" 先生/小姐　您好：\n\n　　診所通知您未前往看診，累積三次未到診您將會被暫停預約功能30日。如有疑問請洽UYAYI客服信箱，謝謝。\n\nUYAYI";
-		 mail.sendMail(memberEmail,"【UYAYI】未到診提醒",text);
+		 if(msg.equals("回報成功")) {
+			 Mail mail=new Mail();
+			 String text=patientName+" 先生/小姐　您好：\n\n　　診所通知您未前往看診，累積三次未到診您將會被暫停預約功能30日。如有疑問請洽UYAYI客服信箱，謝謝。\n\nUYAYI";
+			 mail.sendMail(memberEmail,"【UYAYI】未到診提醒",text);
+			 System.out.println("controller寄出");
+		 }
 		 System.out.println(msg);
 		 return msg;
 	}
 	
+	//修改預約時得到該醫生可選擇的項目
+	@PostMapping(path = "/getItemByDentist", produces = "application/json")
+	public @ResponseBody ArrayList<Items> getItemByDentist(
+			@ModelAttribute("loginOK") Clinic clinic,
+			@RequestParam("dentistName") String dentistName){
+			
+		 	 return caService.getItemByDentist(clinic,dentistName);
+	}
 	
+	//更新預約(項目跟回覆only)
+	@PostMapping("/updateAppointment")
+	public  String updateAppointment(
+			@RequestParam("appointmentID") Integer appointmentID,
+			@RequestParam("updateItem") String updateItem,
+			@RequestParam("updateReply") String updateReply) {
+		 System.out.println(updateItem+" "+updateReply);
+		 caService.updateAppointment(Integer.valueOf(appointmentID),updateItem,updateReply);
+		 return "redirect:/clinicCalendar";
+	}
 
 }

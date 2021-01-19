@@ -14,6 +14,7 @@ import tw.com.uyayi.dao.ClinicCalendarDao;
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
+import tw.com.uyayi.model.Items;
 import tw.com.uyayi.model.Member;
 
 
@@ -126,6 +127,24 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 			msg= "回報成功";			
 		}
 		return msg;
+	}
+
+	@Override
+	public ArrayList<Items> getItemByDentist(Clinic clinic, String dentist) {
+		Session session=factory.getCurrentSession();
+		String hqld="Select itemsBean From Dentist d where d.clinicBean =:clinic and d.dentistName =:dentist";
+		ArrayList<Items> itemB =(ArrayList<Items>) session.createQuery(hqld).setParameter("clinic", clinic).setParameter("dentist", dentist).getResultList();
+//		System.out.println(itemB.get(0).getItemName());
+		return itemB;
+	}
+
+	@Override
+	public void updateAppointment(Integer appointmentID, String updateItem, String updateReply) {
+		Session session=factory.getCurrentSession();
+		String hqli = "from Items i where i.itemName =:itemName";
+		List<Items> item = session.createQuery(hqli).setParameter("itemName", updateItem).getResultList();
+		String hqla = "update Appointment app set app.itemBean =:item , app.memberReply =:reply where app.appointmentPkId= :appointmentID";
+		session.createQuery(hqla).setParameter("item", item.get(0)).setParameter("reply", updateReply).setParameter("appointmentID", appointmentID).executeUpdate();
 	}
 
 	

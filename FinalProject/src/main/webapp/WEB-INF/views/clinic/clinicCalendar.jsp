@@ -151,6 +151,7 @@
 <!-- 	確認彈窗 -->
 	<link rel="stylesheet" href="css/calendar_confirm-modal.css"></link>
 	<script src="js/calendar_confirm-modal.js"></script>
+	<script src="js/appUpdate_confirm-modal.js"></script>
 
 	</head>
 
@@ -242,6 +243,39 @@
 	</div>
 </div>
 
+<!-- 修改預約彈窗 -->
+<div id="AppointmentUpdateModal" class="modal fade" style="color:black">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            <h4 id="AppointmentUpdateModalTitle" class="modal-title"  style="color:black">修改預約</h4>
+	        </div>
+	        <div id="AppointmentUpdateModalBody" class="modal-body"  style="color:black">
+	        	病患姓名：<span id="upPatientName"></span>
+	        	<br>
+	        	病患電話：<span id="upPatientPhone"></span>
+	        	<br>
+	        	預約醫師：<span id="upDentistName"></span>
+	        	<br>
+	        	預約項目：<span id="upItem"></span>
+	        	<br>
+	        	預約日期：<span id="upDate"></span>
+	        	<br>
+	        	預約時間：<span id="upTime"></span>
+	        	<br>
+	        	到診確認：<span id="upReply"></span>
+	  
+	        </div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-default" onclick="openUpdateConfirmModal()">修改</button>
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        </div>
+	    </div>
+	</div>
+</div>
+
+
 <!-- 聯絡 -->
 <div id="ContactModal" class="modal fade" style="color:black">
 	<div class="modal-dialog">
@@ -307,17 +341,26 @@
 	
 	<script>
 	async function openConfirmModal() {
-        this.myModal = new SimpleModal("確認", "確定回報此病患未到診？", "是", "否");
+        this.absentConfirmModal = new SimpleModal("確認", "確定回報此病患未到診？", "是", "否");
 
         try {
-          const modalResponse = await myModal.question();
-         // alert(`The response is ${modalResponse}`);
+          const modalResponse = await absentConfirmModal.question();
+          
         } catch(err) {
           console.log(err);
         }
         
       }
 	
+	async function openUpdateConfirmModal(){
+		this.updateConfirmModal = new HHHHModal("確認", "確定修改？", "是", "否");
+		try {
+	          const modalResponse = await updateConfirmModal.question();
+	         // alert(`The response is ${modalResponse}`);
+	        } catch(err) {
+	          console.log(err);
+	        }
+	}
 	
 	</script>
 	

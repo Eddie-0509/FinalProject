@@ -57,8 +57,6 @@ $(document).ready(function(){
 	}
 	console.log(allevents)
 	
-
-
 	for (let dn=0;dn<DocNum;dn++){
 		let DocName=Doctor[dn];
 		//迴圈新增行事曆div
@@ -149,7 +147,7 @@ $(document).ready(function(){
 				events: hisevent,
 				eventClick:function(event){
 					 $('#AppointmentModal').modal();
-					 $("#AppointmentModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal">連絡病患</button>'
+					 $("#AppointmentModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default " data-toggle="modal" data-target="#AppointmentUpdateModal" data-dismiss="modal" onclick="appointmentUpdate()">修改預約</button><button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal" onclick="contactMember()">連絡病患</button>'
 	        	+'<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>')
 					 //if (event.id) {
 				            console.log(event.id);
@@ -177,7 +175,8 @@ $(document).ready(function(){
 							 patientName=result.patientName;
 							 console.log("159="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
 							 if(memberEmail==null){
-							 	$("#AppointmentModal > div > div > div.modal-footer > button").eq(2).siblings().remove();
+							 	 $("#AppointmentModal > div > div > div.modal-footer > button").eq(1).remove();
+							  	 $("#AppointmentModal > div > div > div.modal-footer > button").eq(1).remove();
 							 }
 			             }
 			        })
@@ -286,7 +285,9 @@ $(document).ready(function(){
     		maxTime: '22:00:00', 
 			events: allevents,
 			eventClick:function(event){
-				 $('#AppointmentModal').modal();						 
+				 $('#AppointmentModal').modal();
+				  $("#AppointmentModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default " data-toggle="modal" data-target="#AppointmentUpdateModal" data-dismiss="modal" onclick="appointmentUpdate()">修改預約</button><button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal" onclick="contactMember()">連絡病患</button>'
+	        	+'<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>')						 
 				 $.ajax({
 		             url: 'getAppointmentDetail',    //url位置
 		             type: 'get',
@@ -309,6 +310,10 @@ $(document).ready(function(){
 						 memberID=result.memberID;
 						 patientName=result.patientName;
 						 console.log("292="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
+		             	 if(memberEmail==null){
+							 $("#AppointmentModal > div > div > div.modal-footer > button").eq(1).remove();
+							  $("#AppointmentModal > div > div > div.modal-footer > button").eq(1).remove();
+		             	}
 		             }
 		        })
 			}		             
@@ -359,13 +364,53 @@ $(document).ready(function(){
 	})
 	
 	
-	 $(".contactMember").on("click",function(){
+
+});
+	function appointmentUpdate(){
+		$("#upPatientName").text($("#patientName").text());
+	    $("#upPatientPhone").text($("#patientPhone").text());
+	    $("#upDentistName").text($("#dentistName").text());
+	    $("#upItem").html("<select id='upitemcanchoose'></select>");
+	    $("#upDate").text( $("#date").text());
+	    $("#upTime").text($("#time").text());
+	    if(memberID==null){
+		    "<select id='upitemcanchoose'></select>"
+		    if($("#reply").text()=="未回覆"){
+		    	$("#upReply").html("<select><option value='未回覆' selected='selected'>未回覆</option><option value='確定前往' >確定前往</option></select>");
+		    }if($("#reply").text()=="確定前往"){
+		    	$("#upReply").html("<select><option value='未回覆' >未回覆</option><option value='確定前往' selected='selected'>確定前往</option></select>");
+		    }
+		}else{
+			$("#upReply").text($("#reply").text());
+		}
+		$.ajax({
+			url : 'getItemByDentist',
+			type : 'POST',
+//            contentType: "application/json",
+            dataType : "JSON",
+			data : {
+				dentistName : $("#upDentistName").text(),
+				method : "$.ajax()",
+				doWhat : "POST"
+			},
+			success : function(data){
+				for(let i=0;i<data.length;i++){				
+					console.log(data[i])
+					if($("#item").text()==data[i].itemName){
+						$("#upItem select").append("<option value="+data[i].itemName+" selected='selected'>"+data[i].itemName+"</option>")
+					}else{
+						$("#upItem select").append("<option value="+data[i].itemName+">"+data[i].itemName+"</option>")
+					}
+				}
+			}
+		})
+	}
+
+	 function contactMember(){
  			   $("#ContactModalTitle").text("傳送郵件");	  
  			   $("#ContactModalBody").html('請輸入內容：<br><textarea name="text" rows=5 style="width:90%;resize:none" id="mailText"></textarea>');	  
  			   $("#ContactModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default mailMember" onclick="mailMember()">寄出</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>');
- 		})
-
-});
+ 		}
 
 function mailMember(){
 		$.ajax({
@@ -417,9 +462,10 @@ function mailMember(){
              error: function(){
              	$("#qmodalBody").text("查無資料")
              	$("#queryAppointment").remove();
-             }
-             
+             }            
         })
 	}
+	
+	
 	
 	
