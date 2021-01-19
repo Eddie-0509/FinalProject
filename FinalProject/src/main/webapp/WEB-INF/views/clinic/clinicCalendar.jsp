@@ -234,9 +234,9 @@
 	  
 	        </div>
 	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal">連絡病患</button>
-	        	<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button>
-	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+<!-- 	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal">連絡病患</button> -->
+<!-- 	        	<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button> -->
+<!-- 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	             -->
 	        </div>
 	    </div>
 	</div>

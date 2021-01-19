@@ -98,16 +98,31 @@ $(document).ready(function(){
 	             },//請求方式
 	             success: function getresult(result) { 
 					 for(let appnum=0;appnum<result.length;appnum++){ 			
-	            	 //console.log("data="+result);
-	      			 let backgroundColor="";
-   			 			if(result[appnum].memberReply=="未回覆"){
-   			 				backgroundColor='#81C0C0'
-   						}
-   						if(result[appnum].memberReply=="確定前往"){
-   							backgroundColor='#408080'
-   						}
+		            	 //console.log("data="+result);
+		      			 let backgroundColor="";
+		      			 let title="";
+		      			 if(result[appnum].memberBean!=null){
+		      			 	title=result[appnum].memberBean.memberName;
+		      			
+	   			 			if(result[appnum].memberReply=="未回覆"){
+	   			 				backgroundColor='#81C0C0'
+	   						}
+	   						if(result[appnum].memberReply=="確定前往"){
+	   							backgroundColor='#408080'
+	   						}
+	   					 }
+	   					 if(result[appnum].memberBean==null){
+	   						title=result[appnum].patientName;	   						
+	   				
+	   						if(result[appnum].memberReply=="未回覆"){
+	   			 				backgroundColor='#FFD1A4'
+	   						}
+	   						if(result[appnum].memberReply=="確定前往"){
+	   							backgroundColor='#EA7500'
+	   						}
+	   					  }
 		            	 hisevent.push({id:result[appnum].appointmentPkId,
-		            		 			title:result[appnum].memberBean.memberName,
+		            		 			title:title,
 		      			 			    start: formatDate(result[appnum].appointDate)+"T"+
 		      			 			           (result[appnum].timeTableBean.times).substring(0,(result[appnum].timeTableBean.times).length-6)+":00",
 		      			 			    backgroundColor:backgroundColor
@@ -134,6 +149,8 @@ $(document).ready(function(){
 				events: hisevent,
 				eventClick:function(event){
 					 $('#AppointmentModal').modal();
+					 $("#AppointmentModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal">連絡病患</button>'
+	        	+'<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>')
 					 //if (event.id) {
 				            console.log(event.id);
 				      //}
@@ -159,7 +176,9 @@ $(document).ready(function(){
 							 memberID=result.memberID;
 							 patientName=result.patientName;
 							 console.log("159="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
-							 
+							 if(memberEmail==null){
+							 	$("#AppointmentModal > div > div > div.modal-footer > button").eq(2).siblings().remove();
+							 }
 			             }
 			        })
 			}
@@ -339,12 +358,12 @@ $(document).ready(function(){
 		
 	})
 	
+	
 	 $(".contactMember").on("click",function(){
  			   $("#ContactModalTitle").text("傳送郵件");	  
  			   $("#ContactModalBody").html('請輸入內容：<br><textarea name="text" rows=5 style="width:90%;resize:none" id="mailText"></textarea>');	  
  			   $("#ContactModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default mailMember" onclick="mailMember()">寄出</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>');
  		})
-	
 
 });
 

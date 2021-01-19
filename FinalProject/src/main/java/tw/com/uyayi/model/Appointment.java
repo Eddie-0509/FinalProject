@@ -3,6 +3,7 @@ package tw.com.uyayi.model;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "appointment")
@@ -52,9 +55,10 @@ public class Appointment {
 	private  Items itemBean;
 	
 	
-	
-	private  String arrive;
+	@Column(name = "memberReply", insertable=false,columnDefinition = " nvarchar(15) default '未回覆'") 
 	private  String memberReply;
+	@Column(name = "arrive", insertable=false,columnDefinition = " nvarchar(10) default 'true'") 
+	private  String arrive;
 	
 	@Transient
 	private String dentistName;
