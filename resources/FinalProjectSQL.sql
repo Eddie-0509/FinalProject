@@ -421,12 +421,12 @@ memberStatus nvarchar(20)  not null			--會員狀態(是否被鎖權限)--
 );
 
 insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('admin','admin123','admin','admin','台北市信義區信義路三段390號','0266316666','admin');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Tanjirou@gmail.com.tw','P@ssw0rd123','F123456789','炭治郎','台北市信義區信義路一段1號','0911111111','true');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Nezuko@gmail.com.tw','P@ssw0rd123','A123456789','彌豆子','新北市板橋區板橋路一段2號','0922222222','true');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Zenitsu@gmail.com.tw','P@ssw0rd123','B123456789','善逸','桃園市桃園區桃園路一段3號','0933333333','true');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Inosuke@gmail.com.tw','P@ssw0rd123','C123456789','伊之助','新竹市香山區香山路一段4號','0944444444','false');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Kyoujurou@gmail.com.tw','P@ssw0rd123','D123456789','杏壽郎','苗栗縣後龍鎮後龍路一段5號','0955555555','true');
-insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Shinobu@gmail.com.tw','P@ssw0rd123','E123456789','蝴蝶忍','台中市西屯區西屯路一段6號','0966666666','false');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Tanjirou@gmail.com.tw','P@ssw0rd123','F123456789','炭治郎','台北市信義區信義路一段1號','0911111111','已填寫');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Nezuko@gmail.com.tw','P@ssw0rd123','A123456789','彌豆子','新北市板橋區板橋路一段2號','0922222222','已填寫');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Zenitsu@gmail.com.tw','P@ssw0rd123','B123456789','善逸','桃園市桃園區桃園路一段3號','0933333333','已填寫');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Inosuke@gmail.com.tw','P@ssw0rd123','C123456789','伊之助','新竹市香山區香山路一段4號','0944444444','已填寫');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Kyoujurou@gmail.com.tw','P@ssw0rd123','D123456789','杏壽郎','苗栗縣後龍鎮後龍路一段5號','0955555555','已填寫');
+insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('Shinobu@gmail.com.tw','P@ssw0rd123','E123456789','蝴蝶忍','台中市西屯區西屯路一段6號','0966666666','已填寫');
 
 
 --會員初診相關資料--
@@ -897,27 +897,28 @@ productProfile nvarchar(max) not null,											--商品介紹--
 productSpec nvarchar(max) not null										--商品規格--
 );
 
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【德國百靈Oral-B】iO9微震科技電動牙刷',GETDATE(),12990,30,'上架中','???','電動牙刷','【德國百靈Oral-B】iO9微震科技電動牙刷-黑色(微磁電動牙刷)','品牌：歐樂B|品名：ORAL-B iO9 微震科技電動牙刷|顏色:黑|本體尺寸(cm)：18*10*26cm|商品重量(g)：900g|產地：本體-德國');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【國際牌】音波電動牙刷',GETDATE(),7290,30,'上架中','???','電動牙刷','【國際牌】年度新品音波電動牙刷(EW-DP54-S/A)+櫸木柄、矽膠餐具五件組','本體尺寸：高23.5 x 寬2.9 x 深3.5cm|重量：110g|電壓：100-240V|充電/使用時間：充電1小時，約可連續使用90分鐘 (水平震動下)/45分鐘(W音波震動下)|附件：攜帶盒*1、刷頭放置架*1|產地: 日本(充電座產地：中國)');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【Philips飛利浦】高效空氣動能牙線機/沖牙機',GETDATE(),3880,30,'上架中','???','沖牙機','【Philips 飛利浦】高效空氣動能牙線機/沖牙機(HX8401/03)','型號：HX8401/03|尺寸：24D x14W x9H (cm)|重量：430g|產地：中國');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【Ora2愛樂齒】微觸感牙刷',GETDATE(),299,30,'上架中','???','牙刷','【Ora2愛樂齒】me微觸感牙刷6支/盒(超軟毛，顏色隨機出貨)','材質:刷毛:尼龍。刷柄:聚乙烯塑膠。耐熱溫度:60度C|包裝入數:6支/盒|產地:日本');
-insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【舒酸定】多元護理+深層潔淨牙膏',GETDATE(),499,30,'上架中','???','牙膏','【舒酸定】爆殺8入組牙膏-多元護理120g*6+深層潔淨100g*2','品名:舒酸定長效抗敏-多元護理|規格:120g x6入|用途:幫助保護牙齦健康|保存期限:三年|原產地:泰國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【德國百靈Oral-B】iO9微震科技電動牙刷',GETDATE(),12990,30,'上架','???','電動牙刷','【德國百靈Oral-B】iO9微震科技電動牙刷-黑色(微磁電動牙刷)','品牌：歐樂B|品名：ORAL-B iO9 微震科技電動牙刷|顏色:黑|本體尺寸(cm)：18*10*26cm|商品重量(g)：900g|產地：本體-德國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【國際牌】音波電動牙刷',GETDATE(),7290,30,'上架','???','電動牙刷','【國際牌】年度新品音波電動牙刷(EW-DP54-S/A)+櫸木柄、矽膠餐具五件組','本體尺寸：高23.5 x 寬2.9 x 深3.5cm|重量：110g|電壓：100-240V|充電/使用時間：充電1小時，約可連續使用90分鐘 (水平震動下)/45分鐘(W音波震動下)|附件：攜帶盒*1、刷頭放置架*1|產地: 日本(充電座產地：中國)');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【Philips飛利浦】高效空氣動能牙線機/沖牙機',GETDATE(),3880,30,'上架','???','沖牙機','【Philips 飛利浦】高效空氣動能牙線機/沖牙機(HX8401/03)','型號：HX8401/03|尺寸：24D x14W x9H (cm)|重量：430g|產地：中國');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【Ora2愛樂齒】微觸感牙刷',GETDATE(),299,30,'上架','???','牙刷','【Ora2愛樂齒】me微觸感牙刷6支/盒(超軟毛，顏色隨機出貨)','材質:刷毛:尼龍。刷柄:聚乙烯塑膠。耐熱溫度:60度C|包裝入數:6支/盒|產地:日本');
+insert into products(productName,productUpdateDate,productPrice,productQuantity,productStatus,productImage,productCategory,productProfile,productSpec) values('【舒酸定】多元護理+深層潔淨牙膏',GETDATE(),499,30,'上架','???','牙膏','【舒酸定】爆殺8入組牙膏-多元護理120g*6+深層潔淨100g*2','品名:舒酸定長效抗敏-多元護理|規格:120g x6入|用途:幫助保護牙齦健康|保存期限:三年|原產地:泰國');
 
 --折價券歷史紀錄--
 create table coupon(
 couponPkId int primary key identity(1,1) not null,
 couponName nvarchar(20) not null,										--折扣名稱--
-couponContext nvarchar(50) not null,									--折扣趴數--
+couponContext numeric not null,									--折扣趴數--
 couponCode nvarchar(20) not null,										--折扣碼--
 couponStartTime date not null,												--折扣起始時間--
 couponEndTime date not null,												--折扣結束時間--
 couponStatus nvarchar(15) not null,									--開放權限--
 );
+insert into coupon values('周年慶全面8折', 0.8, 'qwer1234', '2021/1/19', '2021/1/31', 'true');
 
 --訂單表--
 create table orders(
 orderPkId int primary key identity(1,1) not null,
-memeberPkId int references member(memberPkId),		--多對一關聯到會員
+memberPkId int references member(memberPkId),		--多對一關聯到會員
 couponPkId int references coupon(couponPkId),				--多對一關連到折價券，一張訂單只許用一種折扣--
 totalPayment int,																		--總金額--	
 orderStatus nvarchar(30) not null,										--訂單狀態--
