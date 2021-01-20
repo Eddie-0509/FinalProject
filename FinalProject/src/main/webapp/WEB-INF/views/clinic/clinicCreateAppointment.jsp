@@ -137,10 +137,21 @@
 	    line-height:1.5rem;
 	    text-indent:-99999px;
 		}
-		 input,select{vertical-align:middle;}
+		input,select{vertical-align:middle;}
 		
 		#appointModal span{
 		display:inline-block;width:200px;text-align:right;
+		}
+		
+		#back{
+		 color:black;
+		 text-align:right;
+		 margin-bottom:0;
+/* 		 display:inline-block; */
+		}
+		h2{
+		 display:inline;
+		 margin:0;
 		}
 	</style>
 	</head>
@@ -326,7 +337,7 @@
 				},
 				success : function(data) {
 					console.log(data);
-					let str="<h2>"+$("#dentist").val()+"醫師預約表</h2><table><thead><tr><td>日期</td><td>時間</td><td>預約</td></tr></thead><tbody></tbody></table>";
+					let str="<h2>"+$("#dentist").val()+"醫師預約表</h2><p id='back'><button  onclick='back()'>回上頁</button></p><table><thead><tr><td>日期</td><td>時間</td><td>預約</td></tr></thead><tbody></tbody></table>";
 					$("#appFilterResult").html(str);
 					let arr = Object.keys(data);
 					let len = arr.length;
@@ -342,26 +353,8 @@
 		$("#goToAppoint").on("click",function(){
 			console.log("HIIII");
 			$("#appForm").trigger("submit");
-			 $.ajax({
-					url : 'appoint',
-					type : 'POST',
-	  				dataType: "text",			
-					data : {
-// 						item : $("#itemName").val(),
-// 						dentist : $("#dentistName").val(),
-// 						date : $("#appointDate").val(),
-// 						time : $("#times").val(),
-// 						name : $("#patientName").val(),
-// 						phone : $("#patientPhone").val(),
-// 						idnum : $("#patientIdNumber").val(),
-						method : "$.ajax()",
-						doWhat : "POST"
-					},
-					success : function(msg) {
-						console.log(msg)
-					}
-				})
 		})
+		
 		function openAppModal(){
 // 			console.log($(this));
 // 			console.log($(this).parent("td").siblings().eq(1).text());
@@ -371,12 +364,11 @@
 			
 		}
 		
-// 		$(document).ready(function() {
-// 			$(".openAppModal").on("click",function(){
-// 				console.log($(this).parent());
-// 				$("#appointModal").modal("show");
-// 			})
-// 		})
+		function back(){
+			$("#appFilterResult").css("display","none")
+			$("#appFilter").css("display","block")
+		}
+
 	</script>
 	
 	</body>
