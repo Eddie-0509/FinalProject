@@ -27,26 +27,13 @@ class SimpleModal {
       this.acceptButton.focus();
 
       this.acceptButton.addEventListener("click", () => {
+    	$("#reviseForm").trigger("submit");
         resolve(true);
-        console.log(appointmentID);
-        $.ajax({
-				url : 'absentReport',
-				type : 'POST',
-				data : {
-					appointmentID : appointmentID,	
-					method : "$.ajax()",
-					doWhat : "POST"
-				},
-				success : function(data) {
-					console.log("HI")
-				}
-			})
         this._destroyModal();
       });
 
       this.cancelButton.addEventListener("click", () => {
         resolve(false);
-        console.log("FFFFF");
         this._destroyModal();
       });
 
@@ -113,7 +100,6 @@ class SimpleModal {
 
     // Let's rock
     this.parent.appendChild(this.modal);
-    
   }
 
   _destroyModal() {

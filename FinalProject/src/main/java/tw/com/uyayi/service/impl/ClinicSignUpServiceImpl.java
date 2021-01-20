@@ -48,5 +48,10 @@ public class ClinicSignUpServiceImpl implements ClinicSignUpService {
 	public boolean checkEmail(String clinicEmail) {
 		return signUpDao.checkEmail(clinicEmail);
 	}
+	@Override
+	@Transactional
+	public void changeStatus(int clinicPkId) {
+		signUpDao.changeStatus(clinicPkId);
+	}
 
 }

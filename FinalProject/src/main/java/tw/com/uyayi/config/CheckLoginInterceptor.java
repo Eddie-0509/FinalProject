@@ -13,7 +13,8 @@ import tw.com.uyayi.model.Clinic;
 
 public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
 
-	List<String> url = Arrays.asList("/clinicCalendar*","/clinicAppoint*","/getDentist*","/getItemByDentist*");
+	List<String> url = Arrays.asList("/clinicCalendar*","/clinicAppoint*","/getDentist*","/clinicDetail*","/getItemByDentist*");
+
 	String servletPath;
 	String contextPath;
 	String requestURI;

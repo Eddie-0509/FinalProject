@@ -17,10 +17,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tw.com.uyayi.model.Appointment;
+import tw.com.uyayi.model.City;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.service.ClinicCalendarService;
 import tw.com.uyayi.service.ClinicLogInService;
+import tw.com.uyayi.service.ClinicSignUpService;
 
 @Controller
 @SessionAttributes({"loginOK","DentistIdList","DentistNameList","AllAppointmentList"}) 
@@ -29,6 +31,8 @@ public class ClinicLogInController {
 	ClinicLogInService clinicLogInservce;
 	@Autowired
 	ClinicCalendarService caService;
+	@Autowired
+	ClinicSignUpService clinicSignUpService;
 	
 	@PostMapping(value = "/clinic")
 	public String clinicLogIn(Model model,
@@ -72,5 +76,7 @@ public class ClinicLogInController {
 		session.invalidate();		// 此敘述不能省略		
 		return "redirect:/";	
 	}
+	
+	
 	
 }

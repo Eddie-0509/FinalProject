@@ -9,11 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javassist.Loader.Simple;
+import tw.com.uyayi.dao.impl.Mail;
+import tw.com.uyayi.dao.impl.MailCheck;
 import tw.com.uyayi.model.City;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dist;
@@ -74,11 +77,17 @@ public class ClinicSignUpController {
 		clinic.setClinicStartTime(sqlDate);
 		
 		signUpService.insertClinic(clinic);
+		String text = "<a href='http://localhost:9998/FinalProject/mailCheck?rgewrgerwgw45y4refqereqrfsfeq=5&id="+clinic.getClinicPkId()+"&ffgsfdgerc=1fdshrt'>請點擊連結開通帳號</a>";
+		MailCheck m = new MailCheck();
+		m.sendMail(clinic.getClinicAccount(), "歡迎加入【UYAYI】", text);
 		return "redirect:/clinicIndex";
 	}
-	@GetMapping("/testAPI")
-	public String test() {
-		return "clinic/testAPI";
-		
+	
+	@GetMapping(value="mailCheck")
+	public String mailCheck(@RequestParam("id") String id) {
+		int clinicPkId = Integer.valueOf(id);
+		signUpService.changeStatus(clinicPkId);
+		return "clinic/mailCheck";
 	}
+	
 }

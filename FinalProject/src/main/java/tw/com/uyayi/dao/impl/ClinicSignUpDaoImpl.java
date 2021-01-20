@@ -71,4 +71,11 @@ public class ClinicSignUpDaoImpl implements ClinicSignUpDao {
 		}else return false;
 	}
 
+	@Override
+	public void changeStatus(int clinicPkId) {
+		Session session = factory.getCurrentSession();
+		String sql = "update clinic set clinicStatus = :status where clinicPkId = :id";
+		session.createSQLQuery(sql).setParameter("status", "已驗證").setParameter("id", clinicPkId).executeUpdate();
+	}
+
 }

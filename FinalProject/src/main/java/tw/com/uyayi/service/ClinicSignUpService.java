@@ -19,4 +19,6 @@ public interface ClinicSignUpService {
 	Dist getDistBean(int distPkId);
 
 	boolean checkEmail(String clinicEmail);
+
+	void changeStatus(int clinicPkId);
 }
