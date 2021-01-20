@@ -152,6 +152,7 @@
 	<link rel="stylesheet" href="css/calendar_confirm-modal.css"></link>
 	<script src="js/calendar_confirm-modal.js"></script>
 	<script src="js/appUpdate_confirm-modal.js"></script>
+	<script src="js/appDelete_confirm-modal.js"></script>
 
 	</head>
 
@@ -183,7 +184,7 @@
 						
 							<div id="calendarbutton" class="animate-box">
 								<input type="button" value="MONTH" style="color: black;" id="monthBut"></input>
-								<input type="button" value="WEEK" style="color: black;" id="weekBut"></input>
+<!-- 								<input type="button" value="WEEK" style="color: black;" id="weekBut"></input> -->
 								<input type="button" value="LIST" style="color: black;" id="listBut"></input>
 								<input type="button" value="醫師別" style="color: black;" id="doctorBut"></input>
 								<input type="button" value="查詢病患預約" style="color: black;" data-toggle="modal" data-target="#QueryModal" id="queryBut"></input>
@@ -356,6 +357,16 @@
 		this.updateConfirmModal = new HHHHModal("確認", "確定修改？", "是", "否");
 		try {
 	          const modalResponse = await updateConfirmModal.question();
+	         // alert(`The response is ${modalResponse}`);
+	        } catch(err) {
+	          console.log(err);
+	        }
+	}
+	
+	async function openDeleteConfirmModal(){
+		this.deleteConfirmModal = new DDDModal("確認", "確定刪除？", "是", "否");
+		try {
+	          const modalResponse = await deleteConfirmModal.question();
 	         // alert(`The response is ${modalResponse}`);
 	        } catch(err) {
 	          console.log(err);

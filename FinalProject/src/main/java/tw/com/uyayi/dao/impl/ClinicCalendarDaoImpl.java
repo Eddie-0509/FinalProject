@@ -93,7 +93,7 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 	public ArrayList<Appointment> queryAppointmentByPhone(String phone) {
 		Session session=factory.getCurrentSession();
 		String hqlmem = "from Member mem where mem.memberPhone =:memberPhone";
-		 List member = session.createQuery(hqlmem).setParameter("memberPhone", phone).getResultList();
+		List member = session.createQuery(hqlmem).setParameter("memberPhone", phone).getResultList();
 		String hqlapp="";
 		ArrayList<Appointment> list=new ArrayList<Appointment>();
 		if (!member.isEmpty()) {
@@ -145,6 +145,13 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		List<Items> item = session.createQuery(hqli).setParameter("itemName", updateItem).getResultList();
 		String hqla = "update Appointment app set app.itemBean =:item , app.memberReply =:reply where app.appointmentPkId= :appointmentID";
 		session.createQuery(hqla).setParameter("item", item.get(0)).setParameter("reply", updateReply).setParameter("appointmentID", appointmentID).executeUpdate();
+	}
+
+	@Override
+	public void deleteAppointment(int appointmentId) {
+		Session session=factory.getCurrentSession();
+		String hqla = "delete Appointment app where app.appointmentPkId= :appointmentID";
+		session.createQuery(hqla).setParameter("appointmentID", appointmentId).executeUpdate();		
 	}
 
 	

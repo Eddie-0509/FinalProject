@@ -92,3 +92,7 @@ button:hover {
 .simple-modal-button-red {
   background-color: #dd2c00;
 }
+
+.simple-modal-form{
+	display:inline
+}

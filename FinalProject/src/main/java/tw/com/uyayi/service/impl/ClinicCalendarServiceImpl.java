@@ -67,6 +67,11 @@ public class ClinicCalendarServiceImpl implements ClinicCalendarService {
 		
 	}
 
+	@Override
+	public void deleteAppointment(int appointmentId) {
+		caDao.deleteAppointment(appointmentId);
+	}
+
 
 
 }

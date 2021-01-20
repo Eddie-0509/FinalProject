@@ -20,6 +20,7 @@ public interface ClinicCalendarService {
 	String absentReport(Integer appointmentID);
 	ArrayList<Items> getItemByDentist(Clinic clinic,String dentist);
 	void updateAppointment(Integer appointmentID, String updateItem, String updateReply);
+	void deleteAppointment(int appointmentId);
 
 
 }

@@ -5,7 +5,7 @@
 			color: black;
 			/*display: inline-block;*/
 			/*width: 1140px;*/
-			margin: 40px auto;
+			margin: 20px auto;
 			
 		}
 /* 		#calender h2{ */
@@ -59,14 +59,13 @@
 /*  		}  */
 		.colorsetumei{
 			/*border-radius:50%;*/
-			vertical-align:middle;
-			
+			vertical-align:middle;			
 			width:20px;
 			height:10px;
 			line-height:10px;
 		}
 		#colorsetumeis{
-			float: right;
+/* 			float: right; */
 			margin:5px 0 5px 0;
 			text-align:right;
 		}

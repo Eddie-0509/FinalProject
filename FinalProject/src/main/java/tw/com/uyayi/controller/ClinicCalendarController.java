@@ -153,5 +153,14 @@ public class ClinicCalendarController {
 		 caService.updateAppointment(Integer.valueOf(appointmentID),updateItem,updateReply);
 		 return "redirect:/clinicCalendar";
 	}
+	
+	//刪除診所自己預約的預約
+	@PostMapping(value = "/deleteAppointment")
+	public String deleteAppointment(@RequestParam("appointmentPkId") String appointmentPkId) {
+		int appointmentId=Integer.valueOf(appointmentPkId);
+		caService.deleteAppointment(appointmentId);
+		
+		return "redirect:/clinicCalendar";
+	}
 
 }
