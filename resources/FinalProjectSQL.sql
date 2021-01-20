@@ -596,6 +596,7 @@ insert into timeTable(weekdays,times,timeInterval)	 values('Wednesday','21:30-22
 insert into timeTable(weekdays,times,timeInterval)	 values('Thursday','08:00-08:30','上午')
 insert into timeTable(weekdays,times,timeInterval)	 values('Thursday','08:30-09:00','上午')
 insert into timeTable(weekdays,times,timeInterval)	 values('Thursday','09:00-09:30','上午')
+insert into timeTable(weekdays,times,timeInterval)	 values('Thursday','09:30-10:00','上午')
 insert into timeTable(weekdays,times,timeInterval)	 values('Thursday','10:00-10:30','上午')
 insert into timeTable(weekdays,times,timeInterval)	 values('Thursday','10:30-11:00','上午')
 insert into timeTable(weekdays,times,timeInterval)	 values('Thursday','11:00-11:30','上午')
