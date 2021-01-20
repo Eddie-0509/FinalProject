@@ -57,4 +57,7 @@ public class MemberSignUpDaoImpl implements MemberSignUpDao {
 		return getSession().createQuery(hql).list();
 	}
 
+    
+ 
+
 }

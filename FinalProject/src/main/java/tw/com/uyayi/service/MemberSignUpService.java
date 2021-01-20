@@ -20,8 +20,6 @@ public interface MemberSignUpService {
 	
 	
 	public List<Member> getAllMember();
-
-
-
+	
 	
 }

@@ -13,10 +13,11 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.MemberDetails;
 import tw.com.uyayi.service.MemberService;
 
 @Controller
-@SessionAttributes({"LoginOK"})
+@SessionAttributes({"LoginOK","memberDetails"})
 public class MemberController {
 	@Autowired
 	MemberService memberService;
@@ -25,8 +26,11 @@ public class MemberController {
 	public String checkLogin(Model model, RedirectAttributes ra, @RequestParam String account, @RequestParam String pwd) {
 		if(memberService.checkLogin(account,pwd)) {
 			Member mb = memberService.getMemberByAccount(account);
+			MemberDetails md = memberService.getMemberDetailByPkId(mb.getMemberPkId());
+			System.out.println("aaaaaaaaaaaaaaaaaaa"+md.getAllergy());
 			model.addAttribute("LoginOK",mb);
 			model.addAttribute("memberBean",mb);	//設定memberBean Session傳送該帳號的會員資訊以供後續會員功能使用
+			model.addAttribute("memberDetails",md);	//設定memberBean Session傳送該帳號的會員資訊以供後續會員功能使用
 			if(mb.getMemberStatus().equals("admin")) {
 				return "redirect:/productManage";//管理者登入後頁面
 			}else {
@@ -48,5 +52,11 @@ public class MemberController {
 		session.invalidate();		// 此敘述不能省略，令目前 Session 失效		
 		return "redirect:/";	
 	}
+	
+	
+
+	
+	
+	
 	
 }

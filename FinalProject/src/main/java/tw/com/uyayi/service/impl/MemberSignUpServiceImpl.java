@@ -47,9 +47,13 @@ public class MemberSignUpServiceImpl implements MemberSignUpService {
 
 	@Override
 	public List<Member> getAllMember() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
+
+
+
+	
 
 }

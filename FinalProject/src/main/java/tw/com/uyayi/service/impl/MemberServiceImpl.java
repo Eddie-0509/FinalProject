@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.uyayi.dao.MemberDao;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.MemberDetails;
 import tw.com.uyayi.service.MemberService;
 
 @Transactional
@@ -23,6 +24,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean checkLogin(String account, String pwd) {
 		return memberDao.checkLogin(account,pwd);
+	}
+
+
+	@Override
+	public MemberDetails getMemberDetailByPkId(int memberPkId) {
+		
+		return memberDao.getMemberDetailByPkId(memberPkId);
 	}
 	
 }

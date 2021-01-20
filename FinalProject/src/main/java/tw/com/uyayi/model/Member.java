@@ -5,10 +5,12 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -19,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "member")
 public class Member {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "memberPkId")
@@ -36,15 +39,28 @@ public class Member {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "memberBean")
 	private Set<Appointment> appointments;
 	
+	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "memberBean")
 	@JsonIgnore //SC加ㄉ
 	private Set<Orders> orders;
-	
+
+//	
+//	@OneToOne(fetch = FetchType.EAGER, mappedBy = "memberDetails" ,cascade = CascadeType.ALL)
+//	private MemberDetails memberDetails;
+	 
 	
 	
 	public Member() {
 		super();
 	}
+
+//	public MemberDetails getMemberDetails() {
+//		return memberDetails;
+//	}
+//
+//	public void setMemberDetails(MemberDetails memberDetails) {
+//		this.memberDetails = memberDetails;
+//	}
 
 	public int getMemberPkId() {
 		return memberPkId;

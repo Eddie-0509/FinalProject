@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    		
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>	
+	
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -125,8 +127,8 @@
 			<ul>			
 				<!-- 如果你是會員的頁面 -->
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='/memberModify'/>" class="transition">修改會員</a></li>
-				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">填寫初診</a></li>
+				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">修改會員</a></li>
+				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">填寫初診</a></li>
 				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
 				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
 				<li class="animate-box"><a href="#" class="transition">訂單查詢</a></li>
@@ -143,14 +145,19 @@
 			<div class="container">
 
 
+<div class="result-wrap">
+            <form name="myform" id="myform" method="post">
+               
+                <div class="result-content">
 
-
-
-
-
-
-
-
+                            <div style="text-align:center;">您尚未填寫病歷表</div>
+                    
+                  <BR>
+                           <div style="text-align:center;">
+                                <a class="link-update" data-toggle="modal" data-target="#Modal">填寫</a>
+                          </div>
+            </form>
+        </div>
 
 
     <!--/sidebar-->
@@ -168,9 +175,49 @@
 	    <div class="modal-content">
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">預約詳細</h4>
+	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">填寫病歷表</h4>
 	        </div>
 	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
+	        	
+	        	
+	        	
+	        	
+<table border="1" class="table">
+<tbody>
+
+<form:form action ="${pageContext.request.contextPath}/memberFirstVisitAddView" method="post" modelAttribute="memberDetails" >
+
+
+    <input value="${LoginOK.memberPkId}"  name="mem5berPkId" style="display:none" />
+
+     <strong>緊急聯絡人:<br><input placeholder="請輸入您的緊急聯絡人"  name="emergencyContact"/></strong>
+     <br><br>
+     <strong>緊急連絡電話:<br><input placeholder="請輸入您的緊急聯絡電話" name="emergencyNumber"/></strong>
+     <br><br>
+     <strong>關係:<br><input placeholder="請輸入與緊急聯絡任的關係" name="emergencyRelationship"/></strong>
+     <br><br>
+     <strong>抽菸史:<br><input placeholder="請輸入抽菸幾年了?" name="smoke"/></strong>
+     <br><br>
+    <strong> 檳榔史:<br><input placeholder="請輸入吃檳榔多久了" name="betelNut"/></strong>
+     <br><br>
+     <strong>重大疾病:<br><input placeholder="是否有重大疾病，請填寫" name="diseases"/></strong>
+     <br><br>
+      <strong>過敏原:<br><input placeholder="請填寫過敏原" name="allergy"/></strong>
+     <br><br>
+      <strong>手術史:<br><input placeholder="請填寫動過的手術紀錄" name="surgery"/></strong>
+     <br><br>
+     <input type="submit" value="新增" />
+
+</form:form>
+
+</tbody>
+
+</table>	
+	        
+	        	
+	        	
+	        	
+	       
 	        	
 	        </div>
 	        <div class="modal-footer">

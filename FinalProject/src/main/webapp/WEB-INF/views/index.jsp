@@ -158,7 +158,7 @@
 							</div>
 							<div class="choose">
 								<a href="javascript:void();" class="login default"><h2 >登　入</h2></a>
-								<a href="../memberSignin/MemberSingup.jsp" class="sign"><h2 >註　冊</h2></a>
+								<a href="<c:url value='member'/>"  class="sign"><h2 >註　冊</h2></a>
 							</div>
 								<div class="formcontainer">
 								<div class="container">

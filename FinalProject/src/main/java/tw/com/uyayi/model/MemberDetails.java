@@ -2,10 +2,12 @@ package tw.com.uyayi.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -15,11 +17,11 @@ public class MemberDetails {
 	@Id
 	private int memberPkId;
 	
+	
 	@OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "memberPkId")
     @MapsId    
     private Member member;
-	
 	
 	private String emergencyContact;
 	private String emergencyNumber;
@@ -31,8 +33,10 @@ public class MemberDetails {
 	private String surgery;
 	
 	
-	
-	
+
+
+
+
 	public MemberDetails() {
 
 	}
@@ -117,5 +121,21 @@ public class MemberDetails {
 	public void setSurgery(String surgery) {
 		this.surgery = surgery;
 	}
+
+
+
+	public Member getMember() {
+		return member;
+	}
+
+
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+
+
+	
 
 }

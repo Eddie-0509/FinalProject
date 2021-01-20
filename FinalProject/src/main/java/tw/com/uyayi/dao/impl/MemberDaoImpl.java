@@ -6,13 +6,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import tw.com.uyayi.dao.MemberDao;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.MemberDetails;
 @Repository
 public class MemberDaoImpl implements MemberDao {
 	@Autowired
 	SessionFactory factory;
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -26,7 +29,9 @@ public class MemberDaoImpl implements MemberDao {
 				.getResultList();
 		if(list.size()>0) {
 			loginStatus=true;
+
 		}
+		
 		return loginStatus;
 	}
 
@@ -44,6 +49,22 @@ public class MemberDaoImpl implements MemberDao {
 			 mb = list.get(0);
 		}
 		return mb;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public MemberDetails getMemberDetailByPkId(int memberPkId) {
+		String hql = "From MemberDetails where memberPkId =:mId";
+		MemberDetails md = null;
+		Session session = factory.getCurrentSession();
+		List<MemberDetails> list = session.createQuery(hql)
+				.setParameter("mId", memberPkId)
+				.getResultList();
+		if(list.size()>0) {
+			 md = list.get(0);
+		}
+		return md;
 	}
 
 
