@@ -138,28 +138,71 @@
 		</nav>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-			<div id="container" class="container" style='width: 900px;'>
+			<div id="appointmentContainer" class="container" style='width: 1200px;'>
 				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
 				<button type="button" id="searchData">搜尋</button>
 				<table class='table table-bordered' id='showAllMemberTable' >
 					<thead>
 						<tr>
 							<th style='width: 100px;'>序號</th>
-							<th style='width: 200px;'>會員帳號</th>
-							<th style='width: 200px;'>姓名</th>
+							<th style='width: 200px;'>診所</th>
+							<th style='width: 200px;'>醫生</th>
+							<th style='width: 200px;'>日期</th>
+							<th style='width: 200px;'>時段</th>
+							<th style='width: 200px;'>項目</th>
 							<th style='width: 100px;'>
-							<select name="h_memberStatus" id="h_memberStatus">
-									<option id ="權限" value="權限" selected="selected">權限</option>
-									<option id ="未開通" value="未開通" >未開通</option>
-									<option id ="已開通" value="已開通" >已開通</option>
-									<option id ="已填寫" value="已填寫" >已填寫</option>
-									<option id ="停權" value="停權" >停權</option>
-								</select>
+							<select name="h_memberArrive" id="h_memberArrive">
+								<option id ="到診" value="到診" selected="selected">到診</option>
+								<option id ="有" value="True">有</option>
+								<option id ="無" value="False" >無</option>
+							</select>
 							</th>
-							<th style='width: 300px;'></th>
 						</tr>
 					</thead>
-					<tbody id="memberBody">
+					<tbody id="AppointmentBody">
+						<c:forEach var="appointment" items="${Appointment}" varStatus="vs">
+							<tr>
+								<td>${vs.count}</td>
+								<td>${appointment.clinicBean.clinicName}</td>
+								<td>${appointment.dentistBean.dentistName}</td>
+								<td>${appointment.appointDate}</td>
+								<td>${appointment.timeTableBean.times}</td>
+								<td>${appointment.itemBean.itemName}</td>
+								<c:choose>
+								<c:when test="${appointment.arrive == 'true' }">
+									<td>有</td>
+								</c:when>
+								<c:otherwise>
+									<td>無</td>								
+								</c:otherwise>
+								</c:choose>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			<div id="orderContainer" class="container" style='width: 1200px;'>
+				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
+				<button type="button" id="searchData">搜尋</button>
+				<table class='table table-bordered' id='showAllMemberTable' >
+					<thead>
+						<tr>
+							<th style='width: 100px;'>序號</th>
+							<th style='width: 200px;'>診所</th>
+							<th style='width: 200px;'>醫生</th>
+							<th style='width: 200px;'>日期</th>
+							<th style='width: 200px;'>時段</th>
+							<th style='width: 200px;'>項目</th>
+							<th style='width: 100px;'>
+							<select name="h_memberArrive" id="h_memberArrive">
+								<option id ="到診" value="到診" selected="selected">到診</option>
+								<option id ="有" value="True">有</option>
+								<option id ="無" value="False" >無</option>
+							</select>
+							</th>
+						</tr>
+					</thead>
+					<tbody id="orderBody">
 						
 					</tbody>
 				</table>
@@ -192,46 +235,9 @@
 
 	</div>
 	<script>
-	console.log(${Orders});
 	console.log(${Appointment});
+	console.log(${Appointment.get(0).clinicBean.clinicName});
 	
-// 	$(document).ready(function(){
-// 		showData();
-// 	});
-// 	//會員清單表格內容生成及修改按鈕綁定
-// 	function showData(){			
-// 		//顯示會員資料
-// 		let str = "";
-// 		for (let i = 0; i < members.length; i++) {
-// 			let j = i + 1;
-// 			str += "<tr id='bean"+members[i].memberPkId+"'><td>" + j + "</td>";
-// 			str += "<td>" + members[i].memberAccount+ "</td>";
-// 			str += "<td>" + members[i].memberName+ "</td>";
-// 			str += "<td>" + members[i].memberStatus+ "</td>";
-// 			if(members[i].memberStatus=="停權"){
-// 				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>開放</button> "	;	
-// 			}else{
-// 				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>停權</button> "	;	
-// 			}
-// 			str += "<button type ='button' id='memberDetail"+members[i].memberPkId+"'>歷史紀錄</button>";
-// 			str += "<div style='display:none'><form id='update_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/updateMemberStatus' method='post'><input name='memberPkId' value='"+members[i].memberPkId+"'/><input name='memberStatus' value='"+members[i].memberStatus+"'/></form></div>";
-// 			str += "<div style='display:none'><form id='show_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/memberManage_Detail' method='get'><input name='memberPkId' value='"+members[i].memberPkId+"'/></form></div></td>";
-// 			str += "</tr>";
-// 		};
-// 		$("#memberBody").html(str);
-// 		for(let i = 0; i < members.length; i++) {
-// 			$("#updateBtn"+members[i].memberPkId).click(function(){
-// 				if(members[i].memberStatus=="未開通"||members[i].memberStatus=="已開通"){
-// 					alert("會員尚未完成註冊，無法變更權限");
-// 				}else{
-// 					$("#update_form"+members[i].memberPkId).trigger("submit");
-// 				}
-// 				});
-// 			$("#memberDetail"+members[i].memberPkId).click(function(){
-// 				$("#show_form"+members[i].memberPkId).trigger("submit");
-// 			});
-// 		};
-// 	};
 	
 	</script>
 	</body>
