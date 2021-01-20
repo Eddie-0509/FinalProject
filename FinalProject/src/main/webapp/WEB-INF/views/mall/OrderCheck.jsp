@@ -67,7 +67,7 @@ tr {
 	background-color: #E0E0E0;
 }
 
-#orders table, #main table {
+#olist table, #main table {
 	margin-top: 20px;
 	width: 1000px;
 	font-size: 20px;
@@ -98,9 +98,15 @@ tr {
 	width: 8%;
 }
 
+.bi:hover {
+	cursor: pointer;
+	opacity: 0.5;
+}
+
 #main2 {
 	width: 1200px;
 	margin: auto;
+	clear: both;
 }
 
 #freight {
@@ -145,6 +151,7 @@ tr {
 	border: 2px solid #E0E0E0;
 	float: right;
 	width: 500px;
+	margin-bottom: 200px;
 }
 
 #detail h4 {
@@ -163,7 +170,7 @@ tr {
 	cursor: pointer;
 }
 
-#total, #fcharge, #gtotal, #discount {
+#total, #finfo, #fcharge, #gtotal, #discount, #ffull {
 	float: right;
 }
 
@@ -177,6 +184,26 @@ tr {
 
 #discount {
 	color: red;
+}
+
+#finfo {
+	font-size: 15px;
+}
+
+#fbal {
+	color: blue;
+	font-weight: 900;
+}
+
+footer {
+	clear: both;
+	background-color: black;
+	color: 	#6C6C6C;
+	height: 200px;
+}
+
+#fdiv {
+	text-align: center;
 }
 </style>
 </head>
@@ -201,7 +228,7 @@ tr {
 	<th style="width: 10%">刪除</th>
 	</tr>
 </table>	
-<div id="orders"></div>
+<div id="olist"></div>
 </div>
 
 
@@ -241,18 +268,39 @@ tr {
 		<span id="icoupon">
 			<input type="text" id="coupon"><button type="button" class="btn btn-primary">套用</button><br><br>
 		</span>
-		<span>運費</span><span id="fcharge">150</span><br><br>
+		<span>運費</span><span id="fcharge">150</span><br>
+		<span id="finfo">還差&ensp;<span id="fbal"></span>&ensp;元免運費哦!</span><span id="ffull">消費千元免運!!</span><br><br>
 		<hr/><br>
 		<label><strong>合計</strong></label><span id="gtotal">0</span><br><br><br>
 		<button type="button" id="submit" class="btn btn-success">提交訂單</button>
 	</div>
 </div>
 </div>
+
+<div id="ordersform">
+	<form:form method='POST' action="${pageContext.request.contextPath}/processOrder" modelAttribute="orders" id="orders">
+		<input id="couponPkId" name="couponPkId">
+		<input id="totalPayment" name="totalPayment">
+		<input id="orderStatus" name="orderStatus">
+		<input id="shipAddress" name="shipAddress">
+	</form:form>
+</div>
+
+
+<footer>
+	<div id="fdiv">
+		<br><br><br>&copy; 2021 UYAYI. All Rights Reserved.<br><br>
+		<i class="bi bi-twitter"></i>&emsp;
+		<i class="bi bi-facebook"></i>&emsp;
+		<i class="bi bi-instagram"></i>&emsp;
+		<i class="bi bi-globe2"></i>
+	</div>	 
+</footer>
 </body>
 <script>
 	let cpDis;
 
-	$(document).ready(function(){	
+	$(document).ready(function(){
 		beReady();
 
 		cal();
@@ -266,11 +314,19 @@ tr {
 		$("#ucoupon").click(function(){
 			$("#icoupon").show();
 		});
+
+		$(".bi-house").click(function(){
+			window.location.href="${pageContext.request.contextPath}";
+		});
+
+		$(".bi-person-fill").click(function(){
+			alert("...");
+		});
 	});
 
 	
 	function beReady(){
-		$("#orders").html(Cookies.get("cart"));
+		$("#olist").html(Cookies.get("cart"));
 		let allqty = $(".cqty");
 
 		allqty.each(function(){
@@ -350,10 +406,16 @@ tr {
 			$("#gtotal").text(0);
 		}
 
-		if (gtotal > 1000) {
+		if (gtotal >= 1000) {
 			$("#fcharge").text(0);
+			$("#finfo").hide();
+			$("#ffull").show();
+			
 		} else {
 			$("#fcharge").text(150);
+			$("#ffull").hide();
+			$("#finfo").show();
+			$("#fbal").text(1000 - gtotal);
 		}
 
 		$("#gtotal").text(total - parseInt($("#cpdis").text(), 10) + parseInt($("#fcharge").text(), 10));

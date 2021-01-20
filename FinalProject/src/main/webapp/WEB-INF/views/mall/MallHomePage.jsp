@@ -96,8 +96,13 @@
 	padding: 20px;
 }
 
-.ptd:hover, .bi-trash:hover {
+.ptd:hover {
 	cursor: pointer;
+}
+
+.bi:hover {
+	cursor: pointer;
+	opacity: 0.5;
 }
 
 .ppic {
@@ -181,7 +186,6 @@
 }
 
 .ctable th, .ctable td {
-/*  	border: 2px solid red;  */
 	text-align: center;
 }
 
@@ -243,7 +247,6 @@
 }
 
 #lcontainer {
-/*  	background-color: lightgreen;  */
 	width: 310px;
 	padding: 15px;
 	margin: auto;
@@ -286,6 +289,17 @@ overflow: auto;
 -moz-transition: opacity 0.5s linear, right 0.5s ease-out;
 -o-transition: opacity 0.5s linear, right 0.5s ease-out;
 transition: opacity 0.5s linear, right 0.5s ease-out;
+}
+
+footer {
+	background-color: black;
+	color: 	#6C6C6C;
+	margin-top: 250px;
+	height: 200px;
+}
+
+#fdiv {
+	text-align: center;
 }
 </style>
 </head>
@@ -397,14 +411,21 @@ transition: opacity 0.5s linear, right 0.5s ease-out;
 									<br><span><a href="#" class="link">忘記密碼?</a></span>
 								</div>
 							</div>
-<!-- 						</form> -->
 				</div>
-				<div class="modal-footer">
-				
-				</div>
+				<div class="modal-footer"></div>
 			</div>
 		</div>
 	</div>
+	
+	<footer>
+	<div id="fdiv">
+		<br><br><br>&copy; 2021 UYAYI. All Rights Reserved.<br><br>
+		<i class="bi bi-twitter"></i>&emsp;
+		<i class="bi bi-facebook"></i>&emsp;
+		<i class="bi bi-instagram"></i>&emsp;
+		<i class="bi bi-globe2"></i>
+	</div>	 
+	</footer>
 	<script>
 		let trans = ${products};
 		let products = trans.productList;
