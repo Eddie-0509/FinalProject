@@ -1,5 +1,6 @@
 package tw.com.uyayi.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -7,16 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
+import ecpay.payment.integration.domain.AioCheckOutOneTime;
 import tw.com.uyayi.model.City;
 import tw.com.uyayi.model.Coupon;
-import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.OrderDetails;
+import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
 import tw.com.uyayi.service.ClinicSignUpService;
 import tw.com.uyayi.service.MemberService;
@@ -34,6 +40,7 @@ public class MallController {
 	
 	@Autowired
 	ClinicSignUpService cService;
+
 
 	@GetMapping("/products")
 	public String getProducts(Model model) {
@@ -61,8 +68,7 @@ public class MallController {
 		} else {
 			ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
 			return false;
-		}	
-		
+		}		
 	}
 	
 	@GetMapping("/orderConfirm")
@@ -75,6 +81,44 @@ public class MallController {
 	@PostMapping("/checkCoupon")
 	public @ResponseBody List<Coupon> checkCoupon(@RequestParam String couponCode) {
 		List<Coupon> bean = (List<Coupon>) pService.checkCoupon(couponCode);
-		return bean;	
+		return bean;
+	}
+	
+	@PostMapping("/processOrder")
+	public String processOrder (@ModelAttribute("orders") Orders orders, OrderDetails detail, Model model) {
+		
+		
+		orders.setMemberBean((Member) model.getAttribute("LoginOK"));
+		pService.insertOrder(orders);
+		
+		String allItems[] = (orders.getproducts()).split(",");
+		System.out.println("allItems.length = " + allItems.length);
+		String allQty[] = (orders.getquantity()).split(",");
+		System.out.println("allQty.length = " + allQty.length);
+		
+		String str="";
+		for (int i = 0 ; i < allItems.length ; i++) {
+			detail.setOrderBean(orders);			
+			detail.setProductBean(pService.getProductsById(Integer.valueOf(allItems[i])));
+			detail.setOrderQuantity(Integer.valueOf(allQty[i]));
+			str += pService.getProductsById(Integer.valueOf(allItems[i])).getProductName()+"<br>";
+			pService.insertOrderDetail(detail);
+		}	
+		
+		AllInOne all = new AllInOne("");
+		AioCheckOutOneTime  obj = new AioCheckOutOneTime();
+		int ramdom = (int)(Math.random()*100000);
+		obj.setMerchantTradeNo(Integer.toString(orders.getOrderPkId())+Integer.toString(ramdom));
+		obj.setMerchantTradeDate("2017/01/01 08:05:23");
+		obj.setTotalAmount(Integer.toString(orders.getTotalPayment()));
+		obj.setTradeDesc("test Description");
+		obj.setItemName(str);
+		obj.setClientBackURL("");
+		obj.setReturnURL("http://211.23.128.214:5000");
+		obj.setNeedExtraPaidInfo("N");
+		obj.setRedeem("N");
+		String form = all.aioCheckOut(obj, null);
+		model.addAttribute("checkOut",form);
+		return "mall/checkOut";
 	}
 }

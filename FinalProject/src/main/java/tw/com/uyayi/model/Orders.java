@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "orders")
@@ -28,12 +29,20 @@ public class Orders {
 	private Coupon couponBean;
 	
 	private int totalPayment;
-	private String orderStatus;
+	private String receiver;
+	private String mobilephone;
 	private String shipAddress;
+	private String orderStatus;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderBean")
 	private Set<OrderDetails> orderDetails;
 
+	@Transient
+	private String products;
+	
+	@Transient
+	private String quantity;
+	
 	public Orders() {
 
 	}
@@ -92,6 +101,38 @@ public class Orders {
 
 	public void setOrderDetails(Set<OrderDetails> orderDetails) {
 		this.orderDetails = orderDetails;
+	}
+
+	public String getMobilephone() {
+		return mobilephone;
+	}
+
+	public void setMobilephone(String mobilephone) {
+		this.mobilephone = mobilephone;
+	}
+
+	public String getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
+	public String getproducts() {
+		return products;
+	}
+
+	public void setproducts(String products) {
+		this.products = products;
+	}
+
+	public String getquantity() {
+		return quantity;
+	}
+
+	public void setquantity(String quantity) {
+		this.quantity = quantity;
 	}
 
 }

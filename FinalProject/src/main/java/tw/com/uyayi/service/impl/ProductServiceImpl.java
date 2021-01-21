@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.uyayi.dao.ProductDao;
 import tw.com.uyayi.model.Coupon;
+import tw.com.uyayi.model.OrderDetails;
+import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
 import tw.com.uyayi.service.ProductService;
 
@@ -33,7 +35,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public Products getProductsById(int productId) {
+		return pDao.getProductsById(productId);
+	}
+	
+	@Override
 	public List<Coupon> checkCoupon(String couponCode) {
 		return pDao.checkCoupon(couponCode);
+	}
+
+	@Override
+	public void insertOrder(Orders orders) {
+		pDao.insertOrder(orders);	
+	}
+
+	@Override
+	public void insertOrderDetail(OrderDetails detail) {
+		pDao.insertOrderDetail(detail);
 	}
 }

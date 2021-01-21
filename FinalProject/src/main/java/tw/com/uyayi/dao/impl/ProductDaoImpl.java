@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import tw.com.uyayi.dao.ProductDao;
 import tw.com.uyayi.model.Coupon;
+import tw.com.uyayi.model.OrderDetails;
+import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
 
 @Repository
@@ -42,6 +44,13 @@ public class ProductDaoImpl implements ProductDao {
 		return list;
 	}
 
+	@Override
+	public Products getProductsById(int productId) {
+		Session session = factory.getCurrentSession();
+		Products bean = session.get(Products.class, productId);
+		return bean;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Coupon> checkCoupon(String couponCode) {
@@ -50,5 +59,17 @@ public class ProductDaoImpl implements ProductDao {
 		List<Coupon> list = new ArrayList<>();
 		list = session.createQuery(hql).setParameter("code", couponCode).getResultList();
 		return list;
+	}
+
+	@Override
+	public void insertOrder(Orders orders) {
+		Session session = factory.getCurrentSession();
+		session.save(orders);
+	}
+
+	@Override
+	public void insertOrderDetail(OrderDetails detail) {
+		Session session = factory.getCurrentSession();
+			session.save(detail);	
 	}
 }

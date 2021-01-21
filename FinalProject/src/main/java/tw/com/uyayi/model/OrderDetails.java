@@ -19,52 +19,48 @@ public class OrderDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderDetailPkId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "orderPkId")
 	private Orders orderBean;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "productPkId", referencedColumnName = "productPkId")
 	private Products productBean;
-	
+
 	private int orderQuantity;
-	
-	
+
 	public OrderDetails() {
 		
 	}
+	
+	public Products getProductBean() {
+		return productBean;
+	}
 
+	public void setProductBean(Products productBean) {
+		this.productBean = productBean;
+	}
 
 	public int getOrderDetailPkId() {
 		return orderDetailPkId;
 	}
 
-
 	public void setOrderDetailPkId(int orderDetailPkId) {
 		this.orderDetailPkId = orderDetailPkId;
 	}
-
-
-	
-
 
 	public Orders getOrderBean() {
 		return orderBean;
 	}
 
-
 	public void setOrderBean(Orders orderBean) {
 		this.orderBean = orderBean;
 	}
 
-
-
-
 	public int getOrderQuantity() {
 		return orderQuantity;
 	}
-
 
 	public void setOrderQuantity(int orderQuantity) {
 		this.orderQuantity = orderQuantity;

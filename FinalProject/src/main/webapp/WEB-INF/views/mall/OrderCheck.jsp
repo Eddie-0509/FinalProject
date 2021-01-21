@@ -249,7 +249,7 @@ footer {
 	<label><strong>收件地址</strong></label><br>
 	<input type="text" id="address"><br><br>
 	<label><strong>收件人</strong></label><br>
-	<input type="text" id="receiver"><br><br>
+	<input type="text" id="receiverr"><br><br>
 	<label><strong>連絡電話</strong></label><br>
 	<input type="text" id="phone"><br><br>
 </div>
@@ -279,10 +279,15 @@ footer {
 
 <div id="ordersform">
 	<form:form method='POST' action="${pageContext.request.contextPath}/processOrder" modelAttribute="orders" id="orders">
+		<input id="memberPkid" name="memberPkId" value="">
 		<input id="couponPkId" name="couponPkId">
 		<input id="totalPayment" name="totalPayment">
 		<input id="orderStatus" name="orderStatus">
+		<input id="receiver" name="receiver">
+		<input id="mobilephone" name="mobilephone">
 		<input id="shipAddress" name="shipAddress">
+		<input id="products" name="products">
+		<input id="quantity" name="quantity">
 	</form:form>
 </div>
 
@@ -299,8 +304,10 @@ footer {
 </body>
 <script>
 	let cpDis;
-
+	let couponid = "";
+		
 	$(document).ready(function(){
+	
 		beReady();
 
 		cal();
@@ -311,6 +318,8 @@ footer {
 
 		$(".btn-primary").click(checkCoupon);
 
+		$("#submit").click(goprocess);
+		
 		$("#ucoupon").click(function(){
 			$("#icoupon").show();
 		});
@@ -436,15 +445,43 @@ footer {
 		}).then(function(data){
 			if (data == "") {
 				$("#cpname").text("優惠碼不存在");
-				$("#cpdis").text(0);
+				couponid = "";
+				cpDis = 1;
 			} else {
 			let cpName = data[0].couponName;
+			couponid = data[0].couponPkId;
 			cpDis = parseFloat(data[0].couponContext);
 			$("#cpname").text(cpName);
 			$("#cpdis").text(Math.round(parseInt($("#total").text(), 10) - parseInt($("#total").text(), 10) * cpDis));
 			}
 			cal();
 		});
+	}
+
+
+	function goprocess(){
+		$("#couponPkId").val(couponid);
+		$("#totalPayment").val($("#gtotal").text());
+		$("#orderStatus").val("未付款");
+		$("#receiver").val($("#receiverr").val());
+		$("#mobilephone").val($("#phone").val());
+		$("#shipAddress").val($("#city option:selected").text() + $("#dist option:selected").text() + $("#address").val());
+
+		let allp = $(".pkid");
+		let plist = [];
+		allp.each(function(){
+			plist.push($(this).text());
+		});
+
+		let allq = $(".cqty");
+		let pqty = [];
+		allq.each(function(){
+			pqty.push($(this).text());
+		});
+
+  		$("#products").val(plist);
+  		$("#quantity").val(pqty)
+   		$("#orders").submit();
 	}
 </script>
 </html>
