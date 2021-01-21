@@ -908,13 +908,13 @@ insert into products(productName,productUpdateDate,productPrice,productQuantity,
 create table coupon(
 couponPkId int primary key identity(1,1) not null,
 couponName nvarchar(20) not null,										--折扣名稱--
-couponContext numeric not null,									--折扣趴數--
+couponContext numeric(3,2) not null,									--折扣趴數--
 couponCode nvarchar(20) not null,										--折扣碼--
 couponStartTime date not null,												--折扣起始時間--
 couponEndTime date not null,												--折扣結束時間--
 couponStatus nvarchar(15) not null,									--開放權限--
 );
-insert into coupon values('周年慶全面8折', 0.8, 'qwer1234', '2021/1/19', '2021/1/31', 'true');
+insert into coupon values('周年慶全面8折', 0.80, 'qwer1234', '2021/1/19', '2021/1/31', 'true');
 
 --訂單表--
 create table orders(
