@@ -121,7 +121,7 @@
 		#appFilter{
 		width:70%;
 		margin:auto;
-		border:1rem double #6C6C6C;
+/* 		border:1rem double #6C6C6C; */
 		padding:2rem;
 		position:relative;
 		}
@@ -164,10 +164,11 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
+			<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>
-				<li class="animate-box"><a href="#" class="transition">診所資料</a></li>
+				<li class="animate-box"><a href="<c:url value='clinicDetail'/>" class="transition">診所資料</a></li>
 				<li class="animate-box"><a href="<c:url value='getDentist'/>" class="transition">醫師資料</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicCharts'/>" class="transition">報表</a></li>			
 				<li class="animate-box"><a href="<c:url value='logout'/>" class="transition style-logout">登出</a></li>
@@ -184,7 +185,7 @@
 			
 				<div id="appFilter">
 					請選擇治療項目：
-					<select id="item" onchange="getDentist()">
+					<select id="item" onchange="getDentist()" class="form-control form-control-lg">
         			<option value="" >請選擇</option>
 	        			<c:forEach items="${itemlist}" var="itemlist" varStatus="vs" >
 	        				<c:set var="str" value="${itemlist.itemName}"/>
@@ -193,16 +194,16 @@
    					</select>
    					<br>
 					請選擇醫師：
-					<select id="dentist" onchange="getDentistTime()">
+					<select id="dentist" onchange="getDentistTime()" class="form-control form-control-lg">
         				<option value="" >請選擇</option>
    					</select>
    					<br>
 					請選擇時段：
-					<select id="dentistTimeInterval" onchange="">
+					<select id="dentistTimeInterval" onchange="" class="form-control form-control-lg">
         				<option value="">請選擇</option>
    					</select>
    					<br>
-					<input type="button" value="查詢" onclick="getResult()" style="margin:1rem auto 0 auto;text-align: center;display: block">
+					<input type="button" class="btn btn-primary mb-2" value="查詢" onclick="getResult()" style="margin:1rem auto 0 auto;text-align: center;display: block">
 				</div>
 				<div id="appFilterResult" style="display:none">
 					
@@ -220,13 +221,13 @@
    	            <form:form modelAttribute="newAppoint" id="appForm" class="form-horizontal" action="${pageContext.request.contextPath}/newAppoint" method="post" enctype="multipart/form-data">
 	        <div id="appointModalBody" class="modal-body"  style="color:black;">
 	   	            <span><label for=itemName>預約項目：</label></span>
-	   	            <form:input type="text" id="itemName" path="itemName" value="" readonly="readonly"/>
+	   	            <form:input type="text" id="itemName" path="itemName"  readonly="true" style='background-color:#e9ecef' />
 	   	             <span><label for=dentistName>預約醫師：</label></span>
-	   	            <form:input type="text" id="dentistName" path="dentistName" value="" readonly="readonly"/>
+	   	            <form:input type="text" id="dentistName" path="dentistName"   readonly="true" style='background-color:#e9ecef'/>
 	   	            <span><label for=appointDate>預約日期：</label></span>
-	   	            <form:input type="text" id="appointDate" path="appointDate" value="" readonly="readonly"/>
+	   	            <form:input type="text" id="appointDate" path="appointDate" readonly="true" style='background-color:#e9ecef' />
 	   	            <span><label for=times>預約時間：</label></span>
-	   	            <form:input type="text" id="times" path="times" value="" readonly="readonly"/>
+	   	            <form:input type="text" id="times" path="times"  readonly="true" style='background-color:#e9ecef' />
 	   	            <span><label for="patientName">姓名：</label></span>
 	   	            <form:input type="text" id="patientName" path="patientName" placeholder="請輸入姓名"/>
 	   	            <br />
@@ -271,6 +272,13 @@
 	</div>
 	
 	<script>
+	function disableForm(){
+		  $('#itemName').attr('disabled', 'disabled');
+		  $('#dentistName').attr('disabled', 'disabled');
+		  $('#appointDate').attr('disabled', 'disabled');
+		  $('#times').attr('disabled', 'disabled');
+	}	
+		
 		function getDentist(){
 			console.log($("#item").val())
 			 $.ajax({

@@ -26,7 +26,7 @@ body {
 }
 
 a {
-  color: #000;
+  color: #22a6b3;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
@@ -611,7 +611,7 @@ h1, h2, h3, h4, h5, h6 {
 .fh5co-section {
   padding: 7em 0;
   position: relative;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 1);
 }
 #fh5co-main small,
 .fh5co-section small {

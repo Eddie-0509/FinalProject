@@ -164,6 +164,7 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>
@@ -191,10 +192,10 @@
 								<br>
 							</div>
 								<div id="colorsetumeis" class="animate-box">
-									<label class="colorsetumei" style="background-color:#408080" ></label>平台預約－確定前往
 									<label class="colorsetumei" style="background-color:#95CACA" ></label>平台預約－未回覆
-									<label class="colorsetumei" style="background-color:#EA7500" ></label>診所預約－確定前往
+									<label class="colorsetumei" style="background-color:#408080" ></label>平台預約－確定前往
 									<label class="colorsetumei" style="background-color:#FFD1A4" ></label>診所預約－未回覆
+									<label class="colorsetumei" style="background-color:#EA7500" ></label>診所預約－確定前往
 								</div>
 							<div id="monthcalendar" class="animate-box" style="display: none;"></div>
 							<div id="weekcalendar" class="animate-box" style="display: none;"></div>

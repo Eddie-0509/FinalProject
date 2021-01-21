@@ -129,6 +129,7 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
+			<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>
@@ -208,7 +209,7 @@
 				    type: 'pie',
 				    data: {				    	
 				        datasets: [{
-				        	backgroundColor: ['#d46527', '#c47f6a', '#c78f74', '#cd9e79', '#d4ad7a', '#dbbb79', '#e4c975', '#edd770', '#f6e669', '#fff460'],
+				        	backgroundColor: ['#f6e58d', '#ffbe76', '#ff7979', '#badc58', '#c7ecee', '#7ed6df', '#e056fd', '#686de0', '#95afc0', '#535c68'],
 				            data: ItemPieData
 				        	
 				        }],

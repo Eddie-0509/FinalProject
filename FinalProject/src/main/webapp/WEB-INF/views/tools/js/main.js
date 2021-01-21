@@ -51,10 +51,11 @@
 		
 		if ( $.cookie('styleCookie') !== undefined ) {
 			if ( $.cookie('styleCookie') === 'style-light.css'  ) { 
-				
+				$("#logo").attr('src','images/UYAYI_white.png');
 				$('.js-style-toggle').attr('data-style', 'light');
 			} else  {
 				$('.js-style-toggle').attr('data-style', 'default');
+				$("#logo").attr('src','images/UYAYI_black.png');
 			}
 			$('#theme-switch').attr('href', 'css/' + $.cookie('styleCookie'));
 		} 
@@ -77,7 +78,7 @@
 				// switch to light
 				style = 'style-light.css';
 				$this.attr('data-style', 'light');
-
+				$("#logo").attr('src','images/UYAYI_white.png');
 				// add class active to button
 				$.cookie('btnActive', 'active', { expires: 365, path: '/'});
 				$this.addClass($.cookie('btnActive'));
@@ -87,7 +88,7 @@
 				// switch to dark color
 				style = 'style.css';
 				$this.attr('data-style', 'default');
-
+				$("#logo").attr('src','images/UYAYI_black.png');
 				// remove class active from button
 				$.removeCookie('btnActive', { path: '/' });
 				$(this).removeClass('active'); 
