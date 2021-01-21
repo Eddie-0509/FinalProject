@@ -1,5 +1,7 @@
 package tw.com.uyayi.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,16 +107,21 @@ public class MallController {
 			pService.insertOrderDetail(detail);
 		}	
 		
+		LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
+        String formatDateTime = now.format(formatter);
 		AllInOne all = new AllInOne("");
 		AioCheckOutOneTime  obj = new AioCheckOutOneTime();
 		int ramdom = (int)(Math.random()*100000);
 		obj.setMerchantTradeNo(Integer.toString(orders.getOrderPkId())+Integer.toString(ramdom));
-		obj.setMerchantTradeDate("2017/01/01 08:05:23");
+		obj.setMerchantTradeDate(formatDateTime);
 		obj.setTotalAmount(Integer.toString(orders.getTotalPayment()));
 		obj.setTradeDesc("test Description");
 		obj.setItemName(str);
-		obj.setClientBackURL("");
-		obj.setReturnURL("http://211.23.128.214:5000");
+		obj.setClientBackURL("");   // 這裡放這樣的網址"http://localhost:9998/FinalProject/XXXX" 會生出按鍵刷卡完可以按回我們的網頁
+		obj.setReturnURL("http://211.23.128.214:5000");  //這裡放ngrok的網址
 		obj.setNeedExtraPaidInfo("N");
 		obj.setRedeem("N");
 		String form = all.aioCheckOut(obj, null);
