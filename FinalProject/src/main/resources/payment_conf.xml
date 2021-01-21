@@ -1,7 +1,7 @@
 <?xml  version="1.0" encoding="utf-8"?>
 <Conf>
     <OperatingMode>Test</OperatingMode> <!--Test or Production-->
-    <MercProfile>Stage_Account</MercProfile>
+    <MercProfile>UYAYI</MercProfile>
     <IsProjectContractor>N</IsProjectContractor>
     
     <MerchantInfo>
@@ -10,7 +10,7 @@
             <HashKey></HashKey>
             <HashIV></HashIV>
         </MInfo>
-        <MInfo name="Stage_Account">
+        <MInfo name="UYAYI">
             <MerchantID>2000132</MerchantID>
             <HashKey>5294y06JbISpM5x9</HashKey>
             <HashIV>v77hoKGq4kWxNNIS</HashIV>

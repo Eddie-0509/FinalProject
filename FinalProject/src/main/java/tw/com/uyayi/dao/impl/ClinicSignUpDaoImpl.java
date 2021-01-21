@@ -1,5 +1,6 @@
 package tw.com.uyayi.dao.impl;
 
+import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -76,6 +77,21 @@ public class ClinicSignUpDaoImpl implements ClinicSignUpDao {
 		Session session = factory.getCurrentSession();
 		String sql = "update clinic set clinicStatus = :status where clinicPkId = :id";
 		session.createSQLQuery(sql).setParameter("status", "已驗證").setParameter("id", clinicPkId).executeUpdate();
+	}
+
+	@Override
+	public void changePaymentStatus(int clinicPkId, Date finalDate, Date sqlDate) {
+		Session session = factory.getCurrentSession();
+		String sql = "update clinic set clinicStartTime=:startTime, clinicEndTime=:endTime, clinicStatus = :status where clinicPkId = :id";
+		session.createSQLQuery(sql).setParameter("startTime", sqlDate).setParameter("endTime", finalDate).setParameter("status", "已開通").setParameter("id", clinicPkId).executeUpdate();
+	}
+
+	@Override
+	public void changeExpiredStatus(int clinicPkId) {
+		Session session = factory.getCurrentSession();
+		String sql = "update clinic set clinicStatus = :status where clinicPkId = :id";
+		session.createSQLQuery(sql).setParameter("status", "已驗證").setParameter("id", clinicPkId).executeUpdate();
+		
 	}
 
 }

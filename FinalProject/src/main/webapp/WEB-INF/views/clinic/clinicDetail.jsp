@@ -279,7 +279,7 @@ text-align : center;
 			<div class="container">
 			<div id="colorsetumeis" class="animate-box">
 	        	    <button type="button" class="btn btn-warning" id="reviseClinic">修改診所資料</button>
-	        	    <button type="button" class="btn btn-danger" id="deleteDoctor">更改付款資料</button>
+	        	  
 			</div>
 			診所帳號:<span>${clinicBean.clinicAccount}</span><br/>
 			診所名稱:<span>${clinicBean.clinicName}</span><br/>

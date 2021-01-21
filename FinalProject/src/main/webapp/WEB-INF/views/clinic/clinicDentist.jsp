@@ -427,8 +427,8 @@ a.oneClick{
 			
 			<c:forEach items="${dentistList}" var="dentists" varStatus="vsDentist">
 				<button type="button" class="btn btn-success dentistBtn" value="${dentists.dentistPkId}">${dentists.dentistName}</button>
-			<c:if test="${vsDentist.last}"><button type="button" class="btn btn-info" id="newDentistBtn">新增醫師</button></c:if>	
 			</c:forEach>
+			<button type="button" class="btn btn-info" id="newDentistBtn">新增醫師</button>
 			<div id='dentistDetail' class='modal-body' hidden="hidden">
 				<form action="${pageContext.request.contextPath}/deleteDentist" id="deleteForm" method="post">
 				<input type="hidden" name="dentistPkId" id="dentistDetailId">

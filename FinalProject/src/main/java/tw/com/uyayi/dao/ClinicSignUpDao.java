@@ -1,5 +1,6 @@
 package tw.com.uyayi.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import tw.com.uyayi.model.City;
@@ -21,4 +22,8 @@ public interface ClinicSignUpDao {
 	boolean checkEmail(String clinicEmail);
 
 	void changeStatus(int clinicPkId);
+
+	void changePaymentStatus(int clinicPkId, Date finalDate, Date sqlDate);
+
+	void changeExpiredStatus(int clinicPkId);
 }
