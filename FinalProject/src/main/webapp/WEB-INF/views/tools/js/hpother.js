@@ -2,7 +2,7 @@
 $(document).ready(function(){
     var time=setInterval(autoplay,4000);
     let text=["U YA YI","隨時預約你的牙醫","ユヤイ","歯医者さんをすぐに見つける","U YA YI","Find your dentist"];
-	let textD=["U YA YI","智慧科技增加曝光","ユヤイ","人気のクリニックになろう","U YA YI","To be more intelligent"];
+	let textD=["U YA YI","智慧科技增加曝光","ユヤイ","創造醫師+診所品牌力","U YA YI","更瞭解牙醫師的煩惱"];
     var x=0;
     var y=1;
     var m=0;

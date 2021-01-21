@@ -130,9 +130,9 @@
 		
 
 
-		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes">
+		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes" style="background: url('images/hero-bg.jpg') top center">
 			<div class="container">
-				<div class="fh5co-text-wrap animate-box">
+				<div class="fh5co-text-wrap animate-box" >
 					<div class="fh5co-intro-text" id="memberI">
 						<h1>U YA YI <span> </span> </h1>
 						<h1>隨時預約你的牙醫</h1>
