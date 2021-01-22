@@ -13,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import tw.com.uyayi.dao.impl.MailCheck;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.service.ClinicCalendarService;
 import tw.com.uyayi.service.ClinicLogInService;
@@ -81,6 +83,23 @@ public class ClinicLogInController {
 		return "redirect:/";	
 	}
 	
+	@GetMapping("/clinicForgotPwd")
+	public String clinicForgotPwd(){
+		return "clinic/clinicForgetPwd";
+	}
 	
+	@PostMapping("/sendForgetMail")
+	public @ResponseBody boolean sendForgetMail(@RequestParam("clinicAccount") String clinicAccount) {
+		MailCheck m = new MailCheck();
+		String text = "<a href='http://localhost:9998/FinalProject/resetPwd?rgewrgerwgw45y4refqereqrfsfeq=5&clinicAccount="+clinicAccount+"&ffgsfdgerc=1fdshrt'>請點擊重設密碼</a>";
+		m.sendMail(clinicAccount, "【UYAYI】重設密碼", text);
+		return true ;
+	}
+	
+	@GetMapping("resetPwd")
+	public String resetPwd(@RequestParam("clinicAccount") String clinicAccount) {
+	
+		return "";
+	}
 	
 }

@@ -195,7 +195,7 @@
 								</div>
 								<button type="submit" id="logInBtn"><strong>登入</strong></button>
 								<div class="container" >
-									<span ><a href="#" class="link">忘記密碼?</a></span>
+									<span ><a href="<c:url value='clinicForgotPwd'/>" class="link">忘記密碼?</a></span>
 								</div>
 							</div>
 						</form>
