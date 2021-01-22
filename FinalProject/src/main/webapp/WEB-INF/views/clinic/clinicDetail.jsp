@@ -266,7 +266,7 @@ text-align : center;
 				<li class="animate-box"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>
 				<li class="animate-box fh5co-active"><a href="#" class="transition">診所資料</a></li>
 				<li class="animate-box"><a href="<c:url value='getDentist'/>" class="transition">醫師資料</a></li>
-				<li class="animate-box"><a href="#" class="transition">報表</a></li>
+				<li class="animate-box"><a href="<c:url value='clinicCharts'/>" class="transition">報表</a></li>
 				<li class="animate-box"><a href="<c:url value='logout'/>" class="transition style-logout">登出</a></li>
 			</ul>
 			<!--開關燈-->
