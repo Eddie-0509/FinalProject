@@ -281,7 +281,7 @@ transform: translate3d(65%, 0, 0);
 height: 100vh;
 width: 45vw;
 max-height: height_body;
-overflow: auto;
+overflow: auto; 
 }   
 
 .modal.right.fade .modal-dialog{
