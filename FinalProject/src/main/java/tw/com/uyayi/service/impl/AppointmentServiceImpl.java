@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.uyayi.dao.AppointmentDao;
+import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
@@ -36,10 +37,27 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 	@Transactional
 	@Override
-	public List<Clinic> getClinic(Integer clinicdist, String appointDate,Integer timeTableId, Integer itemId) {
-		return appointmentDao.getClinicByAppointment(clinicdist, appointDate, timeTableId, itemId);
+	public Clinic getClinicBeanByClinicPkId(String clinicPkId) {	
+		return appointmentDao.getClinicBeanByClinicPkId(clinicPkId);
+	}
+	@Transactional
+	@Override
+	public Dentist getDentistBeanByDentistPkId(String dentistPkId) {	
+		return appointmentDao.getDentistBeanByDentistPkId(dentistPkId);
+	}
+	@Transactional
+	@Override
+	public TimeTable getTimeTableBeanByTimePkId(String timeTablePkId) {
+		return appointmentDao.getTimeTableBeanByTimePkId(timeTablePkId);
+	}
+	@Transactional
+	@Override
+	public Items getItemsBeanByItemPkId(String itemPkId) {		
+		return appointmentDao.getItemsBeanByItemPkId(itemPkId);
 	}
 	
-	
+	public void InsertAppointment(Appointment ap) {
+		appointmentDao.InsertAppointment(ap);
+	}
 
 }

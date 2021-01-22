@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
@@ -13,10 +14,18 @@ public interface AppointmentService {
 	
 	List<Dentist> getDoctor(Integer ItemPkId, Integer timeTablePkId, Integer ClinicPkId);
 	
-	List<Clinic> getClinic(Integer clinicdist, String appointDate,Integer timeTableId, Integer itemId);
-	
 	List<Items> getAllItems();
 	
 	List<TimeTable> getTimeTable(String weekdays);
+	
+    Clinic getClinicBeanByClinicPkId(String clinicPkId);
+	   
+	Dentist getDentistBeanByDentistPkId(String dentistPkId);
+	   
+	TimeTable getTimeTableBeanByTimePkId(String timeTablePkId);
+	   
+    Items getItemsBeanByItemPkId(String itemPkId);
+	   
+	void InsertAppointment(Appointment ap);
 	
 }

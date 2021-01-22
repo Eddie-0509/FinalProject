@@ -66,6 +66,19 @@ public class Appointment {
 	private String itemName;
 	@Transient
 	private String times;
+	@Transient
+	private String clinicId;
+	@Transient
+	private String itemId;
+
+	@Transient
+	private String dentistId;
+	@Transient
+	private String appointdateId;
+	@Transient
+	private String timetableId;
+	@Transient
+	private String memberId;
 	
 	public Appointment() {
 		
@@ -190,8 +203,51 @@ public class Appointment {
 	public void setTimes(String times) {
 		this.times = times;
 	}
+	public String getClinicId() {
+		return clinicId;
+	}
 	
-
-
+	public void setClinicId(String clinicId) {
+		this.clinicId = clinicId;
+	}
+	
+	public String getDentistId() {
+		return dentistId;
+	}
+	
+	public void setDentistId(String dentistId) {
+		this.dentistId = dentistId;
+	}
+	
+	public String getAppointdateId() {
+		return appointdateId;
+	}
+	
+	public void setAppointdateId(String appointdateId) {
+		this.appointdateId = appointdateId;
+	}
+	
+	public String getTimetableId() {
+		return timetableId;
+	}
+	
+	public void setTimetableId(String timetableId) {
+		this.timetableId = timetableId;
+	}
+	
+	public String getMemberId() {
+		return memberId;
+	}
+	
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	public String getItemId() {
+		return itemId;
+	}
+	
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}
 	
 }

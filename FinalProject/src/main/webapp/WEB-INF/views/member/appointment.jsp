@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 		<!DOCTYPE html>
 		<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 		<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -171,14 +173,13 @@
 		</head>
 
 		<body>
-<%--        <p><span><%= session.getAttribute("logname")%></span></p> --%>
 			<!-- Loader -->
 			<div class="fh5co-loader"></div>
 
 			<div id="fh5co-page">
 				<nav id="fh5co-nav" role="navigation">
 					<ul>
-			
+			        <li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 						<!-- 如果你是會員的頁面 -->
 						<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 						<li class="animate-box fh5co-active"><a href="#" class="transition">立即預約</a></li>
@@ -249,6 +250,13 @@
 							</div>
 							<div id="den"></div>
 							<p id="empty" style="font-size: 25px; text-align: left;"><br><br><br>唉呀，沒有符合條件的牙醫診所 :(</p>
+						<form:form modelAttribute="AddAp" action="${pageContext.request.contextPath}/AddAp" id="AddAp" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="clinicId" value="" id="hclinic"/>
+						<input type="hidden" name="dentistId" value="" id="hdentist"/>
+						<input type="hidden" name="appointdateId" value="" id="happointment"/>
+						<input type="hidden" name="timetableId" value="" id="htime"/>
+						<input type="hidden" name="dentistId" value="" id="hitem"/>
+						</form:form>
 						</div>
 						<div class="modal-footer">
 						</div>
@@ -260,14 +268,14 @@
 	<div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-					<form class="loginForm" action="checkLogin" method="POST" >
+					<form class="loginForm" action="${pageContext.request.contextPath}/appointmentCheckLogin" method="POST" >
 						<h1>一般會員</h1>
 							<div class="usericon">
 								<i class="fas fa-user-circle"></i>
 							</div>
 							<div class="choose">
 								<a href="javascript:void();" class="login default"><h2 >登　入</h2></a>
-								<a href="../memberSignin/MemberSingup.jsp" class="sign"><h2 >註　冊</h2></a>
+								<a href="<c:url value='/member'/>" class="sign"><h2 >註　冊</h2></a>
 							</div>
 								<div class="formcontainer">
 								<div class="container">
@@ -288,11 +296,6 @@
 			</div>			
 		</div>
 	</div>		
-
-
-
-
-
 
 
 
@@ -355,8 +358,7 @@
 							}
 							for (var i = 0; i < data.length; i++) {
 								let times = data[i].times;
-								str += "<option value='" + data[i].timeTablePkId + "'>" + times + "</option>";
-								console.log(data);
+								str += "<option value='" + data[i].timeTablePkId + "'>" + times + "</option>" + "<span class=timetableid style='display:none'>" + data[i].timeTablePkId + "</span>";
 							}
 							$("#time").html(str);
 						})
@@ -390,7 +392,7 @@
 								jsonLength++;
 							}
 							for (var i = 0; i < data.length; i++) {
-								str += "<div>" + data[i].dentistName + "<br>" + data[i].clinicBean.clinicName + "<br>" + data[i].clinicBean.clinicAddress + "<br>" + "<button class='aplogin'>預約登記</button>" + "</div>";
+								str += "<div><span class=clinicid style='display:none'>" + data[i].clinicBean.clinicPkId + "</span>" + "<span class=dentistid style='display:none'>" + data[i].dentistPkId + "</span>" + data[i].dentistName + "<br>" + data[i].clinicBean.clinicName + "<br>" + data[i].clinicBean.clinicAddress + "<br>" + "<button class='aplogin'>預約登記</button>" + "</div>";
 							} 
 							$("#den").html(str);
 							$("#searchresult").modal('show');
@@ -401,16 +403,20 @@
 							}else {
 								$("#empty").hide();
 							};
+							$(".aplogin").click(function(event){
+								event.stopPropagation();
+			 				    event.stopImmediatePropagation();
+			 				   if ("${LoginOk}" == ""){
+			 				   $("#memberModal").modal('show');
+			 			       }else{
+		 			    	   window.location.href="<c:url value='/memberAppointment'/>";
+		 			    	   }
+							})
 						})
 					})
 				});
-				    // $(".aplogin").click(function () {
-				    // 	if (${LoginOK.getMemberAccount} == null){
-				    // 		$("#memberModal").modal('show');
-				    // 	}else{
-				    // 		window.location.href="<c:url value='memberAppointment.jsp'/>";
-				    // 	}	    		
-				    // });  
+				
+				    
 				
 
 			</script>

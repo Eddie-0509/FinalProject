@@ -1,25 +1,16 @@
 package tw.com.uyayi.dao.impl;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import tw.com.uyayi.dao.AppointmentDao;
 import tw.com.uyayi.model.Appointment;
-import tw.com.uyayi.model.City;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
-import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.model.Items;
 import tw.com.uyayi.model.TimeTable;
 
@@ -33,7 +24,8 @@ public class AppointmentDaoImpl implements AppointmentDao {
 	@Override
 	public List<Dentist> getDoctor(Integer itemPkId, Integer timeTablePkId, Integer ClinicPkId) {
 		Session session = factory.getCurrentSession();
-		String sqlStr = "select d.dentistPkId from dentist as d join dentistItem as di on d.dentistPkid=di.dentistPkId join dentistTime as dt on d.dentistPkId=dt.dentistPkId join clinic as c on d.clinicPkId=c.clinicPkId where itemPkId=:iId and timeTablePkId=:tId and ClinicDist=:cId";
+		String sqlStr = ""
+				+ "";
 		List<Integer> dentistId = session.createSQLQuery(sqlStr)
 				                .setParameter("iId", itemPkId)
 				                .setParameter("tId", timeTablePkId)
@@ -45,20 +37,6 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		return dentistList;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Clinic> getClinicByAppointment(Integer clinicdist, String appointDate, Integer timeTableId,
-			Integer itemId) {
-		Session session = factory.getCurrentSession();
-		String hql = "from Appointment where clinicPkId =:cid and appointDate =:apdate and timetablePkId =:time and itemPkId =:item";
-		List<Clinic> clinic = session.createQuery(hql).setParameter("cid", clinicdist)
-				.setParameter("apdate", appointDate).setParameter("time", timeTableId).setParameter("item", itemId)
-				.getResultList();
-		for (int j = 0; j < clinic.size(); j++) {
-			System.out.println(clinic.get(j).getClinicName());
-		}
-		return clinic;
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -81,14 +59,60 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		return i;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public void InsertAppointment(int memberPkId) {
-
+	public Clinic getClinicBeanByClinicPkId(String clinicPkId) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Clinic where clinicPkId =:cId";
+		List<Clinic> i = session.createQuery(hql).setParameter("cId", clinicPkId).getResultList();
+		return i.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Dentist getDentistBeanByDentistPkId(String dentistPkId) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Dentist where dentistPkId =:dId";
+	    List<Dentist> i = session.createQuery(hql).setParameter("dId", dentistPkId).getResultList();
+		return i.get(0);
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Items getItemsBeanByItemPkId(String itemPkId) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Items where itemPkId =:iId";
+		List<Items> i = session.createQuery(hql).setParameter("iId", itemPkId).getResultList();
+		return i.get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public TimeTable getTimeTableBeanByTimePkId(String timeTablePkId) {
+		Session session = factory.getCurrentSession();
+		String hql = "From TimeTable where timeTablePkId =:tId";
+		List<TimeTable> i = session.createQuery(hql).setParameter("tId", timeTablePkId).getResultList();
+		return i.get(0);
+	}
+	
+	@Override
+	public void InsertAppointment(Appointment ap) {
+		Session session = factory.getCurrentSession();
+		session.save(ap);
 	}
 
 	@Override
 	public Appointment updateArrive(int memberPkId) {
 		return null;
 	}
+
+
+
+
+
+
+
+
 
 }
