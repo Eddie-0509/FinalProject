@@ -267,14 +267,14 @@
 }
 
 .modal.right .modal-dialog {
-position: fixed;
+position: relative;
 margin: auto; 
 width: 500px;
 height: 100%;
--webkit-transform: translate3d(165%, 0, 0);
--ms-transform: translate3d(165%, 0, 0);
-o-transform: translate3d(165%, 0, 0);
-transform: translate3d(165%, 0, 0);
+-webkit-transform: translate3d(65%, 0, 0);
+-ms-transform: translate3d(65%, 0, 0);
+o-transform: translate3d(65%, 0, 0);
+transform: translate3d(65%, 0, 0);
 }
 
 .modal.right .modal-content {   

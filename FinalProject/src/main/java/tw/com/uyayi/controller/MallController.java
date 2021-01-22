@@ -53,25 +53,28 @@ public class MallController {
 		return "mall/MallHomePage";
 	}
 	
+	
 	@GetMapping(path  = "/productsByCategory", produces = "application/json")
 	public @ResponseBody List<Products> getProductsByCategory(@RequestParam String productCategoty) {
 		List<Products> beans = (List<Products>)pService.getProductsByCategory(productCategoty);
 		return beans;
 	}
+
 	
 	@PostMapping("/mallCheckLogin")
 	public @ResponseBody boolean mallCheckLogin(Model model, RedirectAttributes ra, @RequestParam String account, @RequestParam String pwd) {
 		if(mService.checkLogin(account,pwd)) {
 			Member mb = mService.getMemberByAccount(account);
 			model.addAttribute("LoginOK",mb);
-			model.addAttribute("memberBean",mb);	//設定memberBean Session傳送該帳號的會員資訊以供後續會員功能使用
+			model.addAttribute("memberBean",mb);
 			return true;
 			
 		} else {
-			ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
+			ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");
 			return false;
 		}		
 	}
+	
 	
 	@GetMapping("/orderConfirm")
 	public String getAllCity(Model model) {
@@ -80,16 +83,16 @@ public class MallController {
 		return "mall/OrderCheck";
 	}
 	
+	
 	@PostMapping("/checkCoupon")
 	public @ResponseBody List<Coupon> checkCoupon(@RequestParam String couponCode) {
 		List<Coupon> bean = (List<Coupon>) pService.checkCoupon(couponCode);
 		return bean;
 	}
 	
+	
 	@PostMapping("/processOrder")
-	public String processOrder (@ModelAttribute("orders") Orders orders, OrderDetails detail, Model model) {
-		
-		
+	public String processOrder (@ModelAttribute("orders") Orders orders, OrderDetails detail, Model model) {		
 		orders.setMemberBean((Member) model.getAttribute("LoginOK"));
 		pService.insertOrder(orders);
 		
@@ -98,28 +101,28 @@ public class MallController {
 		String allQty[] = (orders.getquantity()).split(",");
 		System.out.println("allQty.length = " + allQty.length);
 		
-		String str="";
+		String plist="";
 		for (int i = 0 ; i < allItems.length ; i++) {
 			detail.setOrderBean(orders);			
 			detail.setProductBean(pService.getProductsById(Integer.valueOf(allItems[i])));
 			detail.setOrderQuantity(Integer.valueOf(allQty[i]));
-			str += pService.getProductsById(Integer.valueOf(allItems[i])).getProductName()+"<br>";
+			plist += pService.getProductsById(Integer.valueOf(allItems[i])).getProductName()+"<br>";
 			pService.insertOrderDetail(detail);
 		}	
 		
 		LocalDateTime now = LocalDateTime.now();
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-
         String formatDateTime = now.format(formatter);
+        
+        int ramdom = (int)(Math.random()*100000);
+        
 		AllInOne all = new AllInOne("");
-		AioCheckOutOneTime  obj = new AioCheckOutOneTime();
-		int ramdom = (int)(Math.random()*100000);
+		AioCheckOutOneTime  obj = new AioCheckOutOneTime();	
 		obj.setMerchantTradeNo(Integer.toString(orders.getOrderPkId())+Integer.toString(ramdom));
 		obj.setMerchantTradeDate(formatDateTime);
 		obj.setTotalAmount(Integer.toString(orders.getTotalPayment()));
 		obj.setTradeDesc("test Description");
-		obj.setItemName(str);
+		obj.setItemName(plist);
 		obj.setClientBackURL("");   // 這裡放這樣的網址"http://localhost:9998/FinalProject/XXXX" 會生出按鍵刷卡完可以按回我們的網頁
 		obj.setReturnURL("http://211.23.128.214:5000");  //這裡放ngrok的網址
 		obj.setNeedExtraPaidInfo("N");
