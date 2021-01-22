@@ -407,6 +407,7 @@ a.oneClick{
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
 				<!-- 如果你是診所的頁面 -->
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
 				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>

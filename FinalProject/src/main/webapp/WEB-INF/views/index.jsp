@@ -45,6 +45,9 @@
 	
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
+	
+	<link href='fonts/jf-openhuninn-1.1.ttf' rel='stylesheet' type='text/css'>
+	
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css" >
 	<!-- Flexslider -->
@@ -115,7 +118,7 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
-				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
+<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a data-toggle="modal" data-target="#memberModal" >用戶登入</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicIndex'/>" class="transition">診所服務</a></li>
