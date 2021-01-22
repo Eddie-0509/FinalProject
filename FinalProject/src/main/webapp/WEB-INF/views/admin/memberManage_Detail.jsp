@@ -123,11 +123,12 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a href="<c:url value='productManage'/>" class="transition">商品管理</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='memberManage'/>" class="transition">會員管理</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
-				<li class="animate-box"><a href="<c:url value='commentManage'/>" class="transition">評論管理</a></li>
+				<li class="animate-box"><a href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>"
 					class="transition style-logout">登出</a></li>
 			</ul>
@@ -136,15 +137,37 @@
 				<span class="fh5co-circle"></span>
 			</a>
 		</nav>
+	<div id="orderDetailModal" class="modal fade" style="color:black">
+		<div class="modal-dialog"  style="width:50%">
+	    	<div class="modal-content">
+	        	<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            	<h4 id="orderDetailModalTitle" class="modal-title"  style="color:black"></h4>
+	        	</div>
+	        	<div id="orderDetailModalBody" class="modal-body"  style="color:black">
+	        
+	       
+	  
+	        	</div>
+	        	<div class="modal-footer">
+	        		<button type="button" class="btn btn-default contactMember" id="formButton">確定修改</button>
+	            	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        	</div>
+	    	</div>
+		</div>
+	</div>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
+		
 			<div id="appointmentContainer" class="container" style='width: 1200px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
-				<button type="button" id="searchData">搜尋</button>
-				<table class='table table-bordered' id='showAllMemberTable' >
+				會員:${member.memberName}<br/>
+				<h4>預約紀錄</h4>
+				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/>
+				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
+				<table class='table table-bordered' id='showAllAppointmentTable' >
 					<thead>
 						<tr>
-							<th style='width: 100px;'>序號</th>
+							<th style='width: 100px;'>預約編號</th>
 							<th style='width: 200px;'>診所</th>
 							<th style='width: 200px;'>醫生</th>
 							<th style='width: 200px;'>日期</th>
@@ -160,7 +183,7 @@
 						</tr>
 					</thead>
 					<tbody id="AppointmentBody">
-						<c:forEach var="appointment" items="${Appointment}" varStatus="vs">
+						<c:forEach var="appointment" items="${appointment}" varStatus="vs">
 							<tr>
 								<td>${vs.count}</td>
 								<td>${appointment.clinicBean.clinicName}</td>
@@ -182,28 +205,47 @@
 				</table>
 			</div>
 			<div id="orderContainer" class="container" style='width: 1200px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
-				<button type="button" id="searchData">搜尋</button>
-				<table class='table table-bordered' id='showAllMemberTable' >
+				<h4>訂單紀錄</h4>
+				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/>
+				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
+				<table class='table table-bordered' id='showAllOrderTable' >
 					<thead>
 						<tr>
-							<th style='width: 100px;'>序號</th>
-							<th style='width: 200px;'>診所</th>
-							<th style='width: 200px;'>醫生</th>
-							<th style='width: 200px;'>日期</th>
-							<th style='width: 200px;'>時段</th>
-							<th style='width: 200px;'>項目</th>
-							<th style='width: 100px;'>
-							<select name="h_memberArrive" id="h_memberArrive">
-								<option id ="到診" value="到診" selected="selected">到診</option>
-								<option id ="有" value="True">有</option>
-								<option id ="無" value="False" >無</option>
+							<th style='width: 100px;'>訂單編號</th>
+							<th style='width: 150px;'>折扣碼</th>
+							<th style='width: 150px;'>總費用</th>
+							<th style='width: 150px;'>
+							<select name="h_orderStatus" id="h_orderStatus">
+								<option id ="訂單狀況" value="訂單狀況" selected="selected">訂單狀況</option>
+								<option id ="未付款" value="未付款">未付款</option>
+								<option id ="已付款" value="已付款" >已付款</option>
+								<option id ="取消" value="取消" >已付款</option>
+								<option id ="已出貨" value="已出貨" >已付款</option>
 							</select>
 							</th>
+							<th style='width: 600px;'>收件地址</th>
+							<th style='width: 50px;'></th>
 						</tr>
 					</thead>
 					<tbody id="orderBody">
-						
+						<c:forEach var="order" items="${orders}" varStatus="vs">
+							<tr>
+								<td>${order.orderPkId}</td>
+								<td>
+								<c:choose>
+								<c:when test="${order.couponBean.couponCode == null }">
+								</c:when>
+								<c:otherwise>
+								${order.couponBean.couponCode}							
+								</c:otherwise>
+								</c:choose>
+								</td>
+								<td>${order.totalPayment}</td>
+								<td>${order.orderStatus}</td>
+								<td>${order.shipAddress}</td>	
+								<td><i id="detail${order.orderPkId}" class="fas fa-info-circle"></i></td>						
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -235,8 +277,20 @@
 
 	</div>
 	<script>
-	console.log(${Appointment});
-	console.log(${Appointment.get(0).clinicBean.clinicName});
+	<c:forEach var="order" items="${orders}" varStatus="vs">
+		$("#detail${order.orderPkId}").on({
+			mouseenter:function(){
+				$(this).css("color","blue");
+			},
+			mouseleave:function(){
+				$(this).css("color","black");
+			},
+			click:function(){
+				
+				$("#orderDetailModal").modal('show');
+			}
+		});
+	</c:forEach>
 	
 	
 	</script>

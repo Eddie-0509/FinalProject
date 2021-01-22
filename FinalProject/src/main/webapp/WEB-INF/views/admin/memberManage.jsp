@@ -123,11 +123,12 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a href="<c:url value='productManage'/>" class="transition">商品管理</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='memberManage'/>" class="transition">會員管理</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
-				<li class="animate-box"><a href="<c:url value='commentManage'/>" class="transition">評論管理</a></li>
+				<li class="animate-box"><a href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>"
 					class="transition style-logout">登出</a></li>
 			</ul>
@@ -140,7 +141,7 @@
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div id="container" class="container" style='width: 900px;'>
 				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
-				<button type="button" id="searchData">搜尋</button>
+				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
 				<table class='table table-bordered' id='showAllMemberTable' >
 					<thead>
 						<tr>

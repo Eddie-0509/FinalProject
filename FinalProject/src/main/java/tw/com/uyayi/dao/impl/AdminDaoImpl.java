@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import tw.com.uyayi.dao.AdminDao;
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
+import tw.com.uyayi.model.Coupon;
 import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
@@ -190,6 +191,29 @@ public class AdminDaoImpl implements AdminDao {
 		Session session = factory.getCurrentSession();
 		List<Orders> list = session.createQuery(hql)
 			.setParameter("mId",memberPkId)
+			.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public Member getMemberById(int memberPkId) {
+		String hql = "From Member where memberPkId = :mId";
+		Member member = null;
+		Session session = factory.getCurrentSession();
+		List<Member> list = session.createQuery(hql)
+				.setParameter("mId", memberPkId)
+				.getResultList();
+		if(list.get(0) != null) {
+			member = list.get(0);			
+		}
+		return member;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Coupon> getAllCoupon() {
+		String hql = "From Coupon";
+		Session session = factory.getCurrentSession();
+		List<Coupon>list=session.createQuery(hql)
 			.getResultList();
 		return list;
 	}

@@ -133,6 +133,7 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 				<li class="animate-box "><a href="<c:url value='index'/>"
 					class="transition">Home</a></li>
 				<li class="animate-box fh5co-active"><a
@@ -142,7 +143,7 @@
 				<li class="animate-box"><a href="<c:url value='clinicManage'/>"
 					class="transition">診所管理</a></li>
 				<li class="animate-box"><a
-					href="<c:url value='commentManage'/>" class="transition">評論管理</a></li>
+					href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>"
 					class="transition style-logout">登出</a></li>
 			</ul>
@@ -155,117 +156,186 @@
 	<div class="modal fade" id="productDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content" >
-			產品圖片:<img id="d_showImage" src=""></br>
-			名稱:<p id="d_productName"></p>
-			類別:<p id="d_productCategory"></p>
-			簡介:<textarea id="d_productProfile"></textarea></br>
-			規格:<textarea id="d_productSpec"></textarea></br>
-			價格:<p id="d_productPrice"></p>
-			剩餘數量:<p id="d_productQuantity"></p>
-			最後時間:<p id="d_productUpdateDate"></p>
-			狀態:<p id="d_productStatus"></p>
-			</div>			
+			<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            	<h4 id="productDetailModalTitle" class="modal-title"  style="color:black"></h4>
+	       	</div>
+	       	<div>
+			<table class='table table-bordered'>
+				<thead>
+					<tr>
+					<th>類別</th>
+					<th>狀態</th>
+					<th>價格</th>
+					<th>數量</th>
+					<th>更新時間</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					<td id="d_productCategory"></td>
+					<td id="d_productStatus"></td>
+					<td id="d_productPrice"></td>
+					<td id="d_productQuantity"></td>
+					<td id="d_productUpdateDate"></td>
+					</tr>
+				</tbody>
+			</table>
+	       	</div>
+			<div >
+			<img id="d_showImage" src="" style="width: 350px;height: 350px"/>
+			</div>
+			<div style="padding-left: 5px">
+			<label>簡介:</label><p id="d_productProfile"></p>
+			</div>
+			<div style="padding-left: 5px">
+			<label>規格:</label><p id="d_productSpec"></p>
+			</div>
+
+			<div class="modal-footer">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        </div>				
+			</div>
 		</div>
 	</div>		
 		<!--新增產品表單-->
 	<div class="modal fade" id="addProductFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
+				<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            	<h4 id="addProductFormModalTitle" class="modal-title"  style="color:black">產品資料</h4>
+	       		</div>
 				<form:form action="${pageContext.request.contextPath}/addProduct" method="POST" modelAttribute="addProduct" enctype="multipart/form-data">
 				<div class="formcontainer">
 					<div class="containerF">
-						<label><i class="fas fa-tooth"></i>產品資料</label><br> 
-						<label for="productCategory" ><strong>產品類別</strong></label><span id="checkCategory"></span>
-					<select name="productCategory" id="a_Category">
-						<option id ="a_電動牙刷" value="電動牙刷" selected="selected">電動牙刷</option>
-						<option id ="a_沖牙機" value="沖牙機">沖牙機</option>
-						<option id ="a_牙刷" value="牙刷">牙刷</option>
-						<option id ="a_牙膏" value="牙膏">牙膏</option>
-					</select><br/>
-						<label for="productName"><strong>產品名稱</strong></label><span id="checkName"></span>
-						<input type="text" id="a_productName" name="productName" placeholder="請輸入產品名稱"/><br/>						
-						<label for="productProfile" ><strong>產品簡介</strong></label><span id="checkProfile"></span>
-						<textarea id="a_productProfile" name="productProfile" placeholder="請輸入產品簡介"></textarea><br/>						
-						<label for="productSpec"><strong>產品規格</strong></label><span id="checkSpec"></span>
-						<textarea id="a_productSpec" name="productSpec" placeholder="請輸入產品規格"></textarea><br/>						
-						<label for="productPrice"><strong>產品價格</strong></label><span id="checkPrice"></span>
-						<input type="text" id="a_productPrice" name="productPrice" placeholder="請輸入產品價格"/><br/>																
-						<label for="productQuantity"><strong>產品數量</strong></label><span id="checkPrice"></span>
-						<input type="text" id="a_productQuantity" name="productQuantity" placeholder="請輸入產品數量"/><br/>																
-						<label for="productStutas"><strong>產品狀態</strong></label>
-						<input type="radio"  name="productStatus" value="下架" checked="checked">下	架
-						<input type="radio"  name="productStatus" value="上架" >上架<br/>
-						<div>
-							<label for="upload" >上傳產品圖片</label>
-  							<input id="a_upload" type="file" accept="image/*" multiple="multiple" />
-  							<img id="a_preview_productImg" src="#" alt="your image" />
-  							<input type="button" id="a_imageUpload" value="上傳"><br/>
-  							<input type='hidden' id='a_hiddenProductImage' name='productImage' value='#' >
+						<div style="padding-left: 10px;margin-top: 10px">
+							<label for="productCategory" ><strong>產品類別:</strong></label><span id="checkCategory"></span>
+							<select name="productCategory" id="a_Category">
+							<option id ="a_電動牙刷" value="電動牙刷" selected="selected">電動牙刷</option>
+							<option id ="a_沖牙機" value="沖牙機">沖牙機</option>
+							<option id ="a_牙刷" value="牙刷">牙刷</option>
+							<option id ="a_牙膏" value="牙膏">牙膏</option>
+							</select>
 						</div>
-						<button class="btn btn-primary" type="submit">提交</button>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productName"><strong>產品名稱:</strong></label><span id="a_checkName"></span><br>
+						<input type="text" id="a_productName" name="productName" placeholder="請輸入產品名稱" style="width: 90%"/><br/>						
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productProfile" ><strong>產品簡介:</strong></label><span id="a_checkProfile"></span><br>
+						<textarea id="a_productProfile" name="productProfile" placeholder="請輸入產品簡介" style="width: 90%"></textarea><br/>						
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productSpec"><strong>產品規格:</strong></label><span id="a_checkSpec"></span><br>
+						<textarea id="a_productSpec" name="productSpec" placeholder="請輸入產品規格" style="width: 90%"></textarea><br/>						
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productPrice"><strong>產品價格:</strong></label><span id="a_checkPrice"></span><br>
+						<input type="text" id="a_productPrice" name="productPrice" placeholder="請輸入產品價格" style="width: 90%"/><br/>																
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productQuantity"><strong>產品數量:</strong></label><span id="a_checkQuantity"></span><br>
+						<input type="text" id="a_productQuantity" name="productQuantity" placeholder="請輸入產品數量" style="width: 90%"/><br/>																
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productStutas"><strong>產品狀態:</strong></label>
+						<input type="radio"  name="productStatus" value="下架" checked="checked">下架
+						<input type="radio"  name="productStatus" value="上架" >上架<br/>
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+							<label for="upload" >上傳產品圖片</label><span id ="a_checkimage"></span>
+  							<input id="a_upload" type="file" accept="image/*" multiple="multiple" />
+  							<img id="a_preview_productImg" src="#" alt="your image" style="width: 300px" />
+  							<input type="button" id="a_imageUpload" value="上傳"><br/>
+  							<input type='hidden' id='a_hiddenProductImage' name='productImage' value='#'/>
+						</div>
 					</div>
 				</div>
 				</form:form>	
-			</div>			
+				<div class="modal-footer">
+	        	<button type="button" class="btn btn-default contactMember" id="addFormButton">確定提交</button>
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        	</div>					
+			</div>
 		</div>
 	</div>		
 		<!--修改產品表單-->
 	<div class="modal fade" id="updateProductFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
+				<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            	<h4 id="updateProductFormTitle" class="modal-title"  style="color:black">產品資料</h4>
+	        </div>
 				<form:form action="${pageContext.request.contextPath}/updateProduct" method="POST" modelAttribute="updateProduct" enctype="multipart/form-data">
 				<div class="formcontainer">
 					<div class="containerF">
-						<label><i class="fas fa-tooth"></i>產品資料</label><br> 
+						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="productCategory" ><strong>產品類別</strong></label><span id="checkCategory"></span>
-					<select name="productCategory" id="u_Category">
-						<option id ="u_電動牙刷" value="電動牙刷" selected="selected">電動牙刷</option>
-						<option id ="u_沖牙機" value="沖牙機">沖牙機</option>
-						<option id ="u_牙刷" value="牙刷">牙刷</option>
-						<option id ="u_牙膏" value="牙膏">牙膏</option>
-					</select><br/>
-						<label for="productName"><strong>產品名稱</strong></label><span id="checkName"></span>
-						<input type="text" id="u_productName" name="productName" placeholder="請輸入產品名稱"/><br/>						
-						<label for="productProfile" ><strong>產品簡介</strong></label><span id="checkProfile"></span>
-						<textarea id="u_productProfile" name="productProfile" placeholder="請輸入產品簡介"></textarea><br/>						
-						<label for="productSpec"><strong>產品規格</strong></label><span id="checkSpec"></span>
-						<textarea id="u_productSpec" name="productSpec" placeholder="請輸入產品規格"></textarea><br/>						
-						<label for="productPrice"><strong>產品價格</strong></label><span id="checkPrice"></span>
-						<input type="text" id="u_productPrice" name="productPrice" placeholder="請輸入產品價格"/><br/>																
-						<label for="productQuantity"><strong>產品數量</strong></label><span id="checkPrice"></span>
-						<input type="text" id="u_productQuantity" name="productQuantity" placeholder="請輸入產品數量"/><br/>																
+							<select name="productCategory" id="u_Category">
+							<option id ="u_電動牙刷" value="電動牙刷" selected="selected">電動牙刷</option>
+							<option id ="u_沖牙機" value="沖牙機">沖牙機</option>
+							<option id ="u_牙刷" value="牙刷">牙刷</option>
+							<option id ="u_牙膏" value="牙膏">牙膏</option>
+							</select>
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productName"><strong>產品名稱</strong></label><span id="u_checkName"></span><br/>
+						<input type="text" id="u_productName" name="productName" placeholder="請輸入產品名稱" style="width: 90%"/><br/>						
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productProfile" ><strong>產品簡介</strong></label><span id="u_checkProfile"></span><br/>
+						<textarea id="u_productProfile" name="productProfile" placeholder="請輸入產品簡介" style="width: 90%"></textarea><br/>						
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productSpec"><strong>產品規格</strong></label><span id="u_checkSpec"></span><br/>
+						<textarea id="u_productSpec" name="productSpec" placeholder="請輸入產品規格" style="width: 90%"></textarea><br/>						
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productPrice"><strong>產品價格</strong></label><span id="u_checkPrice"></span><br/>
+						<input type="text" id="u_productPrice" name="productPrice" placeholder="請輸入產品價格" style="width: 90%"/><br/>																
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
+						<label for="productQuantity"><strong>產品數量</strong></label><span id="u_checkQuantity"></span><br/>
+						<input type="text" id="u_productQuantity" name="productQuantity" placeholder="請輸入產品數量" style="width: 90%"/><br/>																
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="productStutas"><strong>產品狀態</strong></label>
-						<input type="radio" name="productStatus" value="下架" checked="checked">下	架
+						<input type="radio" name="productStatus" value="下架" checked="checked">下架
 						<input type="radio" name="productStatus" value="上架" >上架<br/>
-						<div>
+						</div>
+						<div style="padding-left: 10px;margin-top: 10px">
 							<label for="upload" >上傳產品圖片</label>
   							<input id="u_upload" type="file" accept="image/*" multiple="multiple" />
-  							<img id="u_preview_productImg" src="#" alt="your image" />
+  							<img id="u_preview_productImg" src="#" alt="your image" style="width: 300px" />
   							<input type="button"  id="u_imageUpload" value="上傳"><br/>
   							<input type='hidden' id='u_hiddenProductImage' name='productImage' value='#' >
 						</div>
 						<input type="text" id="u_productId" name="productPkId" hidden="hidden"/>
-						<button class="btn btn-primary" type="submit">提交</button>
 					</div>
 				</div>
 				</form:form>	
-			</div>			
+			<div class="modal-footer">
+	        	<button type="button" class="btn btn-default contactMember" id="updateFormButton">確定修改</button>
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        </div>			
+			</div>
 		</div>
 	</div>		
 
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main"
 			data-colorbg="">
-			<div id="container" class="container" style='width: 1350px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
-				<button type="button" id="searchData">搜尋</button>
-				<button type="button" id="addProductBtn" value="新增產品" >新增產品</button>
+			<div id="container" class="container" style='width: 1250px;'>
+				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray"/>
+				<button type="button" class="btn btn-info" id="searchData">搜尋</button>
+				<button type="button" class="btn btn-success" id="addProductBtn" value="新增產品" >新增產品</button>
 				<table class='table table-bordered' id='showAllProductTable' >
 					<thead>
 						<tr>
 							<th style='width: 80px;'>序號</th>
-							<th style='width: 200px;'>產品圖片</th>
 							<th style='width: 100px;'>
-								<select name="h_productCategory" id="h_Category">
+								<select name="h_productCategory" id="h_Category" style="color: gray;">
 									<option id ="產品類別" value="all" selected="selected">產品類別</option>
 									<option id ="電動牙刷" value="電動牙刷" >電動牙刷</option>
 									<option id ="沖牙機" value="沖牙機">沖牙機</option>
@@ -275,7 +345,7 @@
 							</th>
 							<th style='width: 420px;'>名稱</th>
 							<th style='width: 100px;'>
-								<select name="h_price" id="h_price">
+								<select name="h_price" id="h_price" style="color: gray">
 									<option id ="價格" value="價格" selected="selected">價格</option>
 									<option id ="高到低" value="高到低" >高到低</option>
 									<option id ="低到高" value="低到高" >低到高</option>
@@ -283,14 +353,14 @@
 							</th>
 							<th style='width: 100px;'>數量</th>
 							<th style='width: 150px;'>
-								<select name="h_updateTime" id="h_updateTime">
+								<select name="h_updateTime" id="h_updateTime" style="color: gray">
 									<option id ="更新時間" value="更新時間" selected="selected">更新時間</option>
 									<option id ="舊到新" value="舊到新" >舊到新</option>
 									<option id ="新到舊" value="新到舊" >新到舊</option>
 								</select>
 							</th>
 							<th style='width: 100px;'>
-								<select name="h_Status" id="h_Status">
+								<select name="h_Status" id="h_Status" style="color: gray">
 									<option id ="狀態" value="all" selected="selected">狀態</option>
 									<option id ="上架" value="上架" >上架</option>
 									<option id ="下架" value="下架" >下架</option>
@@ -328,7 +398,7 @@
 <script>
 	let model = ${products};
 	let products = model.product;
-
+	
 	// 	產品清單表格內容生成及新增修改按鈕綁定
 	function showData(){			
 		//顯示產品資料
@@ -337,14 +407,13 @@
 			let j = i + 1;
 			let localDate = new Date(products[i].productUpdateDate).toLocaleDateString("zh-TW");
 			str += "<tr id='bean"+products[i].productPkId+"'><td>" + j + "</td>";
-			str += "<td>"+ "<img src='"+products[i].productImage+"' style='width:180px' />'"+ "</td>";
 			str += "<td>" + products[i].productCategory+ "</td>";
 			str += "<td><p id='productName"+products[i].productPkId+"'>" + products[i].productName+ "</p></td>";
 			str += "<td>" + products[i].productPrice+ "</td>";
 			str += "<td>" + products[i].productQuantity+ "</td>";
 			str += "<td>" + localDate + "</td>";
 			str += "<td>" + products[i].productStatus+ "</td>";
-			str += "<td><button type='button' id='updateProductBtn"+products[i].productPkId+"' value='bean"+products[i].productPkId+"'>修改</button></td>"
+			str += "<td><button type='button' class='btn btn-warning' id='updateProductBtn"+products[i].productPkId+"' value='bean"+products[i].productPkId+"'>修改</button></td>"
 			str += "</tr>";
 		}
 		$("#productBody").html(str);
@@ -365,7 +434,15 @@
 					$('input:radio[name=productStatus][1]').checked = true;																		
 				}
 				$("#u_preview_productImg").attr("src",products[i].productImage);
+				$("#u_hiddenProductImage").val(products[i].productImage);
 				$("#updateProductFormModal").modal('show');
+				$("#updateFormButton").click(function(){
+					if(u_flagName && u_flagProfile && u_flagSpec && u_flagPrice && u_flagQuantity){
+						$("#updateProduct").submit();			
+					}else{
+						alert("請重新確認表單內容");
+					}
+				});
 				});
 			$("#productName"+products[i].productPkId).on({
 				mouseenter:function(){
@@ -375,9 +452,9 @@
 					$(this).css("color","black");
 				},
 				click:function(){
+					$("#productDetailModalTitle").text(products[i].productName);
 					let localDate = new Date(products[i].productUpdateDate).toLocaleDateString("zh-TW");
 					$("#d_showImage").attr("src",products[i].productImage);
-					$("#d_productName").text(products[i].productName);
 					$("#d_productCategory").text(products[i].productCategory);
 					$("#d_productProfile").text(products[i].productProfile);
 					$("#d_productSpec").text(products[i].productSpec);
@@ -434,7 +511,6 @@
 						});	
 		});
 		$("#addProductBtn").click(function(){
-			console.log("11111");
 			$("#電動牙刷").attr("selected","selected");
 			$("#a_productName").val("");
 			$("#a_productProfile").val("");
@@ -442,10 +518,168 @@
 			$("#a_productPrice").val("");
 			$("#a_productQuantity").val("");
 			$('input:radio[name=productStatus][0]').checked = true;	
+			$("#a_checkName").html("");
+			$("#a_checkProfile").html("");
+			$("#a_checkSpec").html("");
+			$("#a_checkPrice").html("");
+			$("#a_checkQuantity").html("");
 			$("#addProductFormModal").modal('show');
+			$("#addFormButton").click(function(){
+				if(a_flagName && a_flagProfile && a_flagSpec && a_flagPrice && a_flagQuantity && a_flagImage){
+					$("#addProduct").submit();			
+				}else{
+					alert("請重新確認表單內容");
+				}
 			});
+		});
 	});
+	//新增表單欄位檢查
+	var a_flagName = false;
+	var a_flagProfile =false;
+	var a_flagSpec = false;
+	var a_flagPrice = false;
+	var a_flagQuantity = false;
+	var a_flagImage = false;
+
+	$("#a_productName").blur(function(){
+		let nameVal = $("#a_productName").val();
+		let span = $("#a_checkName");
+		span.css("color","red");
+		if(nameVal ==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品名字");
+			a_flagName =false;
+		}else{
+			span.html("");
+			a_flagName = true;
+		}
+	});
+	$("#a_productProfile").blur(function(){
+		let profileVal = $("#a_productProfile").val();
+		let span = $("#a_checkProfile");
+		if(profileVal ==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品簡介");
+			a_flagProfile = false;
+		}else{
+			span.html("");
+			a_flagProfile = true;
+		}
+	});
+	$("#a_productSpec").blur(function(){
+		let specVal = $("#a_productSpec").val();
+		let span = $("#a_checkSpec");
+		if(specVal ==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品規格");
+			a_flagSpec = false;
+		}else{
+			span.html("");
+			a_flagSpec = true;
+		}
+	});
+	$("#a_productPrice").blur(function(){
+		let priceVal = $("#a_productPrice").val();
+		let span = $("#a_checkPrice");
+		let a = /\d/;
+		if(priceVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
+			a_flagPrice = false;
+		}else if(!a.test(priceVal)){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
+			a_flagPrice = false;	
+		}else{
+			span.html("");
+			a_flagPrice = true;
+		}
+	});
+	$("#a_productQuantity").blur(function(){
+		let quantityVal = $("#a_productQuantity").val();
+		let span = $("#a_checkQuantity");
+		let a = /\d/;
+		if(quantityVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
+			a_flagQuantity = false;
+		}else if(!a.test(quantityVal)){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
+			a_flagQuantity = false;	
+		}else{
+			span.html("");
+			a_flagQuantity = true;
+		}
+	});
+	$("#a_hiddenProductImage").change(function(){
+		a_flagImage = true;
+	});
+	//修改表單欄位檢查
+	var u_flagName = true;
+	var u_flagProfile =true;
+	var u_flagSpec = true;
+	var u_flagPrice = true;
+	var u_flagQuantity = true;
+	$("#u_productName").blur(function(){
+		let nameVal = $("#u_productName").val();
+		let span = $("#u_checkName");
+		if(nameVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品名稱");
+			u_flagName = false;
+		}else{
+			span.html("");
+			u_flagName = true;
+		}
+	});
+	$("#u_productProfile").blur(function(){
+		let profileVal = $("#u_productProfile").val();
+		let span = $("#u_checkProfile");
+		if(profileVal ==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品簡介");
+			u_flagProfile = false;
+		}else{
+			span.html("");
+			u_flagProfile = true;
+		}
+	});
+	$("#u_productSpec").blur(function(){
+		let specVal = $("#u_productSpec").val();
+		let span = $("#u_checkSpec");
+		if(specVal == ""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品規格");
+			u_flagSpec = false;
+		}else{
+			span.html("");
+			u_flagSpec = true;
+		}
+	});
+	$("#u_productPrice").blur(function(){
+		let priceVal = $("#u_productPrice").val();
+		let span = $("#u_checkPrice");
+		let a =/\d/;
+		if(priceVal ==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
+			u_flagPrice = false;
+		}else if(!a.test(priceVal)){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確產品價格");
+			u_flagPrice = false;
+		}else{
+			span.html("");
+			u_flagPrice = true;
+		}
+	});
+	$("#u_productQuantity").blur(function(){
+		let quantityVal = $("#u_productQuantity").val();
+		let span = $("#u_checkQuantity");
+		let a =/\d/;
+		if(quantityVal ==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
+			u_flagQuantity = false;
+		}else if(!a.test(quantityVal)){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確產品價格");
+			u_flagQuantity = false;
+		}else{
+			span.html("");
+			u_flagQuantity = true;
+		}
+	});
+	//依更新時間排序
 	$("#h_updateTime").change(function(){
+		$("#更新時間").remove();
 		if($("#h_price option:selected").text()!="價格"){
 		$("#h_price").prepend("<option id ='價格' value='價格' selected='selected'>價格</option>");
 		$("#更新時間").remove();
@@ -463,7 +697,9 @@
 				showData();
 			}
 	});
+	//依價格排序
 	$("#h_price").change(function(){
+		$("#價格").remove();
 		if($("#h_updateTime option:selected").text()!="更新時間"){
 		$("#h_updateTime").prepend("<option id='更新時間' value='更新時間' selected='selected'>更新時間</option>");
 		$("#價格").remove();
@@ -516,6 +752,7 @@
 				let imageStr = resJSON.data.link;
 				console.log(imageStr);
 				$("#a_hiddenProductImage").val(imageStr);
+				$("#a_preview_productImg").attr("src",imageStr);
 				window.alert("上傳成功");
 			});
 	});

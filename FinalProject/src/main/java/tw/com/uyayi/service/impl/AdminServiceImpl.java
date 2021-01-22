@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.com.uyayi.dao.AdminDao;
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
+import tw.com.uyayi.model.Coupon;
 import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
@@ -94,6 +95,14 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Member> getAllMemberByName(String keyName) {
 		return adminDao.getAllMemberByName(keyName);
+	}
+	@Override
+	public Member getMemberById(int memberPkId) {
+		return adminDao.getMemberById(memberPkId);
+	}
+	@Override
+	public List<Coupon> getAllCoupon() {
+		return adminDao.getAllCoupon();
 	}
 	
 

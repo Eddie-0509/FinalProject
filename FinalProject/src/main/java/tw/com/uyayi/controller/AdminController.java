@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
+import tw.com.uyayi.model.Coupon;
+import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
@@ -67,6 +69,13 @@ public class AdminController {
 		}
 		return beans;
 	}
+	//新增產品表單
+	@GetMapping("/addProduct")
+	public String addProduct(Model model) {
+		Products prodcut = new Products();
+		model.addAttribute("addProduct",prodcut);
+		return "admin/productManage";
+	}
 	//新增產品功能
 	@PostMapping(value = "/addProduct")
 	public String addProduct(@ModelAttribute("addProduct") Products product) {
@@ -74,6 +83,13 @@ public class AdminController {
 		product.setProductUpdateDate(sqldate);
 		service.insertProduct(product);	
 		return "redirect:/productManage";
+	}
+	//更新產品表單
+	@GetMapping("/updateProduct")
+	public String updateProduct(Model model) {
+		Products prodcut = new Products();
+		model.addAttribute("addProduct",prodcut);
+		return "admin/productManage";
 	}
 	//更新產品功能
 	@PostMapping(value = "/updateProduct")
@@ -84,15 +100,6 @@ public class AdminController {
 		return "redirect:/productManage";
 	}
 	
-	//診所管理頁面(初始值為顯示所有診所資料)
-	@GetMapping(value = "/clinicManage")
-	public String getAllClinic(Model model) {
-		List<Clinic> beans = service.getAllClinic();
-		JSONObject json = new JSONObject();
-		json.put("clinic", beans);
-		model.addAttribute("clinics",json);
-		return "admin/clinicManage";
-	}
 	//會員管理頁面(初始值為顯示所有會員資料)
 	@GetMapping(value = "/memberManage")
 	public String getAllMember(Model model) {
@@ -139,12 +146,27 @@ public class AdminController {
 	//會員管理頁面(會員預約及訂單紀錄)
 	@GetMapping(value = "/memberManage_Detail")
 	public String getMemberDetailFromId(Model model,int memberPkId) {
-		List<Appointment> Appointment = service.getMemberAppointmentFromId(memberPkId);
-		List<Orders> Orders = service.getMemberOrderFromId(memberPkId);
-		model.addAttribute("Appointment",Appointment);
-		model.addAttribute("Orders",Orders);
+		Member member = service.getMemberById(memberPkId);
+		List<Appointment> appointment = service.getMemberAppointmentFromId(memberPkId);
+		List<Orders> orders = service.getMemberOrderFromId(memberPkId);
+		model.addAttribute("member",member);
+		model.addAttribute("appointment",appointment);
+		model.addAttribute("orders",orders);
 		return "admin/memberManage_Detail";
 	}
-	
+	//診所管理頁面(初始值為顯示所有診所資料)
+	@GetMapping(value = "/clinicManage")
+	public String getAllClinic(Model model) {
+		List<Clinic> beans = service.getAllClinic();
+		model.addAttribute("clinics",beans);
+		return "admin/clinicManage";
+	}
+	//診所管理頁面(初始值為顯示所有診所資料)
+	@GetMapping(value = "/couponManage")
+	public String getAllCoupon(Model model) {
+		List<Coupon> beans = service.getAllCoupon();
+		model.addAttribute("coupon",beans);
+		return "admin/couponManage";
+	}
 	
 }

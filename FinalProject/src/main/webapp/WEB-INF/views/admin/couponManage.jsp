@@ -123,11 +123,12 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a href="<c:url value='productManage'/>" class="transition">商品管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberManage'/>" class="transition">會員管理</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='commentManage'/>" class="transition">評論管理</a></li>
+				<li class="animate-box fh5co-active"><a href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>"
 					class="transition style-logout">登出</a></li>
 			</ul>
@@ -138,10 +139,31 @@
 		</nav>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-			<div class="container">
-
-						要放的內容在這裡
-
+			<div id="container" class="container" style='width: 900px;'>
+				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
+				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
+				<table class='table table-bordered' id='showAllCouponTable' >
+					<thead>
+						<tr>
+							<th style='width: 100px;'>序號</th>
+							<th style='width: 200px;'>會員帳號</th>
+							<th style='width: 200px;'>姓名</th>
+							<th style='width: 100px;'>
+							<select name="h_memberStatus" id="h_memberStatus">
+									<option id ="狀態" value="狀態" selected="selected">狀態</option>
+									<option id ="未開通" value="未開通" >未開通</option>
+									<option id ="已開通" value="已開通" >已開通</option>
+									<option id ="已填寫" value="已填寫" >已填寫</option>
+									<option id ="停權" value="停權" >停權</option>
+								</select>
+							</th>
+							<th style='width: 300px;'></th>
+						</tr>
+					</thead>
+					<tbody id="couponBody">
+						
+					</tbody>
+				</table>
 			</div>
 		</div>
 

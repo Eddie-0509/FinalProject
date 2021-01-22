@@ -5,6 +5,7 @@ import java.util.List;
 
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
+import tw.com.uyayi.model.Coupon;
 import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
@@ -28,8 +29,6 @@ public interface AdminService {
 	void updateProduct(Products product);
 	//取得今天日期(SQL.DATE格式)
 	Date getToday();
-	//取得所有診所資料
-	List<Clinic> getAllClinic();
 	//取得所有會員資料	
 	List<Member> getAllMember();
 	//修改會員權限
@@ -42,5 +41,11 @@ public interface AdminService {
 	List<Member> getAllMemberByStatus(String h_memberStatus);
 	//By會員名稱或Mail搜尋會員資料
 	List<Member> getAllMemberByName(String keyName);
+	//ByID取得會員資料
+	Member getMemberById(int memberPkId);
+	//取得所有診所資料
+	List<Clinic> getAllClinic();
+	//取得所有折價券資料
+	List<Coupon> getAllCoupon();
 	
 }

@@ -123,11 +123,12 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;'/></li>
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a href="<c:url value='productManage'/>" class="transition">商品管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberManage'/>" class="transition">會員管理</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
-				<li class="animate-box"><a href="<c:url value='commentManage'/>" class="transition">評論管理</a></li>
+				<li class="animate-box"><a href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>"
 					class="transition style-logout">登出</a></li>
 			</ul>
@@ -138,10 +139,46 @@
 		</nav>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-			<div class="container">
-
-						要放的內容在這裡
-
+			<div id="container" class="container" style='width: 1350px;'>
+				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
+				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
+				<table class='table table-bordered' id='showAllClinicTable' >
+					<thead>
+						<tr>
+							<th style='width: 100px;'>序號</th>
+							<th style='width: 200px;'>診所帳號</th>
+							<th style='width: 200px;'>診所名稱</th>
+							<th style='width: 150px;'>診所電話</th>
+							<th style='width: 150px;'>到期日</th>
+							<th style='width: 100px;'>
+							<select name="h_clinicStatus" id="h_clinicStatus">
+									<option id ="狀態" value="狀態" selected="selected">狀態</option>
+									<option id ="未開通" value="未開通" >未開通</option>
+									<option id ="已開通" value="已開通" >已開通</option>
+									<option id ="未驗證" value="未驗證" >未驗證</option>
+									<option id ="已驗證" value="已驗證" >已驗證</option>
+								</select>
+							</th>
+							<th style='width: 100px;'></th>
+						</tr>
+					</thead>
+					<tbody id="clinicBody">
+						<c:forEach var="clinic" items="${clinics}" varStatus="vs">
+							<tr>
+								<td rowspan="2">${clinic.clinicPkId}</td>
+								<td>${clinic.clinicAccount}</td>
+								<td>${clinic.clinicName}</td>
+								<td>${clinic.clinicPhone}</td>
+								<td>${clinic.clinicEndTime}</td>
+								<td>${clinic.clinicStatus}</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="6">${clinic.cityBean.cityName}${clinic.distBean.distName}${clinic.clinicAddress}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 
