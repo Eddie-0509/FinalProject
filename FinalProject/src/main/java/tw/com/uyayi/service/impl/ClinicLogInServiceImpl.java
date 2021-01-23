@@ -25,5 +25,11 @@ public class ClinicLogInServiceImpl implements ClinicLogInService {
 	
 		return clinicLogInDao.getClinicByAccount(clinicAccount);
 	}
+	@Override
+	@Transactional
+	public void clinicChangePwd(String clinicPkId, String pwd) {
+		clinicLogInDao.clinicChangePwd(clinicPkId,pwd);
+		
+	}
 
 }

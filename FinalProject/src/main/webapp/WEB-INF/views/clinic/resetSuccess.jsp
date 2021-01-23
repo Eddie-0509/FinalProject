@@ -132,11 +132,67 @@
 
 <!--首頁文字輪播、modal js bySCONE-->
 <script src="js/hpother.js"></script>
-<script src="js/dentistModal.js"></script>
-<link rel="stylesheet" href="css/calendar_confirm-modal.css">
-
 <style>
+.tableWidth{
+width: 120px;
+border-width: 3px;
+border-style: solid;
+border-color: black;
+text-align: center;
+border-color: white;
 
+}
+table{
+margin: 0px auto;
+margin-top: 10px;
+}
+
+.timeth{
+background-color:#6C6C6C;
+color: white;
+}
+
+
+.time{
+background-color:#D0D0D0;
+}
+
+#colorsetumeis {
+	margin:0px;
+	margin-right:100px;
+    float: right;
+    }
+.colorsetumei {
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    width: 20px;
+    height: 10px;
+    line-height: 10px;
+}
+
+.btn-primary {
+    background: #84C1FF;
+    color: #fff;
+    border: 2px solid #84C1FF;
+}
+
+.btn-primary:hover {
+    background: #46A3FF;
+    color: #fff;
+    border: 2px solid #46A3FF;
+}
+
+.tableBtn{
+/* 	background:#46A3FF; */
+background-color:#D0D0D0;
+}
+a.oneClick:hover{
+	color:#C48888;
+	border-color: #C48888;
+}
+a.oneClick{
+	color:	#804040;
+}
 
 </style>
 </head>
@@ -162,20 +218,9 @@
 
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main"
 			data-colorbg="">
-			<div class="container" style="display: block; text-align: center">
-			<form action="clinicForgotPwdForm" id="clinicForgotPwdForm" method="post">
-			<div>
-			<strong>立即發送重設密碼Email至您的信箱</strong>
-			</div>
-			<br>
-			<div>
-			<label for="clinicAccount">請輸入Email帳號:</label>
-			<input style= "color:black" type="text" name="clinicAccount" id="clinicAccount" placeholder="請輸入Email帳號">
-			<span id="checkAccount"></span>
-			</div>
-			<br>
-			<button type="button" class="btn-info" >寄送</button>
-			</form>
+			<div class="container">
+			<h1 style="text-align: center">診所密碼更改成功</h1>
+	   		
 	        </div>
 	  
 	        </div>
@@ -200,97 +245,8 @@
 		</footer>
 	<script>
 	$(function(){
-		var flagEmail = false;
-		var checkEmail = false;
-		$("#clinicAccount").blur(function() {
-					let emailVal = $("#clinicAccount").val();
-					let span = $("#checkAccount");
-					let flag1 = false;
-					$("#checkAccount").css("color", "red");
-					if (emailVal == "") {
-						span
-								.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入電子信箱");
-						flagEmail = false;
-						checkEmail = false;
-					} else {
-						for (let i = 0; i < emailVal.length; i++) {
-							let char1 = emailVal.charCodeAt(i);
-							if (char1 == 64) {
-								span.html("");
-								checkEmail = true;
-								break;
-							} else {
-								flagEmail = false;
-								checkEmail = false;
 
-								span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確電子信箱");
-							};
-						};
-					};
-					
-					if(checkEmail){
-						let urlQuery = new URLSearchParams({
-							clinicAccount : emailVal,
-							method : "fetch()",
-							doWhat : "post"
-						});
-						
-						fetch("checkAccount", {
-							method : "POST",
-							body : urlQuery
-						}).then(function(response) {
-							return response.json();
-						}).then(function(data) {
-							if(!data){
-								flagEmail = true;
-								span.css("color","green");
-								span.html("&nbsp &nbsp <i class='far fa-check-circle'></i>");
-							}else {
-								flagEmail = false;
-								span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>查無此帳號");
-							};
-						});
-						
-					};
-
-				});
-		
-		async function wrongInput() {
-		        this.myModal = new SimpleModal("錯誤", "請輸入正確電子郵件", "是", "否");
-
-		        try {
-		          const modalResponse = await myModal.question();
-		        } catch(err) {
-		          console.log(err);
-		        };
-		        
-		      };
-		
-		$("#fh5co-main > div > form > button").click(function(){
-			if(flagEmail){
-				let urlQuery = new URLSearchParams({
-					clinicAccount : $("#clinicAccount").val(),
-					method : "fetch()",
-					doWhat : "post"
-				});
-				$("#fh5co-main > div").html("<strong>請至電子信箱點擊更改密碼連結</strong>")
-				
-				fetch("sendForgetMail", {
-					method : "POST",
-					body : urlQuery
-				}).then(function(response) {
-					return response.json();
-				}).then(function(data) {
-					
-				});
-			}else{
-				wrongInput();
-				$("body > dialog > div > div.simple-modal-button-group").children().remove();
-
-			}
-		});
-		
-	});
+	})
 	
 	</script>
 </body>

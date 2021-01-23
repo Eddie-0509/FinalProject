@@ -287,7 +287,7 @@ text-align : center;
 			診所電話:<span>${clinicBean.clinicPhone}</span><br/>
 			所在縣市:<span>${clinicBean.cityBean.cityName}/${clinicBean.distBean.distName}</span><br/>
 			診所地址:<span>${clinicBean.clinicAddress}</span><br/>
-			診所付款狀態:<span>${clinicBean.clinicStatus}</span><br/>
+			診所會籍到期日:<span>${clinicBean.clinicEndTime}</span><br/>
 	   			
 	        </div>
 	        <div class="imgDiv animate-box">

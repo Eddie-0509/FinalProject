@@ -36,4 +36,12 @@ public class ClinicLogInDaoImpl implements ClinicLogInDao {
 		return clinicBean;
 	}
 
+	@Override
+	public void clinicChangePwd(String clinicPkId, String pwd) {
+		Session session = factory.getCurrentSession();
+		String hql = "update Clinic set clinicPwd = :pwd where clinicPkId=:id";
+		
+		session.createQuery(hql).setParameter("pwd", pwd).setParameter("id", Integer.valueOf(clinicPkId)).executeUpdate();
+	}
+
 }

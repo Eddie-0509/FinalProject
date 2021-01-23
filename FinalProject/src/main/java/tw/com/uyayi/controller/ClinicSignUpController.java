@@ -117,7 +117,7 @@ public class ClinicSignUpController {
 		obj.setTotalAmount("2000");
 		obj.setTradeDesc("test Description");
 		obj.setItemName("TestItem");
-		obj.setReturnURL("http://eeb7004845ed.ngrok.io/FinalProject/behindPayment");
+		obj.setReturnURL("http://3aa1b4b0d4fb.ngrok.io/FinalProject/behindPayment");
 //		obj.setOrderResultURL("http://localhost:9998/FinalProject/afterPayment");
 		obj.setClientBackURL("http://localhost:9998/FinalProject/afterPayment");
 		obj.setNeedExtraPaidInfo("N");
@@ -136,7 +136,8 @@ public class ClinicSignUpController {
 	@PostMapping(value = "/behindPayment")
 	public void getPaymentFeedBack(
 			@RequestParam("RtnCode") int rtnCode,
-			@RequestParam("CustomField1") String clinicId) {
+			@RequestParam("CustomField1") String clinicId,
+			Model model) {
 		if(rtnCode==1) {
 			int clinicPkId = Integer.valueOf(clinicId);
 			Date d = new Date();
@@ -149,11 +150,12 @@ public class ClinicSignUpController {
 			String finalDateString = sdf.format(ca.getTime());
 			java.sql.Date finalDate = java.sql.Date.valueOf(finalDateString);
 			signUpService.changePaymentStatus(clinicPkId, finalDate, sqlDate);
+			model.addAttribute("loginOK",clinicReviseService.getClinicById(clinicPkId));
 		}
 	}
 	@GetMapping("/afterPayment")
 	public String afterGetPaid(Model model) {
-		return "clinic/clinicCalendar";
+		return "redirect:/clinicCalendar";
 	}
 	
 }

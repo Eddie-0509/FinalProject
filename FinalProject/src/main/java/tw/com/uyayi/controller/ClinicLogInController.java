@@ -42,6 +42,8 @@ public class ClinicLogInController {
 			) {
 		if(clinicLogInservce.checkLogin(clinicAccount, clinicPwd)) {
 			Clinic clinic = clinicLogInservce.getClinicByAccount(clinicAccount);
+			if(clinic.getClinicEndTime()!=null) {
+				
 			Date endDate = clinic.getClinicEndTime();
 			Calendar endCa = new GregorianCalendar();
 			endCa.setTime(endDate);
@@ -53,6 +55,7 @@ public class ClinicLogInController {
 	        if(endCa.before(todayCa)) {
 	        	clinicSignUpService.changeExpiredStatus(clinic.getClinicPkId());
 	        }
+			}
 
 	        clinic = clinicLogInservce.getClinicByAccount(clinicAccount);
 			if(clinic.getClinicStatus().equals("未驗證")) {
@@ -91,15 +94,34 @@ public class ClinicLogInController {
 	@PostMapping("/sendForgetMail")
 	public @ResponseBody boolean sendForgetMail(@RequestParam("clinicAccount") String clinicAccount) {
 		MailCheck m = new MailCheck();
-		String text = "<a href='http://localhost:9998/FinalProject/resetPwd?rgewrgerwgw45y4refqereqrfsfeq=5&clinicAccount="+clinicAccount+"&ffgsfdgerc=1fdshrt'>請點擊重設密碼</a>";
+		Clinic c = clinicLogInservce.getClinicByAccount(clinicAccount);
+
+		String text = "<a href='http://localhost:9998/FinalProject/resetPwd?rgewrgerwgw45y4refqereqrfsfeq=5&clinicId="+c.getClinicPkId()+"&ffgsfdgerc=1fdshrt'>請點擊重設密碼</a>";
 		m.sendMail(clinicAccount, "【UYAYI】重設密碼", text);
 		return true ;
 	}
 	
-	@GetMapping("resetPwd")
-	public String resetPwd(@RequestParam("clinicAccount") String clinicAccount) {
+	@GetMapping("/resetPwd")
+	public String resetPwd(
+			@RequestParam("clinicId") String clinicId,
+			Model model) {
+		model.addAttribute("clinicId",clinicId);
+		return "clinic/clinicResetPwd";
+	}
 	
-		return "";
+	@PostMapping("/clinicRestPwd")
+	public String getReset(
+			@RequestParam("clinicId") String clinicId,
+			@RequestParam("clinicPwd") String clinicPwd,
+			Model model
+			) {
+		clinicLogInservce.clinicChangePwd(clinicId,clinicPwd);
+	return "redirect:/resetSuccess";
+	}
+	
+	@GetMapping("resetSuccess")
+	public String turnToresetSuccess() {
+		return "clinic/resetSuccess";
 	}
 	
 }
