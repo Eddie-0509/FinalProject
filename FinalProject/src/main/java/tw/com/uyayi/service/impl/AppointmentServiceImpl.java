@@ -37,27 +37,40 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 	@Transactional
 	@Override
-	public Clinic getClinicBeanByClinicPkId(String clinicPkId) {	
+	public Clinic getClinicBeanByClinicPkId(Integer clinicPkId) {	
 		return appointmentDao.getClinicBeanByClinicPkId(clinicPkId);
 	}
 	@Transactional
 	@Override
-	public Dentist getDentistBeanByDentistPkId(String dentistPkId) {	
+	public Dentist getDentistBeanByDentistPkId(Integer dentistPkId) {	
 		return appointmentDao.getDentistBeanByDentistPkId(dentistPkId);
 	}
 	@Transactional
 	@Override
-	public TimeTable getTimeTableBeanByTimePkId(String timeTablePkId) {
+	public TimeTable getTimeTableBeanByTimePkId(Integer timeTablePkId) {
 		return appointmentDao.getTimeTableBeanByTimePkId(timeTablePkId);
 	}
 	@Transactional
 	@Override
-	public Items getItemsBeanByItemPkId(String itemPkId) {		
+	public Items getItemsBeanByItemPkId(Integer itemPkId) {		
 		return appointmentDao.getItemsBeanByItemPkId(itemPkId);
 	}
-	
+	@Transactional
+	@Override
 	public void InsertAppointment(Appointment ap) {
 		appointmentDao.InsertAppointment(ap);
+	}
+	@Transactional
+	@Override
+	public List<Appointment> checkFull(Dentist dentist, String timeTablePkId, String appointmentDate) {
+		
+		return appointmentDao.checkFull(dentist, timeTablePkId, appointmentDate);
+	}
+	@Transactional
+	@Override
+	public List<Appointment> showAppointRecord(Integer memberPkId) {
+		
+		return appointmentDao.showAppointRecord(memberPkId);
 	}
 
 }

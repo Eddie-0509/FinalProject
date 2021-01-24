@@ -36,11 +36,11 @@ public class Member {
 	
 	
 	@JsonIgnore
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "memberBean")
+	@OneToMany(cascade=CascadeType.MERGE, mappedBy = "memberBean")
 	private Set<Appointment> appointments;
 	
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "memberBean")
+	@OneToMany(cascade=CascadeType.MERGE, mappedBy = "memberBean")
 	@JsonIgnore //SC加ㄉ
 	private Set<Orders> orders;
 

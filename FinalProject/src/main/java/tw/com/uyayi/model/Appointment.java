@@ -22,12 +22,12 @@ public class Appointment {
 	private  Integer appointmentPkId;
 	
 	
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "memberPkId")
 //    @JsonIgnore
 	private  Member memberBean;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "clinicPkId")
 //    @JsonIgnore
     private  Clinic clinicBean;
@@ -67,16 +67,16 @@ public class Appointment {
 	@Transient
 	private String times;
 	@Transient
-	private String clinicId;
+	private Integer clinicId;
 	@Transient
-	private String itemId;
+	private Integer itemId;
 
 	@Transient
-	private String dentistId;
+	private Integer dentistId;
 	@Transient
 	private String appointdateId;
 	@Transient
-	private String timetableId;
+	private Integer timetableId;
 	@Transient
 	private String memberId;
 	
@@ -203,19 +203,19 @@ public class Appointment {
 	public void setTimes(String times) {
 		this.times = times;
 	}
-	public String getClinicId() {
+	public Integer getClinicId() {
 		return clinicId;
 	}
 	
-	public void setClinicId(String clinicId) {
+	public void setClinicId(Integer clinicId) {
 		this.clinicId = clinicId;
 	}
 	
-	public String getDentistId() {
+	public Integer getDentistId() {
 		return dentistId;
 	}
 	
-	public void setDentistId(String dentistId) {
+	public void setDentistId(Integer dentistId) {
 		this.dentistId = dentistId;
 	}
 	
@@ -227,11 +227,11 @@ public class Appointment {
 		this.appointdateId = appointdateId;
 	}
 	
-	public String getTimetableId() {
+	public Integer getTimetableId() {
 		return timetableId;
 	}
 	
-	public void setTimetableId(String timetableId) {
+	public void setTimetableId(Integer timetableId) {
 		this.timetableId = timetableId;
 	}
 	
@@ -242,11 +242,11 @@ public class Appointment {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String getItemId() {
+	public Integer getItemId() {
 		return itemId;
 	}
 	
-	public void setItemId(String itemId) {
+	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
 	}
 	

@@ -18,14 +18,18 @@ public interface AppointmentService {
 	
 	List<TimeTable> getTimeTable(String weekdays);
 	
-    Clinic getClinicBeanByClinicPkId(String clinicPkId);
+    Clinic getClinicBeanByClinicPkId(Integer clinicPkId);
 	   
-	Dentist getDentistBeanByDentistPkId(String dentistPkId);
+	Dentist getDentistBeanByDentistPkId(Integer dentistPkId);
 	   
-	TimeTable getTimeTableBeanByTimePkId(String timeTablePkId);
+	TimeTable getTimeTableBeanByTimePkId(Integer timeTablePkId);
 	   
-    Items getItemsBeanByItemPkId(String itemPkId);
+    Items getItemsBeanByItemPkId(Integer itemPkId);
 	   
 	void InsertAppointment(Appointment ap);
+
+	List<Appointment> checkFull(Dentist dentist, String timeTablePkId, String appointmentDate);
+	
+	List<Appointment> showAppointRecord(Integer memberPkId);
 	
 }
