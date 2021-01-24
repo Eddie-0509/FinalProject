@@ -97,9 +97,7 @@ public class MallController {
 		pService.insertOrder(orders);
 		
 		String allItems[] = (orders.getproducts()).split(",");
-		System.out.println("allItems.length = " + allItems.length);
 		String allQty[] = (orders.getquantity()).split(",");
-		System.out.println("allQty.length = " + allQty.length);
 		
 		String plist="";
 		for (int i = 0 ; i < allItems.length ; i++) {

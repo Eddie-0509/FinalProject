@@ -920,12 +920,15 @@ insert into coupon values('周年慶全面8折', 0.80, 'qwer1234', '2021/1/19', '2021/
 create table orders(
 orderPkId int primary key identity(1,1) not null,
 memberPkId int references member(memberPkId) not null,		--多對一關聯到會員
-couponPkId int references coupon(couponPkId),				--多對一關連到折價券，一張訂單只許用一種折扣--
+orderNo nvarchar(20),
+orderDate date not null,
 totalPayment int,																		--總金額--	
 receiver nvarchar(20),
 mobilephone char(10),
 shipAddress nvarchar(max) not null,										--收件地址--
-orderStatus nvarchar(30) not null										--訂單狀態--
+couponPkId int references coupon(couponPkId),				--多對一關連到折價券，一張訂單只許用一種折扣--
+orderStatus nvarchar(30) not null,										--訂單狀態--
+returnReason nvarchar(100)
 );
 
 --訂單詳細資料--

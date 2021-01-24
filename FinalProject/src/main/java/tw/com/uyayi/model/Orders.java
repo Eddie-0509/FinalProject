@@ -1,5 +1,6 @@
 package tw.com.uyayi.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,33 +17,38 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "orders")
 public class Orders {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderPkId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "memberPkId")
 	private Member memberBean;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "couponPkId")
-	private Coupon couponBean;
-	
+
+	private String orderNo;
+	private Date orderDate;
 	private int totalPayment;
 	private String receiver;
 	private String mobilephone;
 	private String shipAddress;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "couponPkId")
+	private Coupon couponBean;
+
 	private String orderStatus;
-	
+	private String returnReason;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderBean")
 	private Set<OrderDetails> orderDetails;
 
 	@Transient
 	private String products;
-	
+
 	@Transient
 	private String quantity;
-	
+
 	public Orders() {
 
 	}
@@ -135,4 +141,27 @@ public class Orders {
 		this.quantity = quantity;
 	}
 
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public String getReturnReason() {
+		return returnReason;
+	}
+
+	public void setReturnReason(String returnReason) {
+		this.returnReason = returnReason;
+	}
 }

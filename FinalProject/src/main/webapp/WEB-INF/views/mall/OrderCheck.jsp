@@ -318,7 +318,7 @@ footer {
 
 		$(".btn-primary").click(checkCoupon);
 
-		$("#submit").click(goprocess);
+		$("#submit").click(goProcess);
 		
 		$("#ucoupon").click(function(){
 			$("#icoupon").show();
@@ -348,7 +348,8 @@ footer {
 			let unitPrice = parseInt($(this).parent("td").next().text(), 10) / qty;
 			$(this).prev("span").text(qty + 1);
 			$(this).parent().next("td").text(parseInt($(this).prev("span").text(), 10) * unitPrice);
-			cal()
+			cal();
+			setCookie();
 		});
 
 		$(".bi-dash-square").click(function(){
@@ -361,12 +362,14 @@ footer {
 			}
 			
 			$(this).parent().next("td").text(parseInt($(this).next("span").text(), 10) * unitPrice);
-			cal()
+			cal();
+			setCookie();
 		});
 
 		$(".bi-trash").click(function(){
 			$(this).parents("table").remove();
-			cal()
+			cal();
+			setCookie();
 		});
 	}
 
@@ -459,7 +462,7 @@ footer {
 	}
 
 
-	function goprocess(){
+	function goProcess(){
 		$("#couponPkId").val(couponid);
 		$("#totalPayment").val($("#gtotal").text());
 		$("#orderStatus").val("未付款");
@@ -482,6 +485,12 @@ footer {
   		$("#products").val(plist);
   		$("#quantity").val(pqty)
    		$("#orders").submit();
+	}
+
+
+	function setCookie(){
+		cookiestr = $("#olist").html().replace('<i class="bi bi-dash-square"></i><span>', '').replace('</span><i class="bi bi-plus-square"></i>', '');
+		Cookies.set("cart", cookiestr, { expires: 7 });
 	}
 </script>
 </html>

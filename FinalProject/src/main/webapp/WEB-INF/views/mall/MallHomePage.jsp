@@ -704,7 +704,6 @@ footer {
 				$("#ccontent").append(cstr);
 
 				cookiestr = $("#ccontent").html();
-				console.log(cookiestr);
 				Cookies.set("cart", cookiestr, { expires: 7 });
 				
 				$(".bi-trash").click(function(){				
