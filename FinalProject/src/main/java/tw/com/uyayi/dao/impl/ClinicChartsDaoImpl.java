@@ -1,5 +1,8 @@
 package tw.com.uyayi.dao.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -61,5 +64,68 @@ public class ClinicChartsDaoImpl implements ClinicChartsDao{
 		}
 		return DentistData;
 	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public LinkedHashMap<String, List<Integer>> getTotalData(Clinic clinic, String year, String month) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Appointment a where a.clinicBean =:clinic";
+		List<Appointment> allAppList = session.createQuery(hql).setParameter("clinic", clinic).getResultList();
+		LinkedHashMap<String,Integer> TotalData=new LinkedHashMap<String,Integer>();
+		LinkedHashMap<String,List<Integer>> TotalData2=new LinkedHashMap<String,List<Integer>>();
+		List<Integer> b=new ArrayList<Integer>();
+		b.add(0);
+		b.add(0);
+		 Calendar a = Calendar.getInstance();  
+		    a.set(Calendar.YEAR,  Integer.valueOf(year));  
+		    a.set(Calendar.MONTH,  Integer.valueOf(month) - 1);  
+		    a.set(Calendar.DATE, 1);//把日期設定為當月第一天
+		    a.roll(Calendar.DATE, -1);//日期回滾一天，也就是最後一天
+		    int maxDate = a.get(Calendar.DATE);  
+		for (int i=1;i<=maxDate;i++) {
+			String y=String.valueOf(i);
+			if(i<10) {
+				y="0"+String.valueOf(i);
+			}
+			TotalData.put(y, 0);
+			TotalData2.put(y,b);
+		} 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		for (int i=0;i<allAppList.size();i++) {
+			String dateString = sdf.format(allAppList.get(i).getAppointDate());
+//			System.out.println(dateString.substring(0, 4)+" "+dateString.substring(5, 7)+" "+ dateString.substring(8));
+//			System.out.println(year+" "+month);
+			if(dateString.substring(0, 4).equals(year) && dateString.substring(5, 7).equals(month) && !allAppList.get(i).getMemberReply().equals("取消")) {
+				//平台會員預約
+				if(allAppList.get(i).getMemberBean()!=null) {
+					for(Object key : TotalData.keySet()) {
+						if(dateString.substring(8).equals(key.toString())) {
+							int plus = TotalData.get(key)+1;
+							TotalData.put(key.toString(),plus);
+							List<Integer> thisList = new ArrayList<Integer>(TotalData2.get(key));
+							thisList.set(0,thisList.get(0)+1);
+							TotalData2.put(key.toString(),thisList);
+						}
+					}
+				//診所方預約
+				}else {
+					for(Object key : TotalData.keySet()) {
+						if(dateString.substring(8).equals(key.toString())) {
+							int plus = TotalData.get(key)+1;
+							TotalData.put(key.toString(),plus);
+							List<Integer> thisList = new ArrayList<Integer>(TotalData2.get(key));
+							thisList.set(1,thisList.get(1)+1);
+							TotalData2.put(key.toString(),thisList);
+						}
+					}
+				}
+			}
+		}
+		System.out.println(TotalData2);
+		return TotalData2;
+	}
+	
+
+
 	
 }

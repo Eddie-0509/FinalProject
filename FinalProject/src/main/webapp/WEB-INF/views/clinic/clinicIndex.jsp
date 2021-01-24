@@ -54,14 +54,13 @@
 	<!-- Icomoon Icon Fonts-->
 	<link rel="stylesheet" href="css/icomoon.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<link rel="stylesheet" id="theme-switch" href="css/style.css">
 	
 	
 	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 	<!-- jQuery Cookie -->
 	<script src="js/jquery.cookie.js"></script>
 	<script>
@@ -75,7 +74,7 @@
 	<!-- jQuery Easing -->
 	<script src="js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
 	<script src="js/jquery.waypoints.min.js"></script>
 	<!-- Flexslider -->
@@ -106,6 +105,7 @@
 	
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
+
 	
 	</head>
 
@@ -136,18 +136,35 @@
 	<div class="fh5co-loader"></div>
 	
 	<div id="fh5co-page">
-		<nav id="fh5co-nav" role="navigation">
-			<ul>
-<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>				<li class="animate-box fh5co-active"><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
-				<li class="animate-box "><a data-toggle="modal" data-target="#clinicModal">診所登入</a></li>
-				<li class="animate-box"><a href="<c:url value='/signupFirst'/>" class="transition">診所註冊</a></li>
-			</ul>
-			
+		<nav id="fh5co-nav" role="navigation" class="navbar navbar-fixed-top navbar-inverse">
+			<div class="container-fluid">		
+				<div class="navbar-header">	
+					<img src='images/UYAYI_white.png' id='logo' width='200' />			
+					 <button type="button" data-toggle="collapse-side" data-target-sidebar=".side-collapse-left" data-target-content=".side-collapse-container-left" type="button" class="navbar-toggle pull-left" style="float: left !important;" id="ToggleNavigation">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+	    		</div>
+				 <div class=" side-collapse-left in" id="navbar-content" style="border:none;text-align:center;">
+ 				      <nav role="navigation" class="navbar-collapse">
+　 　 						<ul class="nav">
+								<li class="animate-box fh5co-active "><a href="<c:url value='clinicIndex'/>" class="transition ">Home</a></li>
+								<li class="animate-box "><a data-toggle="modal" data-target="#clinicModal" class="">診所登入</a></li>
+								<li class="animate-box "><a href="<c:url value='/signupFirst'/>" class="transition ">診所註冊</a></li>
+						</ul>
+						</nav>
+	   			 </div>
+   			 </div>  			 
+		</nav>
+			<div class="container side-collapse-container-left">
+			</div>
+
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
 			</a>
-		</nav>
    
 		
 		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes">
@@ -314,7 +331,7 @@
 		</footer>
 
 	</div>
-	
+
 	<script>
 	<c:choose>
 	<c:when test="${logInFail=='帳號密碼錯誤'}">
@@ -326,7 +343,15 @@
 	</c:otherwise>
 	</c:choose>
 		
-
+	$(function(){
+		var sideslider = $('[data-toggle=collapse-side]');
+		var get_sidebar = sideslider.attr('data-target-sidebar');
+		var get_content = sideslider.attr('data-target-content');
+		sideslider.click(function(event){
+		$(get_sidebar).toggleClass('in');
+		$(get_content).toggleClass('out');
+		});
+		});
 		
 	
 	</script>

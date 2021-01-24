@@ -162,22 +162,39 @@
 	<div class="fh5co-loader"></div>
 	
 	<div id="fh5co-page">
-		<nav id="fh5co-nav" role="navigation">
-			<ul>
-<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
-				<li class="animate-box "><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>
-				<li class="animate-box"><a href="<c:url value='clinicDetail'/>" class="transition">診所資料</a></li>
-				<li class="animate-box"><a href="<c:url value='getDentist'/>" class="transition">醫師資料</a></li>
-				<li class="animate-box"><a href="<c:url value='clinicCharts'/>" class="transition">報表</a></li>			
-				<li class="animate-box"><a href="<c:url value='logout'/>" class="transition style-logout">登出</a></li>
-			</ul>
-			
+		<nav id="fh5co-nav" role="navigation" class="navbar navbar-fixed-top navbar-inverse">
+			<div class="container-fluid">		
+				<div class="navbar-header">	
+					<img src='images/UYAYI_white.png' id='logo' width='200' />			
+					 <button type="button" data-toggle="collapse-side" data-target-sidebar=".side-collapse-left" data-target-content=".side-collapse-container-left" type="button" class="navbar-toggle pull-left" style="float: left !important;" id="ToggleNavigation">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+	    		</div>
+				 <div class=" side-collapse-left in" id="navbar-content" style="border:none;text-align:center;">
+ 				      <nav role="navigation" class="navbar-collapse">
+　 　 						<ul class="nav">
+								<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
+								<li class="animate-box "><a href="<c:url value='clinicCalendar'/>" class="transition">約診紀錄</a></li>
+								<li class="animate-box fh5co-active"><a href="<c:url value='clinicAppoint'/>" class="transition">預約新增</a></li>
+								<li class="animate-box"><a href="<c:url value='clinicDetail'/>" class="transition">診所資料</a></li>
+								<li class="animate-box fadeInUp animated"><a href="<c:url value='getDentist'/>" class="transition">醫師資料</a></li>
+								<li class="animate-box fadeInUp animated"><a href="<c:url value='clinicCharts'/>" class="transition">報表</a></li>
+								<li class="animate-box fadeInUp animated"><a href="<c:url value='logout'/>" class="transition style-logout">登出</a></li>
+							</ul>
+						</nav>
+	   			 </div>
+   			 </div>  			 
+		</nav>
+			<div class="container side-collapse-container-left">
+			</div>
+
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
 			</a>
-		</nav>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
@@ -271,6 +288,16 @@
 	</div>
 	
 	<script>
+	
+	$(function(){
+		var sideslider = $('[data-toggle=collapse-side]');
+		var get_sidebar = sideslider.attr('data-target-sidebar');
+		var get_content = sideslider.attr('data-target-content');
+		sideslider.click(function(event){
+		$(get_sidebar).toggleClass('in');
+		$(get_content).toggleClass('out');
+		});
+		});
 	function disableForm(){
 		  $('#itemName').attr('disabled', 'disabled');
 		  $('#dentistName').attr('disabled', 'disabled');

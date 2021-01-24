@@ -145,11 +145,29 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
-				<a onclick='get' >總人數</a>
+				<select id="year">
+					<option >2020</option>
+					<option selected>2021</option>
+				</select>
+				<select id="month">
+					<option >01</option>
+					<option selected>02</option>
+					<option >03</option>
+					<option >04</option>
+					<option >05</option>
+					<option >06</option>
+					<option >07</option>
+					<option >08</option>
+					<option >09</option>
+					<option >10</option>
+					<option >11</option>
+					<option >12</option>
+				</select>
+				<a onclick='getTotal()' >總人數</a>
 				<a onclick='getDentistData()' >醫師</a>
 				<a onclick='getItemData()' >項目</a>
 				<a onclick='get' >性別</a>
-						<canvas id="" style="display:none"></canvas>
+						<canvas id="myTotalStackedBar" style="display:none"></canvas>
 						<canvas id="myDentistBar" style="display:none"></canvas>
 						<canvas id="myItemsPie" style="display:none"></canvas>
 						<canvas id="" style="display:none"></canvas>
@@ -182,7 +200,79 @@
 
 	</div>
 	<script >
+	var days = new Date($("#year").val(),$("#month").val(),0).getDate();
+	
+	function getTotal(){
+		$('#myTotalStackedBar').remove(); // this is my <canvas> element
+		$('#myDentistBar').after('<canvas id="myTotalStackedBar" style="display:none"></canvas>');
+		$("#myItemsPie").css("display","none")
+		$("#myDentistBar").css("display","none")
+		$("#myTotalStackedBar").css("display","block")
+		var TotalStackedBarLable=[];
+		var TotalStackedBarfromSystem=[];
+		var TotalStackedBarfromClinic=[];
+		$.ajax({
+			url : 'clinicTotalStackedBar',
+			type : 'GET',		
+			data : {
+				year : $("#year").val(),
+				month : $("#month").val(),
+				method : "$.ajax()",
+				doWhat : "GET"
+			},
+			success : function(data) {
+				console.log(data)
+				console.log("TotalStackedBarData"+Object.keys(data).sort())
+				TotalStackedBarLable=Object.keys(data).sort()
+				for(let a=0;a<TotalStackedBarLable.length;a++){
+					TotalStackedBarfromSystem.push(data[TotalStackedBarLable[a]][0])
+					TotalStackedBarfromClinic.push(data[TotalStackedBarLable[a]][1])
+				}
+
+				var ctx2 = document.getElementById('myTotalStackedBar').getContext('2d');
+				var myTotalStackedBar = new Chart(ctx2, {
+				    type: 'bar',
+				    data: {				    	
+				        datasets: [
+				        	  {
+				        	    label: '平台預約',
+				        	    data: TotalStackedBarfromSystem,
+				        	    backgroundColor: "#caf270" 
+				        	  },
+				        	  {
+				        	    label: '診所預約',
+				        	    data: TotalStackedBarfromClinic,
+				        	    backgroundColor: '#45c490' 
+				        	  },
+				             	
+				        ],
+				        labels: TotalStackedBarLable
+				    },
+				    options: { 
+				    	scales: {
+					        xAxes: [{ stacked: true }],
+					        yAxes: [{ 
+					        	stacked: true ,
+					        	ticks: {
+					        		beginAtZero: true,
+					        		userCallback: function(label, index, labels) { 
+					        	        // when the floored value is the same as the value we have a whole number 
+					        	        if (Math.floor(label) === label) { 
+					        	         return label; 
+					        	        } 
+					        		}
+					        	}
+					        }]
+				      	}
+					}
+				});
+				
+			}	
+		})
+	}
+	
 	function getItemData(){
+		$("#myTotalStackedBar").css("display","none")
 		$("#myItemsPie").css("display","block")
 		$("#myDentistBar").css("display","none")
 		var ItemPieLable=[];
@@ -212,8 +302,6 @@
 				            data: ItemPieData
 				        	
 				        }],
-			
-				        // These labels appear in the legend and in the tooltips when hovering different arcs
 				        labels: ItemPieLable
 				    },
 				    options: {},
@@ -225,6 +313,7 @@
 	}
 	
 	function getDentistData(){
+		$("#myTotalStackedBar").css("display","none")
 		$("#myDentistBar").css("display","block")
 		$("#myItemsPie").css("display","none")
 		var DentistBarLable=[];
@@ -246,7 +335,7 @@
 				}
 				console.log(DentistBarData)
 				var ctx1 = document.getElementById('myDentistBar').getContext('2d');
-				var myDentistBart = new Chart(ctx1, {
+				var myDentistBar = new Chart(ctx1, {
 				    type: 'bar',
 				    data: {	    	
 				        datasets: [{
@@ -259,8 +348,6 @@
 				            data: DentistBarData
 				        	
 				        }],
-			
-				        // These labels appear in the legend and in the tooltips when hovering different arcs
 				        labels: DentistBarLable
 				    },
 				    options: {
@@ -273,7 +360,6 @@
 				    	}	
 				    } 
 				});
-				
 			}	
 		})
 	}

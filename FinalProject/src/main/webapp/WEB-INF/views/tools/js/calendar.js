@@ -421,16 +421,16 @@ function mailMember(){
              	}else if(result[0].memberBean==null){
              		$("#qmodalTitle").text(result[0].patientName+"的預約紀錄");
              	    $("#qmodalBody").html('<table id="queryTable"><thead><tr><th>預約日期</th><th>預約時間</th><th>預約醫師</th><th>預約項目</th><th>刪除預約</th></tr></thead><tbody></tbody></table>')
-					 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger">刪除</button></td></tr>')
+					 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger" onclick="openDeleteConfirmModalInQ.call(this)">刪除</button></td><td hidden>'+result[0].appointmentPkId+'</td></tr>')
 					 for(let i=1;i<result.length;i++){
-					 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger">刪除</button></td></tr>')
+					 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger" onclick="openDeleteConfirmModalInQ.call(this)">刪除</button></td><td hidden>'+result[i].appointmentPkId+'</td></tr>')
 					 }
              	}else{
              	 	$("#qmodalTitle").text(result[0].memberBean.memberName+"的預約紀錄");
 	             	 $("#qmodalBody").html('<table id="queryTable"><thead><tr><th>預約日期</th><th>預約時間</th><th>預約醫師</th><th>預約項目</th><th>刪除預約</th></tr></thead><tbody></tbody></table>')
-					 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger">刪除</button></td></tr>')
+					 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger" onclick="openDeleteConfirmModalInQ.call(this)">刪除</button></td><td hidden>'+result[0].appointmentPkId+'</td></tr>')
 					 for(let i=1;i<result.length;i++){
-					 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger">刪除</button></td></tr>')
+					 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger" onclick="openDeleteConfirmModalInQ.call(this)">刪除</button></td><td hidden>'+result[i].appointmentPkId+'</td></tr>')
 					 }
              	}
 				 $("#queryAppointment").remove();
