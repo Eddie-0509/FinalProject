@@ -129,4 +129,9 @@ public class MallController {
 		model.addAttribute("checkOut",form);
 		return "mall/checkOut";
 	}
+	
+	@GetMapping("/orders")
+	public String getOrdersByMemberId(Model model) {
+		return "mall/Orders";
+	}
 }

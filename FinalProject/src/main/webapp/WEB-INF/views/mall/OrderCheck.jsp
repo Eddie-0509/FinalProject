@@ -329,7 +329,7 @@ footer {
 		});
 
 		$(".bi-person-fill").click(function(){
-			alert("...");
+			window.location.href="${pageContext.request.contextPath}/orders";
 		});
 	});
 
@@ -489,7 +489,9 @@ footer {
 
 
 	function setCookie(){
-		cookiestr = $("#olist").html().replace('<i class="bi bi-dash-square"></i><span>', '').replace('</span><i class="bi bi-plus-square"></i>', '');
+		let re1 = /\<i class=\"bi bi-dash-square\"\>\<\/i\>\<span\>/gi;
+		let re2 = /\<\/span\>\<i class=\"bi bi-plus-square\"\>\<\/i\>/gi;
+		cookiestr = $("#olist").html().replace(re1, '').replace(re2, '');
 		Cookies.set("cart", cookiestr, { expires: 7 });
 	}
 </script>
