@@ -257,7 +257,9 @@
 				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>停權</button> "	;	
 			}
 			str += "<button type ='button' id='memberDetail"+members[i].memberPkId+"'>歷史紀錄</button>";
+			//更新會員狀態Form表單(隱藏)
 			str += "<div style='display:none'><form id='update_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/updateMemberStatus' method='post'><input name='memberPkId' value='"+members[i].memberPkId+"'/><input name='memberStatus' value='"+members[i].memberStatus+"'/></form></div>";
+			//查詢會員明細Form表單(隱藏)
 			str += "<div style='display:none'><form id='show_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/memberManage_Detail' method='get'><input name='memberPkId' value='"+members[i].memberPkId+"'/></form></div></td>";
 			str += "</tr>";
 		}

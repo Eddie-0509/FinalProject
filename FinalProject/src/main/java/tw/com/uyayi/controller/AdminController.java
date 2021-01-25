@@ -36,18 +36,18 @@ public class AdminController {
 		model.addAttribute("products",json);
 		return "admin/productManage";
 	}
-	//商品管理頁面(依產品類別顯示商品，Ajax功能)
+	//商品管理頁面(依產品類別顯示商品)
 	@GetMapping(value  = "/getAllProductsByCategoryAndStatus", produces = "application/json")
-	public @ResponseBody List<Products> getProductsByCategory(@RequestParam String h_productCategory,@RequestParam String h_Status) {
+	public @ResponseBody List<Products> getProductsByCategory(@RequestParam String h_productCategory,@RequestParam String h_status) {
 		List<Products> beans= null;
-		if((h_productCategory.equals("all"))&&(h_Status.equals("all"))) {
+		if((h_productCategory.equals("all"))&&(h_status.equals("all"))) {
 			beans = service.getAllProducts();			
-		}else if(h_Status.equals("all")){
+		}else if(h_status.equals("all")){
 			beans = (List<Products>)service.getAllProductsByCategory(h_productCategory);	
 		}else if(h_productCategory.equals("all")) {
-			beans = (List<Products>)service.getAllProductsByStatus(h_Status);
+			beans = (List<Products>)service.getAllProductsByStatus(h_status);
 		}else {
-			beans = (List<Products>)service.getAllProductsByCategoryAndStatus(h_productCategory,h_Status);
+			beans = (List<Products>)service.getAllProductsByCategoryAndStatus(h_productCategory,h_status);
 		}
 		return beans;
 	}
@@ -58,7 +58,7 @@ public class AdminController {
 		beans = service.getProdcutName(keyName);
 		return null;
 	}
-	//商品管理頁面(依產品名稱搜尋商品資料)
+	//商品管理頁面(模糊搜尋)
 	@GetMapping(value  = "/getAllProductsByName", produces = "application/json")
 	public @ResponseBody List<Products> getAllProductsByName(@RequestParam String keyName) {
 		List<Products> beans= null;
@@ -69,14 +69,14 @@ public class AdminController {
 		}
 		return beans;
 	}
-	//新增產品表單
+	//商品管理頁面(新增產品表單)
 	@GetMapping("/addProduct")
 	public String addProduct(Model model) {
 		Products prodcut = new Products();
 		model.addAttribute("addProduct",prodcut);
 		return "admin/productManage";
 	}
-	//新增產品功能
+	//商品管理頁面(新增產品功能)
 	@PostMapping(value = "/addProduct")
 	public String addProduct(@ModelAttribute("addProduct") Products product) {
 		Date sqldate = service.getToday();
@@ -84,14 +84,14 @@ public class AdminController {
 		service.insertProduct(product);	
 		return "redirect:/productManage";
 	}
-	//更新產品表單
+	//商品管理頁面(更新產品表單)
 	@GetMapping("/updateProduct")
 	public String updateProduct(Model model) {
 		Products prodcut = new Products();
 		model.addAttribute("addProduct",prodcut);
 		return "admin/productManage";
 	}
-	//更新產品功能
+	//商品管理頁面(更新產品功能)
 	@PostMapping(value = "/updateProduct")
 	public String updateProduct(@ModelAttribute("updateProduct") Products product) {
 		Date sqldate = service.getToday();
@@ -143,7 +143,7 @@ public class AdminController {
 		}
 		return beans;
 	}
-	//會員管理頁面(會員預約及訂單紀錄)
+	//會員管理頁面(會員預約及訂單紀錄明細)
 	@GetMapping(value = "/memberManage_Detail")
 	public String getMemberDetailFromId(Model model,int memberPkId) {
 		Member member = service.getMemberById(memberPkId);
@@ -168,34 +168,34 @@ public class AdminController {
 		model.addAttribute("coupon",beans);
 		return "admin/couponManage";
 	}
-	//新增表單
+	//折扣碼管理頁面(新增折扣表單)
 	@GetMapping("/addCoupon")
 	public String addCoupon(Model model) {
 		Coupon coupon = new Coupon();
 		model.addAttribute("addCoupon",coupon);
 		return "admin/couponManage";
 	}
-	//新增折扣功能
+	//折扣碼管理頁面(新增折扣功能)
 	@PostMapping(value = "/addCoupon")
 	public String addCoupon(@ModelAttribute("addCouponForm") Coupon coupon) {
 		service.insertCoupon(coupon);	
 		return "redirect:/couponManage";
 	}
-	//修改折扣表單
+	//折扣碼管理頁面(修改折扣表單)
 	@GetMapping("/updateCoupon")
 	public String updateCoupon(Model model) {
 		Coupon coupon = new Coupon();
 		model.addAttribute("addCoupon",coupon);
 		return "admin/couponManage";
 	}
-	//修改折扣功能
+	//折扣碼管理頁面(修改折扣功能)
 	@PostMapping(value = "/updateCoupon")
 	public String updateCoupon(@ModelAttribute("updateCouponForm") Coupon coupon) {
 		System.out.println(coupon.getCouponContext());
 		service.updateCoupon(coupon);	
 		return "redirect:/couponManage";
 	}
-	//折扣模糊搜尋
+	//折扣碼管理頁面(模糊搜尋)
 	@GetMapping(value ="/getAllCouponByName")
 	public @ResponseBody List<Coupon> getAllCouponByName(@RequestParam String keyName) {
 		List<Coupon> beans= null;
@@ -203,6 +203,17 @@ public class AdminController {
 			beans = service.getAllCoupon();
 		}else {
 			beans = service.getAllCouponByName(keyName);
+		}
+		return beans;
+	}
+	//折扣碼管理頁面(依狀態篩選)
+	@GetMapping(value ="/getAllCouponByStatus")
+	public @ResponseBody List<Coupon> getAllCouponByStatus(@RequestParam String h_couponStatus) {
+		List<Coupon> beans= null;
+		if(h_couponStatus.equals("狀態")) {
+			beans = service.getAllCoupon();
+		}else {
+			beans = service.getAllCouponByStatus(h_couponStatus);
 		}
 		return beans;
 	}

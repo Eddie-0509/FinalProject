@@ -288,6 +288,152 @@
 
 	</div>
 	<script>
+	//修改表單欄位檢查
+	var a_flagName = false;
+	var a_flagContext = false;
+	var a_flagCode = false;
+	var a_flagStartTime = false;
+	var a_flagEndTime = false;
+	
+	$("#a_couponName").blur(function(){
+		let nameVal = $("#a_couponName").val();
+		let span = $("#a_checkName");
+		if(nameVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣名稱");
+			a_flagName = false;
+		}else{
+			span.html("");
+			a_flagName = true;
+		}
+	});
+	$("#a_couponContext").blur(function(){
+		let contextVal = $("#a_couponContext").val();
+		let span = $("#a_checkContext");
+		let a =/[0][.]\d{2}/;
+		if(contextVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
+			a_flagContext = false;
+		}else if(!a.test(contextVal)){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
+			a_flagContext = false;			
+		}else{
+			span.html("");
+			a_flagContext = true;
+		}
+	});
+	$("#a_couponCode").blur(function(){
+		let codeVal = $("#a_couponCode").val();
+		let span = $("#a_checkCode");
+		if(codeVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣碼");
+			a_flagCode = false;
+		}else{
+			span.html("");
+			a_flagCode = true;
+		}
+	});
+	$("#a_couponStartTime").blur(function(){
+		let startTimeVal = $("#a_couponStartTime").val();
+		let span = $("#a_checkStartTime");
+		if(startTimeVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣開始時間");
+			a_flagStartTime = false;
+		}else{
+			span.html("");
+			a_flagStartTime = true;
+		}
+	});
+	$("#a_couponEndStartTime").blur(function(){
+		let endTimeVal = $("#a_couponEndStartTime").val();
+		let span = $("#a_checkEndTime");
+		if(endTimeVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣結束時間");
+			a_flagEndTime = false;
+		}else{
+			span.html("");
+			a_flagEndTime = true;
+		}
+	});
+	//修改表單欄位檢查
+	var u_flagName = true;
+	var u_flagContext = true;
+	var u_flagCode = true;
+	var u_flagStartTime = true;
+	var u_flagEndTime = true;
+	
+	$("#u_couponName").blur(function(){
+		let nameVal = $("#u_couponName").val();
+		let span = $("#u_checkName");
+		if(nameVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣名稱");
+			u_flagName = false;
+		}else{
+			span.html("");
+			u_flagName = true;
+		}
+	});
+	$("#u_couponContext").blur(function(){
+		let contextVal = $("#u_couponContext").val();
+		let span = $("#u_checkContext");
+		let a =/[0][.]\d{2}/;
+		if(contextVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
+			u_flagContext = false;
+		}else if(!a.test(contextVal)){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
+			u_flagContext = false;
+		}else{
+			span.html("");
+			u_flagContext = true;
+		}
+	});
+	$("#u_couponCode").blur(function(){
+		let codeVal = $("#u_couponCode").val();
+		let span = $("#u_checkCode");
+		if(codeVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣碼");
+			u_flagCode = false;
+		}else{
+			span.html("");
+			u_flagCode = true;
+		}
+	});
+	$("#u_couponStartTime").blur(function(){
+		let startTimeVal = $("#u_couponStartTime").val();
+		let span = $("#u_checkStartTime");
+		if(startTimeVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣開始時間");
+			u_flagStartTime = false;
+		}else{
+			span.html("");
+			u_flagStartTime = true;
+		}
+	});
+	$("#u_couponEndStartTime").blur(function(){
+		let endTimeVal = $("#u_couponEndStartTime").val();
+		let span = $("#u_checkEndTime");
+		if(endTimeVal==""){
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣結束時間");
+			u_flagEndTime = false;
+		}else{
+			span.html("");
+			u_flagEndTime = true;
+		}
+	});
+	
+	//依狀態篩選折扣
+	$("#h_couponStatus").change(function(){
+		fetch("getAllCouponByStatus?"+"h_couponStatus=" + $("#h_couponStatus").val(), {
+			method : "GET"
+			}).then(function(response) {
+				return response.json();
+				}).then(function(data) {
+					coupon = data;
+					$("#searchBar").val("");
+					showData();
+					bindUpdateBtn();
+					});	
+		});
 
 
 	//模糊搜尋功能
@@ -295,17 +441,17 @@
 		console.log($("#searchBar").val());
 		fetch("getAllCouponByName?"+ "keyName=" + $("#searchBar").val(), {
 			method : "GET"
-			}).then(function(response) {
-				return response.json();
-				}).then(function(data) {
-					$("#searchResult").html("");
-					coupon = data;
-					showData();
-					bindUpdateBtn();
-					if(data==""){
-							$("#searchResult").html("查無資料!!!");
-						}
-					});	
+		}).then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			$("#searchResult").html("");
+			coupon = data;
+			showData();
+			bindUpdateBtn();
+			if(data==""){
+				$("#searchResult").html("查無資料!!!");
+			}
+		});	
 	});
 	$(function(){
 		showRawData();
@@ -315,14 +461,15 @@
 		});
 	
 		$("#addCouponButton").click(function(){
+			if(a_flagName && a_flagContext && a_flagCode && a_flagStartTime && a_flagEndTime){				
 			$("#addCouponForm").trigger("submit");
-		});
-		$("#u_couponContext").blur(function(){
-			console.log($("#u_couponContext").val());
+			}else{
+				alert("請正確輸入表格內容!");
+			}
 		});
 	
 	});
-	
+	//顯示原始資料
 	function showRawData(){
 		let str = "";
 		<c:forEach var="coupon" items="${coupon}">
@@ -344,6 +491,7 @@
 		$("#couponBody").html(str); 
 		</c:forEach>
 	};
+	//原始資料綁定修改按鈕
 	function bindRawUpdateBtn(){
 		<c:forEach var="coupon" items="${coupon}">
 			$("#updateCouponBtn${coupon.couponPkId}").click(function(){
@@ -363,23 +511,25 @@
 				</c:if>																	
 				$("#updateCouponFormModal").modal("show");
 				$("#updateCouponButton").click(function(){
-					$("#updateCouponForm").trigger("submit");
-				});
-			});
+					if(a_flagName && a_flagContext && a_flagCode && a_flagStartTime && a_flagEndTime){				
+						$("#updateCouponForm").trigger("submit");
+					}else{
+						alert("請正確輸入表格內容!");
+					}
+				});					
+			});						
 		</c:forEach>
 	};
 	//顯示折扣資料(JSON格式)
 	function showData(){			
 		let str = "";
 		for (let i = 0; i < coupon.length; i++) {
-			let couponStartTime = new Date(coupon[i].couponStartTime).toLocaleDateString("zh-TW");
-			let couponEndTime = new Date(coupon[i].couponEndTime).toLocaleDateString("zh-TW");
 			str += "<tr><td>" + coupon[i].couponPkId + "</td>";
 			str += "<td>" + coupon[i].couponName + "</td>";
 			str += "<td>" + coupon[i].couponCode + "</td>";
 			str += "<td>" + coupon[i].couponContext + "</td>";
-			str += "<td>" + couponStartTime + "</td>";
-			str += "<td>" + couponEndTime + "</td>";
+			str += "<td>" + formatDate(coupon[i].couponStartTime) + "</td>";
+			str += "<td>" + formatDate(coupon[i].couponEndTime) + "</td>";
 			if(coupon[i].couponStatus=="true"){	
 				str += "<td>有效</td>";
 				}
@@ -391,7 +541,7 @@
 		}
 		$("#couponBody").html(str);
 	};
-	//綁定修改按鍵
+	//綁定修改按鍵(JSON格式)
 	function bindUpdateBtn(){;	
 		for(let i = 0; i < coupon.length; i++) {
 			$("#updateCouponBtn"+coupon[i].couponPkId).click(function(){
@@ -399,8 +549,8 @@
 				$("#u_couponName").val(coupon[i].couponName);
 				$("#u_couponContext").val(coupon[i].couponContext);
 				$("#u_couponCode").val(coupon[i].couponCode);
-				$("#u_couponStartTime").val(coupon[i].couponStartTime);
-				$("#u_couponEndTime").val(coupon[i].couponEndTime);
+				$("#u_couponStartTime").val(formatDate(coupon[i].couponStartTime));
+				$("#u_couponEndTime").val(formatDate(coupon[i].couponEndTime));
 				if(coupon[i].couponStatus=="true"){					
 					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(2)').prop("checked",true);									
 					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(3)').prop("checked",false);									
@@ -411,12 +561,29 @@
 				}															
 				$("#updateCouponFormModal").modal("show");
 				$("#updateCouponButton").click(function(){
-					$("#updateCouponForm").trigger("submit");
-				});
+					if(a_flagName && a_flagContext && a_flagCode && a_flagStartTime && a_flagEndTime){				
+						$("#updateCouponForm").trigger("submit");
+					}else{
+						alert("請正確輸入表格內容!");
+					}
+				});			
 			});
 		};	
 	};
-	
+	//JSON轉換時間格式
+	function formatDate(date) {
+	    var d = new Date(date),
+	        month = '' + (d.getMonth() + 1),
+	        day = '' + d.getDate(),
+	        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+
+	    return [year, month, day].join('-');
+	}
 	</script>
 	</body>
 </html>

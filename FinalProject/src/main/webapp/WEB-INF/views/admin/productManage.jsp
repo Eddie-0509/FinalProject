@@ -329,7 +329,7 @@
 						<tr>
 							<th style='width: 80px;'>序號</th>
 							<th style='width: 100px;'>
-								<select name="h_productCategory" id="h_Category" style="color: gray;">
+								<select name="h_productCategory" id="h_productCategory" style="color: gray;">
 									<option id ="產品類別" value="all" selected="selected">產品類別</option>
 									<option id ="電動牙刷" value="電動牙刷" >電動牙刷</option>
 									<option id ="沖牙機" value="沖牙機">沖牙機</option>
@@ -354,7 +354,7 @@
 								</select>
 							</th>
 							<th style='width: 100px;'>
-								<select name="h_Status" id="h_Status" style="color: gray">
+								<select name="h_status" id="h_status" style="color: gray">
 									<option id ="狀態" value="all" selected="selected">狀態</option>
 									<option id ="上架" value="上架" >上架</option>
 									<option id ="下架" value="下架" >下架</option>
@@ -401,13 +401,12 @@
 		let str = "";
 		for (let i = 0; i < products.length; i++) {
 			let j = i + 1;
-			let localDate = new Date(products[i].productUpdateDate).toLocaleDateString("zh-TW");
 			str += "<tr id='bean"+products[i].productPkId+"'><td>" + j + "</td>";
 			str += "<td>" + products[i].productCategory+ "</td>";
 			str += "<td><p id='productName"+products[i].productPkId+"'>" + products[i].productName+ "</p></td>";
 			str += "<td>" + products[i].productPrice+ "</td>";
 			str += "<td>" + products[i].productQuantity+ "</td>";
-			str += "<td>" + localDate + "</td>";
+			str += "<td>" + formatDate(products[i].productUpdateDate) + "</td>";
 			str += "<td>" + products[i].productStatus+ "</td>";
 			str += "<td><button type='button' class='btn btn-warning' id='updateProductBtn"+products[i].productPkId+"' value='bean"+products[i].productPkId+"'>修改</button></td>"
 			str += "</tr>";
@@ -469,29 +468,31 @@
 	$(document).ready(function(){
 		showData();
 		//依產品類別篩選功能
-		$("#h_Category").change(function(){
-		console.log($("#h_Category option:selected").text());
-		console.log($("#h_Status option:selected").text());
-		fetch("getAllProductsByCategoryAndStatus?"+ "h_productCategory=" + $("#h_Category").val()
-				+ "&h_Status=" + $("#h_Status").val(), {
+		$("#h_productCategory").change(function(){
+		console.log($("#h_productCategory option:selected").text());
+		console.log($("#h_status option:selected").text());
+		fetch("getAllProductsByCategoryAndStatus?"+ "h_productCategory=" + $("#h_productCategory").val()
+				+ "&h_status=" + $("#h_status").val(), {
 			method : "GET"
 			}).then(function(response) {
 				return response.json();
 				}).then(function(data) {
+					$("#searchBar").val("");
 					products = data;
 					showData();
 					});	
 		});
 		//依產品狀態篩選功能
-		$("#h_Status").change(function(){
-		console.log($("#h_Category option:selected").text());
-		console.log($("#h_Status option:selected").text());
-		fetch("getAllProductsByCategoryAndStatus?"+ "h_productCategory=" + $("#h_Category").val() 
-				+ "&h_Status=" + $("#h_Status").val(), {
+		$("#h_status").change(function(){
+		console.log($("#h_productCategory option:selected").text());
+		console.log($("#h_status option:selected").text());
+		fetch("getAllProductsByCategoryAndStatus?"+ "h_productCategory=" + $("#h_productCategory").val() 
+				+ "&h_status=" + $("#h_status").val(), {
 			method : "GET"
 			}).then(function(response) {
 				return response.json();
 				}).then(function(data) {
+					$("#searchBar").val("");
 					products = data;
 					showData();
 					});	
@@ -506,6 +507,18 @@
 					}).then(function(data) {
 						$("#searchResult").html("");
 						products = data;
+						if($("#h_updateTime option:selected").text()!="更新時間"){
+							$("#h_updateTime").prepend("<option id='更新時間' value='更新時間' selected='selected'>更新時間</option>");
+						}
+						if($("#h_price option:selected").text()!="價格"){
+							$("#h_price").prepend("<option id ='價格' value='價格' selected='selected'>價格</option>");
+						}
+						if($("#h_productCategory option:selected").text()!="產品類別"){
+							$("#h_productCategory").prepend("<option id ='更新時間' value='更新時間' selected='selected'>更新時間</option>");
+						}
+						if($("#h_status option:selected").text()!="狀態"){
+							$("#h_status").prepend("<optioin id='狀態' value='狀態' selected='selected'>狀態</option>");
+						}
 						showData();
 						if(products==""){
 							$("#searchResult").html("查無資料!!!");
@@ -795,7 +808,20 @@
 				window.alert("上傳成功");
 			});
 	});
-	
+	//JSON轉換時間格式
+	function formatDate(date) {
+	    var d = new Date(date),
+	        month = '' + (d.getMonth() + 1),
+	        day = '' + d.getDate(),
+	        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+
+	    return [year, month, day].join('-');
+	}
 </script>
 
 </body>

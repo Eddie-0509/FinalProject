@@ -53,6 +53,8 @@ public interface AdminDao {
 		void updateCoupon(Coupon coupon);
 		//折價券模糊查詢
 		List<Coupon> getAllCouponByName(String keyName);
+		//折扣資料依狀態篩選
+		List<Coupon> getAllCouponByStatus(String couponStatus);
 
 		
 }

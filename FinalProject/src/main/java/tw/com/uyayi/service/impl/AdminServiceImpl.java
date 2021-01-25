@@ -117,6 +117,10 @@ public class AdminServiceImpl implements AdminService {
 	public List<Coupon> getAllCouponByName(String keyName) {
 		return adminDao.getAllCouponByName(keyName);
 	}
+	@Override
+	public List<Coupon> getAllCouponByStatus(String couponStatus) {
+		return adminDao.getAllCouponByStatus(couponStatus);
+	}
 
 
 

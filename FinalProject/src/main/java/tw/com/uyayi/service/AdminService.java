@@ -51,7 +51,9 @@ public interface AdminService {
 	void insertCoupon(Coupon coupon);
 	//修改折扣資料
 	void updateCoupon(Coupon coupon);
-	//折價券模糊查詢
+	//折扣資料模糊查詢
 	List<Coupon> getAllCouponByName(String keyName);
+	//折扣資料依狀態篩選
+	List<Coupon> getAllCouponByStatus(String couponStatus);
 	
 }

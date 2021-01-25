@@ -253,6 +253,16 @@ public class AdminDaoImpl implements AdminDao {
 			.getResultList();
 		return list;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Coupon> getAllCouponByStatus(String couponStatus) {
+		String hql = "From Coupon where couponStatus like :cStatus";
+		Session session = factory.getCurrentSession();
+		List<Coupon> list = session.createQuery(hql)
+				.setParameter("cStatus", couponStatus)
+				.getResultList();
+		return list;
+	}
 
 
 
