@@ -161,12 +161,38 @@ public class AdminController {
 		model.addAttribute("clinics",beans);
 		return "admin/clinicManage";
 	}
-	//診所管理頁面(初始值為顯示所有診所資料)
+	//折扣碼管理頁面(初始值為顯示所有折扣碼資料)
 	@GetMapping(value = "/couponManage")
 	public String getAllCoupon(Model model) {
 		List<Coupon> beans = service.getAllCoupon();
 		model.addAttribute("coupon",beans);
 		return "admin/couponManage";
+	}
+	//新增表單
+	@GetMapping("/addCoupon")
+	public String addCoupon(Model model) {
+		Coupon coupon = new Coupon();
+		model.addAttribute("addCoupon",coupon);
+		return "admin/couponManage";
+	}
+	//新增折扣功能
+	@PostMapping(value = "/addCoupon")
+	public String addCoupon(@ModelAttribute("addCouponForm") Coupon coupon) {
+		service.insertCoupon(coupon);	
+		return "redirect:/couponManage";
+	}
+	//新增折扣表單
+	@GetMapping("/updateCoupon")
+	public String updateCoupon(Model model) {
+		Coupon coupon = new Coupon();
+		model.addAttribute("addCoupon",coupon);
+		return "admin/couponManage";
+	}
+	//新增折扣功能
+	@PostMapping(value = "/updateCoupon")
+	public String updateCoupon(@ModelAttribute("updateCouponForm") Coupon coupon) {
+		service.updateCoupon(coupon);	
+		return "redirect:/couponManage";
 	}
 	
 }

@@ -133,18 +133,13 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
-<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>				<li class="animate-box "><a href="<c:url value='index'/>"
-					class="transition">Home</a></li>
-				<li class="animate-box fh5co-active"><a
-					href="<c:url value='productManage'/>" class="transition">商品管理</a></li>
-				<li class="animate-box"><a href="<c:url value='memberManage'/>"
-					class="transition">會員管理</a></li>
-				<li class="animate-box"><a href="<c:url value='clinicManage'/>"
-					class="transition">診所管理</a></li>
-				<li class="animate-box"><a
-					href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
-				<li class="animate-box"><a href="<c:url value='memberLogout'/>"
-					class="transition style-logout">登出</a></li>
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
+				<li class="animate-box"><a href="<c:url value='index'/>" class="transition">Home</a></li>
+				<li class="animate-box fh5co-active"><a href="<c:url value='productManage'/>" class="transition">商品管理</a></li>
+				<li class="animate-box"><a href="<c:url value='memberManage'/>" class="transition">會員管理</a></li>
+				<li class="animate-box"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
+				<li class="animate-box"><a href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
+				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
 			</ul>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
@@ -392,9 +387,9 @@
 				</div>
 			</div>
 		</footer>
-
-	</div>
-<script>
+	
+		</div>
+	<script>
 	let model = ${products};
 	let products = model.product;
 	
@@ -418,7 +413,7 @@
 		$("#productBody").html(str);
 			//綁定修改按鍵
 		for(let i = 0; i < products.length; i++) {
-			$("#updateProductBtn"+products[i].productPkId).click(function(){	
+			$("#updateProductBtn"+products[i].productPkId).click(function(){
 				$("#u_"+products[i].productCategory).attr("selected","selected");
 				$("#u_productName").val(products[i].productName);
 				$("#u_productProfile").val(products[i].productProfile);
@@ -428,9 +423,11 @@
 				$("#u_productId").val(products[i].productPkId);
 				let launched = "下架";
 				if(launched==products[i].productStatus){
-					$('input:radio[name=productStatus][0]').checked = true;									
+					$('#updateProduct > div > div > div:nth-child(7) > input[type=radio]:nth-child(2)').prop("checked",true);
+					$('#updateProduct > div > div > div:nth-child(7) > input[type=radio]:nth-child(3)').prop("checked",false);
 				}else{
-					$('input:radio[name=productStatus][1]').checked = true;																		
+					$('#updateProduct > div > div > div:nth-child(7) > input[type=radio]:nth-child(2)').prop("checked",false);
+					$('#updateProduct > div > div > div:nth-child(7) > input[type=radio]:nth-child(3)').prop("checked",true);																	
 				}
 				$("#u_preview_productImg").attr("src",products[i].productImage);
 				$("#u_hiddenProductImage").val(products[i].productImage);

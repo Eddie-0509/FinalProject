@@ -104,7 +104,16 @@ public class AdminServiceImpl implements AdminService {
 	public List<Coupon> getAllCoupon() {
 		return adminDao.getAllCoupon();
 	}
-	
+	@Override
+	public void insertCoupon(Coupon coupon) {
+		adminDao.insertCoupon(coupon);
+	}
+	@Override
+	public void updateCoupon(Coupon coupon) {
+		adminDao.updateCoupon(coupon);
+		
+	}
+
 
 
 

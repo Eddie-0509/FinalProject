@@ -217,7 +217,32 @@ public class AdminDaoImpl implements AdminDao {
 			.getResultList();
 		return list;
 	}
-	
+	@Override
+	public void insertCoupon(Coupon coupon) {
+		Session session = factory.getCurrentSession();
+		session.save(coupon);
+	}
+	@Override
+	public void updateCoupon(Coupon coupon) {
+		Session session = factory.getCurrentSession();
+		String hql = "Update Coupon Set couponName =:cName,"
+				+ "couponContext =:cContext,"
+				+ "couponCode =:cCode,"
+				+ "couponStartTime =:cStartTime,"
+				+ "couponEndTime =:cEndTime,"
+				+ "couponStatus =:cStatus  "
+				+ "Where couponPkId =:cId";			
+		session.createQuery(hql)
+			.setParameter("cName", coupon.getCouponName())
+			.setParameter("cContext", coupon.getCouponContext())
+			.setParameter("cCode", coupon.getCouponCode())
+			.setParameter("cStartTime", coupon.getCouponStartTime())
+			.setParameter("cEndTime", coupon.getCouponEndTime())
+			.setParameter("cStatus", coupon.getCouponStatus())
+			.setParameter("cId", coupon.getCouponPkId())
+			.executeUpdate();
+	}
+
 
 
 

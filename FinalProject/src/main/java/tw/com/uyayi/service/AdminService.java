@@ -45,7 +45,11 @@ public interface AdminService {
 	Member getMemberById(int memberPkId);
 	//取得所有診所資料
 	List<Clinic> getAllClinic();
-	//取得所有折價券資料
+	//取得所有折扣資料
 	List<Coupon> getAllCoupon();
+	//新增折扣資料
+	void insertCoupon(Coupon coupon);
+	//修改折扣資料
+	void updateCoupon(Coupon coupon);
 	
 }
