@@ -33,6 +33,7 @@ public class Member {
 	private String memberAddress;
 	private String memberPhone;
 	private String memberStatus;
+	private String memberLineId;
 	
 	
 	@JsonIgnore
@@ -119,6 +120,14 @@ public class Member {
 	}
 	public void setMemberStatus(String memberStatus) {
 		this.memberStatus = memberStatus;
+	}
+
+	public String getMemberLineId() {
+		return memberLineId;
+	}
+
+	public void setMemberLineId(String memberLineId) {
+		this.memberLineId = memberLineId;
 	}
 
 	public Set<Appointment> getAppointments() {

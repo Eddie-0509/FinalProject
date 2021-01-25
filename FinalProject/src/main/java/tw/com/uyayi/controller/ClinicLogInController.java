@@ -119,7 +119,7 @@ public class ClinicLogInController {
 	return "redirect:/resetSuccess";
 	}
 	
-	@GetMapping("resetSuccess")
+	@GetMapping("/resetSuccess")
 	public String turnToresetSuccess() {
 		return "clinic/resetSuccess";
 	}

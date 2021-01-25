@@ -132,6 +132,12 @@
 
 <!--首頁文字輪播、modal js bySCONE-->
 <script src="js/hpother.js"></script>
+<!-- 彩色modal的JS -->
+<link rel="stylesheet" href="css/calendar_confirm-modal.css">
+<script src="js/confirmNewDentist.js"></script>
+<script src="js/deleteDentist.js"></script>
+<script src="js/reviseDentist.js"></script>
+
 <style>
 .tableWidth{
 width: 120px;
@@ -391,7 +397,7 @@ a.oneClick{
 	        	
 	        </div>
 	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal" id="reviseFormSubmit">確定新增</button>
+	        	<button type="button" class="btn btn-default contactMember" id="reviseFormSubmit">修改</button>
 	            <input type="reset" class="btn btn-default" id="clearReviseForm" value="清空">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        </div>
@@ -498,12 +504,48 @@ a.oneClick{
 		</footer>
 	</div>
 	<script>
+		async function confirmNew() {
+	        this.myModal = new confirmNewDentist("確認", "確認新增醫師?", "是", "否");
+
+	        try {
+	          const modalResponse = await myModal.question();
+	        } catch(err) {
+	          console.log(err);
+	        }
+	        
+	      }
+		
+		async function reviseDentistConform() {
+	        this.reviseDentistModal = new reviseDentist("確認", "確認修改醫師資料?", "是", "否");
+
+	        try {
+	          const modalResponse = await reviseDentistModal.question();
+	        } catch(err) {
+	          console.log(err);
+	        }
+	        
+	      }
+		
+		async function deleteDentistConform() {
+	        this.deleteDentistModal = new deleteDentist("確認", "確認要刪除醫師?", "是", "否");
+
+	        try {
+	          const modalResponse = await deleteDentistModal.question();
+	        } catch(err) {
+	          console.log(err);
+	        }
+	        
+	      }
 	$(function(){
+		
+		
 	$("#deleteDoctor").click(function(){
-		$("#deleteForm").trigger("submit");
+		deleteDentistConform();
+// 		$("#deleteForm").trigger("submit");
 	});
 	$("#newSubmit").click(function(){
-	$("#dentistForm").trigger("submit");
+		confirmNew();
+// 	$("#dentistForm").trigger("submit");
 	});
 	$("#clearForm").click(function(){
 	$("#dentistForm").trigger("reset");
@@ -514,7 +556,8 @@ a.oneClick{
 	});
 	
 	$("#reviseFormSubmit").click(function(){
-		$("#reviseForm").trigger("submit");
+		reviseDentistConform();
+		// 		$("#reviseForm").trigger("submit");
 	});
 	
 	$("#clearReviseForm").click(function(){
@@ -550,10 +593,12 @@ a.oneClick{
 		};
 	});
 	</c:forEach>
+	
+	
 	<c:forEach step="1" begin="2" end="8" var="j">
 	$("#reviseForm > table > thead > tr:nth-child(2) > th:nth-child("+${j}+") > a").click(function(){
 		for (var i = 1; i < 9; i++) {
-			if($("#dentistForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j}+") > input[type=checkbox]").prop("checked")){
+			if($("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j}+") > input[type=checkbox]").prop("checked")){
 		$("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j}+") > input[type=checkbox]").prop("checked", false);
 			}else $("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j}+") > input[type=checkbox]").prop("checked", true);
 		};
@@ -574,7 +619,7 @@ a.oneClick{
 		for (var i = 22; i < 29; i++) {
 			if($("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked")){
 		$("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked", false);
-			}else $("#dentistForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked", true);
+			}else $("#reviseForm > table > tbody > tr:nth-child("+i+") > td:nth-child("+${j+1}+") > input[type=checkbox]").prop("checked", true);
 		};
 	});
 	</c:forEach>
