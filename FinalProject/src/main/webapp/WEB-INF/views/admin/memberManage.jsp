@@ -224,6 +224,7 @@
 	 			});
 			}
 		});
+		//模糊搜尋會員姓名
 		$("#searchData").click(function(){
 			console.log($("#searchBar").val());
 			let urlQuery = new URLSearchParams({
@@ -237,6 +238,9 @@
 				return response.json();
 			}).then(function(data) {
 				members = data;
+				if($("#h_memberStatus option:selected").val()!="狀態"){
+					$("#狀態").prop("selected","selected");
+				}
 				showData();
 			});
 		});

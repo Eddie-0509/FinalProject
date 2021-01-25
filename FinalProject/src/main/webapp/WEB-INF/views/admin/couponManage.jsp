@@ -444,6 +444,9 @@
 		}).then(function(response) {
 			return response.json();
 		}).then(function(data) {
+			if($("#h_couponStatus option:selected").text()!="狀態'"){
+				$("#狀態").prop("selected","selected");
+			}
 			$("#searchResult").html("");
 			coupon = data;
 			showData();
