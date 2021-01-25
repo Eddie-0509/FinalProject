@@ -51,6 +51,8 @@ public interface AdminDao {
 		void insertCoupon(Coupon coupon);
 		//修改折扣資料
 		void updateCoupon(Coupon coupon);
+		//折價券模糊查詢
+		List<Coupon> getAllCouponByName(String keyName);
 
 		
 }

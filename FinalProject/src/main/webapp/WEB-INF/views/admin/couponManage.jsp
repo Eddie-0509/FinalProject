@@ -154,7 +154,7 @@
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponContext"><strong>折扣內容:</strong></label><span id="a_checkContext"></span><br>
-						<input type="text" id="a_couponContext" name="couponContext" placeholder="請輸入折扣內容" style="width: 90%"/><br/>						
+						<input type="number" step="0.01" min="0" max="1" id="a_couponContext" name="couponContext" placeholder="請輸入折扣內容" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponCode"><strong>折扣碼:</strong></label><span id="a_checkCode"></span><br>
@@ -197,7 +197,7 @@
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponContext"><strong>折扣內容:</strong></label><span id="u_checkContext"></span><br>
-						<input type="text" id="u_couponContext" name="couponContext" placeholder="請輸入折扣內容" style="width: 90%"/><br/>						
+						<input type="number" step="0.01" min="0" max="1" id="u_couponContext" name="couponContext" placeholder="請輸入折扣內容" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponCode"><strong>折扣碼:</strong></label><span id="u_checkCode"></span><br>
@@ -213,8 +213,8 @@
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponStatus"><strong>折扣狀態:</strong></label>
-						<input type="radio"  name="couponStatus" value="有效" checked="checked">有效
-						<input type="radio"  name="couponStatus" value="失效">失效
+						<input type="radio"  name="couponStatus" value="true" checked="checked">有效
+						<input type="radio"  name="couponStatus" value="false">無效
 						</div>
 						<input id="u_couponPkId" name="couponPkId" hidden="hidden">
 					</div>
@@ -233,7 +233,7 @@
 			<div id="container" class="container" style='width: 1000px;'>
 				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
 				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
-				<button type="button" id="addCouponForm" class="btn btn-success">新增折扣碼</button>
+				<button type="button" id="addCoupon" class="btn btn-success">新增折扣碼</button>
 				<table class='table table-bordered' id='showAllCouponTable' >
 					<thead>
 						<tr>
@@ -246,8 +246,8 @@
 							<th style='width: 100px;'>
 							<select name="h_couponStatus" id="h_couponStatus">
 									<option id ="狀態" value="狀態" selected="selected">狀態</option>
-									<option id ="有效" value="有效" >有效</option>
-									<option id ="失效" value="失效" >失效</option>
+									<option id ="有效" value="true" >有效</option>
+									<option id ="無效" value="false" >無效</option>
 								</select>
 							</th>
 							<th style='width: 100px;'></th>
@@ -257,6 +257,8 @@
 						
 					</tbody>
 				</table>
+				<div id="searchResult">
+				</div>
 			</div>
 		</div>
 
@@ -286,20 +288,42 @@
 
 	</div>
 	<script>
+
+
+	//模糊搜尋功能
+	$("#searchData").click(function(){
+		console.log($("#searchBar").val());
+		fetch("getAllCouponByName?"+ "keyName=" + $("#searchBar").val(), {
+			method : "GET"
+			}).then(function(response) {
+				return response.json();
+				}).then(function(data) {
+					$("#searchResult").html("");
+					coupon = data;
+					showData();
+					bindUpdateBtn();
+					if(data==""){
+							$("#searchResult").html("查無資料!!!");
+						}
+					});	
+	});
 	$(function(){
-		showData();
-		bindUpdateBtn();
-		$("#addCouponForm").click(function(){
+		showRawData();
+		bindRawUpdateBtn();
+		$("#addCoupon").click(function(){
 			$("#addCouponFormModal").modal("show");
 		});
 	
 		$("#addCouponButton").click(function(){
 			$("#addCouponForm").trigger("submit");
 		});
+		$("#u_couponContext").blur(function(){
+			console.log($("#u_couponContext").val());
+		});
 	
 	});
 	
-	function showData(){
+	function showRawData(){
 		let str = "";
 		<c:forEach var="coupon" items="${coupon}">
 			str += "<tr>";
@@ -309,13 +333,18 @@
 			str += "<td>${coupon.couponContext}</td>";
 			str += "<td>${coupon.couponStartTime}</td>";
 			str += "<td>${coupon.couponEndTime}</td>";
-			str += "<td>${coupon.couponStatus}</td>";
+			<c:if test="${coupon.couponStatus == 'true'}">
+					str += "<td>有效</td>";
+			</c:if>
+			<c:if test="${coupon.couponStatus == 'false'}">
+					str += "<td>無效</td>";
+			</c:if>
 			str += "<td><button type='button' class='btn btn-warning' id='updateCouponBtn${coupon.couponPkId}'>修改</button></td>";
 			str += "<tr>";
 		$("#couponBody").html(str); 
 		</c:forEach>
 	};
-	function bindUpdateBtn(){
+	function bindRawUpdateBtn(){
 		<c:forEach var="coupon" items="${coupon}">
 			$("#updateCouponBtn${coupon.couponPkId}").click(function(){
 				$("#u_couponPkId").val("${coupon.couponPkId}");
@@ -324,15 +353,14 @@
 				$("#u_couponCode").val("${coupon.couponCode}");
 				$("#u_couponStartTime").val("${coupon.couponStartTime}");
 				$("#u_couponEndTime").val("${coupon.couponEndTime}");
-				let status="有效";
-				if(${coupon.couponStatus}==status){
+				<c:if test="${coupon.couponStatus == 'true'}">
 					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(2)').prop("checked",true);									
 					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(3)').prop("checked",false);									
-				}else{
+				</c:if>
+				<c:if test="${coupon.couponStatus == 'false'}">
 					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(2)').prop("checked",false);									
 					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(3)').prop("checked",true);									
-																						
-				}
+				</c:if>																	
 				$("#updateCouponFormModal").modal("show");
 				$("#updateCouponButton").click(function(){
 					$("#updateCouponForm").trigger("submit");
@@ -340,7 +368,54 @@
 			});
 		</c:forEach>
 	};
-	
+	//顯示折扣資料(JSON格式)
+	function showData(){			
+		let str = "";
+		for (let i = 0; i < coupon.length; i++) {
+			let couponStartTime = new Date(coupon[i].couponStartTime).toLocaleDateString("zh-TW");
+			let couponEndTime = new Date(coupon[i].couponEndTime).toLocaleDateString("zh-TW");
+			str += "<tr><td>" + coupon[i].couponPkId + "</td>";
+			str += "<td>" + coupon[i].couponName + "</td>";
+			str += "<td>" + coupon[i].couponCode + "</td>";
+			str += "<td>" + coupon[i].couponContext + "</td>";
+			str += "<td>" + couponStartTime + "</td>";
+			str += "<td>" + couponEndTime + "</td>";
+			if(coupon[i].couponStatus=="true"){	
+				str += "<td>有效</td>";
+				}
+			if(coupon[i].couponStatus=="false"){
+				str += "<td>無效</td>";
+				}
+			str += "<td><button type='button' class='btn btn-warning' id='updateCouponBtn"+coupon[i].couponPkId+"'>修改</button></td>";
+			str += "</tr>";
+		}
+		$("#couponBody").html(str);
+	};
+	//綁定修改按鍵
+	function bindUpdateBtn(){;	
+		for(let i = 0; i < coupon.length; i++) {
+			$("#updateCouponBtn"+coupon[i].couponPkId).click(function(){
+				$("#u_couponPkId").val(coupon[i].couponPkId);
+				$("#u_couponName").val(coupon[i].couponName);
+				$("#u_couponContext").val(coupon[i].couponContext);
+				$("#u_couponCode").val(coupon[i].couponCode);
+				$("#u_couponStartTime").val(coupon[i].couponStartTime);
+				$("#u_couponEndTime").val(coupon[i].couponEndTime);
+				if(coupon[i].couponStatus=="true"){					
+					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(2)').prop("checked",true);									
+					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(3)').prop("checked",false);									
+				}
+				if(coupon[i].couponStatus=="false"){					
+					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(2)').prop("checked",false);									
+					$('#updateCouponForm > div > div > div:nth-child(6) > input[type=radio]:nth-child(3)').prop("checked",true);									
+				}															
+				$("#updateCouponFormModal").modal("show");
+				$("#updateCouponButton").click(function(){
+					$("#updateCouponForm").trigger("submit");
+				});
+			});
+		};	
+	};
 	
 	</script>
 	</body>

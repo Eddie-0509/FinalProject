@@ -367,6 +367,8 @@
 						
 					</tbody>
 				</table>
+				<div id="searchResult">
+				</div>
 			</div>
 		</div>
 
@@ -502,8 +504,12 @@
 				}).then(function(response) {
 					return response.json();
 					}).then(function(data) {
+						$("#searchResult").html("");
 						products = data;
 						showData();
+						if(products==""){
+							$("#searchResult").html("查無資料!!!");
+						}
 						});	
 		});
 		$("#addProductBtn").click(function(){

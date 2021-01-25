@@ -19,7 +19,7 @@ public interface AdminService {
 	List<Products> getAllProductsByStatus(String h_Status);
 	//By類別及狀態取得產品資料
 	List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_Status);
-	//模糊查詢
+	//商品模糊查詢
 	List<Products> getAllProductsByName(String keyName);
 	//AutoComplete功能
 	List<String> getProdcutName(String keyName);
@@ -51,5 +51,7 @@ public interface AdminService {
 	void insertCoupon(Coupon coupon);
 	//修改折扣資料
 	void updateCoupon(Coupon coupon);
+	//折價券模糊查詢
+	List<Coupon> getAllCouponByName(String keyName);
 	
 }

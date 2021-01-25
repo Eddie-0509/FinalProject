@@ -74,6 +74,7 @@ public class AdminDaoImpl implements AdminDao {
 				.getResultList();
 		return list;
 	}
+	//未使用
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getProductName(String keyName) {
@@ -241,6 +242,16 @@ public class AdminDaoImpl implements AdminDao {
 			.setParameter("cStatus", coupon.getCouponStatus())
 			.setParameter("cId", coupon.getCouponPkId())
 			.executeUpdate();
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Coupon> getAllCouponByName(String keyName) {
+		String hql = "From Coupon where couponName like :cName";
+		Session session = factory.getCurrentSession();
+		List<Coupon> list = session.createQuery(hql)
+			.setParameter("cName", "%"+keyName+"%")
+			.getResultList();
+		return list;
 	}
 
 

@@ -181,18 +181,29 @@ public class AdminController {
 		service.insertCoupon(coupon);	
 		return "redirect:/couponManage";
 	}
-	//新增折扣表單
+	//修改折扣表單
 	@GetMapping("/updateCoupon")
 	public String updateCoupon(Model model) {
 		Coupon coupon = new Coupon();
 		model.addAttribute("addCoupon",coupon);
 		return "admin/couponManage";
 	}
-	//新增折扣功能
+	//修改折扣功能
 	@PostMapping(value = "/updateCoupon")
 	public String updateCoupon(@ModelAttribute("updateCouponForm") Coupon coupon) {
+		System.out.println(coupon.getCouponContext());
 		service.updateCoupon(coupon);	
 		return "redirect:/couponManage";
 	}
-	
+	//折扣模糊搜尋
+	@GetMapping(value ="/getAllCouponByName")
+	public @ResponseBody List<Coupon> getAllCouponByName(@RequestParam String keyName) {
+		List<Coupon> beans= null;
+		if(keyName.equals("")) {
+			beans = service.getAllCoupon();
+		}else {
+			beans = service.getAllCouponByName(keyName);
+		}
+		return beans;
+	}
 }

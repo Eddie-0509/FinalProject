@@ -113,6 +113,10 @@ public class AdminServiceImpl implements AdminService {
 		adminDao.updateCoupon(coupon);
 		
 	}
+	@Override
+	public List<Coupon> getAllCouponByName(String keyName) {
+		return adminDao.getAllCouponByName(keyName);
+	}
 
 
 
