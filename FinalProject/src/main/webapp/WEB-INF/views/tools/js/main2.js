@@ -50,7 +50,7 @@
 
 		
 		if ( $.cookie('styleCookie') !== undefined ) {
-			if ( $.cookie('styleCookie') === 'style-light.css'  ) { 
+			if ( $.cookie('styleCookie') === 'style-light2.css'  ) { 
 				$("#logo").attr('src','images/UYAYI_white.png');
 				$('.js-style-toggle').attr('data-style', 'light');
 //				Chart.defaults.global.defaultFontColor = 'black';
@@ -78,7 +78,7 @@
 			if ( data === 'default') {
 
 				// switch to light
-				style = 'style-light.css';
+				style = 'style-light2.css';
 				$this.attr('data-style', 'light');
 				$("#logo").attr('src','images/UYAYI_white.png');
 //				Chart.defaults.global.defaultFontColor = 'black';
@@ -89,7 +89,7 @@
 
 			} else {
 				// switch to dark color
-				style = 'style.css';
+				style = 'style2.css';
 				$this.attr('data-style', 'default');
 				$("#logo").attr('src','images/UYAYI_black.png');
 //				Chart.defaults.global.defaultFontColor = 'white';

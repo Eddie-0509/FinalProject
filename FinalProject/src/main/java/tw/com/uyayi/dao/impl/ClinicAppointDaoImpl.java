@@ -26,6 +26,7 @@ import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
+import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.TimeTable;
 
 @Repository
@@ -34,6 +35,7 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 	@Autowired
 	SessionFactory factory ;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public LinkedHashSet<Items> getClinicItem(Clinic clinic) {
 		Session session=factory.getCurrentSession();
@@ -138,14 +140,20 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 
 	   System.out.println("名字："+thisDen.get(0).getDentistName());
 	   
+	   List<TimeTable> interval =new ArrayList<TimeTable>();
 	   //把該醫生該時間段的內容存成MAP
 	   Set<TimeTable> timeTables = thisDen.get(0).getTimeTables();
-	   List<TimeTable> interval =timeTables.stream().filter(a -> a.getTimeInterval().equals(timeInterval)).collect(Collectors.toList());;			   
+	   if(timeInterval.equals("anytime")) {
+		   interval =timeTables.stream().collect(Collectors.toList());
+	   }else {
+		   interval =timeTables.stream().filter(a -> a.getTimeInterval().equals(timeInterval)).collect(Collectors.toList());		   
+	   }
 	   Collections.sort(interval, new Comparator<TimeTable>() {
            public int compare(final TimeTable object1, final TimeTable object2) {
                return object1.getTimes().compareToIgnoreCase(object2.getTimes());
            }
        });
+		   
 	   LinkedHashMap<String,List<String>> weekDayTimeMap = new LinkedHashMap<String,List<String>>();
 	   List<String> sunDayTimeMapList=new LinkedList<String>();
 	   List<String> monDayTimeMapList=new LinkedList<String>();
@@ -332,9 +340,16 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 		return list.get(0);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addAppointment(Appointment np) {
-		Session session = factory.getCurrentSession();
+		Session session=factory.getCurrentSession();
+		String hql="from Member m where m.memberIdNumber =:idnum";
+		List<Member> list=session.createQuery(hql).setParameter("idnum",np.getPatientIdNumber()).getResultList();
+		if(!list.isEmpty()) {
+			np.setMemberBean(list.get(0));
+		}
+
 		session.save(np);		
 	}
 

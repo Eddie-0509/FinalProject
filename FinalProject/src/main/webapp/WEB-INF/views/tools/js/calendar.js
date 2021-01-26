@@ -379,7 +379,7 @@ $(document).ready(function(){
 
 	 function contactMember(){
  			   $("#ContactModalTitle").text("傳送郵件");	  
- 			   $("#ContactModalBody").html('請輸入內容：<br><textarea name="text" rows=5 style="width:90%;resize:none" id="mailText"></textarea>');	  
+ 			   $("#ContactModalBody").html('請輸入內容：<br><textarea name="text" rows=5 style="width:90%;resize:none" id="mailText">'+patientName+'您好：'+'\n\t'+'\n'+clinicName+'</textarea><br><a onclick="comeLatter()">看診延後通知</a>&nbsp;&nbsp;<a onclick="dotakyann()">臨時取消通知</a>');	  
  			   $("#ContactModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default mailMember" onclick="mailMember()">寄出</button><button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>');
  		}
 
@@ -427,10 +427,10 @@ function mailMember(){
 					 }
              	}else{
              	 	$("#qmodalTitle").text(result[0].memberBean.memberName+"的預約紀錄");
-	             	 $("#qmodalBody").html('<table id="queryTable"><thead><tr><th>預約日期</th><th>預約時間</th><th>預約醫師</th><th>預約項目</th><th>刪除預約</th></tr></thead><tbody></tbody></table>')
-					 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger" onclick="openDeleteConfirmModalInQ.call(this)">刪除</button></td><td hidden>'+result[0].appointmentPkId+'</td></tr>')
+	             	 $("#qmodalBody").html('<table id="queryTable"><thead><tr><th>預約日期</th><th>預約時間</th><th>預約醫師</th><th>預約項目</th></tr></thead><tbody></tbody></table>')
+					 $("#queryTable tbody").append('<tr><td>'+formatDate(result[0].appointDate)+'</td><td>'+result[0].timeTableBean.times+'</td><td>'+result[0].dentistBean.dentistName+'</td><td>'+result[0].itemBean.itemName+'</td></tr>')
 					 for(let i=1;i<result.length;i++){
-					 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td><td><button type="button" class="btn btn-danger" onclick="openDeleteConfirmModalInQ.call(this)">刪除</button></td><td hidden>'+result[i].appointmentPkId+'</td></tr>')
+					 	$("#queryTable tr:last").after('<tr><td>'+formatDate(result[i].appointDate)+'</td><td>'+result[i].timeTableBean.times+'</td><td>'+result[i].dentistBean.dentistName+'</td><td>'+result[i].itemBean.itemName+'</td><td></tr>')
 					 }
              	}
 				 $("#queryAppointment").remove();
@@ -445,5 +445,10 @@ function mailMember(){
 	}
 	
 	
-	
+	function comeLatter(){
+		$("#mailText").html(patientName+"您好："+'\n\t'+"由於先前患者的看診時間有所延誤，因此請您晚ＯＯ分鐘前來報到，謝謝。"+'\n'+clinicName)
+	}
+	function dotakyann(){
+		$("#mailText").html(patientName+"您好："+'\n\t'+"由於今日醫師臨時有事，因此取消今日的看診，很抱歉造成您的不便，還請您多多見諒，謝謝。"+'\n'+clinicName)
+	}
 	

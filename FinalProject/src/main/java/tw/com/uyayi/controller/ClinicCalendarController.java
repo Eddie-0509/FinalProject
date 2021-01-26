@@ -108,9 +108,10 @@ public class ClinicCalendarController {
 	//寄信給會員
 	@GetMapping(path = "/sendEmail", produces = "application/json")
 	public @ResponseBody String sendEmail(
+			@ModelAttribute("loginOK") Clinic clinic,
 			@RequestParam("email") String email , @RequestParam("text") String text) {
-//		 	 Mail mail=new Mail();
-//		 	 mail.sendMail(email, "【UYAYI】來自診所的通知", text);
+		 	 Mail mail=new Mail();
+		 	 mail.sendMail(email, "【UYAYI】來自"+clinic.getClinicName()+"的通知", text);
 		 	 System.out.println(email+text);
 		 	 
 		 	 return null;

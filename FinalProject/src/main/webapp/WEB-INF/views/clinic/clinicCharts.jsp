@@ -145,11 +145,11 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
-				<select id="year">
+				<select id="year" style="color:black">
 					<option >2020</option>
 					<option selected>2021</option>
 				</select>
-				<select id="month">
+				<select id="month" style="color:black">
 					<option >01</option>
 					<option selected>02</option>
 					<option >03</option>
@@ -363,6 +363,9 @@
 			}	
 		})
 	}
+	
+	Chart.defaults.global.defaultFontColor = '#0066CC';
+	Chart.defaults.global.defaultFontStyle = 'Bold'
 	</script>
 	
 	</body>

@@ -228,14 +228,15 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   z-index: 99;
   height:10rem;
-  background-color: rgba(255,255,255,0.97);
-  padding:2rem 0;
+  background-color: #FCFCFC;
+/*   padding:2rem 0; */
 }
 #fh5co-nav ul {
   padding: 0;
   margin: 0;
   padding-inline-start: 0;
-  
+  position: relative;
+  top:-2rem;
 }
 #fh5co-nav ul li {
   padding: 0;
@@ -607,7 +608,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
 }
 .fh5co-project .fh5co-text p {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 1);
 }
 
 #fh5co-main,
@@ -988,7 +989,9 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0;
 }
 
-
+/* canvas{ */
+/* 	background-color: ghostwhite */
+/* } */
 
 /*# sourceMappingURL=style.css.map */
 
@@ -1012,10 +1015,88 @@ h1, h2, h3, h4, h5, h6 {
 /*   } */
 /* } */
 
-.modal-dialog a:hover{
-	color:black
+#logo{
+	float:left;
+	position: absolute; 
+	left: 7.5%; 
+	top: 17.6px;
 }
 
-.modal-dialog a{
-border-bottom: 2px solid rgba(0, 0, 0, 0.1)
+/* @media screen and (max-width: 1064px) { */
+	
+/* #logo{ */
+
+/* 	left: 20%;  */
+
+/* }	 */
+/* } */
+@media screen and (max-width: 768px) {
+	
+#logo{
+
+	left: 27.8%; 
+
+}	
+	
+/* /left/ */
+.side-collapse-container-left{
+position:relative;
+left:0;
+transition:left .4s;
+}
+.side-collapse-container-left.out{
+left:70%;
+}
+.side-collapse-left {
+top:10rem;
+bottom:0;
+left:0;
+width:30%;
+position:fixed;
+overflow:hidden;
+transition:width .4s;
+}
+.side-collapse-left.in {
+width:0;
+}
+/* /right/ */
+.side-collapse-container-right{
+position:relative;
+right:0;
+transition:right .4s;
+}
+.side-collapse-container-right.out{
+right:70%;
+}
+
+.side-collapse-right {
+top:50px;
+bottom:0;
+right:0;
+width:70%;
+position:fixed;
+overflow:hidden;
+transition:width .4s;
+}
+.side-collapse-right.in {
+width:0;
+}
+#fh5co-nav ul li{
+	display:block;
+}
+
+#navbar-content{
+	background-color:#FCFCFC
+}
+
+#ToggleNavigation{
+	background-color:black
+}
+}
+
+li:hover{
+	background-color:#FCFCFC
+}
+#navbar-content a:hover{
+	background-color:#FCFCFC
 }
