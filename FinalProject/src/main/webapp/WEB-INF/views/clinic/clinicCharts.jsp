@@ -84,7 +84,7 @@
 
 
 	<!-- Main JS  -->
-	<script src="js/main.js"></script>
+	<script src="js/main3.js"></script>
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -145,28 +145,30 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
-				<select id="year" style="color:black">
-					<option >2020</option>
-					<option selected>2021</option>
-				</select>
-				<select id="month" style="color:black">
-					<option >01</option>
-					<option selected>02</option>
-					<option >03</option>
-					<option >04</option>
-					<option >05</option>
-					<option >06</option>
-					<option >07</option>
-					<option >08</option>
-					<option >09</option>
-					<option >10</option>
-					<option >11</option>
-					<option >12</option>
-				</select>
-				<a onclick='getTotal()' >總人數</a>
-				<a onclick='getDentistData()' >醫師</a>
-				<a onclick='getItemData()' >項目</a>
-				<a onclick='get' >性別</a>
+				<button type="button" class="btn btn-info" onclick='getTotal()'>總預約人數</button>
+				<button type="button" class="btn btn-info" onclick='getDentistData()' >醫師預約人數</button>
+				<button type="button" class="btn btn-info" onclick='getItemData()'>項目比例</button>
+				<button type="button" class="btn btn-info">性別比例</button>
+				<div id="totalFilter" style="display:none;text-align:end">
+					<select id="year" style="color:black">
+						<option >2020</option>
+						<option selected>2021</option>
+					</select>年
+					<select id="month" style="color:black">
+						<option >01</option>
+						<option selected>02</option>
+						<option >03</option>
+						<option >04</option>
+						<option >05</option>
+						<option >06</option>
+						<option >07</option>
+						<option >08</option>
+						<option >09</option>
+						<option >10</option>
+						<option >11</option>
+						<option >12</option>
+					</select>月
+				</div>
 						<canvas id="myTotalStackedBar" style="display:none"></canvas>
 						<canvas id="myDentistBar" style="display:none"></canvas>
 						<canvas id="myItemsPie" style="display:none"></canvas>
@@ -202,7 +204,12 @@
 	<script >
 	var days = new Date($("#year").val(),$("#month").val(),0).getDate();
 	
+	$("#year").on("change",getTotal)
+	$("#month").on("change",getTotal)
+	
+	
 	function getTotal(){
+		$("#totalFilter").css("display","block")
 		$('#myTotalStackedBar').remove(); // this is my <canvas> element
 		$('#myDentistBar').after('<canvas id="myTotalStackedBar" style="display:none"></canvas>');
 		$("#myItemsPie").css("display","none")
@@ -231,6 +238,7 @@
 
 				var ctx2 = document.getElementById('myTotalStackedBar').getContext('2d');
 				var myTotalStackedBar = new Chart(ctx2, {
+		
 				    type: 'bar',
 				    data: {				    	
 				        datasets: [
@@ -249,9 +257,24 @@
 				        labels: TotalStackedBarLable
 				    },
 				    options: { 
+				    	 title:{
+				    		    display: true,                 // 顯示標題
+				    		    text:  $("#year").val()+'年'+$("#month").val()+'月預約人數',   
+				    		    position: 'top',            // 在圖表下方顯示
+				    		    fontSize: 30,                  // 字體相關的參數           
+				    		    fontStyle: 'normal',
+// 				    		    fontFamily: 'jf-openHuninn-1.1',
+				    		  },
 				    	scales: {
-					        xAxes: [{ stacked: true }],
+					        xAxes: [{scaleLabel: {
+				                display: true,
+				                labelString: '日期'
+				            }, stacked: true }],
 					        yAxes: [{ 
+					        	scaleLabel: {
+					                display: true,
+					                labelString: '預約人數'
+					            },
 					        	stacked: true ,
 					        	ticks: {
 					        		beginAtZero: true,
@@ -272,6 +295,7 @@
 	}
 	
 	function getItemData(){
+		$("#totalFilter").css("display","none")
 		$("#myTotalStackedBar").css("display","none")
 		$("#myItemsPie").css("display","block")
 		$("#myDentistBar").css("display","none")
@@ -304,8 +328,16 @@
 				        }],
 				        labels: ItemPieLable
 				    },
-				    options: {},
-			
+				    options:  {
+				    	title:{
+			    		    display: true,                 // 顯示標題
+			    		    text:  '預約項目比例',   
+			    		    position: 'top',            // 在圖表下方顯示
+			    		    fontSize: 30,                  // 字體相關的參數           
+			    		    fontStyle: 'normal',
+// 			    		    fontFamily: 'jf-openHuninn-1.1'
+		    		    }
+		    		}
 				});
 				
 			}	
@@ -313,6 +345,7 @@
 	}
 	
 	function getDentistData(){
+		$("#totalFilter").css("display","none")
 		$("#myTotalStackedBar").css("display","none")
 		$("#myDentistBar").css("display","block")
 		$("#myItemsPie").css("display","none")
@@ -344,15 +377,33 @@
 				             barThickness: 6,
 				             maxBarThickness: 8,
 				             minBarLength: 2,
-				        	backgroundColor: '#c78f74',
+				        	backgroundColor: '#FFA042',
 				            data: DentistBarData
 				        	
 				        }],
 				        labels: DentistBarLable
 				    },
 				    options: {
+				    	title:{
+			    		    display: true,                 // 顯示標題
+			    		    text:  '診所醫師預約人數',   
+			    		    position: 'top',            // 在圖表下方顯示
+			    		    fontSize: 30,                  // 字體相關的參數           
+			    		    fontStyle: 'normal',
+// 			    		    fontFamily: 'jf-openHuninn-1.1'
+		    		    },
 				    	scales: {
+				    		xAxes: [{
+					        	scaleLabel: {
+					                display: true,
+					                labelString: '醫師名'
+					            }
+					        }],
 					        yAxes: [{
+					        	scaleLabel: {
+					                display: true,
+					                labelString: '病患人數'
+					            },
 					            ticks: {
 					                beginAtZero:true
 					            }
@@ -364,7 +415,7 @@
 		})
 	}
 	
-	Chart.defaults.global.defaultFontColor = '#0066CC';
+// 	Chart.defaults.global.defaultFontColor = '#0066CC';
 	Chart.defaults.global.defaultFontStyle = 'Bold'
 	</script>
 	

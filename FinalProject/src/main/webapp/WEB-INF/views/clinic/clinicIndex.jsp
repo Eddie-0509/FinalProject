@@ -44,7 +44,7 @@
 	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="shortcut icon" href="tools/favicon.ico">
 	
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
@@ -358,6 +358,7 @@
 					+'<li class="animate-box"><a href="<c:url value="logout"/>" class="transition style-logout">登出</a></li>'
 					)
 		}
+		var Chart=null
   	</script>
 	
 	

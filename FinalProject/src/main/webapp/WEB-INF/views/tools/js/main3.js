@@ -53,15 +53,15 @@
 			if ( $.cookie('styleCookie') === 'style-light.css'  ) { 
 				$("#logo").attr('src','images/UYAYI_white.png');
 				$('.js-style-toggle').attr('data-style', 'light');
-//				if(Chart!=null){
-//					Chart.defaults.global.defaultFontColor = 'black';
-//				}
+				if(Chart!=null){
+					Chart.defaults.global.defaultFontColor = 'black';
+				}
 			} else  {
 				$('.js-style-toggle').attr('data-style', 'default');
 				$("#logo").attr('src','images/UYAYI_black.png');
-//				if(Chart!=null){
-//					Chart.defaults.global.defaultFontColor = 'white';
-//				}
+				if(Chart!=null){
+					Chart.defaults.global.defaultFontColor = 'white';
+				}
 			}
 			$('#theme-switch').attr('href', 'css/' + $.cookie('styleCookie'));
 		} 
@@ -85,9 +85,9 @@
 				style = 'style-light.css';
 				$this.attr('data-style', 'light');
 				$("#logo").attr('src','images/UYAYI_white.png');
-//				if(Chart!=null){
-//					Chart.defaults.global.defaultFontColor = 'black';
-//				}
+				if(Chart!=null){
+					Chart.defaults.global.defaultFontColor = 'black';
+				}
 				// add class active to button
 				$.cookie('btnActive', 'active', { expires: 365, path: '/'});
 				$this.addClass($.cookie('btnActive'));
@@ -98,9 +98,9 @@
 				style = 'style.css';
 				$this.attr('data-style', 'default');
 				$("#logo").attr('src','images/UYAYI_black.png');
-//				if(Chart!=null){
-//					Chart.defaults.global.defaultFontColor = 'white';
-//				}
+				if(Chart!=null){
+					Chart.defaults.global.defaultFontColor = 'white';
+				}
 				// remove class active from button
 				$.removeCookie('btnActive', { path: '/' });
 				$(this).removeClass('active'); 
