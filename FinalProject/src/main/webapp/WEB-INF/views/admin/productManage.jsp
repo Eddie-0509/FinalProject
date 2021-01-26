@@ -47,7 +47,7 @@
 <!-- <meta name="twitter:card" content="" /> -->
 
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+ <link rel="shortcut icon" href="tools/favicon.ico">
 
 <link
 	href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700'

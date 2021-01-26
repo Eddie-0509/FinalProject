@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>U YA MALL</title>
+<link rel="shortcut icon" href="tools/favicon.ico">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
