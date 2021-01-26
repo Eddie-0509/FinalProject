@@ -237,6 +237,7 @@
 			        <form:input type="text" id="patientIdNumber" path="patientIdNumber" placeholder="請輸入身分證字號"/>
 	        </div>
 	        <div class="modal-footer">
+	        	<span ><a href="javascript:void();" id="sconeDemo">demo</a></span>
 	        	<button type="button" class="btn btn-default" id="goToAppoint">預約</button>
 	            <button type="button" class="btn btn-default" data-dismiss="modal" id="queryClose">Close</button>	            
 	        </div>
@@ -385,7 +386,13 @@
 			$("#appFilterResult").css("display","none")
 			$("#appFilter").css("display","block")
 		}
-
+		
+		
+		$("#sconeDemo").on("click",function(){
+			  $("#patientName").val("王毅安");
+			  $("#patientPhone").val("0932100392");
+			  $("#patientIdNumber").val("A209828193");
+		  })
 	</script>
 	
 	</body>

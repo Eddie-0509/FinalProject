@@ -139,7 +139,8 @@
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
-				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>				<li class="animate-box fh5co-active"><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>				
+				<li class="animate-box fh5co-active"><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a data-toggle="modal" data-target="#clinicModal">診所登入</a></li>
 				<li class="animate-box"><a href="<c:url value='/signupFirst'/>" class="transition">診所註冊</a></li>
 			</ul>
@@ -194,6 +195,7 @@
 								<button type="submit" id="logInBtn"><strong>登入</strong></button>
 								<div class="container" >
 									<span ><a href="<c:url value='clinicForgotPwd'/>" class="link">忘記密碼?</a></span>
+									<span ><a href="javascript:void();" id="sconeDemo">Second demo</a></span>
 								</div>
 							</div>
 						</form>
@@ -335,21 +337,26 @@
 		});
 		});
 		
+		
+	  $("#sconeDemo").on("click",function(){
+		  $("#cname").val("Yorozuya@hotmail.com.tw");
+		  $("#cpsw").val("P@ssw0rd456");
+	  })
 	
 	</script>
 	<script>
 		if ("${loginOK}" !=""){
 			console.log("${loginOK}")
-			$("#fh5co-nav").html('<ul>'
-					+'<li><img src="images/UYAYI_white.png" id="logo" width="200" style="float:left;position: absolute; left: 100px; top: 17.6px;"/></li>'
-					+'<li class="animate-box "><a href="<c:url value="clinicIndex"/>" class="transition">Home</a></li>'
-					+'<li class="animate-box fh5co-active"><a href="<c:url value="clinicCalendar"/>" class="transition">約診紀錄</a></li>'
+			$("#fh5co-nav ul").html(
+					'<li><img src="images/UYAYI_white.png" id="logo" width="200" style="float:left;position: absolute; left: 100px; top: 17.6px;"/></li>'
+					+'<li class="animate-box fh5co-active"><a href="<c:url value="clinicIndex"/>" class="transition">Home</a></li>'
+					+'<li class="animate-box "><a href="<c:url value="clinicCalendar"/>" class="transition">約診紀錄</a></li>'
 					+'<li class="animate-box"><a href="<c:url value="clinicAppoint"/>" class="transition">預約新增</a></li>'
 					+'<li class="animate-box"><a href="<c:url value="clinicDetail"/>" class="transition">診所資料</a></li>'
 					+'<li class="animate-box"><a href="<c:url value="getDentist"/>" class="transition">醫師資料</a></li>'
 					+'<li class="animate-box"><a href="<c:url value="clinicCharts"/>" class="transition">報表</a></li>'
 					+'<li class="animate-box"><a href="<c:url value="logout"/>" class="transition style-logout">登出</a></li>'
-					+'</ul>')
+					)
 		}
   	</script>
 	
