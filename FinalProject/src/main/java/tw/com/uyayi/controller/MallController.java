@@ -35,7 +35,7 @@ import tw.com.uyayi.service.MemberService;
 import tw.com.uyayi.service.ProductService;
 
 @Controller
-@SessionAttributes({"LoginOK"})
+@SessionAttributes({"LoginOK", "thisNo"})
 public class MallController {
 	
 	@Autowired
@@ -130,16 +130,19 @@ public class MallController {
 		String num = String.format("%04d", od.size() + 1);
 		orders.setOrderNo(ndate + num);
 		
-		int cId = orders.getCouponId();
+		if (orders.getCouponId() != "") {		
+		int cId = Integer.valueOf(orders.getCouponId());
 		Coupon cp = pService.getCouponById(cId);
 		orders.setCouponBean(cp);
+		}
 
+		model.addAttribute("thisNo", orders.getOrderNo());
 		pService.insertOrder(orders);
 		
 		String allItems[] = (orders.getproducts()).split(",");
 		String allQty[] = (orders.getquantity()).split(",");
 		
-		String plist="";
+		String plist = "";
 		for (int i = 0 ; i < allItems.length ; i++) {
 			detail.setOrderBean(orders);			
 			detail.setProductBean(pService.getProductsById(Integer.valueOf(allItems[i])));
@@ -147,7 +150,7 @@ public class MallController {
 			pService.insertOrderDetail(detail);
 			plist += pService.getProductsById(Integer.valueOf(allItems[i])).getProductName();
 		}	
-		
+
 		LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         String formatDateTime = now.format(formatter);
@@ -159,7 +162,7 @@ public class MallController {
 		obj.setTotalAmount(Integer.toString(orders.getTotalPayment()));
 		obj.setTradeDesc("test Description");
 		obj.setItemName(plist);
-		obj.setReturnURL("http://62ca4c1c070c.ngrok.io/FinalProject/updateOrderStatus");  //這裡放ngrok的網址
+		obj.setReturnURL("http://fcf1c007504a.ngrok.io/FinalProject/updateOrderStatus");  //這裡放ngrok的網址
 		obj.setClientBackURL("http://localhost:9998/FinalProject/orderComplete");   // 這裡放這樣的網址"http://localhost:9998/FinalProject/XXXX" 會生出按鍵刷卡完可以按回我們的網頁
 		obj.setCustomField1(Integer.toString(orders.getOrderPkId()));
 		obj.setNeedExtraPaidInfo("N");
@@ -178,6 +181,10 @@ public class MallController {
 	
 	@GetMapping("/orderComplete")
 	public String afterGetPaid(Model model) {
-		return "redirect:/";
+		String oNum = (String) model.getAttribute("thisNo");
+		Orders or = pService.getOrderByOrderNo(oNum);
+		List<OrderDetails> od = pService.getOrderDetailsById(or.getOrderPkId());
+		model.addAttribute("order", or);
+		return "mall/OrderComplete";
 	}
 }

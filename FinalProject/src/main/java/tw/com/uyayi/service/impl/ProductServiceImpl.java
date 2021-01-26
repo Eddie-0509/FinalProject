@@ -74,4 +74,14 @@ public class ProductServiceImpl implements ProductService {
 	public void updateOrderStatus(int orderId) {
 		pDao.updateOrderStatus(orderId);
 	}
+
+	@Override
+	public Orders getOrderByOrderNo(String orderNo) {
+		return pDao.getOrderByOrderNo(orderNo);	
+	}
+
+	@Override
+	public List<OrderDetails> getOrderDetailsById(int orderId) {
+		return pDao.getOrderDetailsById(orderId);
+	}
 }

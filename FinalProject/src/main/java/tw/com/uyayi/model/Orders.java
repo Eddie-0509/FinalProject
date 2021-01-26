@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class Orders {
 	private String orderStatus;
 	private String returnReason;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderBean")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "orderBean", fetch = FetchType.EAGER)
 	private Set<OrderDetails> orderDetails;
 
 	@Transient
@@ -50,7 +51,7 @@ public class Orders {
 	private String quantity;
 	
 	@Transient
-	private int couponId;
+	private String couponId;
 
 	public Orders() {
 
@@ -168,11 +169,11 @@ public class Orders {
 		this.returnReason = returnReason;
 	}
 
-	public int getCouponId() {
+	public String getCouponId() {
 		return couponId;
 	}
 
-	public void setCouponId(int couponId) {
+	public void setCouponId(String couponId) {
 		this.couponId = couponId;
 	}
 }

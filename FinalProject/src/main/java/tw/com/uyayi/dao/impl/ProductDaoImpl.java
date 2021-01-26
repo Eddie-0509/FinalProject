@@ -71,7 +71,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void insertOrderDetail(OrderDetails detail) {
 		Session session = factory.getCurrentSession();
-			session.save(detail);	
+		session.save(detail);	
 	}
 
 	@Override
@@ -94,9 +94,8 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Coupon getCouponById(int id) {
 		Session session = factory.getCurrentSession();
-		String hql = "from Coupon where couponPkId = :id";
-		Coupon cp = (Coupon) session.createQuery(hql).setParameter("id", id).getSingleResult();
-		return cp;
+		Coupon bean = session.get(Coupon.class, id);
+		return bean;
 	}
 
 	@Override
@@ -104,5 +103,23 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		String sql = "update Orders set orderStatus = :status where orderPkId = :id";
 		session.createSQLQuery(sql).setParameter("status", "已付款").setParameter("id", orderId).executeUpdate();
+	}
+
+	@Override
+	public Orders getOrderByOrderNo(String orderNo) {
+		Session session = factory.getCurrentSession();
+		String hql = "from Orders where orderNo = :no";
+		Orders bean = (Orders) session.createQuery(hql).setParameter("no", orderNo).getSingleResult();
+		return bean;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderDetails> getOrderDetailsById(int orderId) {
+		Session session = factory.getCurrentSession();
+		String hql = "from OrderDetails where orderPkId = :id";
+		List<OrderDetails> list = new ArrayList<>();
+		list = session.createQuery(hql).setParameter("id", orderId).getResultList();
+		return list;
 	}
 }

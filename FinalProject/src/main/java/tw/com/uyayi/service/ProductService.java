@@ -29,4 +29,8 @@ public interface ProductService {
 	Coupon getCouponById(int id);
 
 	void updateOrderStatus(int orderId);
+
+	Orders getOrderByOrderNo(String orderNo);
+
+	List<OrderDetails> getOrderDetailsById(int orderId);
 }

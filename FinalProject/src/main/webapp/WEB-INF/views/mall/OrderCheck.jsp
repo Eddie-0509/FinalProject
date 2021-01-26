@@ -164,6 +164,11 @@ tr {
 	padding: 30px;
 }
 
+#ucoupon {
+	font-weight: 900;
+	color: blue;
+}
+
 #ucoupon:hover {
 	color: orange;
 	font-weight: 900;
@@ -214,7 +219,6 @@ footer {
 		<span class=icon>
 			<i class="bi bi-house"></i>
 			<i class="bi bi-person-fill"></i>
-			<i class="bi bi-cart4"></i>
 		</span>
 	</div>
 	
@@ -313,6 +317,8 @@ footer {
 		cal();
 
 		$("#icoupon").hide();
+
+		$("#ordersform").hide();
 		
 		$("#city").change(getDist);
 
