@@ -1,5 +1,6 @@
 package tw.com.uyayi.service.impl;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Coupon> checkCoupon(String couponCode) {
+	public Coupon checkCoupon(String couponCode) {
 		return pDao.checkCoupon(couponCode);
 	}
 
@@ -52,5 +53,25 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insertOrderDetail(OrderDetails detail) {
 		pDao.insertOrderDetail(detail);
+	}
+
+	@Override
+	public void updateCouponStatus(int couponPkId) {
+		pDao.updateCouponStatus(couponPkId);	
+	}
+
+	@Override
+	public List<Orders> getOrdersByDate(Date date) {
+		return pDao.getOrdersByDate(date);
+	}
+
+	@Override
+	public Coupon getCouponById(int id) {
+		return pDao.getCouponById(id);
+	}
+
+	@Override
+	public void updateOrderStatus(int orderId) {
+		pDao.updateOrderStatus(orderId);
 	}
 }

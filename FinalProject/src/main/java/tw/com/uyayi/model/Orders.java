@@ -1,6 +1,6 @@
 package tw.com.uyayi.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -48,6 +48,9 @@ public class Orders {
 
 	@Transient
 	private String quantity;
+	
+	@Transient
+	private int couponId;
 
 	public Orders() {
 
@@ -163,5 +166,13 @@ public class Orders {
 
 	public void setReturnReason(String returnReason) {
 		this.returnReason = returnReason;
+	}
+
+	public int getCouponId() {
+		return couponId;
+	}
+
+	public void setCouponId(int couponId) {
+		this.couponId = couponId;
 	}
 }

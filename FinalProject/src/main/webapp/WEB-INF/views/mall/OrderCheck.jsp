@@ -280,12 +280,12 @@ footer {
 <div id="ordersform">
 	<form:form method='POST' action="${pageContext.request.contextPath}/processOrder" modelAttribute="orders" id="orders">
 		<input id="memberPkid" name="memberPkId" value="">
-		<input id="couponPkId" name="couponPkId">
 		<input id="totalPayment" name="totalPayment">
 		<input id="orderStatus" name="orderStatus">
 		<input id="receiver" name="receiver">
 		<input id="mobilephone" name="mobilephone">
 		<input id="shipAddress" name="shipAddress">
+		<input id="couponId" name="couponId">
 		<input id="products" name="products">
 		<input id="quantity" name="quantity">
 	</form:form>
@@ -348,8 +348,8 @@ footer {
 			let unitPrice = parseInt($(this).parent("td").next().text(), 10) / qty;
 			$(this).prev("span").text(qty + 1);
 			$(this).parent().next("td").text(parseInt($(this).prev("span").text(), 10) * unitPrice);
-			cal();
 			setCookie();
+			cal();
 		});
 
 		$(".bi-dash-square").click(function(){
@@ -362,14 +362,14 @@ footer {
 			}
 			
 			$(this).parent().next("td").text(parseInt($(this).next("span").text(), 10) * unitPrice);
-			cal();
 			setCookie();
+			cal();
 		});
 
 		$(".bi-trash").click(function(){
 			$(this).parents("table").remove();
-			cal();
 			setCookie();
+			cal();
 		});
 	}
 
@@ -430,6 +430,11 @@ footer {
 			$("#fbal").text(1000 - gtotal);
 		}
 
+		if (Cookies.get("cart") == "") {
+			$("#main").html("<h1 style='text-align: center; line-height: 200px;'>您的購物車沒有商品</h1>");
+			$("#main2").hide();
+		}
+
 		$("#gtotal").text(total - parseInt($("#cpdis").text(), 10) + parseInt($("#fcharge").text(), 10));
 	}
 
@@ -451,9 +456,9 @@ footer {
 				couponid = "";
 				cpDis = 1;
 			} else {
-			let cpName = data[0].couponName;
-			couponid = data[0].couponPkId;
-			cpDis = parseFloat(data[0].couponContext);
+			let cpName = data.couponName;
+			couponid = data.couponPkId;
+			cpDis = parseFloat(data.couponContext);
 			$("#cpname").text(cpName);
 			$("#cpdis").text(Math.round(parseInt($("#total").text(), 10) - parseInt($("#total").text(), 10) * cpDis));
 			}
@@ -463,7 +468,7 @@ footer {
 
 
 	function goProcess(){
-		$("#couponPkId").val(couponid);
+		$("#couponId").val(couponid);
 		$("#totalPayment").val($("#gtotal").text());
 		$("#orderStatus").val("未付款");
 		$("#receiver").val($("#receiverr").val());
@@ -493,6 +498,7 @@ footer {
 		let re2 = /\<\/span\>\<i class=\"bi bi-plus-square\"\>\<\/i\>/gi;
 		cookiestr = $("#olist").html().replace(re1, '').replace(re2, '');
 		Cookies.set("cart", cookiestr, { expires: 7 });
+		console.log("str = " + cookiestr);
 	}
 </script>
 </html>

@@ -1,5 +1,6 @@
 package tw.com.uyayi.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import tw.com.uyayi.model.Coupon;
@@ -15,9 +16,17 @@ public interface ProductService {
 	
 	Products getProductsById(int productId);
 	
-	List<Coupon> checkCoupon(String couponCode);
+	Coupon checkCoupon(String couponCode);
 	
 	void insertOrder (Orders orders);
 
 	void insertOrderDetail(OrderDetails detail);
+
+	void updateCouponStatus(int couponPkId);
+
+	List<Orders> getOrdersByDate(Date date);
+
+	Coupon getCouponById(int id);
+
+	void updateOrderStatus(int orderId);
 }

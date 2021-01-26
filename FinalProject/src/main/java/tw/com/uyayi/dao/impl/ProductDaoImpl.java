@@ -1,5 +1,6 @@
 package tw.com.uyayi.dao.impl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,14 +52,14 @@ public class ProductDaoImpl implements ProductDao {
 		return bean;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Coupon> checkCoupon(String couponCode) {
+	public Coupon checkCoupon(String couponCode) {
 		Session session = factory.getCurrentSession();
 		String hql = "from Coupon where couponStatus = 'true' and couponCode = :code";
-		List<Coupon> list = new ArrayList<>();
-		list = session.createQuery(hql).setParameter("code", couponCode).getResultList();
-		return list;
+		Coupon cp = new Coupon();
+		cp = (Coupon) session.createQuery(hql).setParameter("code", couponCode).getSingleResult();
+		System.out.println("CP = " + cp);
+		return cp;
 	}
 
 	@Override
@@ -71,5 +72,37 @@ public class ProductDaoImpl implements ProductDao {
 	public void insertOrderDetail(OrderDetails detail) {
 		Session session = factory.getCurrentSession();
 			session.save(detail);	
+	}
+
+	@Override
+	public void updateCouponStatus(int couponPkId) {		
+		Session session = factory.getCurrentSession();
+		String sql = "update Coupon set couponStatus = :status where couponPkId = :id";
+		session.createSQLQuery(sql).setParameter("status", "false").setParameter("id", couponPkId).executeUpdate();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Orders> getOrdersByDate(Date date) {
+		Session session = factory.getCurrentSession();
+		String hql = "from Orders where orderDate = :date";
+		List<Orders> list = new ArrayList<>();
+		list = session.createQuery(hql).setParameter("date", date).getResultList();
+		return list;
+	}
+
+	@Override
+	public Coupon getCouponById(int id) {
+		Session session = factory.getCurrentSession();
+		String hql = "from Coupon where couponPkId = :id";
+		Coupon cp = (Coupon) session.createQuery(hql).setParameter("id", id).getSingleResult();
+		return cp;
+	}
+
+	@Override
+	public void updateOrderStatus(int orderId) {
+		Session session = factory.getCurrentSession();
+		String sql = "update Orders set orderStatus = :status where orderPkId = :id";
+		session.createSQLQuery(sql).setParameter("status", "已付款").setParameter("id", orderId).executeUpdate();
 	}
 }
