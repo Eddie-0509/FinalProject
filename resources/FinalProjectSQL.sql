@@ -465,9 +465,9 @@ clinicStartTime date ,									--權限開始時間
 clinicEndTime date ,									--權限結束時間
 clinicStatus nvarchar(20) 							--診所權限(未付款/付款/付款但不開放查詢)--
 );
-insert into clinic(clinicAccount,clinicPwd,clinicName,clinicPhone,clinicCity,clinicDist,clinicAddress,clinicImage,clinicStartTime,clinicEndTime,clinicStatus) values('Shinra@hotmail.com.tw','P@ssw0rd456','神羅牙醫診所','00-000-001',1,1,'遠得要命1','???','2021/01/01','2021/12/31','false');
-insert into clinic(clinicAccount,clinicPwd,clinicName,clinicPhone,clinicCity,clinicDist,clinicAddress,clinicImage,clinicStartTime,clinicEndTime,clinicStatus) values('Yorozuya@hotmail.com.tw','P@ssw0rd456','萬事屋牙醫診所','00-000-002',2,7,'遠得要命2','???','2021/01/01','2021/12/31','true');
-insert into clinic(clinicAccount,clinicPwd,clinicName,clinicPhone,clinicCity,clinicDist,clinicAddress,clinicImage,clinicStartTime,clinicEndTime,clinicStatus) values('Konoha@hotmail.com.tw','P@ssw0rd456','木葉牙醫診所','00-000-003',3,20,'遠得要命3','???','2021/01/01','2021/12/31','true');
+insert into clinic(clinicAccount,clinicPwd,clinicName,clinicPhone,clinicCity,clinicDist,clinicAddress,clinicImage,clinicStartTime,clinicEndTime,clinicStatus) values('Shinra@hotmail.com.tw','P@ssw0rd456','神羅牙醫診所','00-000-001',1,1,'遠得要命1','???','2021/01/01',null,'已驗證');
+insert into clinic(clinicAccount,clinicPwd,clinicName,clinicPhone,clinicCity,clinicDist,clinicAddress,clinicImage,clinicStartTime,clinicEndTime,clinicStatus) values('Yorozuya@hotmail.com.tw','P@ssw0rd456','萬事屋牙醫診所','00-000-002',2,7,'遠得要命2','???','2021/01/01',null,'未驗證');
+insert into clinic(clinicAccount,clinicPwd,clinicName,clinicPhone,clinicCity,clinicDist,clinicAddress,clinicImage,clinicStartTime,clinicEndTime,clinicStatus) values('Konoha@hotmail.com.tw','P@ssw0rd456','木葉牙醫診所','00-000-003',3,20,'遠得要命3','???','2021/01/01','2022/12/31','已開通');
 
 
 --時間表--
