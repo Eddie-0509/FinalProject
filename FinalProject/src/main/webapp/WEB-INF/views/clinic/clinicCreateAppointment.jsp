@@ -114,6 +114,11 @@
 
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
+	
+	<!--引用dataTables-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>	 
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+	
 	<style>
 		input,select{
 		 color:black
@@ -152,6 +157,14 @@
 		h2{
 		 display:inline;
 		 margin:0;
+		}
+		
+		#resultTable_filter > label > input[type=search]{
+			background-color:white;
+			color:black
+		}
+		#resultTable > tbody > tr{
+			background-color:inherit !important;
 		}
 	</style>
 	</head>
@@ -205,7 +218,19 @@
 					<input type="button" class="btn btn-primary mb-2" value="查詢" onclick="getResult()" style="margin:1rem auto 0 auto;text-align: center;display: block">
 				</div>
 				<div id="appFilterResult" style="display:none">
-					
+					<h2></h2>
+					<p id='back' style='margin-bottom:2rem'><button  onclick='back()'>回上頁</button></p>
+					<table id="resultTable">
+						<thead>
+							<tr>
+								<td>日期</td>
+								<td>時間</td>
+								<td>預約</td>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -237,7 +262,7 @@
 			        <form:input type="text" id="patientIdNumber" path="patientIdNumber" placeholder="請輸入身分證字號"/>
 	        </div>
 	        <div class="modal-footer">
-	        	<span ><a href="javascript:void();" id="sconeDemo">demo</a></span>
+	        	<span ><a href="javascript:void(0)" id="sconeDemo1">demo</a></span>
 	        	<button type="button" class="btn btn-default" id="goToAppoint">預約</button>
 	            <button type="button" class="btn btn-default" data-dismiss="modal" id="queryClose">Close</button>	            
 	        </div>
@@ -338,14 +363,15 @@
 			})
 		}
 		
+		
+		
 		function getResult(){
-			$("#appFilter").css("display","none");
-			$("#appFilterResult").css("display","block");
+			$("#appFilter").css("display","none");			
 			$("#itemName").val($("#item").val());
 			$("#dentistName").val($("#dentist").val());
 			$.ajax({
 				url : 'getAppointable',
-				type : 'POST',		
+				type : 'POST',
 				data : {
 					item : $("#item").val(),
 					dentist : $("#dentist").val(),
@@ -354,45 +380,87 @@
 					doWhat : "POST"
 				},
 				success : function(data) {
-					console.log(data);
+					$("#appFilterResult").css("display","block");
+// 					console.log("376"+data);
+					var resultData=data
 					let str="<h2>"+$("#dentist").val()+"醫師預約表</h2><p id='back'><button  onclick='back()'>回上頁</button></p><table><thead><tr><td>日期</td><td>時間</td><td>預約</td></tr></thead><tbody></tbody></table>";
-					$("#appFilterResult").html(str);
+					$("#appFilterResult h2").text($("#dentist").val()+"醫師預約表");
 					let arr = Object.keys(data);
 					let len = arr.length;
-					for(let i=0;i<len;i++){
-						for(let r=0;r<data[arr[i]].length;r++){
-							$("#appFilterResult tbody").append("<tr><td>"+arr[i]+"</td><td>"+data[arr[i]][r]+"</td><td><button type='button' class='btn btn-success openAppModal' onclick='openAppModal.call(this)'>預約此時段</button></td></tr>");
-						}
-					}
+// 					for(let i=0;i<len;i++){
+// 						for(let r=0;r<data[arr[i]].length;r++){
+// 							$("#appFilterResult tbody").append("<tr><td>"+arr[i]+"</td><td>"+data[arr[i]][r]+"</td><td><button type='button' class='btn btn-success openAppModal' onclick='openAppModal.call(this)'>預約此時段</button></td></tr>");
+// 						}
+// 					}
+// 					console.log("386"+JSON.stringify(resultData))
+					
+					$("#resultTable").DataTable({
+						
+						data: resultData,
+						columns: [
+						    { data: 'date' },
+						    { data: 'time' },
+						    { data: "sysid", orderable: false, render: function (data, type, obj, meta)
+                            {
+                                return   "<button type='button' class='btn btn-success openAppModal' onclick='openAppModal.call(this)'>預約此時段</button>";
+                            }}
+						],
+						searching: true, //搜尋
+				        sPaginationType: "full_numbers", //分頁功能樣式
+				        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]], //顯示筆數
+						oLanguage: {    // 中文化  
+				                "sLengthMenu": "每頁顯示 _MENU_筆",
+				                "sZeroRecords": "沒有找到符合條件的資料",
+				                "sProcessing": "載入中...",
+				                "sInfo": "當前第 _START_ - _END_ 筆　共計 _TOTAL_ 筆",
+				                "sInfoEmpty": "沒有記錄",
+				                "sInfoFiltered": "(從 _MAX_ 條記錄中過濾)",
+				                "sSearch": "搜尋：",
+				                "oPaginate": {
+				                    "sFirst": "首頁",
+				                    "sPrevious": "前一頁",
+				                    "sNext": "後一頁",
+				                    "sLast": "尾頁"
+				                }
+				         },
+			             columnDefs: [{
+			                 targets: [2],
+			                 orderable: false,
+			             }],
+			             destroy:true
+			         });
 				}	
 			})
 		}
 		
+		
 		$("#goToAppoint").on("click",function(){
-			console.log("HIIII");
 			$("#appForm").trigger("submit");
 		})
 		
 		function openAppModal(){
-// 			console.log($(this));
-// 			console.log($(this).parent("td").siblings().eq(1).text());
 			$("#appointDate").val($(this).parent("td").siblings().eq(0).text());
 			$("#times").val($(this).parent("td").siblings().eq(1).text());
 			$("#appointModal").modal("show");
 			
 		}
-		
+
 		function back(){
 			$("#appFilterResult").css("display","none")
 			$("#appFilter").css("display","block")
 		}
 		
+
 		
-		$("#sconeDemo").on("click",function(){
+		$("#sconeDemo1").on("click",function(event){
+			  event.preventDefault();
 			  $("#patientName").val("王毅安");
 			  $("#patientPhone").val("0932100392");
 			  $("#patientIdNumber").val("A209828193");
 		  })
+		  
+		  
+		  
 	</script>
 	
 	</body>

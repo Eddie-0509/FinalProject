@@ -1,11 +1,13 @@
 package tw.com.uyayi.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,13 +69,33 @@ public class ClinicAppointController {
 		}
 		//得到90天內可預約的所有時間清單
 		@PostMapping(path =  "/getAppointable", produces = "application/json")
-		public @ResponseBody LinkedHashMap<String, List<String>> getAppointable(
+		public @ResponseBody List<HashMap<String, String>> getAppointable(
 				@ModelAttribute("loginOK") Clinic clinic,
 				@RequestParam("item") String item,
 				@RequestParam("dentist") String dentist,
 				@RequestParam("timeInterval") String timeInterval){
-				
-			 return cappService.getAppointable(clinic, item, dentist, timeInterval);
+			LinkedHashMap<String, List<String>> appointable = cappService.getAppointable(clinic, item, dentist, timeInterval);
+			LinkedHashMap<String, String> appointableFinal = new LinkedHashMap<String, String>();
+			List<HashMap<String, String>> myJSONObjects = new  ArrayList<HashMap<String, String>> (); 
+//			for(Object key : appointable.keySet()){
+//				for(int r=0;r<appointable.get(key).size();r++){
+//					$("#appFilterResult tbody").append("<tr><td>"+arr[i]+"</td><td>"+data[arr[i]][r]+"</td><td><button type='button' class='btn btn-success openAppModal' onclick='openAppModal.call(this)'>預約此時段</button></td></tr>");
+//					appointableFinal.put((String) key, appointable.get(key).get(r));
+//				}
+//			}
+			for(Object key : appointable.keySet()) {
+				for(int r=0;r<appointable.get(key).size();r++) {
+					HashMap<String, String> obj = new HashMap<String, String>();
+				    obj.put("date", key.toString());
+				    obj.put("time", appointable.get(key).get(r));
+
+				    myJSONObjects.add(obj);
+				}
+			}
+		
+			System.out.println("Fianl:"+myJSONObjects.toString());
+//			return cappService.getAppointable(clinic, item, dentist, timeInterval);
+			return myJSONObjects;
 		}
 		
 		

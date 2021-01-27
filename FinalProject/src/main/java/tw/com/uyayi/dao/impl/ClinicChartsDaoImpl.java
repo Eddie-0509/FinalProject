@@ -21,6 +21,7 @@ public class ClinicChartsDaoImpl implements ClinicChartsDao{
 	@Autowired
 	SessionFactory factory ;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public LinkedHashMap<String,Integer> getItemsData(Clinic clinic) {
 		Session session = factory.getCurrentSession();
@@ -44,7 +45,7 @@ public class ClinicChartsDaoImpl implements ClinicChartsDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public LinkedHashMap<String, Integer> getDentistData(Clinic clinic) {
+	public LinkedHashMap<String, Integer> getDentistData(Clinic clinic, String year, String month) {
 		Session session = factory.getCurrentSession();
 		String hql = "From Appointment a where a.clinicBean =:clinic";
 		List<Appointment> allAppList = session.createQuery(hql).setParameter("clinic", clinic).getResultList();
@@ -54,18 +55,23 @@ public class ClinicChartsDaoImpl implements ClinicChartsDao{
 		for (int i=0;i<Dentistlist.size();i++) {
 			DentistData.put(Dentistlist.get(i), 0);
 		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for (int i=0;i<allAppList.size();i++) {
-			for(Object key : DentistData.keySet()) {
-				if(allAppList.get(i).getDentistBean().getDentistName().equals(key.toString())) {
-					int plus = DentistData.get(key.toString())+1;
-					DentistData.put(key.toString(),plus);
+			String str = sdf.format(allAppList.get(i).getAppointDate());			
+			if(str.substring(0,4).equals(year)&&str.substring(5,7).equals(month)) {
+				for(Object key : DentistData.keySet()) {
+					if(allAppList.get(i).getDentistBean().getDentistName().equals(key.toString())) {
+						int plus = DentistData.get(key.toString())+1;
+						DentistData.put(key.toString(),plus);
+					}
 				}
 			}
 		}
 		return DentistData;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings("unchecked")
 	@Override
 	public LinkedHashMap<String, List<Integer>> getTotalData(Clinic clinic, String year, String month) {
 		Session session = factory.getCurrentSession();
@@ -123,6 +129,48 @@ public class ClinicChartsDaoImpl implements ClinicChartsDao{
 		}
 		System.out.println(TotalData2);
 		return TotalData2;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public LinkedHashMap<String, Integer> getGenderData(Clinic clinic) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Appointment a where a.clinicBean =:clinic";
+		List<Appointment> allAppList = session.createQuery(hql).setParameter("clinic", clinic).getResultList();
+		LinkedHashMap<String,Integer> GenderData=new LinkedHashMap<String,Integer>();
+		GenderData.put("男",0);
+		GenderData.put("女",0);
+		for (int i=0;i<allAppList.size();i++) {
+			System.out.println(allAppList.get(i).getAppointmentPkId());
+			if(allAppList.get(i).getMemberBean()!=null) {
+				System.out.println(allAppList.get(i).getMemberBean().getMemberIdNumber().substring(1,2));
+				if(allAppList.get(i).getMemberBean().getMemberIdNumber().substring(1,2).equals("1")) {
+					int plus = GenderData.get("男")+1;
+					GenderData.put("男",plus);
+				}
+				if(allAppList.get(i).getMemberBean().getMemberIdNumber().substring(1,2).equals("2")) {
+					int plus = GenderData.get("女".toString())+1;
+					GenderData.put("女",plus);
+				}
+			}else if(allAppList.get(i).getMemberBean()==null && allAppList.get(i).getPatientIdNumber().length()==10) {
+				System.out.println(allAppList.get(i).getPatientIdNumber().substring(1,2));
+
+				if(allAppList.get(i).getPatientIdNumber().substring(1,2).equals("1")) {
+					int plus = GenderData.get("男")+1;
+					GenderData.put("男",plus);
+				}
+				if(allAppList.get(i).getPatientIdNumber().substring(1,2).equals("2")) {
+					int plus = GenderData.get("女".toString())+1;
+					GenderData.put("女",plus);
+				}
+
+				
+			}else {
+				continue;
+			}
+
+		}
+		return GenderData;
 	}
 	
 

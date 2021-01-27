@@ -25,9 +25,6 @@ ClinicChartsService chaService;
 	public void setChaService(ClinicChartsService service) {
 		this.chaService = service;
 	}
-	
-	
-	
 	@GetMapping(value="/clinicCharts")
 	public  String getCharts(@ModelAttribute("loginOK") Clinic clinic) {
 
@@ -39,8 +36,12 @@ ClinicChartsService chaService;
 		 return chaService.getItemsData(clinic);
 	}
 	@GetMapping(path="/clinicDentistBar",produces = "application/json")
-	public  @ResponseBody LinkedHashMap<String,Integer> getDentistBarData(@ModelAttribute("loginOK") Clinic clinic,Model model) {
-		 return chaService.getDentistData(clinic);
+	public  @ResponseBody LinkedHashMap<String,Integer> getDentistBarData(
+			@ModelAttribute("loginOK") Clinic clinic,
+			Model model,
+			@RequestParam("year") String year,
+			@RequestParam("month") String month) {
+		 return chaService.getDentistData(clinic,year,month);
 	}
 	@GetMapping(path="/clinicTotalStackedBar",produces = "application/json")
 	public  @ResponseBody LinkedHashMap<String,List<Integer>> getTotalStackedBarData(
@@ -50,5 +51,9 @@ ClinicChartsService chaService;
 			Model model) {
 		System.out.println(chaService.getTotalData(clinic,year,month));
 		return chaService.getTotalData(clinic,year,month);
+	}
+	@GetMapping(path="/clinicGenderPie",produces = "application/json")
+	public  @ResponseBody LinkedHashMap<String,Integer> getGenderPieData(@ModelAttribute("loginOK") Clinic clinic,Model model) {
+		 return chaService.getGenderData(clinic);
 	}
 }

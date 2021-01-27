@@ -122,7 +122,7 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 	}
 
 
-	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
+	@SuppressWarnings("unchecked")
 	@Override
 	public LinkedHashMap<String, List<String>> getAppointable(Clinic clinic,
 			String item, String dentist, String timeInterval) {
@@ -197,7 +197,7 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 			  
 
 	   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	   System.out.println("183weekDayTimeMap："+weekDayTimeMap);
+//	   System.out.println("183weekDayTimeMap："+weekDayTimeMap);
 	   //生成90天內的日期清單
 	   for(int r=0;r<=90;r++) {
     	  calendar.setTime(date);
@@ -231,8 +231,8 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 			   }
 		  //如果日期清單的星期跟醫生有門診的星期一樣，把它存入
 		      if(dayOfWeek==weekDay) {
-			      System.out.println("dateString:"+dateString);
-			      System.out.println("dayTimeTable:"+weekDayTimeMap.get(key));
+//			      System.out.println("dateString:"+dateString);
+//			      System.out.println("dayTimeTable:"+weekDayTimeMap.get(key));
 			      List<String> list = new ArrayList(weekDayTimeMap.get(key));
 		    	  appointable.put(dateString,list);
 		    	  
@@ -254,20 +254,20 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 				      	  .setParameter("appointDate", sdf.parse(appointableKey.toString())).setParameter("timeTable", ttlist.get(0)).getResultList();
 //						System.out.println("236"+apped);
 						if(!apped.isEmpty()) {
-							System.out.println(apped.get(0).getAppointDate());
-							System.out.println(appointable.get(formatter.format(apped.get(0).getAppointDate())));
+//							System.out.println(apped.get(0).getAppointDate());
+//							System.out.println(appointable.get(formatter.format(apped.get(0).getAppointDate())));
 	//				      		System.out.println(dateString+" "+formatter.format(apped.get(0).getAppointDate()));
 	//				      	if(appointableKey.equals(formatter.format(apped.get(0).getAppointDate())) ){
 	//		    		      		System.out.println("一樣RRRRRRRRRRR");
 //							List appointList = (List)appointable.get("2021-04-05");
 //							appointList.remove("12:00-12:30");
 							List<String> list = new ArrayList(appointable.get(formatter.format(apped.get(0).getAppointDate())));
-							System.out.println("BEFORE:"+list);
-							System.out.println("253"+weekDayTimeMap);
+//							System.out.println("BEFORE:"+list);
+//							System.out.println("253"+weekDayTimeMap);
 							list.remove(apped.get(0).getTimeTableBean().getTimes());
 							appointable.put(formatter.format(apped.get(0).getAppointDate()),list);
-							System.out.println("AFTER："+list);
-							System.out.println("255"+weekDayTimeMap);
+//							System.out.println("AFTER："+list);
+//							System.out.println("255"+weekDayTimeMap);
 	//				      	} 
 						}
 					} catch (ParseException e) {
@@ -279,9 +279,9 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 	      }
 	    
     
-	    System.out.println("267"+weekDayTimeMap);
+//	    System.out.println("267"+weekDayTimeMap);
 
-		System.err.println(appointable);
+//		System.err.println(appointable);
 		return appointable;
 	}
 
@@ -307,8 +307,8 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 		c.setTime(appointDate); 
 		int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 		String weekDay="";
-		System.out.println("date="+appointDate);
-		System.out.println("dayOfWeek="+dayOfWeek);
+//		System.out.println("date="+appointDate);
+//		System.out.println("dayOfWeek="+dayOfWeek);
 		switch (dayOfWeek){
 			case 1:
 		   		weekDay="Sunday";
@@ -332,8 +332,8 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 		   		weekDay="Saturday";
 		   		break;	   
 		}
-		System.out.println("weekDay="+weekDay);
-		System.out.println("times="+times);
+//		System.out.println("weekDay="+weekDay);
+//		System.out.println("times="+times);
 		Session session=factory.getCurrentSession();
 		String hqlt = "from TimeTable t where t.weekdays =:weekday and t.times =:times";
 		List<TimeTable> list =  session.createQuery(hqlt).setParameter("weekday",weekDay).setParameter("times",times).getResultList();

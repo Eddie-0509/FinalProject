@@ -121,7 +121,7 @@
 		var start=[]
 		var backgroundColor=[]
 		var allevents=[]
-		console.log("${AllAppointmentList}")
+// 		console.log("${AllAppointmentList}")
 		<c:forEach var="allapplist" items="${AllAppointmentList}" varStatus="vs">
 			id.push("${allapplist.appointmentPkId}")
 			if("${allapplist.memberBean.memberName}" == ""){

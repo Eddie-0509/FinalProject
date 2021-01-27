@@ -148,13 +148,33 @@
 				<button type="button" class="btn btn-info" onclick='getTotal()'>總預約人數</button>
 				<button type="button" class="btn btn-info" onclick='getDentistData()' >醫師預約人數</button>
 				<button type="button" class="btn btn-info" onclick='getItemData()'>項目比例</button>
-				<button type="button" class="btn btn-info">性別比例</button>
+				<button type="button" class="btn btn-info" onclick='getGenderData()'>性別比例</button>
 				<div id="totalFilter" style="display:none;text-align:end">
-					<select id="year" style="color:black">
+					<select id="Tyear" style="color:black">
 						<option >2020</option>
 						<option selected>2021</option>
 					</select>年
-					<select id="month" style="color:black">
+					<select id="Tmonth" style="color:black">
+						<option >01</option>
+						<option selected>02</option>
+						<option >03</option>
+						<option >04</option>
+						<option >05</option>
+						<option >06</option>
+						<option >07</option>
+						<option >08</option>
+						<option >09</option>
+						<option >10</option>
+						<option >11</option>
+						<option >12</option>
+					</select>月
+				</div>
+				<div id="DentistFilter" style="display:none;text-align:end">
+					<select id="Dyear" style="color:black">
+						<option >2020</option>
+						<option selected>2021</option>
+					</select>年
+					<select id="Dmonth" style="color:black">
 						<option >01</option>
 						<option selected>02</option>
 						<option >03</option>
@@ -172,7 +192,7 @@
 						<canvas id="myTotalStackedBar" style="display:none"></canvas>
 						<canvas id="myDentistBar" style="display:none"></canvas>
 						<canvas id="myItemsPie" style="display:none"></canvas>
-						<canvas id="" style="display:none"></canvas>
+						<canvas id="myGenderPie" style="display:none"></canvas>
 			</div>
 		</div>
 
@@ -202,19 +222,23 @@
 
 	</div>
 	<script >
-	var days = new Date($("#year").val(),$("#month").val(),0).getDate();
+	var days = new Date($("#Tyear").val(),$("#Tmonth").val(),0).getDate();
 	
-	$("#year").on("change",getTotal)
-	$("#month").on("change",getTotal)
+	$("#Tyear").on("change",getTotal)
+	$("#Tmonth").on("change",getTotal)
 	
+	$("#Dyear").on("change",getDentistData)
+	$("#Dmonth").on("change",getDentistData)
 	
 	function getTotal(){
+		$("#DentistFilter").css("display","none")
 		$("#totalFilter").css("display","block")
 		$('#myTotalStackedBar').remove(); // this is my <canvas> element
 		$('#myDentistBar').after('<canvas id="myTotalStackedBar" style="display:none"></canvas>');
 		$("#myItemsPie").css("display","none")
 		$("#myDentistBar").css("display","none")
 		$("#myTotalStackedBar").css("display","block")
+		$("#myGenderPie").css("display","none")
 		var TotalStackedBarLable=[];
 		var TotalStackedBarfromSystem=[];
 		var TotalStackedBarfromClinic=[];
@@ -222,8 +246,8 @@
 			url : 'clinicTotalStackedBar',
 			type : 'GET',		
 			data : {
-				year : $("#year").val(),
-				month : $("#month").val(),
+				year : $("#Tyear").val(),
+				month : $("#Tmonth").val(),
 				method : "$.ajax()",
 				doWhat : "GET"
 			},
@@ -259,7 +283,7 @@
 				    options: { 
 				    	 title:{
 				    		    display: true,                 // 顯示標題
-				    		    text:  $("#year").val()+'年'+$("#month").val()+'月預約人數',   
+				    		    text:  $("#Tyear").val()+'年'+$("#Tmonth").val()+'月預約人數',   
 				    		    position: 'top',            // 在圖表下方顯示
 				    		    fontSize: 30,                  // 字體相關的參數           
 				    		    fontStyle: 'normal',
@@ -295,10 +319,12 @@
 	}
 	
 	function getItemData(){
+		$("#DentistFilter").css("display","none")
 		$("#totalFilter").css("display","none")
 		$("#myTotalStackedBar").css("display","none")
 		$("#myItemsPie").css("display","block")
 		$("#myDentistBar").css("display","none")
+		$("#myGenderPie").css("display","none")
 		var ItemPieLable=[];
 		var ItemPieData=[];
 		$.ajax({
@@ -345,16 +371,23 @@
 	}
 	
 	function getDentistData(){
+		$('#myDentistBar').remove(); // this is my <canvas> element
+		$('#myTotalStackedBar').after('<canvas id="myDentistBar" style="display:none"></canvas>');
+		
+		$("#DentistFilter").css("display","block")
 		$("#totalFilter").css("display","none")
 		$("#myTotalStackedBar").css("display","none")
 		$("#myDentistBar").css("display","block")
 		$("#myItemsPie").css("display","none")
+		$("#myGenderPie").css("display","none")
 		var DentistBarLable=[];
 		var DentistBarData=[];
 		$.ajax({
 			url : 'clinicDentistBar',
 			type : 'GET',		
 			data : {
+				year : $("#Dyear").val(),
+				month : $("#Dmonth").val(),
 				method : "$.ajax()",
 				doWhat : "GET"
 			},
@@ -377,7 +410,7 @@
 				             barThickness: 6,
 				             maxBarThickness: 8,
 				             minBarLength: 2,
-				        	backgroundColor: '#FFA042',
+				        	backgroundColor: '#4F9D9D',
 				            data: DentistBarData
 				        	
 				        }],
@@ -386,7 +419,7 @@
 				    options: {
 				    	title:{
 			    		    display: true,                 // 顯示標題
-			    		    text:  '診所醫師預約人數',   
+			    		    text:  $("#Dyear").val()+'年'+$("#Dmonth").val()+'月預約人數(醫師別)',   
 			    		    position: 'top',            // 在圖表下方顯示
 			    		    fontSize: 30,                  // 字體相關的參數           
 			    		    fontStyle: 'normal',
@@ -411,6 +444,58 @@
 				    	}	
 				    } 
 				});
+			}	
+		})
+	}
+	
+	function getGenderData(){
+		$("#DentistFilter").css("display","none")
+		$("#totalFilter").css("display","none")
+		$("#myTotalStackedBar").css("display","none")
+		$("#myItemsPie").css("display","none")
+		$("#myDentistBar").css("display","none")
+		$("#myGenderPie").css("display","block")
+		var GenderPieLable=[];
+		var GenderPieData=[];
+		$.ajax({
+			url : 'clinicGenderPie',
+			type : 'GET',		
+			data : {
+				method : "$.ajax()",
+				doWhat : "GET"
+			},
+			success : function(data) {
+				console.log(data)
+				console.log("GenderPieData"+Object.keys(data))
+				GenderPieLable=Object.keys(data)
+				console.log(GenderPieLable.length)
+				for(let a=0;a<GenderPieLable.length;a++){
+					GenderPieData.push(data[GenderPieLable[a]])
+				}
+				console.log(GenderPieData)
+				var ctx3 = document.getElementById('myGenderPie').getContext('2d');
+				var myGenderPie = new Chart(ctx3, {
+				    type: 'pie',
+				    data: {				    	
+				        datasets: [{
+				        	backgroundColor: ["#caf270",'#45c490'],
+				            data: GenderPieData
+				        	
+				        }],
+				        labels: GenderPieLable
+				    },
+				    options:  {
+				    	title:{
+			    		    display: true,                 // 顯示標題
+			    		    text:  '病患性別比例',   
+			    		    position: 'top',            // 在圖表下方顯示
+			    		    fontSize: 30,                  // 字體相關的參數           
+			    		    fontStyle: 'normal',
+	//			    		    fontFamily: 'jf-openHuninn-1.1'
+		    		    }
+		    		}
+				});
+				
 			}	
 		})
 	}

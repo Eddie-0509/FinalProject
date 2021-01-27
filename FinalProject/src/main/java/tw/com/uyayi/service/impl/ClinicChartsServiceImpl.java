@@ -29,13 +29,18 @@ public class ClinicChartsServiceImpl implements ClinicChartsService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Integer> getDentistData(Clinic clinic) {
-		return chaDao.getDentistData(clinic);
+	public LinkedHashMap<String, Integer> getDentistData(Clinic clinic, String year, String month) {
+		return chaDao.getDentistData(clinic,year,month);
 	}
 
 	@Override
 	public LinkedHashMap<String, List<Integer>> getTotalData(Clinic clinic, String year, String month) {
 		return chaDao.getTotalData(clinic,year,month);
+	}
+
+	@Override
+	public LinkedHashMap<String, Integer> getGenderData(Clinic clinic) {
+		return chaDao.getGenderData(clinic);
 	}
 
 }
