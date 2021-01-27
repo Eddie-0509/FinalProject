@@ -219,6 +219,7 @@
      <br><br>
      <strong>會員電話:<br><form:input placeholder="請輸入您的電話" path="memberPhone"/></strong>
      <br><br>
+     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>
      <input type="submit" value="修改" />
 
 </form:form>

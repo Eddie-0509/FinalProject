@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import tw.com.uyayi.dao.MemberSignUpDao;
 import tw.com.uyayi.dao.impl.MemberSignUpDaoImpl;
 import tw.com.uyayi.model.Member;
 
@@ -18,6 +18,10 @@ public class MemberSignUpServiceImpl implements MemberSignUpService {
 
 	@Autowired
 	public MemberSignUpDaoImpl memberSignUpDaoImpl;
+	
+	@Autowired
+	MemberSignUpDao signUpDao;
+	
 	
 	@Override
 	public void add(Member member) {
@@ -51,9 +55,20 @@ public class MemberSignUpServiceImpl implements MemberSignUpService {
 		return null;
 	}
 
+	@Transactional
+	@Override
+	public boolean checkEmail(String memberEmail) {
+		return signUpDao.checkEmail(memberEmail);
+
+	}
+
+	@Override
+	@Transactional
+	public void changeStatus(int memberPkId) {
+		signUpDao.changeStatus(memberPkId);
+		
+	}
 
 
-
-	
 
 }

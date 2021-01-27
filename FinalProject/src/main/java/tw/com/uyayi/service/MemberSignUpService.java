@@ -21,5 +21,9 @@ public interface MemberSignUpService {
 	
 	public List<Member> getAllMember();
 	
+	boolean checkEmail(String memberEmail);
+	
+	void changeStatus(int memberPkId);
+	
 	
 }

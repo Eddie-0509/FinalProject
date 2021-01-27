@@ -20,7 +20,7 @@ public class MemberDaoImpl implements MemberDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean checkLogin(String account, String pwd) {
-		String hql = "From Member where memberIdNumber =:mAccount and memberPwd =:mPwd";
+		String hql = "From Member where memberAccount =:mAccount and memberPwd =:mPwd";
 		boolean loginStatus = false;
 		Session session = factory.getCurrentSession();
 		List<Member> list = session.createQuery(hql)
@@ -39,7 +39,7 @@ public class MemberDaoImpl implements MemberDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Member getMemberByAccount(String account) {
-		String hql = "From Member where memberIdNumber =:mAccount";
+		String hql = "From Member where memberAccount =:mAccount";
 		Member mb = null;
 		Session session = factory.getCurrentSession();
 		List<Member> list = session.createQuery(hql)
@@ -51,6 +51,8 @@ public class MemberDaoImpl implements MemberDao {
 		return mb;
 	}
 
+	
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -60,11 +62,12 @@ public class MemberDaoImpl implements MemberDao {
 		Session session = factory.getCurrentSession();
 		List<MemberDetails> list = session.createQuery(hql)
 				.setParameter("mId", memberPkId)
-				.getResultList();
+				.getResultList();		
 		if(list.size()>0) {
 			 md = list.get(0);
 		}
 		return md;
+	
 	}
 
 

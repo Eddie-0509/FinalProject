@@ -167,7 +167,7 @@
 								<div class="formcontainer">
 								<div class="container">
 									<span id="errorMsg" style="color: red; text-align: center; display:block;">${errorMsg}</span><br/>
-									<label for="uname"><strong>身分證字號</strong></label>
+									<label for="uname"><strong>信　　　箱</strong></label>
 									<input type="text" placeholder="請輸入身分證字號" name="account" id="uname" required autofocus>
 					
 									<label for="psw"><strong>密　　　碼</strong></label>
@@ -176,7 +176,7 @@
 								</div>
 								<button type="submit"><strong>登入</strong></button>
 								<div class="container" >
-									<span ><a href="#" class="link">忘記密碼?</a></span>
+									<span ><a href="<c:url value='memberForgotPwd'/>" class="link">忘記密碼?</a></span>
 								</div>
 							</div>
 						</form>

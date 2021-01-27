@@ -149,13 +149,27 @@
             <form name="myform" id="myform" method="post">
                
                 <div class="result-content">
-
-                            <div style="text-align:center;">您已填寫病歷表</div>
-                    
-                  <BR>
-                           <div style="text-align:center;">
-                                <a class="link-update" data-toggle="modal" data-target="#Modal">查看</a>
-                          </div>
+                    <table class="result-tab" width="100%">
+                        <tr>
+                            <th>緊急聯絡人</th>
+                            <th>緊急連絡電話</th>
+                            <th>關係欄</th>
+                            <th>抽菸史</th>
+                            <th>檳榔史</th>
+                            <th>重大疾病</th>
+                            <th>過敏原</th>
+                            <th>手術史</th>
+                        </tr>
+                        <tr>                    
+                              <td>${member.memberAccount}</td>
+                              <td>*******</td> 
+                              <td>${member.memberIdNumber}</td> 
+                              <td>${member.memberName}</td> 
+                              <td>${member.memberAddress}</td> 
+                              <td>${member.memberPhone}</td> 
+                              <td>${member.memberPhone}</td> 
+                        </tr>
+                    </table>
             </form>
         </div>
 

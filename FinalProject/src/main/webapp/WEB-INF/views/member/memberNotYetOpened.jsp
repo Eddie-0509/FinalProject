@@ -125,11 +125,11 @@
 			<ul>			
 				<!-- 如果你是會員的頁面 -->
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='/memberModify'/>" class="transition">修改會員</a></li>
-				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">填寫初診</a></li>
-				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
-				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
-				<li class="animate-box"><a href="<c:url value='/memberOrderTracking'/>" class="transition">訂單查詢</a></li>
+				<li class="animate-box "><a >修改會員</a></li>
+				<li class="animate-box"><a >填寫初診</a></li>
+				<li class="animate-box"><a >立即預約</a></li>
+				<li class="animate-box"><a >預約查詢</a></li>
+				<li class="animate-box"><a >訂單查詢</a></li>
 				<li class="animate-box"><a href="<c:url value='index'/>" class="transition style-logout">登出</a></li>
 			</ul>
 	
@@ -144,7 +144,17 @@
 
 
 
+<div class="result-wrap">
+            <form name="myform" id="myform" method="post">
+               
+                <div class="result-content">
 
+                            <div style="text-align:center;">您尚未開通您的帳號，請前去您的信箱進行開通。</div>
+                    
+                  <BR>
+                        
+            </form>
+        </div>
 
 
 

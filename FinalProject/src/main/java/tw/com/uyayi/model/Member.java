@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,9 +45,7 @@ public class Member {
 	@JsonIgnore //SC加ㄉ
 	private Set<Orders> orders;
 
-//	
-//	@OneToOne(fetch = FetchType.EAGER, mappedBy = "memberDetails" ,cascade = CascadeType.ALL)
-//	private MemberDetails memberDetails;
+	
 	 
 	
 	

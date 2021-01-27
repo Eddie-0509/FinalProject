@@ -13,30 +13,35 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tw.com.uyayi.model.Member;
-import tw.com.uyayi.model.MemberDetails;
+
 import tw.com.uyayi.service.MemberService;
 
 @Controller
-@SessionAttributes({"LoginOK","memberDetails"})
+@SessionAttributes({"LoginOK"})
 public class MemberController {
+	
 	@Autowired
 	MemberService memberService;
+	
 	
 	@PostMapping(value = "/checkLogin")
 	public String checkLogin(Model model, RedirectAttributes ra, @RequestParam String account, @RequestParam String pwd) {
 		if(memberService.checkLogin(account,pwd)) {
 			Member mb = memberService.getMemberByAccount(account);
+
 			model.addAttribute("LoginOK",mb);
+			model.addAttribute("memberBean",mb);	//設定memberBean Session傳送該帳號的會員資訊以供後續會員功能使用
+
+			
 			if(mb.getMemberStatus().equals("admin")) {
 				return "redirect:/productManage";//管理者登入後頁面
+			}else if(mb.getMemberStatus().equals("未開通")){
+				return "member/memberNotYetOpened";//未開通頁面
 			}else {
-				MemberDetails md = memberService.getMemberDetailByPkId(mb.getMemberPkId());
-				model.addAttribute("memberBean",mb);	//設定memberBean Session傳送該帳號的會員資訊以供後續會員功能使用
-				model.addAttribute("memberDetails",md);	//設定memberBean Session傳送該帳號的會員資訊以供後續會員功能使用
 				return "member/memberManagement";//一般會員登入後頁面
-			}
-		}else {
-			ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
+			      }
+		    }else {
+			 ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
 			return "redirect:/";
 		}
 	}

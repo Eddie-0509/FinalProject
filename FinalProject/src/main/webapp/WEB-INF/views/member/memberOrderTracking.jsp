@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    		
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!-- 會員修改頁面<有顯示資料> -->
+		
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -116,6 +119,7 @@
 	</head>
 
 	<body>
+    ${orders.get(0).orderStatus}
 	
 	<!-- Loader -->
 	<div class="fh5co-loader"></div>
@@ -129,7 +133,7 @@
 				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">填寫初診</a></li>
 				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
 				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
-				<li class="animate-box"><a href="<c:url value='/memberOrderTracking'/>" class="transition">訂單查詢</a></li>
+				<li class="animate-box"><a href="<c:url value='memberOrderTracking'/>" class="transition">訂單查詢</a></li>
 				<li class="animate-box"><a href="<c:url value='index'/>" class="transition style-logout">登出</a></li>
 			</ul>
 	
@@ -161,6 +165,36 @@
        
             </div>
         </div>
+        <div class="result-wrap">
+               
+                <div class="result-content">
+                    <table class="result-tab" width="100%">
+                        <tr>
+                            <th>訂單編號</th>
+                            <th>日期</th>
+                            <th>收貨人</th>
+                            <th>電話</th>
+                            <th>收件地址</th>
+                            <th>商品總額</th>
+                            <th>訂單狀態</th>
+                            <th>會員操作</th>
+                        </tr>
+                        <tr>              
+<%--                               <td>${orders.orderNo}</td>    --%>
+<%--                               <td>${orders.orderDate}</td>  --%>
+<%--                               <td>${orders.receiver}</td>  --%>
+<%--                               <td>${orders.mobilephone}</td>  --%>
+<%--                               <td>${orders.shipAddress}</td>  --%>
+<%--                               <td>${orders.totalPayment}</td>  --%>
+<%--                               <td>${orders.orderStatus}</td>  --%>
+                            <td>
+                            
+                                <a class="link-update" data-toggle="modal" data-target="#Modal">明細</a>
+                            </td>
+                        </tr>
+                    </table>
+         
+        </div>
         
         
         <div id="Modal" class="modal fade" style="color:black">
@@ -168,9 +202,34 @@
 	    <div class="modal-content">
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">預約詳細</h4>
+	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">修改會員資料</h4>
 	        </div>
 	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
+	        
+<!-- <table border="1" class="table"> -->
+<!-- <tbody> -->
+
+<%-- <form:form action ="${pageContext.request.contextPath}/memberModifySo" method="post" modelAttribute="member" > --%>
+
+<%--     <form:input placeholder="id"  path="memberPkId" style="display:none"/> --%>
+<%--      <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/> --%>
+<%--      <strong>會員密碼:<br><form:input placeholder="請輸入您的密碼" path="memberPwd"/></strong> --%>
+<!--      <br><br> -->
+<%--      <strong>會員姓名:<br><form:input placeholder="請輸入您的姓名" path="memberName"/></strong> --%>
+<!--      <br><br> -->
+<%--      <form:input placeholder="身分證不能改" path="memberIdNumber" style="display:none"/> --%>
+<%--     <strong> 會員通訊地址:<br><form:input placeholder="請輸入您的地址" path="memberAddress"/></strong> --%>
+<!--      <br><br> -->
+<%--      <strong>會員電話:<br><form:input placeholder="請輸入您的電話" path="memberPhone"/></strong> --%>
+<!--      <br><br> -->
+<%--      <form:input placeholder="狀態"  path="memberStatus" style="display:none"/> --%>
+<!--      <input type="submit" value="修改" /> -->
+
+<%-- </form:form> --%>
+
+<!-- </tbody> -->
+
+<!-- </table> -->
 	        	
 	        </div>
 	        <div class="modal-footer">

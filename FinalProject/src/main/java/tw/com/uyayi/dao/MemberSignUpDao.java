@@ -6,7 +6,6 @@ import tw.com.uyayi.model.Member;
 
 public interface MemberSignUpDao {
 
-	
 	public void add (Member member);
 	
 	
@@ -20,5 +19,9 @@ public interface MemberSignUpDao {
 	
 	
 	public List<Member> getAll();
+	
+	boolean checkEmail(String memberEmail);
+	
+	void changeStatus(int memberPkId);
 	
 }

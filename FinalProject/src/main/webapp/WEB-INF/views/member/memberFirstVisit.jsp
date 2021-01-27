@@ -185,7 +185,7 @@
 <table border="1" class="table">
 <tbody>
 
-<form:form action ="${pageContext.request.contextPath}/memberFirstVisitAddView" method="post" modelAttribute="memberDetails" >
+<form:form action ="${pageContext.request.contextPath}/memberFirstVisitAddView" method="post" modelAttribute="md" >
 
 
     <input value="${LoginOK.memberPkId}"  name="mem5berPkId" style="display:none" />

@@ -7,8 +7,8 @@
 	text-align: left;
 }
 
-.formcontainer input[type=text], input[type=password] {
-	width: 100%;
+.formcontainer input[type=text], input[type=password] ,input[type=email]{
+	width: 95%;
 	padding: 8px;
 	margin: 8px 0;
 	display: inline-block;
