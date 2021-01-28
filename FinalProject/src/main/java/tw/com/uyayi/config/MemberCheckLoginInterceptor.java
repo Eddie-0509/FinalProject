@@ -14,7 +14,7 @@ import tw.com.uyayi.model.Member;
 
 public class MemberCheckLoginInterceptor extends HandlerInterceptorAdapter {
 
-	List<String> url = Arrays.asList("/productManage*","/clinicManage*","/memberManage*");
+	List<String> url = Arrays.asList("/productManage*","/clinicManage*","/memberManage*","/couponManage*");
 	String servletPath;
 	String contextPath;
 	String requestURI;

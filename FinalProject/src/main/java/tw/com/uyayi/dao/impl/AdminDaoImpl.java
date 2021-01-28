@@ -44,22 +44,22 @@ public class AdminDaoImpl implements AdminDao {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Products> getAllProductsByStatus(String h_Status) {
+	public List<Products> getAllProductsByStatus(String h_status) {
 		String hql = "From Products where productStatus = :pStatus";
 		Session session = factory.getCurrentSession();
 		List<Products> list = session.createQuery(hql)
-				.setParameter("pStatus", h_Status)
+				.setParameter("pStatus", h_status)
 				.getResultList();
 		return list;
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_Status) {
+	public List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_status) {
 		String hql = "From Products where productCategory = :pCategory and productStatus = :pStatus";
 		Session session = factory.getCurrentSession();
 		List<Products> list = session.createQuery(hql)
 				.setParameter("pCategory", h_productCategory)
-				.setParameter("pStatus", h_Status)
+				.setParameter("pStatus", h_status)
 				.getResultList();
 		return list;
 	}
@@ -135,7 +135,73 @@ public class AdminDaoImpl implements AdminDao {
 		List<Clinic> list = session.createQuery(hql).getResultList();
 		return list;
 	}
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Clinic> getAllClinicByCity(String h_clinicCity) {
+		String hql ="From Clinic Where clinicCity like :cCity";
+		int city =Integer.valueOf(h_clinicCity) ;
+		Session session = factory.getCurrentSession();
+		List<Clinic> list = session.createQuery(hql)
+		.setParameter("cCity", city)
+		.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Clinic> getAllClinicByStatus(String h_status) {
+		String hql ="From Clinic Where clinicStatus like :cStatus";
+		Session session = factory.getCurrentSession();
+		List<Clinic> list = session.createQuery(hql)
+		.setParameter("cStatus", h_status)
+		.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Clinic> getAllClinicByCityAndStatus(String h_clinicCity, String h_status) {
+		String hql ="From Clinic Where clinicCity like :cCity and clinicStatus like :cStatus";
+		int city =Integer.valueOf(h_clinicCity) ;
+		Session session = factory.getCurrentSession();
+		List<Clinic> list = session.createQuery(hql)
+		.setParameter("cCity", city)
+		.setParameter("cStatus", h_status)
+		.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Clinic> getAllClinicByName(String keyName) {
+		String hql ="From Clinic Where clinicName like :cName ";
+		Session session = factory.getCurrentSession();
+		List<Clinic> list = session.createQuery(hql)
+		.setParameter("cName", "%"+keyName+"%")
+		.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public Clinic getClinicById(int clinicPkId) {
+		String hql = "From Clinic Where clinicPkId like :cId";
+		Session session = factory.getCurrentSession();
+		List<Clinic> list=session.createQuery(hql)
+		.setParameter("cId", clinicPkId)
+		.getResultList();
+		Clinic clinic = null;
+		if(list.get(0)!=null) {
+			clinic=list.get(0);
+		}
+		return clinic;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getClinicAppointmentFromId(int clinicPkId) {
+		String hql ="From Appointment Where clinicPkId like :cId";
+		Session session = factory.getCurrentSession();
+		List<Appointment> list=session.createQuery(hql)
+				.setParameter("cId", clinicPkId)
+				.getResultList();
+		return list;
+	}
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Member> getAllMember() {
@@ -263,6 +329,59 @@ public class AdminDaoImpl implements AdminDao {
 				.getResultList();
 		return list;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getAllAppointmentByMemberArrive(String memberArrive, int clinicPkId) {
+		String hql = "From Appointment where clinicPkId like :cId and Arrive like :mArrive";
+		Session session = factory.getCurrentSession();
+		List<Appointment> list = session.createQuery(hql)
+				.setParameter("cId", clinicPkId)
+				.setParameter("mArrive", memberArrive)
+				.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getAllAppointmentByMemberAccount(String memberAccount, int clinicPkId) {
+		Session session = factory.getCurrentSession();
+		List<Appointment> list = null;
+		if(memberAccount.equals("True")) {
+		String hql = "From Appointment where clinicPkId like :cId and memberPkId is not null";
+		list = session.createQuery(hql)
+				.setParameter("cId", clinicPkId)
+				.getResultList();
+		}else {
+		String hql = "From Appointment where clinicPkId like :cId and memberPkId is null";
+		list = session.createQuery(hql)
+				.setParameter("cId", clinicPkId)
+				.getResultList();	
+		}
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getAllAppointmentByMemberAccountAndMemberArrive(String memberArrive, String memberAccount,
+			int clinicPkId) {
+		Session session = factory.getCurrentSession();
+		List<Appointment> list = null;
+		if(memberAccount.equals("True")) {
+		String hql = "From Appointment where clinicPkId like :cId and Arrive like :mArrive and memberPkId is not null";
+		list = session.createQuery(hql)
+				.setParameter("cId", clinicPkId)
+				.setParameter("mArrive", memberArrive)
+				.getResultList();
+		}else {
+		String hql = "From Appointment where clinicPkId like :cId and memberArrive like :mArrive and memberPkId is null";
+		list = session.createQuery(hql)
+				.setParameter("cId", clinicPkId)
+				.setParameter("mArrive", memberArrive)
+				.getResultList();
+		}
+		return list;
+	}
+
+
+
 
 
 

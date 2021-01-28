@@ -14,7 +14,9 @@
 	<meta name="description" content="Free HTML5 Bootstrap Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 	<meta name="author" content="FREEHTML5.CO" />
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- 
 	//////////////////////////////////////////////////////
 
@@ -143,7 +145,18 @@
 	            	<h4 id="orderDetailModalTitle" class="modal-title"  style="color:black"></h4>
 	        	</div>
 	        	<div id="orderDetailModalBody" class="modal-body"  style="color:black">
-	        
+	        		<table class='table table-bordered' id='showAllAppointmentTable' >
+						<thead>
+							<tr>
+								<th style='width: 70%;'>產品名稱</th>
+								<th style='width: 15%;'>單價</th>
+								<th style='width: 15%;'>數量</th>
+							</tr>
+						</thead>
+						<tbody id="orderDetailBody">
+							
+						</tbody>
+	        		</table>
 	       
 	  
 	        	</div>
@@ -156,96 +169,81 @@
 	</div>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-		
-			<div id="appointmentContainer" class="container" style='width: 1200px;'>
-				會員:${member.memberName}<br/>
-				<h4>預約紀錄</h4>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/>
-				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
-				<table class='table table-bordered' id='showAllAppointmentTable' >
-					<thead>
-						<tr>
-							<th style='width: 100px;'>預約編號</th>
-							<th style='width: 200px;'>診所</th>
-							<th style='width: 200px;'>醫生</th>
-							<th style='width: 200px;'>日期</th>
-							<th style='width: 200px;'>時段</th>
-							<th style='width: 200px;'>項目</th>
-							<th style='width: 100px;'>
-							<select name="h_memberArrive" id="h_memberArrive">
-								<option id ="到診" value="到診" selected="selected">到診</option>
-								<option id ="有" value="True">有</option>
-								<option id ="無" value="False" >無</option>
-							</select>
-							</th>
-						</tr>
-					</thead>
-					<tbody id="AppointmentBody">
-						<c:forEach var="appointment" items="${appointment}" varStatus="vs">
-							<tr>
-								<td>${vs.count}</td>
-								<td>${appointment.clinicBean.clinicName}</td>
-								<td>${appointment.dentistBean.dentistName}</td>
-								<td>${appointment.appointDate}</td>
-								<td>${appointment.timeTableBean.times}</td>
-								<td>${appointment.itemBean.itemName}</td>
-								<c:choose>
-								<c:when test="${appointment.arrive == 'true' }">
-									<td>有</td>
-								</c:when>
-								<c:otherwise>
-									<td>無</td>								
-								</c:otherwise>
-								</c:choose>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-			<div id="orderContainer" class="container" style='width: 1200px;'>
-				<h4>訂單紀錄</h4>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/>
-				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
-				<table class='table table-bordered' id='showAllOrderTable' >
-					<thead>
-						<tr>
-							<th style='width: 100px;'>訂單編號</th>
-							<th style='width: 150px;'>折扣碼</th>
-							<th style='width: 150px;'>總費用</th>
-							<th style='width: 150px;'>
-							<select name="h_orderStatus" id="h_orderStatus">
-								<option id ="訂單狀況" value="訂單狀況" selected="selected">訂單狀況</option>
-								<option id ="未付款" value="未付款">未付款</option>
-								<option id ="已付款" value="已付款" >已付款</option>
-								<option id ="取消" value="取消" >已付款</option>
-								<option id ="已出貨" value="已出貨" >已付款</option>
-							</select>
-							</th>
-							<th style='width: 600px;'>收件地址</th>
-							<th style='width: 50px;'></th>
-						</tr>
-					</thead>
-					<tbody id="orderBody">
-						<c:forEach var="order" items="${orders}" varStatus="vs">
-							<tr>
-								<td>${order.orderPkId}</td>
-								<td>
-								<c:choose>
-								<c:when test="${order.couponBean.couponCode == null }">
-								</c:when>
-								<c:otherwise>
-								${order.couponBean.couponCode}							
-								</c:otherwise>
-								</c:choose>
-								</td>
-								<td>${order.totalPayment}</td>
-								<td>${order.orderStatus}</td>
-								<td>${order.shipAddress}</td>	
-								<td><i id="detail${order.orderPkId}" class="fas fa-info-circle"></i></td>						
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+			<div class="container">
+  				<div class="panel-group" id="accordion">
+    				<div class="panel panel-default">
+     					 <div class="panel-heading">
+      					  	<h4 class="panel-title">
+         					<a data-toggle="collapse" data-parent="#accordion" href="#AppointmentDetail">歷史預約</a>
+       						</h4>
+      					</div>
+      					<div id="AppointmentDetail" class="panel-collapse collapse in">
+        					<div class="panel-body">
+								<input id="appointmentSearchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/>
+								<button type="button" id="appointmentSearchData" class="btn btn-info">搜尋</button>
+								<table class='table table-bordered' id='showAllAppointmentTable' >
+									<thead>
+								    	<tr>
+								       		<th style='width: 10%;'>預約編號</th>
+										    <th style='width: 15%;'>診所</th>
+										    <th style='width: 10%;'>醫生</th>
+										    <th style='width: 20%;'>日期</th>
+										    <th style='width: 20%;'>時段</th>
+										    <th style='width: 15%;'>項目</th>
+										    <th style='width: 10%;'>
+										    	<select name="h_memberArrive" id="h_memberArrive">
+											        <option id ="到診" value="到診" selected="selected">到診</option>
+											        <option id ="有" value="True">有</option>
+											        <option id ="無" value="False" >無</option>
+										    	</select>
+										    </th>
+								     	 </tr>
+								    </thead>
+									<tbody id="AppointmentBody">
+										
+									</tbody>
+								</table>
+							</div>
+      					</div>
+    				</div>
+   					 <div class="panel panel-default">
+      					<div class="panel-heading">
+					        <h4 class="panel-title">
+					         <a data-toggle="collapse" data-parent="#accordion" href="#orderDetail">歷史訂單</a>
+					        </h4>
+      					</div>
+				     	<div id="orderDetail" class="panel-collapse collapse">
+				        	<div class="panel-body">
+								<input id="orderSearchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/>
+								<button type="button" id="orderSearchData" class="btn btn-info">搜尋</button>
+								<table class='table table-bordered' id='showAllOrderTable' >
+									<thead>
+										<tr>
+											<th style='width: 10%;'>訂單編號</th>
+											<th style='width: 10%;'>折扣內容</th>
+											<th style='width: 10%;'>總費用</th>
+											<th style='width: 10%;'>
+												<select name="h_orderStatus" id="h_orderStatus">
+													<option id ="訂單狀況" value="訂單狀況" selected="selected">訂單狀況</option>
+													<option id ="未付款" value="未付款">未付款</option>
+													<option id ="已付款" value="已付款" >已付款</option>
+													<option id ="取消" value="取消" >已付款</option>
+													<option id ="已出貨" value="已出貨" >已付款</option>
+												</select>
+											</th>
+											<th style='width: 50%;'>收件地址</th>
+											<th style='width: 10%;'></th>
+										</tr>
+									</thead>
+									<tbody id="orderBody">
+										
+									</tbody>
+								</table>
+							
+							</div>
+				    	  </div>
+    					</div>
+  					</div> 
 			</div>
 		</div>
 
@@ -275,21 +273,91 @@
 
 	</div>
 	<script>
-	<c:forEach var="order" items="${orders}" varStatus="vs">
-		$("#detail${order.orderPkId}").on({
-			mouseenter:function(){
-				$(this).css("color","blue");
-			},
-			mouseleave:function(){
-				$(this).css("color","black");
-			},
-			click:function(){
-				
-				$("#orderDetailModal").modal('show');
-			}
-		});
-	</c:forEach>
 	
+	$(function(){
+		showRawAppointmentData();
+		showRawOrderData();
+		bindRawOrderDetail();
+	});
+	
+
+	//顯示預約原始資料
+	function showRawAppointmentData(){
+		let str = "";
+			<c:forEach var="appointment" items="${appointment}" varStatus="vs">
+				str += "<tr>";
+				str	+= "<td>${appointment.appointmentPkId}</td>";	
+				str	+= "<td>${appointment.clinicBean.clinicName}</td>";	
+				str	+= "<td>${appointment.dentistBean.dentistName}</td>";	
+				str	+= "<td>${appointment.appointDate}</td>";	
+				str	+= "<td>${appointment.timeTableBean.times}</td>";	
+				str	+= "<td>${appointment.itemBean.itemName}</td>";	
+				<c:choose>
+				<c:when test="${appointment.arrive=='true'}">
+				str	+= "<td>有</td>";	
+				</c:when>
+				<c:otherwise>
+				str	+= "<td>無</td>";	
+				</c:otherwise>
+				</c:choose>
+				str += "</tr>";
+			</c:forEach>
+		$("#AppointmentBody").html(str);
+	}
+	//顯示訂單原始資料
+	function showRawOrderData(){
+		let str = "";
+			<c:forEach var="order" items="${orders}" varStatus="vs">
+				str += "<tr>";	
+				str	+= "<td>${order.orderNo}</td>";	
+				str	+= "<td>${order.couponBean.couponContext}</td>";	
+				str	+= "<td>${order.totalPayment}</td>";	
+				str	+= "<td>${order.orderStatus}</td>";	
+				str	+= "<td>${order.shipAddress}</td>";	
+				str	+= "<td><button type='button' id='orderDetail${order.orderPkId}'>詳細資料</button></td>";	
+				str += "</tr>";
+			</c:forEach>
+		$("#orderBody").html(str);
+	}
+	function bindRawOrderDetail(){
+		<c:forEach var="order" items="${orders}">
+		$("#orderDetail${order.orderPkId}").click(function(){
+			let str = "";
+			<c:choose>
+				<c:when test="${order.orderStatus=='已取消'}">
+				$("#orderDetailModalTitle").text("訂單編號:${order.orderNo}\r\r\r取消原因:${order.returnReason}")
+				</c:when>
+				<c:otherwise>
+				$("#orderDetailModalTitle").text("訂單編號:${order.orderNo}")
+				</c:otherwise>
+			</c:choose>
+			<c:forEach var="orderDetails" items="${order.orderDetails}">
+			str += "<tr>";
+			str += "<td>${orderDetails.productBean.productName}</td>";
+			str += "<td>${orderDetails.productBean.productPrice}</td>";
+			str += "<td>${orderDetails.orderQuantity}</td>";
+			str += "</tr>"
+			</c:forEach>
+			$("#orderDetailBody").html(str);
+			$("#orderDetailModal").modal('show');
+		});
+		</c:forEach>
+	}
+	
+	//JSON轉換時間格式
+	function formatDate(date) {
+	    var d = new Date(date),
+	        month = '' + (d.getMonth() + 1),
+	        day = '' + d.getDate(),
+	        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+
+	    return [year, month, day].join('-');
+	}
 	
 	</script>
 	</body>

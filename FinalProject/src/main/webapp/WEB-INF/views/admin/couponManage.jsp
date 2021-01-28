@@ -154,7 +154,7 @@
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponContext"><strong>折扣內容:</strong></label><span id="a_checkContext"></span><br>
-						<input type="number" step="0.01" min="0" max="1" id="a_couponContext" name="couponContext" placeholder="請輸入折扣內容" style="width: 90%"/><br/>						
+						<input type="number" step="0.01" min="0" max="1" id="a_couponContext" name="couponContext" placeholder="ex:0.80" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponCode"><strong>折扣碼:</strong></label><span id="a_checkCode"></span><br>
@@ -166,7 +166,7 @@
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponEndTime"><strong>折扣結束時間	:</strong></label><span id="a_checkEndTime"></span><br>
-						<input type="date" id="a_couponEndStartTime" name="couponEndTime" placeholder="請輸入折扣結束時間" /><br/>						
+						<input type="date" id="a_couponEndTime" name="couponEndTime" placeholder="請輸入折扣結束時間" /><br/>						
 						</div>
 						<input type="text"  name="couponStatus" value="true" hidden="hidden">
 					</div>
@@ -197,7 +197,7 @@
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponContext"><strong>折扣內容:</strong></label><span id="u_checkContext"></span><br>
-						<input type="number" step="0.01" min="0" max="1" id="u_couponContext" name="couponContext" placeholder="請輸入折扣內容" style="width: 90%"/><br/>						
+						<input type="number" step="0.01" min="0" max="1" id="u_couponContext" name="couponContext" placeholder="ex:0.80" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 						<label for="couponCode"><strong>折扣碼:</strong></label><span id="u_checkCode"></span><br>
@@ -288,13 +288,9 @@
 
 	</div>
 	<script>
-	//修改表單欄位檢查
-	var a_flagName = false;
-	var a_flagContext = false;
-	var a_flagCode = false;
-	var a_flagStartTime = false;
-	var a_flagEndTime = false;
+	//新增表單欄位檢查
 	
+	var a_flagName = false;
 	$("#a_couponName").blur(function(){
 		let nameVal = $("#a_couponName").val();
 		let span = $("#a_checkName");
@@ -306,6 +302,7 @@
 			a_flagName = true;
 		}
 	});
+	var a_flagContext = false;
 	$("#a_couponContext").blur(function(){
 		let contextVal = $("#a_couponContext").val();
 		let span = $("#a_checkContext");
@@ -314,13 +311,14 @@
 			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
 			a_flagContext = false;
 		}else if(!a.test(contextVal)){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確格式");
 			a_flagContext = false;			
 		}else{
 			span.html("");
 			a_flagContext = true;
 		}
 	});
+	var a_flagCode = false;
 	$("#a_couponCode").blur(function(){
 		let codeVal = $("#a_couponCode").val();
 		let span = $("#a_checkCode");
@@ -332,94 +330,49 @@
 			a_flagCode = true;
 		}
 	});
+	var a_flagStartTime = false;
+	var a_flagEndTime = false;
 	$("#a_couponStartTime").blur(function(){
+		let startTimeDate = new Date($("#a_couponStartTime").val());
+		let endTimeDate = new Date($("#a_couponEndTime").val());
 		let startTimeVal = $("#a_couponStartTime").val();
-		let span = $("#a_checkStartTime");
-		if(startTimeVal==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣開始時間");
+		let endTimeVal = $("#a_couponEndTime").val();
+		let spanStartTime = $("#a_checkStartTime");
+		let spanEndTime = $("#a_checkEndTime");
+		if(startTimeVal == ""){
+			spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣開始時間");
 			a_flagStartTime = false;
+		}else if (startTimeDate > endTimeDate){
+			spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>折扣開始時間不能早於結束時間");
+			a_flagStartTime = false;	
 		}else{
-			span.html("");
 			a_flagStartTime = true;
-		}
-	});
-	$("#a_couponEndStartTime").blur(function(){
-		let endTimeVal = $("#a_couponEndStartTime").val();
-		let span = $("#a_checkEndTime");
-		if(endTimeVal==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣結束時間");
-			a_flagEndTime = false;
-		}else{
-			span.html("");
 			a_flagEndTime = true;
+			spanStartTime.html("");
+			spanEndTime.html("");
 		}
 	});
-	//修改表單欄位檢查
-	var u_flagName = true;
-	var u_flagContext = true;
-	var u_flagCode = true;
-	var u_flagStartTime = true;
-	var u_flagEndTime = true;
+	$("#a_couponEndTime").blur(function(){
+		let startTimeDate = new Date($("#a_couponStartTime").val());
+		let endTimeDate = new Date($("#a_couponEndTime").val());
+		let startTimeVal = $("#a_couponStartTime").val();
+		let endTimeVal = $("#a_couponEndTime").val();
+		let spanStartTime = $("#a_checkStartTime");
+		let spanEndTime = $("#a_checkEndTime");
+		if(endTimeVal == ""){
+			spanEndTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣結束時間");
+			a_flagStartTime = false;
+		}else if (startTimeDate > endTimeDate){
+			spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>折扣開始時間不能早於結束時間");
+			a_flagStartTime = false;	
+		}else{
+			a_flagStartTime = true;
+			a_flagEndTime = true;
+			spanStartTime.html("");
+			spanEndTime.html("");
+		}
+	});
 	
-	$("#u_couponName").blur(function(){
-		let nameVal = $("#u_couponName").val();
-		let span = $("#u_checkName");
-		if(nameVal==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣名稱");
-			u_flagName = false;
-		}else{
-			span.html("");
-			u_flagName = true;
-		}
-	});
-	$("#u_couponContext").blur(function(){
-		let contextVal = $("#u_couponContext").val();
-		let span = $("#u_checkContext");
-		let a =/[0][.]\d{2}/;
-		if(contextVal==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
-			u_flagContext = false;
-		}else if(!a.test(contextVal)){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
-			u_flagContext = false;
-		}else{
-			span.html("");
-			u_flagContext = true;
-		}
-	});
-	$("#u_couponCode").blur(function(){
-		let codeVal = $("#u_couponCode").val();
-		let span = $("#u_checkCode");
-		if(codeVal==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣碼");
-			u_flagCode = false;
-		}else{
-			span.html("");
-			u_flagCode = true;
-		}
-	});
-	$("#u_couponStartTime").blur(function(){
-		let startTimeVal = $("#u_couponStartTime").val();
-		let span = $("#u_checkStartTime");
-		if(startTimeVal==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣開始時間");
-			u_flagStartTime = false;
-		}else{
-			span.html("");
-			u_flagStartTime = true;
-		}
-	});
-	$("#u_couponEndStartTime").blur(function(){
-		let endTimeVal = $("#u_couponEndStartTime").val();
-		let span = $("#u_checkEndTime");
-		if(endTimeVal==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣結束時間");
-			u_flagEndTime = false;
-		}else{
-			span.html("");
-			u_flagEndTime = true;
-		}
-	});
 	
 	//依狀態篩選折扣
 	$("#h_couponStatus").change(function(){
@@ -444,7 +397,7 @@
 		}).then(function(response) {
 			return response.json();
 		}).then(function(data) {
-			if($("#h_couponStatus option:selected").text()!="狀態'"){
+			if($("#h_couponStatus option:selected").text()!="狀態"){
 				$("#狀態").prop("selected","selected");
 			}
 			$("#searchResult").html("");
@@ -498,6 +451,89 @@
 	function bindRawUpdateBtn(){
 		<c:forEach var="coupon" items="${coupon}">
 			$("#updateCouponBtn${coupon.couponPkId}").click(function(){
+				//修改表單欄位檢查
+				var u_flagName = true;
+				$("#u_couponName").blur(function(){
+					let nameVal = $("#u_couponName").val();
+					let span = $("#u_checkName");
+					if(nameVal==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣名稱");
+						u_flagName = false;
+					}else{
+						span.html("");
+						u_flagName = true;
+					}
+				});
+				var u_flagContext = true;
+				$("#u_couponContext").blur(function(){
+					let contextVal = $("#u_couponContext").val();
+					let span = $("#u_checkContext");
+					let a =/[0][.]\d{2}/;
+					if(contextVal==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
+						u_flagContext = false;
+					}else if(!a.test(contextVal)){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確格式");
+						u_flagContext = false;
+					}else{
+						span.html("");
+						u_flagContext = true;
+					}
+				});
+				var u_flagCode = true;
+				$("#u_couponCode").blur(function(){
+					let codeVal = $("#u_couponCode").val();
+					let span = $("#u_checkCode");
+					if(codeVal==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣碼");
+						u_flagCode = false;
+					}else{
+						span.html("");
+						u_flagCode = true;
+					}
+				});
+				var u_flagStartTime = true;
+				var u_flagEndTime = true;
+				$("#u_couponStartTime").blur(function(){
+					let startTimeDate = new Date($("#u_couponStartTime").val());
+					let endTimeDate = new Date($("#u_couponEndTime").val());
+					let startTimeVal = $("#u_couponStartTime").val();
+					let endTimeVal = $("#u_couponEndTime").val();
+					let spanStartTime = $("#u_checkStartTime");
+					let spanEndTime = $("#u_checkEndTime");
+					if(startTimeVal == ""){
+						spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣開始時間");
+						u_flagStartTime = false;
+					}else if (startTimeDate > endTimeDate){
+						spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>折扣開始時間不能早於結束時間");
+						u_flagStartTime = false;	
+					}else{
+						u_flagStartTime = true;
+						u_flagEndTime = true;
+						spanStartTime.html("");
+						spanEndTime.html("");
+					}
+				});
+				$("#u_couponEndTime").blur(function(){
+					let startTimeDate = new Date($("#u_couponStartTime").val());
+					let endTimeDate = new Date($("#u_couponEndTime").val());
+					let startTimeVal = $("#u_couponStartTime").val();
+					let endTimeVal = $("#u_couponEndTime").val();
+					let spanStartTime = $("#u_checkStartTime");
+					let spanEndTime = $("#u_checkEndTime");
+					if(endTimeVal == ""){
+						spanEndTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣結束時間");
+						u_flagStartTime = false;
+					}else if (startTimeDate > endTimeDate){
+						spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>折扣開始時間不能早於結束時間");
+						u_flagStartTime = false;	
+					}else{
+						u_flagStartTime = true;
+						u_flagEndTime = true;
+						spanStartTime.html("");
+						spanEndTime.html("");
+					}
+				});
 				$("#u_couponPkId").val("${coupon.couponPkId}");
 				$("#u_couponName").val("${coupon.couponName}");
 				$("#u_couponContext").val("${coupon.couponContext}");
@@ -514,7 +550,7 @@
 				</c:if>																	
 				$("#updateCouponFormModal").modal("show");
 				$("#updateCouponButton").click(function(){
-					if(a_flagName && a_flagContext && a_flagCode && a_flagStartTime && a_flagEndTime){				
+					if(u_flagName && u_flagContext && u_flagCode && u_flagStartTime && u_flagEndTime){				
 						$("#updateCouponForm").trigger("submit");
 					}else{
 						alert("請正確輸入表格內容!");
@@ -548,6 +584,90 @@
 	function bindUpdateBtn(){;	
 		for(let i = 0; i < coupon.length; i++) {
 			$("#updateCouponBtn"+coupon[i].couponPkId).click(function(){
+				//修改表單欄位檢查
+				var u_flagName = true;
+				$("#u_couponName").blur(function(){
+					let nameVal = $("#u_couponName").val();
+					let span = $("#u_checkName");
+					if(nameVal==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣名稱");
+						u_flagName = false;
+					}else{
+						span.html("");
+						u_flagName = true;
+					}
+				});
+				var u_flagContext = true;
+				$("#u_couponContext").blur(function(){
+					let contextVal = $("#u_couponContext").val();
+					let span = $("#u_checkContext");
+					let a =/[0][.]\d{2}/;
+					if(contextVal==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣內容");
+						u_flagContext = false;
+					}else if(!a.test(contextVal)){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確格式");
+						u_flagContext = false;
+					}else{
+						span.html("");
+						u_flagContext = true;
+					}
+				});
+				var u_flagCode = true;
+				$("#u_couponCode").blur(function(){
+					let codeVal = $("#u_couponCode").val();
+					let span = $("#u_checkCode");
+					if(codeVal==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣碼");
+						u_flagCode = false;
+					}else{
+						span.html("");
+						u_flagCode = true;
+					}
+				});
+				var u_flagStartTime = true;
+				var u_flagEndTime = true;
+				$("#u_couponStartTime").blur(function(){
+					let startTimeDate = new Date($("#u_couponStartTime").val());
+					let endTimeDate = new Date($("#u_couponEndTime").val());
+					let startTimeVal = $("#u_couponStartTime").val();
+					let endTimeVal = $("#u_couponEndTime").val();
+					let spanStartTime = $("#u_checkStartTime");
+					let spanEndTime = $("#u_checkEndTime");
+					if(startTimeVal == ""){
+						spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣開始時間");
+						u_flagStartTime = false;
+					}else if (startTimeDate > endTimeDate){
+						spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>折扣開始時間不能早於結束時間");
+						u_flagStartTime = false;	
+					}else{
+						u_flagStartTime = true;
+						u_flagEndTime = true;
+						spanStartTime.html("");
+						spanEndTime.html("");
+					}
+				});
+				$("#u_couponEndTime").blur(function(){
+					let startTimeDate = new Date($("#u_couponStartTime").val());
+					let endTimeDate = new Date($("#u_couponEndTime").val());
+					let startTimeVal = $("#u_couponStartTime").val();
+					let endTimeVal = $("#u_couponEndTime").val();
+					let spanStartTime = $("#u_checkStartTime");
+					let spanEndTime = $("#u_checkEndTime");
+					if(endTimeVal == ""){
+						spanEndTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入折扣結束時間");
+						u_flagStartTime = false;
+					}else if (startTimeDate > endTimeDate){
+						spanStartTime.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>折扣開始時間不能早於結束時間");
+						u_flagStartTime = false;	
+					}else{
+						u_flagStartTime = true;
+						u_flagEndTime = true;
+						spanStartTime.html("");
+						spanEndTime.html("");
+					}
+				});
+				
 				$("#u_couponPkId").val(coupon[i].couponPkId);
 				$("#u_couponName").val(coupon[i].couponName);
 				$("#u_couponContext").val(coupon[i].couponContext);
@@ -564,7 +684,7 @@
 				}															
 				$("#updateCouponFormModal").modal("show");
 				$("#updateCouponButton").click(function(){
-					if(a_flagName && a_flagContext && a_flagCode && a_flagStartTime && a_flagEndTime){				
+					if(u_flagName && u_flagContext && u_flagCode && u_flagStartTime && u_flagEndTime){				
 						$("#updateCouponForm").trigger("submit");
 					}else{
 						alert("請正確輸入表格內容!");

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Coupon;
-import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.Orders;
 import tw.com.uyayi.model.Products;
@@ -161,6 +160,85 @@ public class AdminController {
 		model.addAttribute("clinics",beans);
 		return "admin/clinicManage";
 	}
+	//診所管理頁面(模糊搜尋)
+	@GetMapping(value ="/getAllClinicByName")
+	public @ResponseBody List<Clinic> getAllClinicByName(@RequestParam String keyName) {
+		List<Clinic> beans= null;
+		if(keyName.equals("")) {
+			beans = service.getAllClinic();
+			for (int i = 0; i < beans.size(); i++) {
+				beans.get(i).setClinicCityName(beans.get(i).getCityBean().getCityName());
+				beans.get(i).setClinicDistName(beans.get(i).getDistBean().getDistName());
+			}
+		}else {
+			beans = service.getAllClinicByName(keyName);
+			for (int i = 0; i < beans.size(); i++) {
+				beans.get(i).setClinicCityName(beans.get(i).getCityBean().getCityName());
+				beans.get(i).setClinicDistName(beans.get(i).getDistBean().getDistName());
+			}
+		}
+		return beans;
+	}
+	//診所管理頁面(依城市篩選診所資料及取得區域)
+	@GetMapping(value ="/getAllClinicByCityAndStatus")
+	public @ResponseBody List<Clinic> getAllClinicByCityAndStatus(@RequestParam String h_clinicCity,
+			@RequestParam String h_status) {
+		List<Clinic> beans= null;
+		if(h_clinicCity.equals("城市")&&h_status.equals("狀態")) {
+			beans = service.getAllClinic();
+			for (int i = 0; i < beans.size(); i++) {
+				beans.get(i).setClinicCityName(beans.get(i).getCityBean().getCityName());
+				beans.get(i).setClinicDistName(beans.get(i).getDistBean().getDistName());
+			}
+		}else if(h_status.equals("狀態")) {
+			beans = service.getAllClinicByCity(h_clinicCity);
+			for (int i = 0; i < beans.size(); i++) {
+			beans.get(i).setClinicCityName(beans.get(i).getCityBean().getCityName());
+			beans.get(i).setClinicDistName(beans.get(i).getDistBean().getDistName());
+			}
+		}else if(h_clinicCity.equals("城市")) {
+			beans = service.getAllClinicByStatus(h_status);
+			for (int i = 0; i < beans.size(); i++) {					
+				beans.get(i).setClinicCityName(beans.get(i).getCityBean().getCityName());
+				beans.get(i).setClinicDistName(beans.get(i).getDistBean().getDistName());
+				}
+		}else {
+			beans = service.getAllClinicByCityAndStatus(h_clinicCity,h_status);
+			for (int i = 0; i < beans.size(); i++) {
+				beans.get(i).setClinicCityName(beans.get(i).getCityBean().getCityName());
+				beans.get(i).setClinicDistName(beans.get(i).getDistBean().getDistName());
+			}
+		}
+		return beans;
+		}
+	//診所管理頁面(診所預約紀錄明細)
+		@GetMapping(value = "/clinicManage_Detail")
+		public String getClinicMemberDetailFromId(Model model,int clinicPkId) {
+			Clinic clinic = service.getClinicById(clinicPkId);
+			List<Appointment> appointment = service.getClinicAppointmentFromId(clinicPkId);
+			model.addAttribute("clinic",clinic);
+			model.addAttribute("appointment",appointment);
+			return "admin/clinicManage_Detail";
+		}
+	//診所明細頁面(By到診及會員狀態篩選預約資料)
+		@GetMapping(value ="/getAllAppointByMemberAccountAndMemberArrive")
+		public @ResponseBody List<Appointment> getAllAppointByMemberAccountAndMemberArrive(
+				@RequestParam String memberAccount,
+				@RequestParam String memberArrive,
+				@RequestParam int clinicPkId) {
+//			Clinic clinic = service.getClinicById(clinicPkId);
+			List<Appointment> beans= null;
+			if(memberAccount.equals("會員")&&memberArrive.equals("到診")) {
+				beans = service.getClinicAppointmentFromId(clinicPkId);
+			}else if(memberAccount.equals("會員")) {
+				beans = service.getAllAppointmentByMemberArrive(memberArrive,clinicPkId);
+			}else if(memberArrive.equals("到診")) {
+				beans = service.getAllAppointmentByMemberAccount(memberAccount,clinicPkId);
+			}else {
+				beans = service.getAllAppointmentByMemberAccountAndMemberArrive(memberArrive,memberAccount,clinicPkId);
+			}
+			return beans;
+			}
 	//折扣碼管理頁面(初始值為顯示所有折扣碼資料)
 	@GetMapping(value = "/couponManage")
 	public String getAllCoupon(Model model) {

@@ -35,12 +35,12 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List<Products> getAllProductsByStatus(String h_Status) {
-		return adminDao.getAllProductsByStatus(h_Status);
+	public List<Products> getAllProductsByStatus(String h_status) {
+		return adminDao.getAllProductsByStatus(h_status);
 	}
 	@Override
-	public List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_Status) {
-		return adminDao.getAllProductsByCategoryAndStatus(h_productCategory,h_Status);
+	public List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_status) {
+		return adminDao.getAllProductsByCategoryAndStatus(h_productCategory,h_status);
 	}
 	
 	@Override
@@ -55,8 +55,6 @@ public class AdminServiceImpl implements AdminService {
 	public void insertProduct(Products product) {
 		adminDao.insertProduct(product);
 	}
-	
-
 	@Override
 	public void updateProduct(Products product) {
 		adminDao.updateProduct(product);
@@ -71,7 +69,30 @@ public class AdminServiceImpl implements AdminService {
 	public List<Clinic> getAllClinic() {
 		return adminDao.getAllClinic();
 	}
-
+	@Override
+	public List<Clinic> getAllClinicByCity(String h_clinicCity) {
+		return adminDao.getAllClinicByCity(h_clinicCity);
+	}
+	@Override
+	public List<Clinic> getAllClinicByStatus(String h_status) {
+		return adminDao.getAllClinicByStatus(h_status);
+	}
+	@Override
+	public List<Clinic> getAllClinicByCityAndStatus(String h_clinicCity, String h_status) {
+		return adminDao.getAllClinicByCityAndStatus( h_clinicCity, h_status);
+	}
+	@Override
+	public List<Clinic> getAllClinicByName(String keyName) {
+		return adminDao.getAllClinicByName(keyName);
+	}
+	@Override
+	public Clinic getClinicById(int clinicPkId) {
+		return adminDao.getClinicById(clinicPkId);
+	}
+	@Override
+	public List<Appointment> getClinicAppointmentFromId(int clinicPkId) {
+		return adminDao.getClinicAppointmentFromId(clinicPkId);
+	}
 	@Override
 	public List<Member> getAllMember() {
 		return adminDao.getAllMember();
@@ -111,7 +132,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void updateCoupon(Coupon coupon) {
 		adminDao.updateCoupon(coupon);
-		
 	}
 	@Override
 	public List<Coupon> getAllCouponByName(String keyName) {
@@ -121,6 +141,22 @@ public class AdminServiceImpl implements AdminService {
 	public List<Coupon> getAllCouponByStatus(String couponStatus) {
 		return adminDao.getAllCouponByStatus(couponStatus);
 	}
+	@Override
+	public List<Appointment> getAllAppointmentByMemberArrive(String memberArrive, int clinicPkId) {
+		return adminDao.getAllAppointmentByMemberArrive(memberArrive, clinicPkId);
+	}
+	@Override
+	public List<Appointment> getAllAppointmentByMemberAccount(String memberAccount, int clinicPkId) {
+		return adminDao.getAllAppointmentByMemberAccount(memberAccount, clinicPkId);
+	}
+	@Override
+	public List<Appointment> getAllAppointmentByMemberAccountAndMemberArrive(String memberArrive, String memberAccount,
+			int clinicPkId) {
+		return adminDao.getAllAppointmentByMemberAccountAndMemberArrive(memberArrive, memberAccount,clinicPkId);
+	}
+
+
+	
 
 
 

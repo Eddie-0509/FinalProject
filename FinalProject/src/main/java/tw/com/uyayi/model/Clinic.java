@@ -58,7 +58,11 @@ public class Clinic {
 	@Transient
 	private int clinicCityId;
 	@Transient
+	private String clinicCityName;
+	@Transient
 	private int clinicDistId;
+	@Transient
+	private String clinicDistName;
 	
 	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "clinicBean", fetch = FetchType.EAGER)
@@ -200,6 +204,22 @@ public class Clinic {
 
 	public void setClinicDistId(int clinicDistId) {
 		this.clinicDistId = clinicDistId;
+	}
+
+	public String getClinicCityName() {
+		return clinicCityName;
+	}
+
+	public void setClinicCityName(String clinicCityName) {
+		this.clinicCityName = clinicCityName;
+	}
+
+	public String getClinicDistName() {
+		return clinicDistName;
+	}
+
+	public void setClinicDistName(String clinicDistName) {
+		this.clinicDistName = clinicDistName;
 	}
 
 	public Set<Appointment> getAppointments() {

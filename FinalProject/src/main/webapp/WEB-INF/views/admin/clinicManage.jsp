@@ -82,8 +82,8 @@
 	<script src="js/viewport-units-buggyfill.js"></script>
 
 	<!-- Googgle Map -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-	<script src="js/google_map.js"></script>
+<!-- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script> -->
+<!-- 	<script src="js/google_map.js"></script> -->
 
 	
 	<!-- Main JS  -->
@@ -137,46 +137,60 @@
 		</nav>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-			<div id="container" class="container" style='width: 1350px;'>
+			<div id="container" class="container" style='width: 900px;'>
 				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
 				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
 				<table class='table table-bordered' id='showAllClinicTable' >
 					<thead>
 						<tr>
 							<th style='width: 100px;'>序號</th>
-							<th style='width: 200px;'>診所帳號</th>
+							<th style='width: 100px;'>
+							<select name="h_clinicCity" id="h_clinicCity">
+									<option id ="城市" value="城市" selected="selected">城市</option>
+									<option id ="臺北市" value="1">臺北市</option>
+									<option id ="新北市" value="2">新北市</option>
+									<option id ="桃園市" value="3">桃園市</option>
+									<option id ="臺中市" value="4">臺中市</option>
+									<option id ="臺南市" value="5">臺南市</option>
+									<option id ="高雄市" value="6">高雄市</option>
+									<option id ="宜蘭縣" value="7">宜蘭縣</option>
+									<option id ="新竹縣" value="8">新竹縣</option>
+									<option id ="苗栗縣" value="9">苗栗縣</option>
+									<option id ="彰化縣" value="10">彰化縣</option>
+									<option id ="南投縣" value="11">南投縣</option>
+									<option id ="雲林縣" value="12">雲林縣</option>
+									<option id ="嘉義市" value="13">嘉義市</option>
+									<option id ="嘉義縣" value="14">嘉義縣</option>
+									<option id ="屏東縣" value="15">屏東縣</option>
+									<option id ="臺東縣" value="16">臺東縣</option>
+									<option id ="花蓮縣" value="17">花蓮縣</option>
+									<option id ="澎湖縣" value="18">澎湖縣</option>
+									<option id ="基隆市" value="19">基隆市</option>
+									<option id ="新竹市" value="20">新竹市</option>
+									<option id ="金門縣" value="21">金門縣</option>
+									<option id ="連江縣" value="22">連江縣</option>
+							</select>
+							</th>
+							<th style='width: 100px;'>地區</th>
 							<th style='width: 200px;'>診所名稱</th>
-							<th style='width: 150px;'>診所電話</th>
 							<th style='width: 150px;'>到期日</th>
 							<th style='width: 100px;'>
 							<select name="h_clinicStatus" id="h_clinicStatus">
 									<option id ="狀態" value="狀態" selected="selected">狀態</option>
-									<option id ="未開通" value="未開通" >未開通</option>
 									<option id ="已開通" value="已開通" >已開通</option>
 									<option id ="未驗證" value="未驗證" >未驗證</option>
 									<option id ="已驗證" value="已驗證" >已驗證</option>
-								</select>
+							</select>
 							</th>
-							<th style='width: 100px;'></th>
+							<th style='width: 150px;'></th>
 						</tr>
 					</thead>
 					<tbody id="clinicBody">
-						<c:forEach var="clinic" items="${clinics}" varStatus="vs">
-							<tr>
-								<td rowspan="2">${clinic.clinicPkId}</td>
-								<td>${clinic.clinicAccount}</td>
-								<td>${clinic.clinicName}</td>
-								<td>${clinic.clinicPhone}</td>
-								<td>${clinic.clinicEndTime}</td>
-								<td>${clinic.clinicStatus}</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="6">${clinic.cityBean.cityName}${clinic.distBean.distName}${clinic.clinicAddress}</td>
-							</tr>
-						</c:forEach>
+						
 					</tbody>
 				</table>
+				<div id="searchResult">
+				</div>
 			</div>
 		</div>
 
@@ -205,7 +219,150 @@
 		</footer>
 
 	</div>
+	<script>
+	//模糊搜尋功能
+	$("#searchData").click(function(){
+		console.log($("#searchBar").val());
+		fetch("getAllClinicByName?"+ "keyName=" + $("#searchBar").val(), {
+			method : "GET"
+		}).then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			if($("#h_clinicStatus option:selected").text()!="狀態"){
+				$("#狀態").prop("selected","selected");
+			}
+			if($("#h_clinicCity option:selected").text()!="城市"){
+				$("#城市").prop("selected","selected");
+			}
+			$("#searchResult").html("");
+			clinic = data;
+			showData();
+			bindBtn();
+			if(data==""){
+				$("#searchResult").html("查無資料!!!");
+			}
+		});	
+	});
+	//依城市篩選診所
+	$("#h_clinicCity").change(function(){
+		let urlQuery = new URLSearchParams({
+				h_clinicCity : $("#h_clinicCity option:selected").val(),
+				h_status : $("#h_clinicStatus option:selected").val(),
+				method : "fetch()",
+				doWhat : "GET"
+			});
+			fetch("getAllClinicByCityAndStatus?" + urlQuery, {
+				method : "GET"
+			}).then(function(response) {
+				return response.json();
+			}).then(function(data) {
+			$("#searchBar").val("");
+				clinic = data;
+				showData();
+				bindBtn();
+			});
+	});
+	//依權限篩選診所
+	$("#h_clinicStatus").change(function(){
+		let urlQuery = new URLSearchParams({
+				h_clinicCity : $("#h_clinicCity option:selected").val(),
+				h_status : $("#h_clinicStatus option:selected").val(),
+				method : "fetch()",
+				doWhat : "GET"
+			});
+			fetch("getAllClinicByCityAndStatus?" + urlQuery, {
+				method : "GET"
+			}).then(function(response) {
+				return response.json();
+			}).then(function(data) {
+			$("#searchBar").val("");
+				clinic = data;
+				showData();
+				bindBtn();
+			});
+	});
+	
+	$(function(){
+		showRawData();
+		bindRawBtn();
+	});
+	
+	//顯示原始資料
+	function showRawData(){
+		let str = "";
+		<c:forEach var="clinic" items="${clinics}">
+		str += "<tr>";
+		str += "<td>${clinic.clinicPkId}</td>";
+		str += "<td>${clinic.cityBean.cityName}</td>"
+		str += "<td>${clinic.distBean.distName}</td>"
+		str += "<td>${clinic.clinicName}</td>"
+		<c:choose>
+		<c:when test="${clinic.clinicEndTime==null}">
+		str += "<td>尚未開通</td>"
+		</c:when>
+		<c:otherwise>
+		str += "<td>${clinic.clinicEndTime}</td>"
+		</c:otherwise>		
+		</c:choose>
+		str += "<td>${clinic.clinicStatus}</td>"
+		str += "<td><button type='button' id='clinicDetailBtn${clinic.clinicPkId}'>詳細資料</button>"
+		str += "<div style='display:none'><form id='clinicDetail${clinic.clinicPkId}' action='${pageContext.request.contextPath}/clinicManage_Detail' method='get'><input name='clinicPkId' value='${clinic.clinicPkId}'/></form></div></td>";
+		str += "</tr>"
+		</c:forEach>
+		$("#clinicBody").html(str);
+	}
+	
+	function bindRawBtn(){
+		<c:forEach var="clinic" items="${clinics}">
+		$("#clinicDetailBtn${clinic.clinicPkId}").click(function(){
+			$("#clinicDetail${clinic.clinicPkId}").trigger("submit");
+		});
+		</c:forEach>
+	}
+	//顯示診所資料(JSON格式)
+	function showData(){
+		let str = "";
+		for(let i =0;i<clinic.length;i++){
+		str += "<tr>";
+		str += "<td>"+clinic[i].clinicPkId+"</td>";
+		str += "<td>"+clinic[i].clinicCityName+"</td>"
+		str += "<td>"+clinic[i].clinicDistName+"</td>"
+		str += "<td>"+clinic[i].clinicName+"</td>"
+		if(clinic[i].clinicEndTime ==null){
+			str += "<td>尚未開通</td>";
+		}else{
+			str += "<td>"+formatDate(clinic[i].clinicEndTime)+"</td>"
+		}
+		str += "<td>"+clinic[i].clinicStatus+"</td>"
+		str += "<td><button type='button' id='clinicDetailBtn"+clinic[i].clinicPkId+"'>詳細資料</button>";
+		str += "<div style='display:none'><form id='clinicDetail"+clinic[i].clinicPkId+"' action='${pageContext.request.contextPath}/clinicManage_Detail' method='get'><input name='clinicPkId' value='"+clinic[i].clinicPkId+"'/></form></div></td>"
+		str += "</tr>"
+		}
+		$("#clinicBody").html(str);
+	}
+	function bindBtn(){
+		for(let i =0;i<clinic.length;i++){
+			$("#clinicDetailBtn"+clinic[i].clinicPkId).click(function(){
+				$("#clinicDetail"+clinic[i].clinicPkId).trigger("submit");
+			});
+		};
+	};
+	
+	//JSON轉換時間格式
+	function formatDate(date) {
+	    var d = new Date(date),
+	        month = '' + (d.getMonth() + 1),
+	        day = '' + d.getDate(),
+	        year = d.getFullYear();
 
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+
+	    return [year, month, day].join('-');
+	}
+	</script>
 	
 	</body>
 </html>

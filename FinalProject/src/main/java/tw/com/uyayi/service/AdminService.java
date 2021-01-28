@@ -16,9 +16,9 @@ public interface AdminService {
 	//By類別取得產品資料
 	List<Products> getAllProductsByCategory(String h_productCategory);
 	//By狀態取得產品資料
-	List<Products> getAllProductsByStatus(String h_Status);
+	List<Products> getAllProductsByStatus(String h_status);
 	//By類別及狀態取得產品資料
-	List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_Status);
+	List<Products> getAllProductsByCategoryAndStatus(String h_productCategory, String h_status);
 	//商品模糊查詢
 	List<Products> getAllProductsByName(String keyName);
 	//AutoComplete功能
@@ -45,8 +45,20 @@ public interface AdminService {
 	Member getMemberById(int memberPkId);
 	//取得所有診所資料
 	List<Clinic> getAllClinic();
+	//By城市取得所有診所資料
+	List<Clinic> getAllClinicByCity(String h_clinicCity);
+	//By狀態取得診所資料
+	List<Clinic> getAllClinicByStatus(String h_status);
+	//By狀態及城市取得診所資料
+	List<Clinic> getAllClinicByCityAndStatus(String h_clinicCity, String h_status);
+	//診所資料模糊搜尋
+	List<Clinic> getAllClinicByName(String keyName);
 	//取得所有折扣資料
 	List<Coupon> getAllCoupon();
+	//By ID取得診所資料
+	Clinic getClinicById(int clinicPkId);
+	//By ID取得診所預約資料
+	List<Appointment> getClinicAppointmentFromId(int clinicPkId);
 	//新增折扣資料
 	void insertCoupon(Coupon coupon);
 	//修改折扣資料
@@ -55,5 +67,13 @@ public interface AdminService {
 	List<Coupon> getAllCouponByName(String keyName);
 	//折扣資料依狀態篩選
 	List<Coupon> getAllCouponByStatus(String couponStatus);
+	//By會員到診狀況取得預約資料
+	List<Appointment> getAllAppointmentByMemberArrive(String memberArrive, int clinicPkId);
+	//By會員資格取得預約資料
+	List<Appointment> getAllAppointmentByMemberAccount(String memberAccount, int clinicPkId);
+	//By會員到診狀況及會員資格取得預約資料
+	List<Appointment> getAllAppointmentByMemberAccountAndMemberArrive(String memberArrive, String memberAccount,
+			int clinicPkId);
+	
 	
 }

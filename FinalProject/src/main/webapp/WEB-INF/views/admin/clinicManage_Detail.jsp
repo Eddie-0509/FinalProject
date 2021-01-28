@@ -41,8 +41,7 @@
 	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="tools/favicon.ico">
-	
+	<link rel="shortcut icon" href="tools/favicon.ico">	
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
 	<!-- Animate.css -->
@@ -126,8 +125,8 @@
 				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
 				<li class="animate-box"><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a href="<c:url value='productManage'/>" class="transition">商品管理</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='memberManage'/>" class="transition">會員管理</a></li>
-				<li class="animate-box"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
+				<li class="animate-box"><a href="<c:url value='memberManage'/>" class="transition">會員管理</a></li>
+				<li class="animate-box fh5co-active"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
 				<li class="animate-box"><a href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
 			</ul>
@@ -136,30 +135,76 @@
 				<span class="fh5co-circle"></span>
 			</a>
 		</nav>
+	<div id="orderDetailModal" class="modal fade" style="color:black">
+		<div class="modal-dialog"  style="width:50%">
+	    	<div class="modal-content">
+	        	<div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            	<h4 id="orderDetailModalTitle" class="modal-title"  style="color:black"></h4>
+	        	</div>
+	        	<div id="orderDetailModalBody" class="modal-body"  style="color:black">
+	        
+	       
+	  
+	        	</div>
+	        	<div class="modal-footer">
+	        		<button type="button" class="btn btn-default contactMember" id="formButton">確定修改</button>
+	            	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        	</div>
+	    	</div>
+		</div>
+	</div>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-			<div id="container" class="container" style='width: 900px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
-				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
-				<table class='table table-bordered' id='showAllMemberTable' >
+		
+			<div id="appointmentContainer" class="container" style='width: 1200px;'>
+				<table class='table table-bordered' id='clinicDetail'>
 					<thead>
 						<tr>
-							<th style='width: 100px;'>序號</th>
-							<th style='width: 200px;'>會員帳號</th>
-							<th style='width: 200px;'>姓名</th>
-							<th style='width: 100px;'>
-							<select name="h_memberStatus" id="h_memberStatus">
-									<option id ="狀態" value="狀態" selected="selected">狀態</option>
-									<option id ="未開通" value="未開通" >未開通</option>
-									<option id ="已開通" value="已開通" >已開通</option>
-									<option id ="已填寫" value="已填寫" >已填寫</option>
-									<option id ="停權" value="停權" >停權</option>
-								</select>
-							</th>
-							<th style='width: 300px;'></th>
+							<th style='width: 200px;'>診所名稱</th>
+							<th style='width: 200px;'>電話</th>
+							<th style='width: 300px;'>信箱</th>
+							<th style='width: 500px;'>地址</th>
 						</tr>
 					</thead>
-					<tbody id="memberBody">
+					<tbody id="clinicDetailBody">
+						<tr>
+							<td>${clinic.clinicName}</td>
+							<td>${clinic.clinicPhone}</td>
+							<td>${clinic.clinicAccount}</td>
+							<td>${clinic.cityBean.cityName}${clinic.distBean.distName}${clinic.clinicAddress}</td>
+						</tr>
+					</tbody>
+				</table>
+<!-- 				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/> -->
+<!-- 				<button type="button" id="searchData" class="btn btn-info">搜尋</button> -->
+				<table class='table table-bordered' id='showAllAppointmentTable' >
+					<caption style="text-align:center">預約紀錄</caption>
+					<thead>
+						<tr>
+							<th style='width: 100px;'>預約編號</th>
+							<th style='width: 100px;'>病患</th>
+							<th style='width: 100px;'>醫生</th>
+							<th style='width: 200px;'>日期</th>
+							<th style='width: 200px;'>時段</th>
+							<th style='width: 200px;'>項目</th>
+							<th style='width: 100px;'>
+							<select name="h_memberArrive" id="h_memberArrive">
+								<option id ="到診" value="到診" selected="selected">到診</option>
+								<option id ="有" value="True">有</option>
+								<option id ="無" value="False" >無</option>
+							</select>
+							</th>
+							<th style='width: 100px;'>
+							<select name="h_memberAccount" id="h_memberAccount">
+								<option id ="會員" value="會員" selected="selected">會員</option>
+								<option id ="是" value="True">是</option>
+								<option id ="否" value="False" >否</option>
+							</select>
+							</th>
+						</tr>
+					</thead>
+					<tbody id="AppointmentBody">
 						
 					</tbody>
 				</table>
@@ -192,97 +237,117 @@
 
 	</div>
 	<script>
-	let model = ${members};
-	let members = model.member;
-	console.log(members);
-	$(document).ready(function(){
-		showData();
-		//依會員狀態篩選
-		$("#h_memberStatus").change(function(){
-			members = model.member;
-			if($("#h_memberStatus option:selected").val()!="狀態"){
-				m=[];
-				for(i = 0; i<members.length; i++){
-					if(members[i].memberStatus==($("#h_memberStatus option:selected").val())){
-						m.push(members[i]);
-					}
+	var appointment;
+	$(function(){
+		showRawData();
+	})
+	//顯示JSON資料
+	function showData(){
+		let str = "";
+		for(i=0;i<appointment.length;i++){
+				str+= "<tr>";
+				str+= "<td>"+appointment[i].appointmentPkId+"</td>";
+				str+= "<td>"+appointment[i].patientName+"</td>";
+				str+= "<td>"+appointment[i].dentistBean.dentistName+"</td>";
+				str+= "<td>"+formatDate(appointment[i].appointDate)+"</td>";
+				str+= "<td>"+appointment[i].timeTableBean.times+"</td>";
+				str+= "<td>"+appointment[i].itemBean.itemName+"</td>";
+				if(appointment[i].arrive =='true'){
+					str+= "<td>有</td>";					
+				}else{
+					str+= "<td>無</td>";												
 				}
-				members = m;
-				$("#searchBar").val("");
-				showData();
-			}else{
-				let urlQuery = new URLSearchParams({
-	 				h_memberStatus : $("#h_memberStatus option:selected").val(),
-	 				method : "fetch()",
-	 				doWhat : "GET"
-	 			});
-	 			fetch("getAllMemberByStatus?" + urlQuery, {
-	 				method : "GET"
-	 			}).then(function(response) {
-	 				return response.json();
-	 			}).then(function(data) {
-					$("#searchBar").val("");
-	 				members = data;
-	 				showData();
-	 			});
-			}
+				if(appointment[i].memberBean.memberPkId != null){
+					str+= "<td>是</td>";					
+				}else{
+					str+= "<td>否</td>";													
+				}
+				str+="</tr>";
+		}
+		$("#AppointmentBody").html(str);
+	}
+	//顯示原始資料
+	function showRawData(){
+		let str = "";
+			<c:forEach var="appointment" items="${appointment}" varStatus="vs">
+				str+= "<tr>";
+				str+= "<td>${appointment.appointmentPkId}</td>";
+				str+= "<td>${appointment.patientName}</td>";
+				str+= "<td>${appointment.dentistBean.dentistName}</td>";
+				str+= "<td>${appointment.appointDate}</td>";
+				str+= "<td>${appointment.timeTableBean.times}</td>";
+				str+= "<td>${appointment.itemBean.itemName}</td>";
+			<c:choose>
+				<c:when test="${appointment.arrive =='true'}">
+					str+= "<td>有</td>";
+				</c:when>
+				<c:otherwise>
+					str+= "<td>無</td>";							
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${appointment.memberBean.memberPkId != null }">
+					str+= "<td>是</td>";
+				</c:when>
+				<c:otherwise>
+					str+= "<td>否</td>";								
+				</c:otherwise>
+			</c:choose>
+				str+="</tr>";
+			</c:forEach>
+		$("#AppointmentBody").html(str);
+	}
+	//依會員資格篩選
+	$("#h_memberArrive").change(function(){
+		let urlQuery = new URLSearchParams({
+			clinicPkId :${clinic.clinicPkId},
+			memberAccount : $("#h_memberAccount option:selected").val(),
+			memberArrive : $("#h_memberArrive option:selected").val(),
+			method : "fetch()",
+			doWhat : "GET"
 		});
-		//模糊搜尋會員姓名
-		$("#searchData").click(function(){
-			console.log($("#searchBar").val());
-			let urlQuery = new URLSearchParams({
-				keyName : $("#searchBar").val(),
-				method : "fetch()",
-				doWhat : "GET"
-			});
-			fetch("getAllMemberByName?" + urlQuery, {
-				method : "GET"
-			}).then(function(response) {
-				return response.json();
-			}).then(function(data) {
-				members = data;
-				if($("#h_memberStatus option:selected").val()!="狀態"){
-					$("#狀態").prop("selected","selected");
-				}
-				showData();
-			});
+		fetch("getAllAppointByMemberAccountAndMemberArrive?" + urlQuery, {
+			method : "GET"
+		}).then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			appointment = data;
+			showData();
+
 		});
 	});
-	//會員清單表格內容生成及修改按鈕綁定
-	function showData(){			
-		//顯示會員資料
-		let str = "";
-		for (let i = 0; i < members.length; i++) {
-			let j = i + 1;
-			str += "<tr id='bean"+members[i].memberPkId+"'><td>" + j + "</td>";
-			str += "<td>" + members[i].memberAccount+ "</td>";
-			str += "<td>" + members[i].memberName+ "</td>";
-			str += "<td>" + members[i].memberStatus+ "</td>";
-			if(members[i].memberStatus=="停權"){
-				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>開放</button> "	;	
-			}else{
-				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>停權</button> "	;	
-			}
-			str += "<button type ='button' id='memberDetail"+members[i].memberPkId+"'>歷史紀錄</button>";
-			//更新會員狀態Form表單(隱藏)
-			str += "<div style='display:none'><form id='update_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/updateMemberStatus' method='post'><input name='memberPkId' value='"+members[i].memberPkId+"'/><input name='memberStatus' value='"+members[i].memberStatus+"'/></form></div>";
-			//查詢會員明細Form表單(隱藏)
-			str += "<div style='display:none'><form id='show_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/memberManage_Detail' method='get'><input name='memberPkId' value='"+members[i].memberPkId+"'/></form></div></td>";
-			str += "</tr>";
-		}
-		$("#memberBody").html(str);
-		for(let i = 0; i < members.length; i++) {
-			$("#updateBtn"+members[i].memberPkId).click(function(){
-				if(members[i].memberStatus=="未開通"||members[i].memberStatus=="已開通"){
-					alert("會員尚未完成註冊，無法變更權限");
-				}else{
-					$("#update_form"+members[i].memberPkId).trigger("submit");
-				}
-				});
-			$("#memberDetail"+members[i].memberPkId).click(function(){
-				$("#show_form"+members[i].memberPkId).trigger("submit");
-			});
-		}
+	//依到診率篩選
+	$("#h_memberAccount").change(function(){
+		let urlQuery = new URLSearchParams({
+			clinicPkId :${clinic.clinicPkId},
+			memberAccount : $("#h_memberAccount option:selected").val(),
+			memberArrive : $("#h_memberArrive option:selected").val(),
+			method : "fetch()",
+			doWhat : "GET"
+		});
+		fetch("getAllAppointByMemberAccountAndMemberArrive?" + urlQuery, {
+			method : "GET"
+		}).then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			appointment = data;
+			showData();
+
+		});
+	});
+	//JSON轉換時間格式
+	function formatDate(date) {
+	    var d = new Date(date),
+	        month = '' + (d.getMonth() + 1),
+	        day = '' + d.getDate(),
+	        year = d.getFullYear();
+
+	    if (month.length < 2) 
+	        month = '0' + month;
+	    if (day.length < 2) 
+	        day = '0' + day;
+
+	    return [year, month, day].join('-');
 	}
 	
 	</script>

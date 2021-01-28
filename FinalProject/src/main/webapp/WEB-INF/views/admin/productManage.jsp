@@ -415,6 +415,76 @@
 			//綁定修改按鍵
 		for(let i = 0; i < products.length; i++) {
 			$("#updateProductBtn"+products[i].productPkId).click(function(){
+				//修改表單欄位檢查
+				var u_flagName = true;
+				var u_flagProfile =true;
+				var u_flagSpec = true;
+				var u_flagPrice = true;
+				var u_flagQuantity = true;
+				$("#u_productName").blur(function(){
+					let nameVal = $("#u_productName").val();
+					let span = $("#u_checkName");
+					if(nameVal==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品名稱");
+						u_flagName = false;
+					}else{
+						span.html("");
+						u_flagName = true;
+					}
+				});
+				$("#u_productProfile").blur(function(){
+					let profileVal = $("#u_productProfile").val();
+					let span = $("#u_checkProfile");
+					if(profileVal ==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品簡介");
+						u_flagProfile = false;
+					}else{
+						span.html("");
+						u_flagProfile = true;
+					}
+				});
+				$("#u_productSpec").blur(function(){
+					let specVal = $("#u_productSpec").val();
+					let span = $("#u_checkSpec");
+					if(specVal == ""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品規格");
+						u_flagSpec = false;
+					}else{
+						span.html("");
+						u_flagSpec = true;
+					}
+				});
+				$("#u_productPrice").blur(function(){
+					let priceVal = $("#u_productPrice").val();
+					let span = $("#u_checkPrice");
+					let a =/\d/;
+					if(priceVal ==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
+						u_flagPrice = false;
+					}else if(!a.test(priceVal)){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確產品價格");
+						u_flagPrice = false;
+					}else{
+						span.html("");
+						u_flagPrice = true;
+					}
+				});
+				$("#u_productQuantity").blur(function(){
+					let quantityVal = $("#u_productQuantity").val();
+					let span = $("#u_checkQuantity");
+					let a =/\d/;
+					if(quantityVal ==""){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
+						u_flagQuantity = false;
+					}else if(!a.test(quantityVal)){
+						span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確產品價格");
+						u_flagQuantity = false;
+					}else{
+						span.html("");
+						u_flagQuantity = true;
+					}
+				});
+
 				$("#u_"+products[i].productCategory).attr("selected","selected");
 				$("#u_productName").val(products[i].productName);
 				$("#u_productProfile").val(products[i].productProfile);
@@ -477,6 +547,12 @@
 			}).then(function(response) {
 				return response.json();
 				}).then(function(data) {
+					if($("#h_updateTime option:selected").text()!="更新時間"){
+						$("#h_updateTime").prepend("<option id='更新時間' value='更新時間' selected='selected'>更新時間</option>");
+					}
+					if($("#h_price option:selected").text()!="價格"){
+						$("#h_price").prepend("<option id ='價格' value='價格' selected='selected'>價格</option>");
+					}
 					$("#searchBar").val("");
 					products = data;
 					showData();
@@ -484,18 +560,24 @@
 		});
 		//依產品狀態篩選功能
 		$("#h_status").change(function(){
-		console.log($("#h_productCategory option:selected").text());
-		console.log($("#h_status option:selected").text());
-		fetch("getAllProductsByCategoryAndStatus?"+ "h_productCategory=" + $("#h_productCategory").val() 
-				+ "&h_status=" + $("#h_status").val(), {
-			method : "GET"
-			}).then(function(response) {
-				return response.json();
-				}).then(function(data) {
-					$("#searchBar").val("");
-					products = data;
-					showData();
-					});	
+			console.log($("#h_productCategory option:selected").text());
+			console.log($("#h_status option:selected").text());
+			fetch("getAllProductsByCategoryAndStatus?"+ "h_productCategory=" + $("#h_productCategory").val()
+					+ "&h_status=" + $("#h_status").val(), {
+				method : "GET"
+				}).then(function(response) {
+					return response.json();
+					}).then(function(data) {
+						if($("#h_updateTime option:selected").text()!="更新時間"){
+							$("#h_updateTime").prepend("<option id='更新時間' value='更新時間' selected='selected'>更新時間</option>");
+						}
+						if($("#h_price option:selected").text()!="價格"){
+							$("#h_price").prepend("<option id ='價格' value='價格' selected='selected'>價格</option>");
+						}
+						$("#searchBar").val("");
+						products = data;
+						showData();
+						});	
 		});
 		//產品名稱模糊搜尋功能
 		$("#searchData").click(function(){
@@ -514,7 +596,7 @@
 							$("#h_price").prepend("<option id ='價格' value='價格' selected='selected'>價格</option>");
 						}
 						if($("#h_productCategory option:selected").text()!="產品類別"){
-							$("#h_productCategory").prepend("<option id ='更新時間' value='更新時間' selected='selected'>更新時間</option>");
+							$("#h_productCategory").prepend("<option id ='產品類別' value='產品類別' selected='selected'>產品類別</option>");
 						}
 						if($("#h_status option:selected").text()!="狀態"){
 							$("#h_status").prepend("<optioin id='狀態' value='狀態' selected='selected'>狀態</option>");
@@ -542,6 +624,8 @@
 			$("#addFormButton").click(function(){
 				if(a_flagName && a_flagProfile && a_flagSpec && a_flagPrice && a_flagQuantity && a_flagImage){
 					$("#addProduct").submit();			
+				}else if(a_flagName && a_flagProfile && a_flagSpec && a_flagPrice && a_flagQuantity && (a_flagImage==false)){
+					alert("請等候圖片上傳");
 				}else{
 					alert("請重新確認表單內容");
 				}
@@ -550,12 +634,6 @@
 	});
 	//新增表單欄位檢查
 	var a_flagName = false;
-	var a_flagProfile =false;
-	var a_flagSpec = false;
-	var a_flagPrice = false;
-	var a_flagQuantity = false;
-	var a_flagImage = false;
-
 	$("#a_productName").blur(function(){
 		let nameVal = $("#a_productName").val();
 		let span = $("#a_checkName");
@@ -568,6 +646,8 @@
 			a_flagName = true;
 		}
 	});
+	
+	var a_flagProfile =false;
 	$("#a_productProfile").blur(function(){
 		let profileVal = $("#a_productProfile").val();
 		let span = $("#a_checkProfile");
@@ -579,6 +659,8 @@
 			a_flagProfile = true;
 		}
 	});
+	
+	var a_flagSpec = false;
 	$("#a_productSpec").blur(function(){
 		let specVal = $("#a_productSpec").val();
 		let span = $("#a_checkSpec");
@@ -590,6 +672,8 @@
 			a_flagSpec = true;
 		}
 	});
+	
+	var a_flagPrice = false;
 	$("#a_productPrice").blur(function(){
 		let priceVal = $("#a_productPrice").val();
 		let span = $("#a_checkPrice");
@@ -605,6 +689,7 @@
 			a_flagPrice = true;
 		}
 	});
+	var a_flagQuantity = false;
 	$("#a_productQuantity").blur(function(){
 		let quantityVal = $("#a_productQuantity").val();
 		let span = $("#a_checkQuantity");
@@ -620,78 +705,9 @@
 			a_flagQuantity = true;
 		}
 	});
-	$("#a_hiddenProductImage").change(function(){
-		a_flagImage = true;
-	});
-	//修改表單欄位檢查
-	var u_flagName = true;
-	var u_flagProfile =true;
-	var u_flagSpec = true;
-	var u_flagPrice = true;
-	var u_flagQuantity = true;
-	$("#u_productName").blur(function(){
-		let nameVal = $("#u_productName").val();
-		let span = $("#u_checkName");
-		if(nameVal==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品名稱");
-			u_flagName = false;
-		}else{
-			span.html("");
-			u_flagName = true;
-		}
-	});
-	$("#u_productProfile").blur(function(){
-		let profileVal = $("#u_productProfile").val();
-		let span = $("#u_checkProfile");
-		if(profileVal ==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品簡介");
-			u_flagProfile = false;
-		}else{
-			span.html("");
-			u_flagProfile = true;
-		}
-	});
-	$("#u_productSpec").blur(function(){
-		let specVal = $("#u_productSpec").val();
-		let span = $("#u_checkSpec");
-		if(specVal == ""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品規格");
-			u_flagSpec = false;
-		}else{
-			span.html("");
-			u_flagSpec = true;
-		}
-	});
-	$("#u_productPrice").blur(function(){
-		let priceVal = $("#u_productPrice").val();
-		let span = $("#u_checkPrice");
-		let a =/\d/;
-		if(priceVal ==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
-			u_flagPrice = false;
-		}else if(!a.test(priceVal)){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確產品價格");
-			u_flagPrice = false;
-		}else{
-			span.html("");
-			u_flagPrice = true;
-		}
-	});
-	$("#u_productQuantity").blur(function(){
-		let quantityVal = $("#u_productQuantity").val();
-		let span = $("#u_checkQuantity");
-		let a =/\d/;
-		if(quantityVal ==""){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入產品價格");
-			u_flagQuantity = false;
-		}else if(!a.test(quantityVal)){
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確產品價格");
-			u_flagQuantity = false;
-		}else{
-			span.html("");
-			u_flagQuantity = true;
-		}
-	});
+	var a_flagImage = false;
+
+	
 	//依更新時間排序
 	$("#h_updateTime").change(function(){
 		$("#更新時間").remove();
@@ -768,6 +784,7 @@
 				console.log(imageStr);
 				$("#a_hiddenProductImage").val(imageStr);
 				$("#a_preview_productImg").attr("src",imageStr);
+				a_flagImage = true;
 				window.alert("上傳成功");
 			});
 	});
@@ -805,6 +822,7 @@
 				console.log(imageStr);
 				$("#u_hiddenProductImage").val(imageStr);
 				$("#u_preview_productImg").attr("src",imageStr);
+				u_flagImage = true;
 				window.alert("上傳成功");
 			});
 	});
