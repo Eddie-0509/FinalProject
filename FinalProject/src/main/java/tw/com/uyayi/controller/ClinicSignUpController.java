@@ -100,7 +100,7 @@ public class ClinicSignUpController {
 		return "clinic/mailCheck";
 	}
 	@GetMapping(value="/clinicPayment")
-	public String clinicPayment(@ModelAttribute("loginOK") Clinic c,Model model) {
+	public String clinicPayment(@ModelAttribute("clinicBean") Clinic c,Model model) {
 		AllInOne allInOne = new AllInOne("");
 		int randomNumber=(int)(Math.random()*100000);
 	

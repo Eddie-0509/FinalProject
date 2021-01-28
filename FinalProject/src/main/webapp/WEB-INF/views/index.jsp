@@ -138,8 +138,8 @@
 			<div class="container">
 				<div class="fh5co-text-wrap animate-box" >
 					<div class="fh5co-intro-text" id="memberI">
-						<h1>U YA YI <span> </span> </h1>
-						<h1>隨時預約你的牙醫</h1>
+						<h1 >U YA YI <span> </span> </h1>
+						<h1 >隨時預約你的牙醫</h1>
 					</div>
 				</div>
 			</div>

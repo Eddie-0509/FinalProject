@@ -150,12 +150,12 @@
 			</a>
    		</nav>
 		
-		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes">
+		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes" >
 			<div class="container">
 				<div class="fh5co-text-wrap animate-box">
 					<div class="fh5co-intro-text" id="dentistI">
-						<h1>U YA YI <span> </span> </h1>
-						<h1>智慧科技增加曝光</h1>
+						<h1 >U YA YI <span> </span> </h1>
+						<h1 >智慧科技增加曝光</h1>
 					</div>
 				</div>
 			</div>
@@ -211,16 +211,16 @@
 				<div class="fh5co-project-inner row">
 					<div class="fh5co-imgs col-md-8 animate-box" >
 						<div class="img-holder-1 animate-box">
-							<img src="images/hpimg1.jpg" alt="Free HTML5 Bootstrap Template">
+							<img src="images/annoyance.jpg" alt="Free HTML5 Bootstrap Template" style="width: 512px;height: 341.6px;background-size: cover">
 						</div>
 						<!-- <div class="img-holder-2 animate-box">
 							<img src="images/work_1_small.jpg" alt="Free HTML5 Bootstrap Template">
 						</div> -->
 					</div>
 					<div class="fh5co-text col-md-4 animate-box " >
-						<h2>隨時隨地預約牙醫</h2>
-						<p>預約牙醫時總是被告知要等一個月後嗎？在U YA YI上可以根據您希望的時間、地點，找到適合您的牙醫，讓您立刻解決您的牙齒問題。</p>
-						<p><a href="work_1.html" class="btn btn-light btn-outline transition">立刻預約</a></p>
+						<h2>更懂牙醫師的煩惱</h2>
+						<p>病人遲到、爽約，浪費醫師時間，拉低看診效率嗎？還在浪費大把時間與精力打電話聯絡病人嗎?在U YA YI上可以幫助您自動化管理病人，立刻解決您煩惱。</p>
+						<p><a href="work_1.html" class="btn btn-light btn-outline transition">查看方案</a></p>
 					</div>
 				</div>
 
@@ -232,16 +232,16 @@
 				<div class="fh5co-project-inner row">
 					<div class="fh5co-imgs col-md-8 col-md-push-4 animate-box">
 						<div class="img-holder-1 animate-box">
-							<img src="images/hpimg2.jpg" alt="Free HTML5 Bootstrap Template">
+							<img src="images/clinicFunction.jpg" alt="Free HTML5 Bootstrap Template" style="width: 512px;height: 341.6px;background-size: cover">
 						</div>
 						<!-- <div class="img-holder-2 animate-box">
 							<img src="images/work_2_small.jpg" alt="Free HTML5 Bootstrap Template">
 						</div> -->
 					</div>
 					<div class="fh5co-text col-md-4 col-md-pull-8 animate-box">
-						<h2>透明資訊與診所評價</h2>
-						<p>U YA YI提供完整的診所及醫師資訊，以及使用者們看診過後的實際評價，讓您挑選診所時能多方比較，選擇讓您安心的診所。</p>
-						<p><a href="work_1.html" class="btn btn-light btn-outline transition">View Project</a></p>
+						<h2>創造醫師+診所品牌力</h2>
+						<p>U YA YI提供您診所的完整的資訊及醫師資訊，民眾可以自行搜尋醫師後進行線上約診，為您帶來NP。</p>
+						<p><a href="work_1.html" class="btn btn-light btn-outline transition">查看方案</a></p>
 					</div>
 				</div>
 
@@ -254,40 +254,29 @@
 				<div class="fh5co-project-inner row">
 					<div class="fh5co-imgs col-md-8 animate-box">
 						<div class="img-holder-1 animate-box">
-							<img src="images/hpimg3.jpg" alt="Free HTML5 Bootstrap Template">
+							<img src="images/line.jpg" alt="Free HTML5 Bootstrap Template" style="width: 512px;height: 341.6px;background-size: cover">
 						</div>
 						<!-- <div class="img-holder-2 animate-box">
 							<img src="images/work_3_small.jpg" alt="Free HTML5 Bootstrap Template">
 						</div> -->
 					</div>
 					<div class="fh5co-text col-md-4 animate-box">
-						<h2>自動約診提醒</h2>
-						<p>根據健康聯盟的建議，洗牙通常每半年就須洗一次。但忙碌的生活是不是常讓你忘記上次洗牙的時間呢？U YA YI會儲存您的洗牙紀錄，提醒您預約回診，關心您的牙齒健康。</p>
-						<p><a href="work_1.html" class="btn btn-light btn-outline transition">View Project</a></p>
+						<h2>約診Line提醒</h2>
+						<p>於約診日前一天系統提供傳line提醒的功能，病人在line中點選「是」或「否」後，診所系統界面便顯示相應圖示，助理不需再一一打電話。</p>
+						<p><a href="work_1.html" class="btn btn-light btn-outline transition">查看方案</a></p>
 					</div>
 				</div>
 
 			</div>
 		</div>
 		<!-- data-colorbg="#7bc74d" -->
-		<div class="fh5co-project js-fh5co-waypoint fh5co-reverse" data-colorbg="">
+		<div class="fh5co-project js-fh5co-waypoint fh5co-reverse" data-colorbg="" style="text-align: center">
 			<div class="container">
 				<div class="fh5co-project-inner row">
-					<div class="fh5co-imgs col-md-8 col-md-push-4 animate-box">
-						<div class="img-holder-1 animate-box">
-							<img src="images/hpimg4.jpg" alt="Free HTML5 Bootstrap Template">
-						</div>
-						<!-- <div class="img-holder-2 animate-box">
-							<img src="images/work_4_small.jpg" alt="Free HTML5 Bootstrap Template">
-						</div> -->
-					</div>
-					<div class="fh5co-text col-md-4 col-md-pull-8 animate-box">
-						<h2>齊全的牙齒保健商品</h2>
-						<p>預防勝於治療，跟牙齒保健相關的所有商品，您在U YA YI的商城中都可以看到，讓您在日常生活中便能有效照顧自己的牙齒。</p>
-						<p><a href="work_1.html" class="btn btn-light btn-outline transition">View Project</a></p>
-					</div>
+				
+				<h2>方案收費</h2>
+				<h2>NTD:2000/月</h2>
 				</div>
-
 			</div>
 		</div>
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">

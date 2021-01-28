@@ -25,7 +25,7 @@ import tw.com.uyayi.service.ClinicLogInService;
 import tw.com.uyayi.service.ClinicSignUpService;
 
 @Controller
-@SessionAttributes({"loginOK","DentistIdList","DentistNameList","AllAppointmentList"}) 
+@SessionAttributes({"loginOK","DentistIdList","DentistNameList","AllAppointmentList","clinicBean"}) 
 public class ClinicLogInController {
 	@Autowired
 	ClinicLogInService clinicLogInservce;
@@ -61,7 +61,7 @@ public class ClinicLogInController {
 			if(clinic.getClinicStatus().equals("未驗證")) {
 				return "clinic/clinicNotCheck";
 			}else if(clinic.getClinicStatus().equals("已驗證")) {
-				model.addAttribute("loginOK",clinic);
+				model.addAttribute("clinicBean",clinic);
 				return "clinic/clinicNotPay";
 			}else {
 			   model.addAttribute("loginOK",clinic);
