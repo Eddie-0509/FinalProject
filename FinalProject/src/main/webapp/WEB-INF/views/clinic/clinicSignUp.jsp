@@ -132,6 +132,10 @@
 
 <!--首頁文字輪播、modal js bySCONE-->
 <script src="js/hpother.js"></script>
+
+<link rel="stylesheet" href="css/calendar_confirm-modal.css">
+<script src="js/clinicSignUp.js"></script>
+
 <style>
 #upload{
 display: inline;
@@ -178,16 +182,26 @@ line-height: 33.600px;
 								<i class="fas fa-tooth"></i>診所資料
 							</h3>
 							<br> 
+								<div>
 								<label for="clinicAccount"><strong>電子信箱</strong></label><span id="checkEmail"></span> 
-								<input type="text" placeholder="請輸入E-mail" name="clinicAccount" id="clinicEmail" required autofocus> 
-								<label for="clinicPwd"><strong>密碼</strong></label><span id="checkPwd"></span>
+								<input type="text" placeholder="請輸入E-mail" name="clinicAccount" id="clinicEmail" required autofocus>
+								</div>
+								<div>
+								<label for="clinicPwd"><strong>密碼</strong></label><span id="checkPwd"></span><br/>
 								<input type="password" placeholder="請輸入密碼" name="clinicPwd" id="clinicPwd" required>
+								</div>
+								<div>
 								<label for="clinicPwdCheck"><strong>確認密碼</strong></label><span id="spPwdCheck"></span>
 								<input type="password" placeholder="請再次輸入密碼" name="clinicPwdCheck" id="clinicPwdCheck" required>
+								</div>
+								<div>
 								<label for="clinicName"><strong>診所名稱</strong></label> 
 								<input type="text" placeholder="請輸入診所名稱" name="clinicName" id="clinicName"> 
+								</div>
+								<div>
 								<label for="clinicPhone"><strong>診所電話</strong></label><span id="checkPhone"></span> 
 								<input type="text" name="clinicPhone" id="clinicPhone" placeholder="02-xxxxxxx"><br> 
+								</div>
 								<label for="clinicCity"><strong>縣市 / 區</strong></label>
 							<div>
 								<select name="clinicCityId" id="city">
@@ -242,7 +256,54 @@ line-height: 33.600px;
 
 	</div>
 	<script>
-		var flagPwd = false;
+	async function confirmClinic() {
+        this.myModal = new confirmNewClinic("確認", "確認診所資料填寫正確嗎?", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	
+	async function waitImage() {
+        this.myModal = new confirmNewClinic("錯誤", "請等候圖片上傳成功", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	
+	async function imageSuccess() {
+        this.myModal = new confirmNewClinic("確認", "圖片上傳成功", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	
+	async function wrongInput() {
+        this.myModal = new confirmNewClinic("錯誤", "請輸入正確資料再送出", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	
+	
+	
+	
+	var flagPwd = false;
 		var flagEmail = false;
 		var checkEmail = false;
 		var flagPhone = false;
@@ -453,18 +514,28 @@ line-height: 33.600px;
 					let imageStr = resJSON.data.link;
 					$("#clinicImage").attr("value", imageStr);
 					flagImage=true;
-					window.alert("上傳成功");
+// 					window.alert("上傳成功");
+					imageSuccess();
+					$("body > dialog > div > div.simple-modal-button-group").children().remove();
+
 					});
 			})
 			
 			// 驗證每一個欄位都填寫正確再送出資料 並且上傳成功
 			$("#formButton").click(function(){
 				if(flagPwd && flagEmail &&flagPhone && flagImage&&flagClinicPwdCheck){
-				  $("#clinicForm").submit();	
+// 				  $("#clinicForm").submit();
+					confirmClinic();
 				}else if (flagPwd && flagEmail &&flagPhone &&flagClinicPwdCheck&& (flagImage==false)){
-					window.alert("請等候圖片上傳");
+// 					window.alert("請等候圖片上傳");
+					waitImage();
+					$("body > dialog > div > div.simple-modal-button-group").children().remove();
+
 				}else{
-					window.alert("請輸入正確資料再送出");
+// 					window.alert("請輸入正確資料再送出");
+						wrongInput();
+						$("body > dialog > div > div.simple-modal-button-group").children().remove();
+
 				}
 				
 			});

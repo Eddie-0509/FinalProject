@@ -92,8 +92,8 @@ public class LineBotDaoImpl implements LineBotDao {
 		Session session = factory.getCurrentSession();
 		Appointment a = session.get(Appointment.class, Integer.valueOf(appointmentPkId));
 		if(a.getMemberReply().equals("未回覆")) {
-			String hql = "update Appointment set memberReply = '確定前往' ";
-			session.createQuery(hql).executeUpdate();
+			String hql = "update Appointment set memberReply = '取消' where appointmentPkId = :id";
+			session.createQuery(hql).setParameter("id", Integer.valueOf(appointmentPkId)).executeUpdate();
 		}
 		return a;
 	}
@@ -104,8 +104,8 @@ public class LineBotDaoImpl implements LineBotDao {
 		Session session = factory.getCurrentSession();
 		Appointment a = session.get(Appointment.class, Integer.valueOf(appointmentPkId));
 		if(a.getMemberReply().equals("未回覆")) {
-			String hql = "update Appointment set memberReply = '確定前往' ";
-			session.createQuery(hql).executeUpdate();
+			String hql = "update Appointment set memberReply = '確定前往' where appointmentPkId = :id ";
+			session.createQuery(hql).setParameter("id", Integer.valueOf(appointmentPkId)).executeUpdate();
 		}
 		return a;
 	}

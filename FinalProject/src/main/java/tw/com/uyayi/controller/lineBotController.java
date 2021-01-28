@@ -39,9 +39,11 @@ import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.action.URIAction.AltUri;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
+import com.linecorp.bot.model.message.TemplateMessage.TemplateMessageBuilder;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.TextMessage.Emoji;
 import com.linecorp.bot.model.message.TextMessage.Emoji.EmojiBuilder;
+import com.linecorp.bot.model.message.TextMessage.TextMessageBuilder;
 import com.linecorp.bot.model.message.quickreply.QuickReply;
 import com.linecorp.bot.model.message.sender.Sender;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
@@ -87,6 +89,7 @@ public class lineBotController {
 							           "預約項目:"+appointList.get(0).getItemBean().getItemName();
 					sendResponseMessages(eventWrap.getEvents().get(0).getReplyToken(), appString);
 					}
+					break;
 				case "預約記錄" :
 					List<Appointment> allList = lineBotService.getAppointment(userId);
 					int count = 0;
@@ -102,7 +105,14 @@ public class lineBotController {
 					   count++;
 					}
 					sendResponseMessages(eventWrap.getEvents().get(0).getReplyToken(), appString);
-
+					break;
+				case "功能" :	
+					String functionString = "可輸入以下指令:\\n"
+							+ "最近預約:可以查詢最近的一筆預約\\n"
+							+ "預約記錄:可以查詢最近的三筆預約";
+					sendResponseMessages(eventWrap.getEvents().get(0).getReplyToken(), functionString);
+					break;
+					
 				}
 			}
 		}else {
@@ -140,11 +150,11 @@ public class lineBotController {
 			if(appointOfClinic.get(i).getMemberReply().equals("未回覆")) {
 			System.out.println("MOTHER FUCK"+appointOfClinic.get(i).getMemberReply());	
 			String userId = appointOfClinic.get(i).getMemberBean().getMemberLineId();
-			String urlString = "<a herf='https://f13511948f9a.ngrok.io/FinalProject/checkArrive?fdewdewrgtjk78kt43vd&cid="+clinic.getClinicPkId()+"&vddveeew&mid="+appointOfClinic.get(i).getMemberBean().getMemberPkId()+"&qwerqewgfrhytjd'>請點擊連結來回覆診所是否到診</a>";
+//			String urlString = "<a herf='https://f13511948f9a.ngrok.io/FinalProject/checkArrive?fdewdewrgtjk78kt43vd&cid="+clinic.getClinicPkId()+"&vddveeew&mid="+appointOfClinic.get(i).getMemberBean().getMemberPkId()+"&qwerqewgfrhytjd'>請點擊連結來回覆診所是否到診</a>";
 			String dentistName = appointOfClinic.get(i).getDentistBean().getDentistName();
 			String appointTime = appointOfClinic.get(i).getTimeTableBean().getTimes();
-			String preText = appointOfClinic.get(i).getMemberBean().getMemberName()+"您好，\n"
-					+ "您明日"+appointOfClinic.get(i).getAppointDate().toString()+"有以下預約\n"
+			String preText = "$$"+appointOfClinic.get(i).getMemberBean().getMemberName()+"您好，\n"
+					+"您明日"+appointOfClinic.get(i).getAppointDate().toString()+"有以下預約\n"
 					+"診所:"+ clinicName+"\n"
 					+"醫師:"+dentistName+"\n"
 					+"時間:"+appointTime+"\n";
@@ -161,13 +171,32 @@ public class lineBotController {
 			actionList.add(a1);
 			actionList.add(a2);
 			Template t = new ConfirmTemplate("請確認明天是否會到診?", actionList);
+//			TextMessage textMessage = new TextMessage(preText);
 			
-			TextMessage textMessage = new TextMessage(preText);
+			List<Emoji> eList = new LinkedList<Emoji>();
+			EmojiBuilder e = Emoji.builder();
+			e.emojiId("044");
+			e.index(0);
+			e.productId("5ac21a18040ab15980c9b43e");
+			Emoji emo = e.build();
+			eList.add(emo);
+			e.emojiId("151 ");
+			e.index(1);
+			e.productId("5ac21a18040ab15980c9b43e");
+			emo = e.build();
+			eList.add(emo);
+
+			TextMessageBuilder tB = TextMessage.builder();
+			tB.emojis(eList);
+			tB.text(preText);
+			
+			
+			
 			com.linecorp.bot.model.message.Message m = new TemplateMessage("請確認您的預約", t);
-			StickerMessage sticker = new StickerMessage("1", "106");
+//			StickerMessage sticker = new StickerMessage("1", "106");
 		
 //			PushMessage pushSticker = new PushMessage(userId, sticker);
-			PushMessage pushText =  new PushMessage(userId, textMessage);
+			PushMessage pushText =  new PushMessage(userId, tB.build());
 			PushMessage pushMessage = new PushMessage(userId, m);
 			client.pushMessage(pushText);
 			Thread.sleep(300);
@@ -185,8 +214,18 @@ public class lineBotController {
 		Appointment aBean = lineBotService.getAppointmentById(appointmentPkId);
 		if(aBean.getMemberReply().equals("未回覆")) {
 			lineBotService.confirm(appointmentPkId);
-			TextMessage textMessage = new TextMessage("已成功通知診所將如期到診(ok)");
-			PushMessage pushMessage = new PushMessage(aBean.getMemberBean().getMemberLineId(), textMessage);
+			List<Emoji> eList = new LinkedList<Emoji>();
+			EmojiBuilder e = Emoji.builder();
+			e.emojiId("231");
+			e.index(12);
+			e.productId("5ac1bfd5040ab15980c9b435");
+			Emoji emo = e.build();
+			eList.add(emo);
+			TextMessageBuilder tB = TextMessage.builder();
+			tB.emojis(eList);
+			tB.text("已成功通知診所將如期到診$");
+			
+			PushMessage pushMessage = new PushMessage(aBean.getMemberBean().getMemberLineId(), tB.build());
 			client.pushMessage(pushMessage);		
 			
 		}else {
@@ -205,13 +244,27 @@ public class lineBotController {
 		Appointment aBean = lineBotService.getAppointmentById(appointmentPkId);
 		if(aBean.getMemberReply().equals("未回覆")) {
 		lineBotService.cancelAppoint(appointmentPkId);
-		TextMessage textMessage = new TextMessage("已將預約取消囉");
-		PushMessage pushMessage = new PushMessage(aBean.getMemberBean().getMemberLineId(), textMessage);
+//		TextMessage textMessage = new TextMessage("已將預約取消囉");
+		
+		List<Emoji> eList = new LinkedList<Emoji>();
+		EmojiBuilder e = Emoji.builder();
+		e.emojiId("096");
+		e.index(7);
+		e.productId("5ac21a18040ab15980c9b43e");
+		Emoji emo = e.build();
+		eList.add(emo);
+		TextMessageBuilder tB = TextMessage.builder();
+		tB.emojis(eList);
+		tB.text("已將預約取消囉$");
+		
+		
+		PushMessage pushMessage = new PushMessage(aBean.getMemberBean().getMemberLineId(), tB.build());
 		client.pushMessage(pushMessage);		
 		}else {
 			TextMessage textMessage = new TextMessage("已回覆過囉");
 			PushMessage pushMessage = new PushMessage(aBean.getMemberBean().getMemberLineId(), textMessage);
 			client.pushMessage(pushMessage);
+			
 		}
 		return "Please Check On Your Line Message";
 	}
