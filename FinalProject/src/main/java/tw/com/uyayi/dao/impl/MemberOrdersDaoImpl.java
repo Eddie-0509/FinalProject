@@ -23,7 +23,7 @@ public class MemberOrdersDaoImpl implements MemberOrdersDao {
 	@Override
 	public List<Orders> getAll(int id) {
 		Session session = factory.getCurrentSession();
-		String hql = "from Orders where memberBean=:id";
+		String hql = "from Orders where memberPkId=:id";
 		List<Orders> a = session.createQuery(hql).setParameter("id", session.get(Member.class, id)).getResultList();
 		
 //		session.clear();

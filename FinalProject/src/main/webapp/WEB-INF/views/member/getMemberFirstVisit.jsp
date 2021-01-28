@@ -142,37 +142,40 @@
 		</nav>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
+		
+			<div id="container" class="container" style='width: 1350px;'>
 			<div class="container">
 
-
-<div class="result-wrap">
-            <form name="myform" id="myform" method="post">
-               
-                <div class="result-content">
-                    <table class="result-tab" width="100%">
+      	<table class='table table-bordered' id='showAllClinicTable' >
                         <tr>
                             <th>緊急聯絡人</th>
                             <th>緊急連絡電話</th>
                             <th>關係欄</th>
-                            <th>抽菸史</th>
+                             <th>抽菸史</th>
                             <th>檳榔史</th>
-                            <th>重大疾病</th>
+                           
+                        </tr>
+                        <tr>                    
+                              <td>${memberDetails.get(0).emergencyContact}</td>
+                              <td>${memberDetails.get(0).emergencyNumber}</td> 
+                              <td>${memberDetails.get(0).emergencyRelationship}</td>
+                              <td>${memberDetails.get(0).smoke}</td> 
+                              <td>${memberDetails.get(0).betelNut}</td>  
+                        </tr>
+                         <tr>
+                          <th>重大疾病</th>
                             <th>過敏原</th>
                             <th>手術史</th>
                         </tr>
                         <tr>                    
-                              <td>${member.memberAccount}</td>
-                              <td>*******</td> 
-                              <td>${member.memberIdNumber}</td> 
-                              <td>${member.memberName}</td> 
-                              <td>${member.memberAddress}</td> 
-                              <td>${member.memberPhone}</td> 
-                              <td>${member.memberPhone}</td> 
+                              <td>${memberDetails.get(0).diseases}</td> 
+                              <td>${memberDetails.get(0).allergy}</td> 
+                              <td>${memberDetails.get(0).surgery}</td> 
                         </tr>
-                    </table>
-            </form>
+                   </table>
+    
         </div>
-
+        </div>
 
     <!--/sidebar-->
     <div class="main-wrap">

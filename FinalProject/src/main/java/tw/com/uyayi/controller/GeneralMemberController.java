@@ -24,6 +24,7 @@ import tw.com.uyayi.service.ClinicLogInService;
 import tw.com.uyayi.service.ClinicSignUpService;
 import tw.com.uyayi.service.MemberDetailsService;
 import tw.com.uyayi.service.MemberLogInService;
+import tw.com.uyayi.service.MemberMedicalRecordLookUpService;
 import tw.com.uyayi.service.MemberOrdersService;
 import tw.com.uyayi.service.MemberService;
 import tw.com.uyayi.service.MemberSignUpService;
@@ -50,13 +51,16 @@ public class GeneralMemberController {
     
     @Autowired
 	MemberLogInService memberLogInservce;
+    
+    @Autowired
+    MemberMedicalRecordLookUpService memberMedicalRecordLookUpService;
 	
     @RequestMapping(value="/member",method=RequestMethod.GET)
 	public String addMemberView(Model model) {
     	List<City> cities = signUpService.getAllCity();
 		model.addAttribute("member",new Member());
 		model.addAttribute("cities", cities);
-		return "member/memberTest";	
+		return "member/memberSignup";	
 	}
     
 
@@ -118,35 +122,44 @@ public class GeneralMemberController {
     		Model model,@ModelAttribute("LoginOK") Member mb) {
     	int mbid = mb.getMemberPkId();
     	List<Orders> od = memberOrdersService.getAllOrders(mbid);
-    	
     	model.addAttribute("orders",od);
+    	System.out.println(od);
     	return "member/memberOrderTracking";
-  
     }
     
-    
-//    @RequestMapping(value="/memberModify",method=RequestMethod.GET)
-//    public String updateUserOneView(
+//    //以下是訂單明細查詢
+//    @RequestMapping(value="/memberOrderTracking",method=RequestMethod.POST)
+//    public String OrderTrackingDetailsView(
 //    		Model model,@ModelAttribute("LoginOK") Member mb) {
-//    	model.addAttribute("member",mb);
-//    	return "member/memberModify";
-//  
-//    }
+////    	
+////    	int mbid = mb.getMemberPkId(); //取得ID
+//    	
+//    	
+////    	List<OrderDetails> od = 
+////
+////    	List<Orders> od = memberOrdersService.getAllOrders(mbid);
+////    	model.addAttribute("orders",od);
+////    	return "member/memberOrderTracking";
+////    }
+//// 
+    
     
 
     @GetMapping(value = "/memberFirstVisit")
-	public String memberFirstVisitView(@ModelAttribute("LoginOK") Member mb) {
+	public String memberFirstVisitView(Model model,@ModelAttribute("LoginOK") Member mb,@ModelAttribute("LoginOK") Member mb2) {
     	MemberDetails md = memberService.getMemberDetailByPkId(mb.getMemberPkId());
-    	
     	if(md==null) {
     		return "member/memberFirstVisit";
     	}else {
+    		int mdok = mb2.getMemberPkId();
+        	List<MemberDetails> mdokmd = memberMedicalRecordLookUpService.getAllDetails(mdok);      
+        	model.addAttribute("memberDetails",mdokmd);    
     		return "member/getMemberFirstVisit";
     	}
 	}
-    
-    
-      
+     
+
+     //病歷表填寫
     @RequestMapping(value="/memberFirstVisitAddView",method=RequestMethod.GET)
   	public String memberFirstVisitAddView(Model model) {
     	MemberDetails md = new MemberDetails();
@@ -154,18 +167,16 @@ public class GeneralMemberController {
   		return "member/memberFirstVisit";	
   	}
     
-    
+    //病歷表填寫
     @RequestMapping(value="/memberFirstVisitAddView",method=RequestMethod.POST)
 	public String addmemberFirstVisitAddView(@ModelAttribute("md") MemberDetails memberDetails,@ModelAttribute("LoginOK") Member mb) {
-
   	    memberDetails.setMember(mb);
-
+        mb.setMemberStatus("已填寫");
     	memberDetailsService.add(memberDetails,mb);
-    
 		return "index";	
 	}
     
-    
+
     //以下為電子郵件修改密碼
     @GetMapping("/memberForgotPwd")
 	public String memberForgotPwd(){
@@ -177,7 +188,6 @@ public class GeneralMemberController {
 	public @ResponseBody boolean setupForgetMail(@RequestParam("memberAccount") String memberAccount) {
 		MailCheck m = new MailCheck();
 		Member c = memberLogInservce.getMemberByAccount(memberAccount);
-
 		String text = "<a href='http://localhost:9998/FinalProject/userResetPwd?rgewrgerwgw45y4refqereqrfsfeq=5&memberId="+c.getMemberPkId()+"&ffgsfdgerc=1fdshrt'>請點擊重設密碼</a>";
 		m.sendMail(memberAccount, "【UYAYI】重設會員密碼", text);
 		return true ;
@@ -203,8 +213,7 @@ public class GeneralMemberController {
 	return "redirect:/memberResetSuccess";
 	}
 	
-	
-	
+
 	@GetMapping("memberResetSuccess")
 	public String turnToresetSuccess() {
 		return "member/memberResetSuccess";
