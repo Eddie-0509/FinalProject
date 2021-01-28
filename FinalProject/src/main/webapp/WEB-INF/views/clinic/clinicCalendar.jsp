@@ -192,6 +192,7 @@
 								<input type="button" value="LIST" style="color: black;" id="listBut"></input>
 								<input type="button" value="醫師別" style="color: black;" id="doctorBut"></input>
 								<input type="button" value="查詢病患預約" style="color: black;" data-toggle="modal" data-target="#QueryModal" id="queryBut"></input>
+								<input type="button" value="通知隔日預約" style="color: black;" id="inform"></input>
 								<br>
 							</div>
 								<div id="colorsetumeis" class="animate-box">
@@ -398,6 +399,27 @@
 		});
 		});
 	
+	
+	$(function(){
+		$("#inform").click(function(){
+				let str ="";
+				let urlQuery = new URLSearchParams({
+					clinicPkId : ${loginOK.clinicPkId},
+					method : "fetch()",
+					doWhat : "GET"
+				});
+	
+				
+				fetch("clinicPush?" + urlQuery, {
+					method : "GET"
+				}).then(function(response) {
+					return response.json();
+				}).then(function(data) {
+					
+				});
+
+		});
+	});
 	</script>
 	
 	</body>
