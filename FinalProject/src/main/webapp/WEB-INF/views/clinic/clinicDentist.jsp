@@ -297,7 +297,7 @@ a.oneClick{
 	        	
 	        </div>
 	        <div class="modal-footer">
-	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal" id="newSubmit">確定新增</button>
+	        	<button type="button" class="btn btn-default contactMember" id="newSubmit">確定新增</button>
 	            <input type="reset" class="btn btn-default" id="clearForm" value="清空">
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        </div>
@@ -324,6 +324,7 @@ a.oneClick{
 	        	<br/>
 	        	<label for="dentistItem">主治項目:</label>
 	        	<br/>
+	        	<div id = divReviesItem>
 	        	<input type="checkbox" name="reviseItem" value="1">齬齒
 	        	<input type="checkbox" name="reviseItem" value="2">洗牙
 	        	<input type="checkbox" name="reviseItem" value="3">牙周病
@@ -334,6 +335,7 @@ a.oneClick{
 	        	<input type="checkbox" name="reviseItem" value="8">全口矯正
 	        	<input type="checkbox" name="reviseItem" value="9">兒童牙科
 	        	<input type="checkbox" name="reviseItem" value="10">敏感性牙齒
+	        	</div>
 	        	<br/>
 	        	<label for="dentistTime">看診時間:</label>       
 	  			<table class="reviseTable" style="margin:'0 auto'">
@@ -451,7 +453,7 @@ a.oneClick{
 					<label class="colorsetumei" style="background-color:#D0D0D0" ></label>醫師休診時間
 					<label class="colorsetumei" style="background-color:#84C1FF" ></label>醫師看診時間
 				</div>
-	        	<table style="margin:'0 auto'">
+	        	<table  id="tableReviseTime" style="margin:'0 auto'">
 	        	<thead>
 	        	<tr>
 	        	<th class="tableWidth timeth">時間</th>
@@ -504,6 +506,29 @@ a.oneClick{
 		</footer>
 	</div>
 	<script>
+	
+	async function confirmError() {
+        this.myModal = new confirmNewDentist("錯誤", "請選擇至少一個看診項目", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	async function confirmTimeError() {
+        this.myModal = new confirmNewDentist("錯誤", "請選擇至少一個看診時段", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	
+		
 		async function confirmNew() {
 	        this.myModal = new confirmNewDentist("確認", "確認新增醫師?", "是", "否");
 
@@ -540,11 +565,23 @@ a.oneClick{
 		
 		
 	$("#deleteDoctor").click(function(){
+		
 		deleteDentistConform();
 // 		$("#deleteForm").trigger("submit");
 	});
 	$("#newSubmit").click(function(){
+		if($("#dentistForm > input[type=checkbox]:checked").length<1){
+			confirmError();
+			$("body > dialog > div > div.simple-modal-button-group").children().remove();
+			
+		}else if($("#dentistForm > table > tbody > tr > td > input[type=checkbox]:checked").length < 1){
+			confirmTimeError();
+			$("body > dialog > div > div.simple-modal-button-group").children().remove();
+			
+		}else{
 		confirmNew();
+			
+		}
 // 	$("#dentistForm").trigger("submit");
 	});
 	$("#clearForm").click(function(){
@@ -556,7 +593,19 @@ a.oneClick{
 	});
 	
 	$("#reviseFormSubmit").click(function(){
+		
+		if(($("#divReviesItem > input[type=checkbox]:checked").length < 1)){
+			confirmError();
+			$("body > dialog > div > div.simple-modal-button-group").children().remove();
+			
+		}else if($("#reviseForm > table > tbody > tr > td > input[type=checkbox]:checked").length < 1){
+			confirmTimeError();
+			$("body > dialog > div > div.simple-modal-button-group").children().remove();
+			
+		}else {
 		reviseDentistConform();
+
+		}
 		// 		$("#reviseForm").trigger("submit");
 	});
 	
@@ -656,7 +705,7 @@ a.oneClick{
 			var itemStr = "";
 			for(let i =0; i<data.itemsBean.length; i++){
 				itemStr+=data.itemsBean[i].itemName+", ";
-				let reviseItemStr = "#reviseForm > input[type=checkbox]:nth-child("+(data.itemsBean[i].itemPkId+7)+")";
+				let reviseItemStr = "#divReviesItem > input[type=checkbox]:nth-child("+(data.itemsBean[i].itemPkId)+")";
 				$(reviseItemStr).prop("checked",true);
 			}
 			itemStr=itemStr.substring(0,itemStr.length-2);
