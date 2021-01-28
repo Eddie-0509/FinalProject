@@ -240,7 +240,7 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 	      }
 	   }
 	      //如果已經有預約，把它刪除	      
-	      String apphql = "From Appointment a where a.dentistBean =:dentist and a.appointDate =:appointDate and a.timeTableBean =:timeTable";
+	      String apphql = "From Appointment a where a.dentistBean =:dentist and a.appointDate =:appointDate and a.timeTableBean =:timeTable and a.memberReply !=:cancel";
 	      String tthql = "From TimeTable tt where tt.weekdays =:weekdays and tt.times =:times";
 	      List ttlist=new ArrayList();
 	      List<Appointment> apped;
@@ -251,7 +251,8 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 	    		  for(Object appointableKey : appointable.keySet()) {
 					try {
 						apped = session.createQuery(apphql).setParameter("dentist", thisDen)
-				      	  .setParameter("appointDate", sdf.parse(appointableKey.toString())).setParameter("timeTable", ttlist.get(0)).getResultList();
+				      	  .setParameter("appointDate", sdf.parse(appointableKey.toString())).setParameter("timeTable", ttlist.get(0))
+				      	  .setParameter("cancel", "取消").getResultList();
 //						System.out.println("236"+apped);
 						if(!apped.isEmpty()) {
 //							System.out.println(apped.get(0).getAppointDate());

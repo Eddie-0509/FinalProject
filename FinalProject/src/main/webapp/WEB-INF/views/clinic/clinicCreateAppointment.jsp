@@ -166,6 +166,13 @@
 		#resultTable > tbody > tr{
 			background-color:inherit !important;
 		}
+		.dataTables_wrapper .dataTables_length,
+		.dataTables_wrapper .dataTables_filter,
+		.dataTables_wrapper .dataTables_info,
+		.dataTables_wrapper .dataTables_processing,
+		.dataTables_wrapper .dataTables_paginat{
+			color:inherit
+		}
 	</style>
 	</head>
 

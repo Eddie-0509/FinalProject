@@ -99,33 +99,35 @@ $(document).ready(function(){
 		            	 //console.log("data="+result);
 		      			 let backgroundColor="";
 		      			 let title="";
-		      			 if(result[appnum].memberBean!=null){
-		      			 	title=result[appnum].memberBean.memberName;
-		      			
-	   			 			if(result[appnum].memberReply=="未回覆"){
-	   			 				backgroundColor='#81C0C0'
-	   						}
-	   						if(result[appnum].memberReply=="確定前往"){
-	   							backgroundColor='#408080'
-	   						}
-	   					 }
-	   					 if(result[appnum].memberBean==null){
-	   						title=result[appnum].patientName;	   						
-	   				
-	   						if(result[appnum].memberReply=="未回覆"){
-	   			 				backgroundColor='#FFD1A4'
-	   						}
-	   						if(result[appnum].memberReply=="確定前往"){
-	   							backgroundColor='#EA7500'
-	   						}
-	   					  }
-		            	 hisevent.push({id:result[appnum].appointmentPkId,
-		            		 			title:title,
-		      			 			    start: formatDate(result[appnum].appointDate)+"T"+
-		      			 			           (result[appnum].timeTableBean.times).substring(0,(result[appnum].timeTableBean.times).length-6)+":00",
-		      			 			    backgroundColor:backgroundColor
-		            	 				})
-	             	}
+		      			 if(result[appnum].memberReply!="取消"){
+			      			 if(result[appnum].memberBean!=null){
+			      			 	title=result[appnum].memberBean.memberName;
+			      			
+		   			 			if(result[appnum].memberReply=="未回覆"){
+		   			 				backgroundColor='#81C0C0'
+		   						}
+		   						if(result[appnum].memberReply=="確定前往"){
+		   							backgroundColor='#408080'
+		   						}
+		   					 }
+		   					 if(result[appnum].memberBean==null){
+		   						title=result[appnum].patientName;	   						
+		   				
+		   						if(result[appnum].memberReply=="未回覆"){
+		   			 				backgroundColor='#FFD1A4'
+		   						}
+		   						if(result[appnum].memberReply=="確定前往"){
+		   							backgroundColor='#EA7500'
+		   						}
+		   					  }
+			            	 hisevent.push({id:result[appnum].appointmentPkId,
+			            		 			title:title,
+			      			 			    start: formatDate(result[appnum].appointDate)+"T"+
+			      			 			           (result[appnum].timeTableBean.times).substring(0,(result[appnum].timeTableBean.times).length-6)+":00",
+			      			 			    backgroundColor:backgroundColor
+			            	 				})
+		             	}
+		             }
 	      				 console.log(hisevent)
 	             }
 	        });

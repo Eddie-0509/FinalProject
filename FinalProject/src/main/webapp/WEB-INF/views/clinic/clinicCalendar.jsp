@@ -123,27 +123,29 @@
 		var allevents=[]
 // 		console.log("${AllAppointmentList}")
 		<c:forEach var="allapplist" items="${AllAppointmentList}" varStatus="vs">
-			id.push("${allapplist.appointmentPkId}")
-			if("${allapplist.memberBean.memberName}" == ""){
-				title.push("${allapplist.patientName}"+"(醫師："+"${allapplist.dentistBean.dentistName}"+")")
-				start.push("${allapplist.appointDate}"+"T"+
-			 			   ("${allapplist.timeTableBean.times}".substring(0,"${allapplist.timeTableBean.times}".length-6))+":00")		
-				if("${allapplist.memberReply}"=="未回覆"){
-			 		backgroundColor.push('#FFD1A4')
+			if("${allapplist.memberReply}"!="取消"){
+				id.push("${allapplist.appointmentPkId}")
+				if("${allapplist.memberBean.memberName}" == ""){
+					title.push("${allapplist.patientName}"+"(醫師："+"${allapplist.dentistBean.dentistName}"+")")
+					start.push("${allapplist.appointDate}"+"T"+
+				 			   ("${allapplist.timeTableBean.times}".substring(0,"${allapplist.timeTableBean.times}".length-6))+":00")		
+					if("${allapplist.memberReply}"=="未回覆"){
+				 		backgroundColor.push('#FFD1A4')
+					}
+					if("${allapplist.memberReply}"=="確定前往"){
+				 		backgroundColor.push('#EA7500')
+					}
 				}
-				if("${allapplist.memberReply}"=="確定前往"){
-			 		backgroundColor.push('#EA7500')
-				}
-			}
-			else{
-				title.push("${allapplist.memberBean.memberName}"+"(醫師："+"${allapplist.dentistBean.dentistName}"+")")
-				start.push("${allapplist.appointDate}"+"T"+
-			 			   ("${allapplist.timeTableBean.times}".substring(0,"${allapplist.timeTableBean.times}".length-6))+":00")		
-				if("${allapplist.memberReply}"=="未回覆"){
-			 		backgroundColor.push('#95CACA')
-				}
-				if("${allapplist.memberReply}"=="確定前往"){
-			 		backgroundColor.push('#408080')
+				else{
+					title.push("${allapplist.memberBean.memberName}"+"(醫師："+"${allapplist.dentistBean.dentistName}"+")")
+					start.push("${allapplist.appointDate}"+"T"+
+				 			   ("${allapplist.timeTableBean.times}".substring(0,"${allapplist.timeTableBean.times}".length-6))+":00")		
+					if("${allapplist.memberReply}"=="未回覆"){
+				 		backgroundColor.push('#95CACA')
+					}
+					if("${allapplist.memberReply}"=="確定前往"){
+				 		backgroundColor.push('#408080')
+					}
 				}
 			}
 // 			d="${allapplist.appointDate}".substring(8);
