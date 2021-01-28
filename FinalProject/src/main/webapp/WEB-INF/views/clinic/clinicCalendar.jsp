@@ -227,7 +227,7 @@
 	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">預約詳細</h4>
 	        </div>
 	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
-	        	病患姓名：<span id="patientName"></span>
+	        	病患姓名：<span id="patientName" ></span>
 	        	<br>
 	        	病患電話：<span id="patientPhone"></span>
 	        	<br>
@@ -246,6 +246,40 @@
 <!-- 	        	<button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal">連絡病患</button> -->
 <!-- 	        	<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button> -->
 <!-- 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	             -->
+	        </div>
+	    </div>
+	</div>
+</div>
+
+<!-- 初診病歷彈窗 -->
+<div id="medicalRecordModal" class="modal fade" style="color:black">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            <h4 id="medicalRecordModalTitle" class="modal-title"  style="color:black">初診病歷</h4>
+	        </div>
+	        <div id="medicalRecordModalBody" class="modal-body"  style="color:black">
+	        	緊急聯絡人姓名：<span id="emergencyContact"></span>
+	        	<br>
+	        	緊急聯絡人電話：<span id="emergencyNumber"></span>
+	        	<br>
+	        	緊急聯絡人關係：<span id="emergencyRelationship"></span>
+	        	<br>
+	        	抽菸史：<span id="smoke"></span>
+	        	<br>
+	        	檳榔史：<span id="betelNut"></span>
+	        	<br>
+	        	重大疾病：<span id="diseases"></span>
+	        	<br>
+	        	過敏原：<span id="allergy"></span>
+	        	<br>
+	        	手術史：<span id="surgery"></span>
+	  
+	        </div>
+	        <div class="modal-footer">
+	            <button type="button" class="btn btn-default" onclick="print(medicalRecordModal)">列印</button>	            
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        </div>
 	    </div>
 	</div>
@@ -309,13 +343,18 @@
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
 	            <h4 id="qmodalTitle" class="modal-title"  style="color:black">查詢預約紀錄</h4>
+	            <h4 id="qmodalTitle2" class="modal-title"  style="color:black"></h4>
 	        </div>
 	        <div id="qmodalBody" class="modal-body"  style="color:black">
-<!-- 	        	請輸入病患身分證字號：<input type="text" id="IdNumberToQuery"></input>	   -->
+	        	請輸入電話號碼：<input type="text" id="PhoneToQuery"></input>	  
+	        </div>
+	        <div id="qmodalBody2" class="modal-body"  style="color:black">
 	        </div>
 	        <div class="modal-footer">
-<!-- 	        	<button type="button" class="btn btn-default" id="queryAppointment">查詢</button> -->
-<!-- 	            <button type="button" class="btn btn-default" data-dismiss="modal" id="queryClose">Close</button>	             -->
+		        <span ><a href="javascript:void(0)" id="sconeDemo1">demo1</a></span>
+		        <span ><a href="javascript:void(0)" id="sconeDemo2">demo2</a></span>
+	        	<button type="button" class="btn btn-default" id="queryAppointment" onclick="queryAppointment()">查詢</button>
+	            <button type="button" class="btn btn-default queryClose" data-dismiss="modal" >Close</button>	            
 	        </div>
 	    </div>
 	</div>
@@ -348,6 +387,25 @@
 	
 	
 	<script>
+	function print(printlist){
+	     var printTitle = $("#medicalRecordModalTitle").html();
+	     var printContent = $("#medicalRecordModalBody").html();
+	     var printWindow = window.open('', '_blank', '', false);
+	     printWindow.document.write(
+	    	        '<html>' +
+	    	        '<head>' +
+	    	        '<meta name="charset" content="utf-8" />' +
+	    	        '<title>' + printTitle + '</title>' +
+	    	        '<link rel="stylesheet" href="css/print.css" />' +
+	    	        '</head>' +
+	    	        '<body>' + printContent + '</body>' +
+	    	        '</html>'
+	    	    );
+	    	 
+	    	    printWindow.print();
+	    	    printWindow.close();
+	  }
+	
 	async function openConfirmModal() {
         this.absentConfirmModal = new SimpleModal("確認", "確定回報此病患未到診？", "是", "否");
 
@@ -422,6 +480,15 @@
 
 		});
 	});
+	
+	$("#sconeDemo1").on("click",function(event){
+		  event.preventDefault();
+		  $("#PhoneToQuery").val("0911111111");
+	  })
+	$("#sconeDemo2").on("click",function(event){
+		  event.preventDefault();
+		  $("#PhoneToQuery").val("0933156223");
+	  })
 	</script>
 	
 	</body>

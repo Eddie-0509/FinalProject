@@ -72,6 +72,11 @@ public class ClinicCalendarServiceImpl implements ClinicCalendarService {
 		caDao.deleteAppointment(appointmentId);
 	}
 
+	@Override
+	public LinkedHashMap<String, String> getmedicalRecord(int memberID) {
+		return caDao.getmedicalRecord(memberID);
+	}
+
 
 
 }

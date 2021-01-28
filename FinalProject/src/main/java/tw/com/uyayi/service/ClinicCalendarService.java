@@ -21,6 +21,7 @@ public interface ClinicCalendarService {
 	ArrayList<Items> getItemByDentist(Clinic clinic,String dentist);
 	void updateAppointment(Integer appointmentID, String updateItem, String updateReply);
 	void deleteAppointment(int appointmentId);
+	LinkedHashMap<String, String> getmedicalRecord(int memberID);
 
 
 }

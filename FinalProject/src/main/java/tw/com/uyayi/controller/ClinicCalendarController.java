@@ -164,4 +164,13 @@ public class ClinicCalendarController {
 		return "redirect:/clinicCalendar";
 	}
 
+	//得到會員填寫的初診資料
+	@PostMapping(path = "/getmedicalRecord", produces = "application/json")
+	public @ResponseBody LinkedHashMap<String,String> getmedicalRecord(
+			@RequestParam("memberID") String memberID) {
+		System.out.println(memberID);
+		int memberID2 = Integer.valueOf(memberID);
+		return caService.getmedicalRecord(memberID2);
+	}
+	
 }

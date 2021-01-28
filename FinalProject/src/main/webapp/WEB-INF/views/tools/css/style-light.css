@@ -33,7 +33,7 @@ a {
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 a:hover, a:active, a:focus {
-  color: #000;
+  color: 	#7B7B7B;
   outline: none;
   text-decoration: none;
   border-bottom: 2px solid black;
@@ -1005,3 +1005,12 @@ h1, h2, h3, h4, h5, h6 {
 /*     right: 25px; */
 /*     } */
 /*   } */
+
+
+.modal-dialog a:hover{
+	color:	#8F4586
+}
+
+.modal-dialog a{
+border-bottom: 2px solid rgba(0, 0, 0, 0.1)
+}

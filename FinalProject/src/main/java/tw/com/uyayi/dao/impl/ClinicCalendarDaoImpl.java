@@ -16,6 +16,7 @@ import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.MemberDetails;
 
 
 @Repository
@@ -152,6 +153,26 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		Session session=factory.getCurrentSession();
 		String hqla = "delete Appointment app where app.appointmentPkId= :appointmentID";
 		session.createQuery(hqla).setParameter("appointmentID", appointmentId).executeUpdate();		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public LinkedHashMap<String, String> getmedicalRecord(int memberID) {
+		Session session=factory.getCurrentSession();
+		String hqlm = "from Member m where m.memberPkId =:memberID";
+		List<Member> listOfMember = session.createQuery(hqlm).setParameter("memberID", memberID).getResultList();
+		String hqlmd = "from MemberDetails md where md.member =:member";
+		List<MemberDetails>  listOfMemberDetail = session.createQuery(hqlmd).setParameter("member", listOfMember.get(0)).getResultList();
+		LinkedHashMap<String, String> medicalRecord=new LinkedHashMap<String, String>();
+		medicalRecord.put("EmergencyContact", listOfMemberDetail.get(0).getEmergencyContact());
+		medicalRecord.put("EmergencyNumber", listOfMemberDetail.get(0).getEmergencyNumber());
+		medicalRecord.put("EmergencyRelationship", listOfMemberDetail.get(0).getEmergencyRelationship());
+		medicalRecord.put("Smoke", listOfMemberDetail.get(0).getSmoke());
+		medicalRecord.put("BetelNut", listOfMemberDetail.get(0).getBetelNut());
+		medicalRecord.put("Diseases", listOfMemberDetail.get(0).getDiseases());
+		medicalRecord.put("Allergy", listOfMemberDetail.get(0).getAllergy());
+		medicalRecord.put("Surgery", listOfMemberDetail.get(0).getSurgery());
+		return medicalRecord;
 	}
 
 	
