@@ -326,7 +326,8 @@
 			return response.json();
 		}).then(function(data) {
 			order = data;
-			showAppointmentData();
+			showOrderData();
+			bindOrderDetail()
 		});
 	});
 	$("#orderSearchData").click(function(){
@@ -342,8 +343,8 @@
 			return response.json();
 		}).then(function(data) {
 			order = data;
-			console.log(order);
 			showOrderData();
+			bindOrderDetail();
 		});
 	});
 	//顯示預約資料(JSON格式)
@@ -367,6 +368,54 @@
 		}
 		$("#AppointmentBody").html(str);
 	}
+	//顯示訂單資料(JSON格式)
+	function showOrderData(){
+		let str = "";
+		for(let i = 0; i< order.length; i++){
+			str += "<tr>";
+			str += "<td>"+order[i].orderNo+"</td>";
+			if(order[i].couponBean ==null){
+				str += "<td></td>";				
+			}else{
+				str += "<td>"+order[i].couponBean.couponContext+"</td>";			
+			}
+			str += "<td>"+order[i].totalPayment+"</td>";
+			str += "<td>"+order[i].orderStatus+"</td>";
+			str += "<td>"+order[i].shipAddress+"</td>";
+			str += "<td><button type='button' id='orderDetail"+order[i].orderPkId+"'>詳細資料</button></td>";
+			str += "</tr>";
+		}
+		$("#orderBody").html(str);
+	}
+	function bindOrderDetail(){
+		for(let i = 0; i< order.length; i++){
+			$("#orderDetail"+order[i].orderPkId).click(function(){
+				let str = "";
+				if(order[i].orderStatus=='已取消'){
+					$("#orderDetailModalTitle").html("訂單編號:${order.orderNo}<blockquote>取消原因:${order.returnReason}");
+				}else{
+					$("#orderDetailModalTitle").html("訂單編號:${order.orderNo}");				
+				};
+				for(let j=0;j<order[i].orderDetails.length;j++){
+					str += "<tr>";
+					str += "<td>"+order[i].orderDetails[j].productBean.productName+"</td>";
+					str += "<td style='text-align:right'>"+order[i].orderDetails[j].productBean.productPrice+"</td>";
+					str += "<td style='text-align:right'>"+order[i].orderDetails[j].orderQuantity+"</td>";
+					str += "</tr>"	
+				}
+				if(order[i].couponBean==null){
+					str += "<tr><td colspan='2' style='text-align:right'>折扣</td><td style='text-align:right'></td></tr>";					
+				}else{
+					str += "<tr><td colspan='2' style='text-align:right'>折扣</td><td style='text-align:right'>"+order[i].couponBean.couponContext+"</td></tr>";					
+				}
+				str += "<tr><td colspan='2' style='text-align:right'>總金額</td><td style='text-align:right'>"+order[i].totalPayment+"</td></tr>";
+				$("#orderDetailBody").html(str);
+				$("#orderDetailModal").modal('show');
+			});
+		}
+	}
+		
+
 	//顯示預約原始資料
 	function showRawAppointmentData(){
 		let str = "";
