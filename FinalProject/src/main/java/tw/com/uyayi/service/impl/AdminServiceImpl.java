@@ -154,6 +154,22 @@ public class AdminServiceImpl implements AdminService {
 			int clinicPkId) {
 		return adminDao.getAllAppointmentByMemberAccountAndMemberArrive(memberArrive, memberAccount,clinicPkId);
 	}
+	@Override
+	public List<Appointment> getMemberAppointmentFromIdAndName(int memberPkId, String keyName) {
+		return adminDao.getMemberAppointmentFromIdAndName(memberPkId,keyName);
+	}
+	@Override
+	public List<Appointment> getMemberAppointmentFromIdAndArrive(int memberPkId, String arrive) {
+		return adminDao.getMemberAppointmentFromIdAndArrive(memberPkId, arrive);
+	}
+	@Override
+	public List<Orders> getMemberOrderFromIdAndOrderNo(int memberPkId, String keyName) {
+		return adminDao.getMemberOrderFromIdAndOrderNo(memberPkId, keyName);
+	}
+	@Override
+	public List<Orders> getMemberOrderFromIdAndOrderStatus(int memberPkId, String orderStatus) {
+		return adminDao.getMemberOrderFromIdAndOrderStatus(memberPkId, orderStatus);
+	}
 
 
 	

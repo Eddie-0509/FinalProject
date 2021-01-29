@@ -569,10 +569,10 @@
 					return response.json();
 					}).then(function(data) {
 						if($("#h_updateTime option:selected").text()!="更新時間"){
-							$("#h_updateTime").prepend("<option id='更新時間' value='更新時間' selected='selected'>更新時間</option>");
+							$("#產品類別").prop("selected","selected");
 						}
 						if($("#h_price option:selected").text()!="價格"){
-							$("#h_price").prepend("<option id ='價格' value='價格' selected='selected'>價格</option>");
+							$("#價格").prop("selected","selected");
 						}
 						$("#searchBar").val("");
 						products = data;

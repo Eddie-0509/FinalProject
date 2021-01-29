@@ -149,8 +149,8 @@
 						<thead>
 							<tr>
 								<th style='width: 70%;'>產品名稱</th>
-								<th style='width: 15%;'>單價</th>
-								<th style='width: 15%;'>數量</th>
+								<th style='width: 15%; text-align:right'>單價</th>
+								<th style='width: 15%; text-align:right'>數量</th>
 							</tr>
 						</thead>
 						<tbody id="orderDetailBody">
@@ -161,7 +161,6 @@
 	  
 	        	</div>
 	        	<div class="modal-footer">
-	        		<button type="button" class="btn btn-default contactMember" id="formButton">確定修改</button>
 	            	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        	</div>
 	    	</div>
@@ -227,8 +226,8 @@
 													<option id ="訂單狀況" value="訂單狀況" selected="selected">訂單狀況</option>
 													<option id ="未付款" value="未付款">未付款</option>
 													<option id ="已付款" value="已付款" >已付款</option>
-													<option id ="取消" value="取消" >已付款</option>
-													<option id ="已出貨" value="已出貨" >已付款</option>
+													<option id ="取消" value="取消" >取消</option>
+													<option id ="已出貨" value="已出貨" >已出貨</option>
 												</select>
 											</th>
 											<th style='width: 50%;'>收件地址</th>
@@ -280,7 +279,94 @@
 		bindRawOrderDetail();
 	});
 	
-
+	
+	$("#h_memberArrive").change(function(){
+		let urlQuery = new URLSearchParams({
+			Arrive :$("#h_memberArrive").val(),
+			memberPkId: ${member.memberPkId},
+			method : "fetch()",
+			doWhat : "GET"
+		});
+		fetch("getMemberAppointmentFromIdAndArrive?" + urlQuery, {
+			method : "GET"
+		}).then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			appointment = data;
+			showAppointmentData();
+		});
+	});
+	
+	$("#appointmentSearchData").click(function(){
+		let urlQuery = new URLSearchParams({
+			keyName :$("#appointmentSearchBar").val(),
+			memberPkId: ${member.memberPkId},
+			method : "fetch()",
+			doWhat : "GET"
+		});
+		fetch("getMemberAppointmentFromIdAndName?" + urlQuery, {
+			method : "GET"
+		}).then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			appointment = data;
+			showAppointmentData();
+		});
+	});
+	$("#h_orderStatus").change(function(){
+		let urlQuery = new URLSearchParams({
+			orderStatus :$("#h_orderStatus").val(),
+			memberPkId: ${member.memberPkId},
+			method : "fetch()",
+			doWhat : "GET"
+		});
+		fetch("getMemberOrderFromIdAndOrderStatus?" + urlQuery, {
+			method : "GET"
+		}).then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			order = data;
+			showAppointmentData();
+		});
+	});
+	$("#orderSearchData").click(function(){
+		let urlQuery = new URLSearchParams({
+			keyName :$("#orderSearchBar").val(),
+			memberPkId: ${member.memberPkId},
+			method : "fetch()",
+			doWhat : "GET"
+		});
+		fetch("getMemberOrderFromIdAndOrderNo?" + urlQuery, {
+			method : "GET"
+		}).then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			order = data;
+			console.log(order);
+			showOrderData();
+		});
+	});
+	//顯示預約資料(JSON格式)
+	function showAppointmentData(){
+		let str = "";
+		for(let i = 0; i<appointment.length; i++){
+			str += "<tr>";
+			str	+= "<td>"+appointment[i].appointmentPkId+"</td>";	
+			str	+= "<td>"+appointment[i].clinicBean.clinicName+"</td>";	
+			str	+= "<td>"+appointment[i].dentistBean.dentistName+"</td>";	
+			str	+= "<td>"+formatDate(appointment[i].appointDate)+"</td>";	
+			str	+= "<td>"+appointment[i].timeTableBean.times+"</td>";	
+			str	+= "<td>"+appointment[i].itemBean.itemName+"</td>";	
+			if(appointment[i].arrive=='true'){
+				str	+= "<td>有</td>";	
+			}else{
+				str	+= "<td>無</td>";	
+				
+			}
+			str += "</tr>";
+		}
+		$("#AppointmentBody").html(str);
+	}
 	//顯示預約原始資料
 	function showRawAppointmentData(){
 		let str = "";
@@ -325,19 +411,21 @@
 			let str = "";
 			<c:choose>
 				<c:when test="${order.orderStatus=='已取消'}">
-				$("#orderDetailModalTitle").text("訂單編號:${order.orderNo}\r\r\r取消原因:${order.returnReason}")
+				$("#orderDetailModalTitle").html("訂單編號:${order.orderNo}<blockquote>取消原因:${order.returnReason}");
 				</c:when>
 				<c:otherwise>
-				$("#orderDetailModalTitle").text("訂單編號:${order.orderNo}")
+				$("#orderDetailModalTitle").html("訂單編號:${order.orderNo}");
 				</c:otherwise>
 			</c:choose>
 			<c:forEach var="orderDetails" items="${order.orderDetails}">
 			str += "<tr>";
 			str += "<td>${orderDetails.productBean.productName}</td>";
-			str += "<td>${orderDetails.productBean.productPrice}</td>";
-			str += "<td>${orderDetails.orderQuantity}</td>";
+			str += "<td style='text-align:right'>${orderDetails.productBean.productPrice}</td>";
+			str += "<td style='text-align:right'>${orderDetails.orderQuantity}</td>";
 			str += "</tr>"
 			</c:forEach>
+			str += "<tr><td colspan='2' style='text-align:right'>折扣</td><td style='text-align:right'>${order.couponBean.couponContext}</td></tr>";
+			str += "<tr><td colspan='2' style='text-align:right'>總金額</td><td style='text-align:right'>${order.totalPayment}</td></tr>";
 			$("#orderDetailBody").html(str);
 			$("#orderDetailModal").modal('show');
 		});

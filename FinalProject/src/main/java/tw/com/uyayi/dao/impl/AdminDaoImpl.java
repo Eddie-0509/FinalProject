@@ -3,6 +3,9 @@ package tw.com.uyayi.dao.impl;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -377,6 +380,67 @@ public class AdminDaoImpl implements AdminDao {
 				.setParameter("mArrive", memberArrive)
 				.getResultList();
 		}
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getMemberAppointmentFromIdAndName(int memberPkId, String keyName) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Clinic Where clinicName like :cName";
+		List<Clinic> clinicList=session.createQuery(hql)
+				.setParameter("cName", "%"+keyName+"%")
+				.getResultList();
+		
+		ArrayList<Integer> clinicId = new ArrayList<Integer>();
+		for(int i=0; i<clinicList.size(); i++) {
+			clinicId.add(clinicList.get(i).getClinicPkId());
+		}
+
+		List<Appointment> list = new LinkedList<Appointment>();
+		
+		for (int i=0; i<clinicId.size(); i++) {
+			String hql1 = "From Appointment where memberPkId like :mId and clinicPkId like :cId";
+			List<Appointment>appointmentList = session.createQuery(hql1)
+					.setParameter("cId", clinicId.get(i))
+					.setParameter("mId", memberPkId)
+					.getResultList();
+			for (int j = 0; j < appointmentList.size(); j++) {
+				list.add(appointmentList.get(j));
+			}
+		}
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getMemberAppointmentFromIdAndArrive(int memberPkId, String arrive) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Appointment Where memberPkId like :mId and arrive like :arrive";
+		List<Appointment> list=session.createQuery(hql)
+				.setParameter("mId", memberPkId)
+				.setParameter("arrive", arrive)
+				.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Orders> getMemberOrderFromIdAndOrderNo(int memberPkId, String keyName) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Orders Where memberPkId like :mId and orderNo like :oNo";
+		List<Orders> list=session.createQuery(hql)
+				.setParameter("mId", memberPkId)
+				.setParameter("oNo", "%"+keyName+"%")
+				.getResultList();
+		return list;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Orders> getMemberOrderFromIdAndOrderStatus(int memberPkId, String orderStatus) {
+		Session session = factory.getCurrentSession();
+		String hql = "From Orders Where memberPkId like :mId and orderStatus like :oStatus";
+		List<Orders> list=session.createQuery(hql)
+				.setParameter("mId", memberPkId)
+				.setParameter("oStatus", orderStatus)
+				.getResultList();
 		return list;
 	}
 

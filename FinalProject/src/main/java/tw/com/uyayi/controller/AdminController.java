@@ -160,8 +160,56 @@ public class AdminController {
 		model.addAttribute("clinics",beans);
 		return "admin/clinicManage";
 	}
+	//會員管理頁面(模糊搜尋訂單紀錄)
+	@GetMapping(value ="/getMemberOrderFromIdAndOrderNo", produces = "application/json")
+	public @ResponseBody List<Orders> getMemberOrderFromIdAndOrderNo(@RequestParam String keyName,
+			@RequestParam int memberPkId) {
+		List<Orders> beans= null;
+		if(keyName.equals("")) {
+			beans = service.getMemberOrderFromId(memberPkId);			
+		}else {
+			beans = service.getMemberOrderFromIdAndOrderNo(memberPkId,keyName);			
+		}
+		return beans;
+	}
+	//會員管理頁面(模糊搜尋訂單紀錄)
+	@GetMapping(value ="/getMemberOrderFromIdAndOrderStatus", produces = "application/json")
+	public @ResponseBody List<Orders> getMemberOrderFromIdAndOrderStatus(@RequestParam String orderStatus,
+			@RequestParam int memberPkId) {
+		List<Orders> beans= null;
+		if(orderStatus.equals("訂單狀況")) {
+			beans = service.getMemberOrderFromId(memberPkId);			
+		}else {
+			beans = service.getMemberOrderFromIdAndOrderStatus(memberPkId,orderStatus);			
+		}
+		return beans;
+	}
+	//會員管理頁面(模糊搜尋預約紀錄)
+	@GetMapping(value ="/getMemberAppointmentFromIdAndName", produces = "application/json")
+	public @ResponseBody List<Appointment> getMemberAppointmentFromIdAndName(@RequestParam String keyName,
+			@RequestParam int memberPkId) {
+		List<Appointment> beans= null;
+		if(keyName.equals("")) {
+			beans = service.getMemberAppointmentFromId(memberPkId);			
+		}else {
+			beans = service.getMemberAppointmentFromIdAndName(memberPkId,keyName);			
+		}
+		return beans;
+	}
+	//會員管理頁面(是否到診篩選預約紀錄)
+	@GetMapping(value ="/getMemberAppointmentFromIdAndArrive", produces = "application/json")
+	public @ResponseBody List<Appointment> getMemberAppointmentFromIdAndArrive(@RequestParam String Arrive,
+			@RequestParam int memberPkId) {
+		List<Appointment> beans= null;
+		if(Arrive.equals("到診")) {
+			beans = service.getMemberAppointmentFromId(memberPkId);			
+		}else {
+			beans = service.getMemberAppointmentFromIdAndArrive(memberPkId,Arrive);			
+		}
+		return beans;
+	}
 	//診所管理頁面(模糊搜尋)
-	@GetMapping(value ="/getAllClinicByName")
+	@GetMapping(value ="/getAllClinicByName", produces = "application/json")
 	public @ResponseBody List<Clinic> getAllClinicByName(@RequestParam String keyName) {
 		List<Clinic> beans= null;
 		if(keyName.equals("")) {
@@ -180,7 +228,7 @@ public class AdminController {
 		return beans;
 	}
 	//診所管理頁面(依城市篩選診所資料及取得區域)
-	@GetMapping(value ="/getAllClinicByCityAndStatus")
+	@GetMapping(value ="/getAllClinicByCityAndStatus", produces = "application/json")
 	public @ResponseBody List<Clinic> getAllClinicByCityAndStatus(@RequestParam String h_clinicCity,
 			@RequestParam String h_status) {
 		List<Clinic> beans= null;
@@ -221,24 +269,23 @@ public class AdminController {
 			return "admin/clinicManage_Detail";
 		}
 	//診所明細頁面(By到診及會員狀態篩選預約資料)
-		@GetMapping(value ="/getAllAppointByMemberAccountAndMemberArrive")
-		public @ResponseBody List<Appointment> getAllAppointByMemberAccountAndMemberArrive(
-				@RequestParam String memberAccount,
-				@RequestParam String memberArrive,
-				@RequestParam int clinicPkId) {
-//			Clinic clinic = service.getClinicById(clinicPkId);
-			List<Appointment> beans= null;
-			if(memberAccount.equals("會員")&&memberArrive.equals("到診")) {
-				beans = service.getClinicAppointmentFromId(clinicPkId);
-			}else if(memberAccount.equals("會員")) {
-				beans = service.getAllAppointmentByMemberArrive(memberArrive,clinicPkId);
-			}else if(memberArrive.equals("到診")) {
-				beans = service.getAllAppointmentByMemberAccount(memberAccount,clinicPkId);
-			}else {
-				beans = service.getAllAppointmentByMemberAccountAndMemberArrive(memberArrive,memberAccount,clinicPkId);
-			}
-			return beans;
-			}
+	@GetMapping(value ="/getAllAppointByMemberAccountAndMemberArrive", produces = "application/json")
+	public @ResponseBody List<Appointment> getAllAppointByMemberAccountAndMemberArrive(
+			@RequestParam String memberAccount,
+			@RequestParam String memberArrive,
+			@RequestParam int clinicPkId) {
+		List<Appointment> beans= null;
+		if(memberAccount.equals("會員")&&memberArrive.equals("到診")) {
+			beans = service.getClinicAppointmentFromId(clinicPkId);
+		}else if(memberAccount.equals("會員")) {
+			beans = service.getAllAppointmentByMemberArrive(memberArrive,clinicPkId);
+		}else if(memberArrive.equals("到診")) {
+			beans = service.getAllAppointmentByMemberAccount(memberAccount,clinicPkId);
+		}else {
+			beans = service.getAllAppointmentByMemberAccountAndMemberArrive(memberArrive,memberAccount,clinicPkId);
+		}
+		return beans;
+		}
 	//折扣碼管理頁面(初始值為顯示所有折扣碼資料)
 	@GetMapping(value = "/couponManage")
 	public String getAllCoupon(Model model) {
@@ -274,7 +321,7 @@ public class AdminController {
 		return "redirect:/couponManage";
 	}
 	//折扣碼管理頁面(模糊搜尋)
-	@GetMapping(value ="/getAllCouponByName")
+	@GetMapping(value ="/getAllCouponByName", produces = "application/json")
 	public @ResponseBody List<Coupon> getAllCouponByName(@RequestParam String keyName) {
 		List<Coupon> beans= null;
 		if(keyName.equals("")) {
@@ -285,7 +332,7 @@ public class AdminController {
 		return beans;
 	}
 	//折扣碼管理頁面(依狀態篩選)
-	@GetMapping(value ="/getAllCouponByStatus")
+	@GetMapping(value ="/getAllCouponByStatus", produces = "application/json")
 	public @ResponseBody List<Coupon> getAllCouponByStatus(@RequestParam String h_couponStatus) {
 		List<Coupon> beans= null;
 		if(h_couponStatus.equals("狀態")) {

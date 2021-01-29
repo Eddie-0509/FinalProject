@@ -74,6 +74,14 @@ public interface AdminService {
 	//By會員到診狀況及會員資格取得預約資料
 	List<Appointment> getAllAppointmentByMemberAccountAndMemberArrive(String memberArrive, String memberAccount,
 			int clinicPkId);
+	//By會員及診所名稱取得預約資料
+	List<Appointment> getMemberAppointmentFromIdAndName(int memberPkId, String keyName);
+	//By會員及到診狀態取得預約資料
+	List<Appointment> getMemberAppointmentFromIdAndArrive(int memberPkId, String arrive);
+	//By會員及訂單編號取得訂單資料
+	List<Orders> getMemberOrderFromIdAndOrderNo(int memberPkId, String keyName);
+	//By會員及訂單狀況取得訂單資料
+	List<Orders> getMemberOrderFromIdAndOrderStatus(int memberPkId, String orderStatus);
 	
 	
 }
