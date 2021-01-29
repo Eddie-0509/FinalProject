@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "orderDetails")
 public class OrderDetails {
@@ -18,7 +20,8 @@ public class OrderDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderDetailPkId;
-
+	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "orderPkId")
 	private Orders orderBean;
