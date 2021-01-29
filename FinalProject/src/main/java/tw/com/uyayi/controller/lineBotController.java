@@ -94,7 +94,7 @@ public class lineBotController {
 					List<Appointment> allList = lineBotService.getAppointment(userId);
 					int count = 0;
 					String appString ="";
-					while(count<3) {
+					while(count<allList.size()) {
 					   appString +="第"+(count+1)+"筆\\n"+
 							       "看診日期:"+allList.get(count).getAppointDate().toString()+"\\n"+
 						           "看診時間:"+allList.get(count).getTimeTableBean().getTimes()+"\\n"+
@@ -103,6 +103,9 @@ public class lineBotController {
 						           "預約項目:"+allList.get(count).getItemBean().getItemName()+"\\n"+
 						           "=====================\\n";
 					   count++;
+					   if(count>=3) {
+						   break;
+					   }
 					}
 					sendResponseMessages(eventWrap.getEvents().get(0).getReplyToken(), appString);
 					break;
@@ -160,8 +163,8 @@ public class lineBotController {
 					+"時間:"+appointTime+"\n";
 					
 			
-			URI uri1 = new URI("https://6709aee56d19.ngrok.io/FinalProject/appointmentYes?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
-			URI uri2 = new URI("https://6709aee56d19.ngrok.io/FinalProject/appointmentNo?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
+			URI uri1 = new URI("https://99d74e9b8069.ngrok.io/FinalProject/appointmentYes?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
+			URI uri2 = new URI("https://99d74e9b8069.ngrok.io/FinalProject/appointmentNo?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
 			AltUri altUri1 = new AltUri(uri1);
 			AltUri altUri2 = new AltUri(uri2);
 			Action a1 =new URIAction("是",uri1,altUri1);
