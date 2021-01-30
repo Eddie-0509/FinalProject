@@ -188,7 +188,7 @@
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
 						
-							<div id="calendarbutton" class="animate-box">
+							<div id="calendarbutton" >
 								<input type="button" value="MONTH" style="color: black;" id="monthBut"></input>
 <!-- 								<input type="button" value="WEEK" style="color: black;" id="weekBut"></input> -->
 								<input type="button" value="LIST" style="color: black;" id="listBut"></input>
@@ -197,16 +197,16 @@
 								<input type="button" value="通知隔日預約" style="color: black;" id="inform"></input>
 								<br>
 							</div>
-								<div id="colorsetumeis" class="animate-box">
+								<div id="colorsetumeis" >
 									<label class="colorsetumei" style="background-color:#95CACA" ></label>平台預約－未回覆
 									<label class="colorsetumei" style="background-color:#408080" ></label>平台預約－確定前往
 									<label class="colorsetumei" style="background-color:#FFD1A4" ></label>診所預約－未回覆
 									<label class="colorsetumei" style="background-color:#EA7500" ></label>診所預約－確定前往
 								</div>
-							<div id="monthcalendar" class="animate-box" style="display: none;"></div>
-							<div id="weekcalendar" class="animate-box" style="display: none;"></div>
-							<div id="listcalendar" class="animate-box" style="display: block;"></div>
-							<div id="doctorcalendar" class="animate-box doctorC" style="display: none;">
+							<div id="monthcalendar"  style="display: none;"></div>
+							<div id="weekcalendar" style="display: none;"></div>
+							<div id="listcalendar"  style="display: block;"></div>
+							<div id="doctorcalendar" class="doctorC" style="display: none;">
 								<ul class="nav nav-tabs">				
 								
 								</ul>
