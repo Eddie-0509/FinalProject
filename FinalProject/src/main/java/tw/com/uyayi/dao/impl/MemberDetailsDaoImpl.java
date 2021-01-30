@@ -29,4 +29,23 @@ public class MemberDetailsDaoImpl implements MemberDetailsDao {
 	}
 
 	
+	@Override
+	public void update(MemberDetails memberDetails) {
+		String s = "update memberDetails set emergencyContact =:eC,"
+				+ " emergencyNumber = :eN,"
+				+ " emergencyRelationship = :eR,"
+				+ " smoke = :sm, "
+				+ " betelNut = :bN,"
+				+ " diseases = :dis,"
+				+ " allergy = :aller,"
+				+ " surgery = :su where memberPkId = :mId";
+		getSession().createSQLQuery(s).setParameter("eC", memberDetails.getEmergencyContact()).setParameter("eN", memberDetails.getEmergencyNumber())
+		.setParameter("eR", memberDetails.getEmergencyRelationship()).setParameter("sm", memberDetails.getSmoke())
+		.setParameter("bN",memberDetails.getBetelNut()).setParameter("dis", memberDetails.getDiseases()).setParameter("aller", memberDetails.getAllergy())
+		.setParameter("su", memberDetails.getSurgery()).setParameter("mId", memberDetails.getMemberPkId()).executeUpdate();
+	}
+
+	
+
+	
 }

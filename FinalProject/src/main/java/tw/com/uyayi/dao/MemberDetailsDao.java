@@ -9,5 +9,5 @@ public interface MemberDetailsDao {
 	public void add (MemberDetails memberDetails,Member mb);
 	
 
-	
+	public void update (MemberDetails memberDetails);
 }

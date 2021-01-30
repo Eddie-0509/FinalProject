@@ -119,7 +119,42 @@
 	</head>
 
 	<body>
-
+<!-- 	modal of detail -->
+	
+	<div id="Modal" class="modal fade" style="color:black">
+	<div class="modal-dialog"  style="width:50%">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            <h4 id="clinicDetailModalTitle" class="modal-title"  style="color:black">訂單明細</h4>
+	        </div>
+	        <div  class="modal-body"  style="color:black">
+	        <table class='table table-bordered' id='showAllAppointmentTable' >
+						<thead>
+							<tr>
+								<th style='width: 70%;'>產品名稱</th>
+								<th style='width: 15%;'>單價</th>
+								<th style='width: 15%;'>數量</th>
+							</tr>
+						</thead>
+						<tbody id="detailDiv">
+							
+						</tbody>
+	        		</table>
+	  
+	        </div>
+	        <div class="modal-footer">
+<!-- 	        	<button type="button" class="btn btn-default contactMember" id="formButton">確定修改</button> -->
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        </div>
+	    </div>
+	</div>
+</div>
+	
+	
+	
+	
+	
 	<!-- Loader -->
 	<div class="fh5co-loader"></div>
 	
@@ -133,6 +168,7 @@
 				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
 				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='memberOrderTracking'/>" class="transition">訂單查詢</a></li>
+				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
 				<li class="animate-box"><a href="<c:url value='index'/>" class="transition style-logout">登出</a></li>
 			</ul>
 	
@@ -183,62 +219,13 @@
                               <td>${orders.totalPayment}</td> 
                               <td>${orders.orderStatus}</td> 
                             <td>
-                                <a class="link-update" data-toggle="modal" data-target="#Modal">明細</a>
+                                  <button id="btn${orders.orderPkId}" class="btn btn-default">明細</button>
                             </td>
                            </c:forEach>
                     </table>
                 </div>
         	</div>
-        <div id="Modal" class="modal fade" style="color:black">
-	<div class="modal-dialog">
-	    <div class="modal-content">
-	        <div class="modal-header">
-   
-	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            
-	                	<c:forEach var="x" items="${orders}">
-	                    <c:forEach var="y" items = "${x.orderDetails}">
-	                     <BR> ${y.productBean.productName}
-	                    </c:forEach>
-	                    </c:forEach>
-	                    	        	        	        	         	        	        	        					
-	        </div>
-	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
-	        
 
-	        	
-	        </div>
-	        <div class="modal-footer">
-	        	
-	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
-	        </div>
-	    </div>
-	</div>
-</div>
-
-
-    </div>
-    
-    
-    
-    <!--/main-->
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			</div>
-		</div>
 
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">
 			<div class="container">
@@ -266,7 +253,23 @@
 
 	</div>
 	<script>
-	console.log()
+	$(function(){
+		<c:forEach var="x" items="${orders}"> 
+		$("#btn${x.orderPkId}").click(function(){
+		let str = "";
+	    <c:forEach var="y" items = "${x.orderDetails}">
+	    str += "<tr>";
+		str += "<td>${y.productBean.productName}</td>";
+		str += "<td>${y.productBean.productPrice}</td>";
+		str += "<td>${y.orderQuantity}</td>";
+		str += "</tr>"
+	    </c:forEach>
+		$("#detailDiv").html(str);
+		$("#Modal").modal("show");
+		})
+
+		</c:forEach>  	
+	})
 	</script>
 	
 	</body>

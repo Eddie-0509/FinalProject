@@ -26,6 +26,11 @@ public class MemberDetailsServiceImpl implements MemberDetailsService {
 
 	}
 
+	@Override
+	public void update(MemberDetails memberDetails) {
+		memberDetailsDaoImpl.update(memberDetails);
+		
+	}
 
 
 

@@ -128,10 +128,11 @@
 				<!-- 如果你是會員的頁面 -->
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">修改會員</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">填寫初診</a></li>
+				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
 				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
 				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
-				<li class="animate-box"><a href="#" class="transition">訂單查詢</a></li>
+				<li class="animate-box"><a href="<c:url value='memberOrderTracking'/>" class="transition">訂單查詢</a></li>
+				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
 				<li class="animate-box"><a href="<c:url value='index'/>" class="transition style-logout">登出</a></li>
 			</ul>
 	
@@ -146,33 +147,55 @@
 			<div id="container" class="container" style='width: 1350px;'>
 			<div class="container">
 
-      	<table class='table table-bordered' id='showAllClinicTable' >
-                        <tr>
-                            <th>緊急聯絡人</th>
-                            <th>緊急連絡電話</th>
-                            <th>關係欄</th>
-                             <th>抽菸史</th>
-                            <th>檳榔史</th>
-                           
-                        </tr>
-                        <tr>                    
-                              <td>${memberDetails.get(0).emergencyContact}</td>
-                              <td>${memberDetails.get(0).emergencyNumber}</td> 
-                              <td>${memberDetails.get(0).emergencyRelationship}</td>
-                              <td>${memberDetails.get(0).smoke}</td> 
-                              <td>${memberDetails.get(0).betelNut}</td>  
-                        </tr>
-                         <tr>
-                          <th>重大疾病</th>
-                            <th>過敏原</th>
-                            <th>手術史</th>
-                        </tr>
-                        <tr>                    
-                              <td>${memberDetails.get(0).diseases}</td> 
-                              <td>${memberDetails.get(0).allergy}</td> 
-                              <td>${memberDetails.get(0).surgery}</td> 
-                        </tr>
-                   </table>
+     +<div class="m-4">
+    <table id="example" class="table" style="width:100%">
+        <thead>
+            <tr>
+        
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+             <td><strong>緊急聯絡人</strong></td>
+                <td><strong>緊急連絡電話</strong></td>
+                <td><strong>關係欄</strong></td>
+            </tr>
+            <tr>
+                <td>${memberDetails.get(0).emergencyContact}</td>
+                <td>${memberDetails.get(0).emergencyNumber}</td>
+                <td>${memberDetails.get(0).emergencyRelationship}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <table id="example" class="table" style="width:100%">
+     <tbody>
+            <tr>
+                <td><strong>抽菸史</strong></td>
+                <td><strong>檳榔史</strong></td>
+                <td><strong>重大疾病</strong></td>
+                <td><strong>過敏原</strong></td>
+                <td><strong>手術史</strong></td>
+                
+            </tr>
+             <tr>
+                <td>${memberDetails.get(0).smoke}</td> 
+                <td>${memberDetails.get(0).betelNut}</td>  
+                <td>${memberDetails.get(0).diseases}</td> 
+                <td>${memberDetails.get(0).allergy}</td> 
+                <td>${memberDetails.get(0).surgery}</td>
+            </tr>
+        </tbody>
+     </table>
+    
+     <table id="example" class="table" style="width:100%">
+   
+               <div style="text-align:center;">
+                   <a class="link-update" data-toggle="modal" data-target="#Modal">修改</a>
+              </div>
+
+     </table>
+     </div>
     
         </div>
         </div>
@@ -192,7 +215,7 @@
 	    <div class="modal-content">
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">填寫病歷表</h4>
+	        <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black"> <div style= "text-align:center;"><strong>修改病歷表 </strong></div></h4>
 	        </div>
 	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
 	        	
@@ -202,11 +225,28 @@
 <table border="1" class="table">
 <tbody>
 
-<form:form action ="${pageContext.request.contextPath}/memberFirstVisitAddView" method="post" modelAttribute="memberDetails" >
+<form:form action ="${pageContext.request.contextPath}/modifyTheCase" method="post" modelAttribute="md" >
 
-
-  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
+<!--      <input placeholder="id"  name="memberPkId" style="display:none"/> -->
+     <strong>緊急聯絡人:<input placeholder="緊急聯絡人"  name="emergencyContact" /></strong>
+     <BR>
+     <strong>緊急連絡電話:<input placeholder="緊急連絡電話" name="emergencyNumber"/></strong>
+     <BR>
+     <strong>關係欄:<input placeholder="關係欄" name="emergencyRelationship"/></strong>
+     <BR>
+     <strong>抽菸史:<input placeholder="抽菸史" name="smoke" /></strong>
+     <BR>
+     <strong> 檳榔史:<input placeholder="檳榔史" name="betelNut"/></strong>
+     <BR>
+     <strong>重大疾病:<input placeholder="重大疾病" name="diseases"/></strong>
+     <BR>
+     <strong>過敏原:<input placeholder="過敏原" name="allergy"/></strong>
+     <BR>
+     <strong>手術史:<input placeholder="手術史" name="surgery"/></strong>
+   
+   
+     <div style="text-align:center;"><input type="submit" value="修改" /></div>
+     
 </form:form>
 
 </tbody>

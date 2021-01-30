@@ -33,6 +33,17 @@ public class MemberDetails {
 	private String surgery;
 	
 	
+	public int getMemberPkId() {
+		return memberPkId;
+	}
+
+
+
+	public void setMemberPkId(int memberPkId) {
+		this.memberPkId = memberPkId;
+	}
+
+
 
 
 

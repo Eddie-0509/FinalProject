@@ -36,15 +36,32 @@ public class MemberController {
 			if(mb.getMemberStatus().equals("admin")) {
 				return "redirect:/productManage";//管理者登入後頁面
 			}else if(mb.getMemberStatus().equals("未開通")){
-				return "member/memberNotYetOpened";//未開通頁面
+				return "redirect:/memberNotYetOpened";//未開通頁面
 			}else {
-				return "member/memberManagement";//一般會員登入後頁面
+				return "redirect:/memberManagement";//一般會員登入後頁面
 			      }
 		    }else {
 			 ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
 			return "redirect:/";
 		}
 	}
+	
+	
+	@GetMapping("/memberNotYetOpened")
+	public String Nonactivated() {	
+		return "member/memberNotYetOpened";
+	}
+	
+	
+	@GetMapping("/memberManagement")
+	public String Openaccount() {	
+		return "member/memberManagement";
+	}	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/memberLogout")
 	public String logout(HttpSession session,  Model model, SessionStatus status,

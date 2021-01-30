@@ -128,10 +128,11 @@
 				<!-- 如果你是會員的頁面 -->
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">修改會員</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">填寫初診</a></li>
+				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
 				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
 				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
 				<li class="animate-box"><a href="#" class="transition">訂單查詢</a></li>
+				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
 				<li class="animate-box"><a href="<c:url value='index'/>" class="transition style-logout">登出</a></li>
 			</ul>
 	
@@ -148,7 +149,7 @@
 <div class="result-wrap">
             <form name="myform" id="myform" method="post">
                
-                <div class="result-content">
+               
 
                             <div style="text-align:center;">您尚未填寫病歷表</div>
                     
@@ -190,21 +191,29 @@
 
     <input value="${LoginOK.memberPkId}"  name="mem5berPkId" style="display:none" />
 
-     <strong>緊急聯絡人:<br><input placeholder="請輸入您的緊急聯絡人"  name="emergencyContact"/></strong>
+       &nbsp;&nbsp;&nbsp;&nbsp;<strong>緊急聯絡人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input placeholder="請輸入您的緊急聯絡人"  name="emergencyContact" required autofocus/></strong>
      <br><br>
-     <strong>緊急連絡電話:<br><input placeholder="請輸入您的緊急聯絡電話" name="emergencyNumber"/></strong>
+         &nbsp;&nbsp;&nbsp; <label for="emergencyPhone"><strong>緊急連絡電話:&nbsp;&nbsp;
+    <input placeholder="請輸入您的緊急聯絡電話" name="emergencyNumber" id="emergencyPhone"required autofocus/></strong></label><span id="checkPhone"></span>
      <br><br>
-     <strong>關係:<br><input placeholder="請輸入與緊急聯絡任的關係" name="emergencyRelationship"/></strong>
+       &nbsp;&nbsp;&nbsp;&nbsp; <strong>關係:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;
+     <input placeholder="請輸入與緊急聯絡任的關係" name="emergencyRelationship" id="emergencyPhonecPhone"/></strong>
      <br><br>
-     <strong>抽菸史:<br><input placeholder="請輸入抽菸幾年了?" name="smoke"/></strong>
+        &nbsp;&nbsp;&nbsp;&nbsp; <strong>抽菸史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="請輸入抽菸幾年了?" name="smoke" required autofocus/></strong>
      <br><br>
-    <strong> 檳榔史:<br><input placeholder="請輸入吃檳榔多久了" name="betelNut"/></strong>
+       &nbsp;&nbsp;&nbsp;&nbsp; <strong> 檳榔史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="請輸入吃檳榔多久了" name="betelNut" required autofocus/></strong>
      <br><br>
-     <strong>重大疾病:<br><input placeholder="是否有重大疾病，請填寫" name="diseases"/></strong>
+       &nbsp;&nbsp;&nbsp;&nbsp;  <strong>重大疾病:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="是否有重大疾病，請填寫" name="diseases" required autofocus/></strong>
      <br><br>
-      <strong>過敏原:<br><input placeholder="請填寫過敏原" name="allergy"/></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;  <strong>過敏原:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="請填寫過敏原" name="allergy" required autofocus/></strong>
      <br><br>
-      <strong>手術史:<br><input placeholder="請填寫動過的手術紀錄" name="surgery"/></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;  <strong>手術史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="請填寫動過的手術紀錄" name="surgery" required autofocus/></strong>
+     <br> <br>  
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      <br><br>
      <input type="submit" value="新增" />
 
@@ -277,7 +286,44 @@
 		</footer>
 
 	</div>
-
-	
 	</body>
+	
+	
+	<script>
+		var flagPwd = false;
+		var flagEmail = false;
+		var checkEmail = false;
+		var flagPhone = false;
+		var flagId = false;
+		var flagClinicPwdCheck=false;
+		
+	
+		$("#emergencyPhone")
+		.blur(
+				function() {
+					let phoneVal = $("#emergencyPhone").val();
+					let span = $("#checkPhone");
+					let flag1 = false;
+					let a = /^09\d{8}$/;
+					console.log(a);
+					$("#checkPhone").css("color", "red");
+					if (phoneVal == "") {
+						span
+								.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i><BR>請輸入電話號碼");
+						flagPhone = false;
+					} else if (phoneVal.length > 11) {
+						span
+								.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i><BR>請輸入正確電話號碼 ex.0912345678");
+						flagPhone = false;
+					} else if (!a.test(phoneVal)) {
+						span
+								.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i><BR>請輸入正確電話號碼 ex.0912345678");
+						flagPhone = false;
+					} else {
+						span.html("");
+						flagPhone = true;
+					}
+				});
+		
+</script>	
 </html>

@@ -183,7 +183,7 @@ input:invalid+.ok{
 			data-colorbg="">
 			<div class="container">
 			
-				<form:form method='POST' action="${pageContext.request.contextPath}/member" modelAttribute="member" id="clinicForm" class='form-horizontal' enctype="multipart/form-data">
+					<form:form method='POST' action="${pageContext.request.contextPath}/member" modelAttribute="member" id="membercForm" class='form-horizontal' enctype="multipart/form-data">
 					<h1>註冊</h1>
 					<div class="usericon"></div>
 					<div class="formcontainer">
@@ -192,7 +192,7 @@ input:invalid+.ok{
 								<i class="fas fa-tooth"></i>會員資料
 							</h3>
 							<br> 
-							<label for="clinicAccount"><strong>電子信箱</strong></label><span id="checkEmail"></span> 
+														<label for="memberAccount"><strong>電子信箱</strong></label><span id="checkEmail"></span> 
 								<input type="text" placeholder="請輸入E-mail" name="memberAccount" id="clinicEmail" required autofocus> 
 						
 								<label for="clinicPwd"><strong>會員密碼</strong></label><span id="checkPwd"></span>
@@ -293,6 +293,35 @@ input:invalid+.ok{
 			</div>
 		</footer>
 <script>
+
+
+
+async function confirmClinic() {
+    this.myModal = new confirmNewClinic("確認", "確認診所資料填寫正確嗎?", "是", "否");
+
+    try {
+      const modalResponse = await myModal.question();
+    } catch(err) {
+      console.log(err);
+    }
+    
+  }
+
+async function wrongInput() {
+    this.myModal = new confirmNewClinic("錯誤", "請輸入正確資料再送出", "是", "否");
+
+    try {
+      const modalResponse = await myModal.question();
+    } catch(err) {
+      console.log(err);
+    }
+    
+  }
+
+
+
+
+
 		var flagPwd = false;
 		var flagEmail = false;
 		var checkEmail = false;
@@ -362,7 +391,7 @@ input:invalid+.ok{
 								
 								if(checkEmail){
 									let urlQuery = new URLSearchParams({
-										clinicAccount : emailVal,
+										memberAccount : emailVal,
 										method : "fetch()",
 										doWhat : "post"
 									});
@@ -541,12 +570,14 @@ input:invalid+.ok{
 					});
 			
 
-			// 驗證每一個欄位都填寫正確再送出資料 並且上傳成功
+			// 驗證每一個欄位都填寫正確再送出資料 
 			$("#formButton").click(function(){
 				if(flagPwd && flagEmail && flagPhone && flagClinicPwdCheck){
-				  $("#clinicForm").submit();	
+					confirmClinic();
+
 				}else {
-					window.alert("送出");
+					wrongInput();
+					$("body > dialog > div > div.simple-modal-button-group").children().remove();
 				}
 				
 			});

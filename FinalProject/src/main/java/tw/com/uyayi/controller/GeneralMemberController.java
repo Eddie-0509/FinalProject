@@ -104,13 +104,10 @@ public class GeneralMemberController {
   
     }
     
+    //修改會員資料
     @RequestMapping(value="/memberModifySo",method=RequestMethod.POST)
     public String updateUserOne(@ModelAttribute("member") Member member) {
 
-//    	這段應該不需要，因為都註冊了不可為空
-//    	if(member.getMemberStatus()==null) {	
-//    		member.setMemberStatus("true");
-//    	}
     	memberSignUpService.update(member);
 		return "index";
     }
@@ -127,21 +124,35 @@ public class GeneralMemberController {
     	return "member/memberOrderTracking";
     }
     
-//    //以下是訂單明細查詢
-//    @RequestMapping(value="/memberOrderTracking",method=RequestMethod.POST)
-//    public String OrderTrackingDetailsView(
-//    		Model model,@ModelAttribute("LoginOK") Member mb) {
-////    	
-////    	int mbid = mb.getMemberPkId(); //取得ID
-//    	
-//    	
-////    	List<OrderDetails> od = 
-////
-////    	List<Orders> od = memberOrdersService.getAllOrders(mbid);
-////    	model.addAttribute("orders",od);
-////    	return "member/memberOrderTracking";
-////    }
-//// 
+    
+    
+    
+    
+    //修改病例資料GET
+    @GetMapping(value = "/modifyTheCase")
+    public String preModify(Model model) {
+    	MemberDetails m = new MemberDetails();
+    	model.addAttribute("md",m);
+    	
+    	return "member/getMemberFirstVisit";
+    }
+
+    
+    
+    
+    
+    
+    //修改病例資料GET
+    @RequestMapping(value="/modifyTheCase",method=RequestMethod.POST)
+    public String modifyTheCase(@ModelAttribute("md") MemberDetails memberDetails,
+    		@ModelAttribute("LoginOK") Member mb) {
+    	memberDetails.setMemberPkId(mb.getMemberPkId());
+    	memberDetailsService.update(memberDetails);
+		return "index";
+    }
+    
+    
+    
     
     
 
