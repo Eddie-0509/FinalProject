@@ -138,12 +138,7 @@ public class AppointmentController {
 		ap.setPatientName(member.getMemberName());
 		ap.setPatientPhone(member.getMemberPhone());
 		System.out.println(ap);
-		
-//		if (appointmentService.checkBooked(member.getMemberPkId(), ap.getTimetableId(), ap.getAppointdateId()) == true) {
-//			ra.addFlashAttribute("errorMsgSametime", "您已完成預約");
-//		}else {
-//		appointmentService.InsertAppointment(ap);
-//		}
+		appointmentService.InsertAppointment(ap);
 		return "redirect:/appointmentRecord";
 	}
 	
