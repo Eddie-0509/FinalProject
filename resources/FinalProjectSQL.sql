@@ -417,7 +417,8 @@ memberIdNumber nvarchar(15) not null,  --會員身分證號--
 memberName nvarchar(30) not null,			--會員姓名--
 memberAddress nvarchar(200)  not null,	--會員通訊地址--
 memberPhone nvarchar(15)  not null,			--會員電話--
-memberStatus nvarchar(20)  not null			--會員狀態(是否被鎖權限)--
+memberStatus nvarchar(20)  not null,			--會員狀態(是否被鎖權限)--
+memberLineId nvarchar(200) 
 );
 
 insert into member(memberAccount,memberPwd,memberIdNumber,memberName,memberAddress,memberPhone,memberStatus) values('admin','admin123','admin','admin','台北市信義區信義路三段390號','0266316666','admin');
