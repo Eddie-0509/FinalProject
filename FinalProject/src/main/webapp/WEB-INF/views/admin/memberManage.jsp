@@ -126,9 +126,9 @@
 				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
 				<li class="animate-box"><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box"><a href="<c:url value='productManage'/>" class="transition">商品管理</a></li>
+				<li class="animate-box"><a href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='memberManage'/>" class="transition">會員管理</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicManage'/>" class="transition">診所管理</a></li>
-				<li class="animate-box"><a href="<c:url value='couponManage'/>" class="transition">折價券管理</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
 			</ul>
 			<!--開關燈-->
