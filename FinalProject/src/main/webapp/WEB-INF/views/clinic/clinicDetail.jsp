@@ -217,12 +217,12 @@ text-align : center;
 	        	<br>
 	        	<div>
 	        	診所縣市/區：
-	        	<select name="clinicCityId" id="clinicCity">
+	        	<select name="clinicCityId" id="clinicCity" class="form-control form-control-lg" style="width:20%;display: inline;">
 	        	<c:forEach var="city" items="${cityList}" varStatus="vs">
 				<option value="${city.cityPkId}">${city.cityName}</option>
 				</c:forEach>
 	        	</select>
-	        	<select name="clinicDistId" id="dist">
+	        	<select name="clinicDistId" id="dist" class="form-control form-control-lg" style="width:20%;display: inline;">
 	        	
 	        	</select>
 	        	</div>

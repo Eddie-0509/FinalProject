@@ -117,7 +117,7 @@ public class ClinicSignUpController {
 		obj.setTotalAmount("2000");
 		obj.setTradeDesc("test Description");
 		obj.setItemName("TestItem");
-		obj.setReturnURL("http://a5d879fbd5d9.ngrok.io/FinalProject/behindPayment");
+		obj.setReturnURL("http://743a61a1a04c.ngrok.io/FinalProject/behindPayment");
 //		obj.setOrderResultURL("http://localhost:9998/FinalProject/afterPayment");
 		obj.setClientBackURL("http://localhost:9998/FinalProject/afterPayment");
 		obj.setNeedExtraPaidInfo("N");

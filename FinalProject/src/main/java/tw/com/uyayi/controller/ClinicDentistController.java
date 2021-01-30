@@ -80,9 +80,9 @@ public class ClinicDentistController {
 		dentistBean.setTimeTables(timeSet);
 		
 		if(dentistBean.getDentistGender().equals("男")) {
-			dentistBean.setDentistImage("男生照片");
+			dentistBean.setDentistImage("https://imgur.com/qu6AbXn");
 		}else {
-			dentistBean.setDentistImage("女生照片");
+			dentistBean.setDentistImage("https://imgur.com/XPUb9rP");
 		}
 		dentistService.addNewDentist(dentistBean);
 		

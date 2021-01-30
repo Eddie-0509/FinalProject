@@ -204,17 +204,18 @@ line-height: 33.600px;
 								</div>
 								<label for="clinicCity"><strong>縣市 / 區</strong></label>
 							<div>
-								<select name="clinicCityId" id="city">
+								<select name="clinicCityId" id="city" class="form-control form-control-lg" style="width:10%">
 									<option id="cityDefault">請選擇</option>
 									<c:forEach var="city" items="${cities}" varStatus="vs">
 										<option value="${city.cityPkId}">${city.cityName}</option>
 									</c:forEach>
 								</select> 
-								<select name="clinicDistId" id="dist">
+								<select name="clinicDistId" id="dist" class="form-control form-control-lg" style="width:10%">
 									<option value="0" selected>請選擇</option>
 								</select>
 							</div>
-							<label for="clinicAddress"><strong>地址</strong></label> <input
+							<label for="clinicAddress"><strong>地址</strong></label><br/>
+							<input
 								type="text" name="clinicAddress" id="clinicAddress">
 							<div>
 							<label for="upload">上傳診所圖片</label><br/>

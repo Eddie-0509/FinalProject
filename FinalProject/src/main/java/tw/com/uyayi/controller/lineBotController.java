@@ -163,8 +163,8 @@ public class lineBotController {
 					+"時間:"+appointTime+"\n";
 					
 			
-			URI uri1 = new URI("https://99d74e9b8069.ngrok.io/FinalProject/appointmentYes?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
-			URI uri2 = new URI("https://99d74e9b8069.ngrok.io/FinalProject/appointmentNo?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
+			URI uri1 = new URI("https://743a61a1a04c.ngrok.io/FinalProject/appointmentYes?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
+			URI uri2 = new URI("https://743a61a1a04c.ngrok.io/FinalProject/appointmentNo?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
 			AltUri altUri1 = new AltUri(uri1);
 			AltUri altUri2 = new AltUri(uri2);
 			Action a1 =new URIAction("是",uri1,altUri1);
