@@ -184,7 +184,7 @@ line-height: 33.600px;
 							<br> 
 								<div>
 								<label for="clinicAccount"><strong>電子信箱</strong></label><span id="checkEmail"></span> 
-								<input type="text" placeholder="請輸入E-mail" name="clinicAccount" id="clinicEmail" required autofocus>
+								<input type="text" placeholder="請輸入E-mail" name="clinicAccount" id="clinicEmail" required >
 								</div>
 								<div>
 								<label for="clinicPwd"><strong>密碼</strong></label><span id="checkPwd"></span><br/>
@@ -229,6 +229,7 @@ line-height: 33.600px;
 <!-- 								<input type="hidden" name="clinicStatus"> -->
 						</div>
 						<div>
+						<span ><a href="javascript:void(0)" id="eddieDemo">demo</a></span>
 						<button class="btn btn-primary" type="button" id="formButton">送出</button>
 						</div>
 
@@ -257,6 +258,23 @@ line-height: 33.600px;
 
 	</div>
 	<script>
+	$(function(){
+		$("#eddieDemo").click(function(){
+			$("#clinicEmail").val("tihtom@gmail.com")
+			$("#clinicPwd").val("qq11!!!")
+			$("#clinicPwdCheck").val("qq11!!!")
+			$("#clinicName").val("宏昌牙醫診所")
+			$("#clinicPhone").val("02-25794491")
+			$("#clinicAddress").val("延吉街49號")
+			flagPwd=true
+			flagEmail = true
+			flagPhone = true
+			flagImage = true
+			flagClinicPwdCheck = true
+			
+		})
+	})
+	
 	async function confirmClinic() {
         this.myModal = new confirmNewClinic("確認", "確認診所資料填寫正確嗎?", "是", "否");
 
