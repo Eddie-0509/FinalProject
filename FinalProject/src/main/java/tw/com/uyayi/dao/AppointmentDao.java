@@ -1,10 +1,12 @@
 package tw.com.uyayi.dao;
 
+import java.sql.Date;
 import java.util.List;
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
+import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.TimeTable;
 
 public interface AppointmentDao {
@@ -26,8 +28,15 @@ public interface AppointmentDao {
    public void InsertAppointment(Appointment ap);
    //當預約的日期時間已有2人以上預約時即無法預約 
    public List<Appointment> checkFull(Dentist dentist, String timeTablePkId, String appointmentDate);
-   //查詢預約紀錄
+   //查詢今日以前的預約紀錄
    public List<Appointment> showAppointRecord(Integer memberPkId);
+   //查詢今日以後的預約紀錄
+   public List<Appointment> showAppointRecordAfterToday(Integer memberPkId);
    //修改預約狀態
-   public Appointment updateArrive(int memberPkId);
+   public void updateMemberReply(Integer apId);
+   //用預約PkId取得預約資料
+   public Appointment getAppointment(Integer AppointmentPkId);
+   //判斷同一人無法預約同時段
+//   public boolean checkBooked(Integer memberPkId, Integer timeTablePkId, String appointDate);
+
 }

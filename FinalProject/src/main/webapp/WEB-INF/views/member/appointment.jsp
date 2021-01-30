@@ -34,6 +34,13 @@
 	//////////////////////////////////////////////////////
 	 -->
 
+                    <!--DatePicker -->
+<!--                     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/cupertino/jquery-ui.css"> -->
+<!--                     <link type="text/css" rel="stylesheet" href="../cangas.datepicker"/> -->
+<!--                     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<!--                     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
+
 					<!-- Facebook and Twitter integration -->
 					<meta property="og:title" content="" />
 					<meta property="og:image" content="" />
@@ -180,20 +187,7 @@
 
 					<div id="fh5co-page">
 						<nav id="fh5co-nav" role="navigation">
-							<ul>
-								<li><img src='images/UYAYI_white.png' id='logo' width='200'
-										style='float:left;position: absolute; left: 0; top: 0;' /></li>
-								<!-- 如果你是會員的頁面 -->
-								<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a>
-								</li>
-								<li class="animate-box fh5co-active"><a href="#" class="transition">立即預約</a></li>
-								<li class="animate-box"><a href="<c:url value='appointmentRecord'/>"
-										class="transition">預約紀錄</a></li>
-								<li class="animate-box"><a href="#" class="transition">會員資料</a></li>
-								<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a>
-								</li>
-								<li class="animate-box"><a href="#" class="transition style-logout">登出</a></li>
-							</ul>
+							<ul id="apbar"></ul>
 
 							<!--開關燈-->
 							<a class="style-toggle js-style-toggle" data-style="default" href="#">
@@ -213,25 +207,25 @@
 										<br><label for="clinicCity"><strong>縣市 / 區</strong></label>
 										<div>
 											<select name="clinicCity" id="city">
-												<option id="clinicCityDefault">請選擇</option>
+												<option id="clinicCityDefault" disabled selected>請選擇</option>
 												<c:forEach var="city" items="${cities}" varStatus="vs">
 													<option value="${city.cityPkId}">${city.cityName}</option>
 												</c:forEach>
 											</select> <select name="clinicDist" id="dist">
-												<option value="0" selected>請選擇</option>
+												<option id="distDefault" value="0" selected disabled>請選擇</option>
 											</select>
 											<br>
 										</div>
 										<label for="date">您想選擇的日期：</label>
-										<input type="date" id="date" name="appointdate" min="">
+										<input type="date" id="date" name="appointdate" class=.ll-skin-cangas>
 										<label for="time"><strong>您想預約的時間：</strong></label>
 										<select name="time" id="time">
-											<option id="timedefault" selected>請選擇</option>
+											<option id="timedefault" selected disabled>請選擇</option>
 										</select>
 										<br>
 										<label for="item"><strong>治療項目：</strong></label>
 										<select name="item" id="item">
-											<option id="itemdefault" selected>請選擇</option>
+											<option id="itemdefault" selected disabled>請選擇</option>
 											<c:forEach var="item" items="${items}">
 												<option value="${item.itemPkId}">${item.itemName}</option>
 											</c:forEach>
@@ -255,15 +249,17 @@
 									<div class="modal-body experimentMakeAnOffer" id="ccontent">
 									</div>
 									<div id="den"></div>
+									<span id="errorMsgSametime"
+												style="color: red; text-align: center; display:block;">${errorMsgSametime}</span><br /> 
 									<p id="empty" style="font-size: 25px; text-align: left;"><br><br><br>唉呀，沒有符合條件的牙醫診所:(</p>
                                     <!-- 利用form:form表單傳值可使用modelAttribute 要加上action=${pageContext.request.contextPath}-->
 									<form:form modelAttribute="addAp" action="${pageContext.request.contextPath}/addAp"
-										id="hiddenForm" method="Post" enctype="multipart/form-data">
-									    <input type="hidden" name="clinicId" value="" id="clinicId" />
-										<input type="hidden" name="dentistId" value="" id="dentistId" />
-										<input type="hidden" name="appointdateId" value="" id="appointdateId" />
-										<input type="hidden" name="timetableId" value="" id="timetableId" />
-										<input type="hidden" name="itemId" value="" id="itemId" />
+										id="hiddenForm" method="POST" enctype="multipart/form-data">
+									    <input type="hidden" name="clinicId" value="" id="apclinic" />
+										<input type="hidden" name="dentistId" value="" id="apdentist" />
+										<input type="hidden" name="appointdateId" value="" id="apappointdate" />
+										<input type="hidden" name="timetableId" value="" id="aptimetable" />
+										<input type="hidden" name="itemId" value="" id="apitem" />
 									</form:form>
 								</div>
 								<div class="modal-footer">
@@ -293,6 +289,8 @@
 									</div>
 									<div class="formcontainer">
 										<div class="container">
+										    <span id="errorMsgSametime"
+												style="color: red; text-align: center; display:block;">${errorMsgSametime}</span><br /> 
 											<span id="errorMsg"
 												style="color: red; text-align: center; display:block;">${errorMsg}</span><br />
 											<label for="uname"><strong>身分證字號</strong></label>
@@ -308,7 +306,7 @@
 										<input type="hidden" name="membertimetable" value="" id="mtimetable" />
 										<input type="hidden" name="memberitem" value="" id="mitem" />
 										</div>
-										<button type="submit"><strong>登入</strong></button>
+										<button type="submit" id="loginbtn"><strong>登入</strong></button>
 										<div class="container">
 											<span><a href="#" class="link">忘記密碼?</a></span>
 										</div>
@@ -319,8 +317,33 @@
 					</div>
 
 					<script>
+					    //設定是否有登入session時顯示的bar
+					    $(function(){
+							let nsession = "";
+					        nsession += "<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;' /></li>";
+							nsession +=	"<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>";
+							nsession +=	"<li class='animate-box fh5co-active fadeInUp animated'><a href='#' class='transition'>立即預約</a></li>";
+							nsession +=	"<li class='animate-box fadeInUp animated'><a data-toggle='modal' data-target='#memberModal' >用戶登入</a></li>";
+							nsession +=	"<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>";
+							let onsession = "";
+							onsession += "<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 0; top: 0;' /></li>";
+							onsession += "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>";
+							onsession += "<li class='animate-box fh5co-active fadeInUp animated'><a href='#' class='transition'>立即預約</a></li>";
+							onsession += "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/appointmentRecord' class='transition'>預約紀錄</a></li>";
+							onsession += "<li class='animate-box fadeInUp animated'><a href='#' class='transition'>會員資料</a></li>";
+							onsession += "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>";
+							onsession += "<li class='animate-boxs fadeInUp animated'><a href='${pageContext.request.contextPath}/memberLogout' class='transition'>登出</a></li>";
+								
+					    	if ("${LoginOK}" == ""){
+					    		$("#apbar").html(nsession);
+					    	}else{
+					    		$("#apbar").html(onsession);
+					    	}
+					    });
 					    //設定無法選取今日以前的日期
-					   
+					    
+					    
+					    
                         //當使用者選擇程式後會自動帶出鄉鎮市區
 						$(function () {
 							$("#city").children("option").eq(0).attr("selected");
@@ -354,7 +377,7 @@
 								})
 							})
 						});
-
+                                      
                         //當使用者選擇日期可自動帶出時段供使用者選擇
 						$(function () {
 							$("#date").change(function () {
@@ -394,6 +417,7 @@
 								let str = "";
 								let str1 = "";
 								let urlQuery = new URLSearchParams({
+									distPkId: $("#dist").val(),
 									timeTablePkId: $("#time").val(),
 									itemPkId: $("#item").val(),
 									clinicDist: $("#dist").val(),
@@ -413,9 +437,8 @@
 										jsonLength++;
 									}
 									for (var i = 0; i < data.length; i++) {
-										str += "<div><span id=clinicid style='display:none'>" + data[i].clinicBean.clinicPkId + "</span>" + "<span id=dentistid style='display:none'>" + data[i].dentistPkId + "</span>" + data[i].dentistName + "<br>" + data[i].clinicBean.clinicName + "<br>" + data[i].clinicBean.clinicAddress + "<br>" + "<button class='aplogin' value='" + data[i].dentistPkId + "'>預約登記</button>" + "</div>";
+										str += "<div><span id=clinicid style='display:none'>" + data[i].clinicBean.clinicPkId + "</span>" + "<span id=dentistid style='display:none'>" + data[i].dentistPkId + "</span>"  + data[i].dentistName + "<br>" + data[i].clinicBean.clinicName + "<br>" + data[i].clinicBean.clinicAddress + "<br>" + "<button class='aplogin' value='" + data[i].dentistPkId + "'>預約登記</button>" + "</div>";
 									}
-
 									$("#den").html(str);
 									//點下搜尋按鈕會跳出modal彈窗
 									$("#searchresult").modal('show');
@@ -449,13 +472,37 @@
 								})
 							})
 						});
+						//判斷登入帳號密碼是否正確
+						$("#loginbtn").click(function(){
+							let urlQuery = new URLSearchParams({
+								account : $("#uname").val(),
+								pwd : $("#upsw").val(),
+								method : "fetch()",
+								doWhat : "POST"
+							});
+
+							fetch("appointmentCheckLogin", {
+								method : "POST",
+								body : urlQuery
+								
+							}).then(function(response) {
+								return response.json();
+
+							}).then(function(data) {
+								if (data) {
+									window.location.href="${pageContext.request.contextPath}/appointmentCheckLogin";
+								} else {
+									$("#errorMsg").text("帳號密碼錯誤");
+								}			
+							});
+						});
 						//塞值方法
 						function goprocess() {
-							$("#clinicId").val($("#clinicid").text());
-							$("#dentistId").val($("#dentistid").text());
-							$("#appointdateId").val($("#date").val());
-							$("#timetableId").val($("#time").val());
-							$("#itemId").val($("#item").val());
+							$("#apclinic").val($("#clinicid").text());
+							$("#apdentist").val($("#dentistid").text());
+							$("#apappointdate").val($("#date").val());
+							$("#aptimetable").val($("#time").val());
+							$("#apitem").val($("#item").val());
 						};
 						
 					</script>

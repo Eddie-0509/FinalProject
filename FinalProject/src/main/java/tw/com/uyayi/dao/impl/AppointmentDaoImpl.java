@@ -1,6 +1,7 @@
 package tw.com.uyayi.dao.impl;
 
 
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Session;
@@ -12,6 +13,7 @@ import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
+import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.TimeTable;
 
 @Repository
@@ -106,19 +108,12 @@ public class AppointmentDaoImpl implements AppointmentDao {
 			timetable=i.get(0);
 		}
 		return timetable;
-	}
-	
+	}	
 	@Override
 	public void InsertAppointment(Appointment ap) {
 		Session session = factory.getCurrentSession();
 		session.save(ap);
 	}
-
-	@Override
-	public Appointment updateArrive(int memberPkId) {
-		return null;
-	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -126,26 +121,65 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		Session session = factory.getCurrentSession();
 		String hql = "from Appointment where dentistPkId=:dId and timeTablePkId = :tId and appointDate = :apD";
 		java.sql.Date apDate = java.sql.Date.valueOf(appointmentDate);
-		return session.createQuery(hql).setParameter("dId", dentist).setParameter("tId",timeTablePkId ).setParameter("apD", apDate).getResultList();
+		return session.createQuery(hql).setParameter("dId", dentist)
+				                       .setParameter("tId",timeTablePkId )
+				                       .setParameter("apD", apDate)
+				                       .getResultList();
 		
 	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Appointment> showAppointRecord(Integer memberPkId) {
 		Session session = factory.getCurrentSession();
-		String hql = "from Appointment where memberPkId=:mId";
-		List<Appointment> i = session.createQuery(hql).setParameter("mId", memberPkId).getResultList();
+		String hql = " From Appointment where memberBean=:mId and appointDate < cast(getdate() as date) ORDER BY appointDate DESC";
+		Member memberBean = session.get(Member.class, memberPkId);
+		List<Appointment> i = session.createQuery(hql).setParameter("mId", memberBean).getResultList();
+		return i;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> showAppointRecordAfterToday(Integer memberPkId) {
+		Session session = factory.getCurrentSession();
+		String hql = " From Appointment where memberBean=:mId and appointDate > cast(getdate() as date) ORDER BY appointDate DESC";
+		Member memberBean = session.get(Member.class, memberPkId);
+		List<Appointment> i = session.createQuery(hql).setParameter("mId", memberBean).getResultList();
 		return i;
 	}
 
 
-
-
-
-
-
-
+	@Override
+	public void updateMemberReply(Integer apId) {
+		Session session = factory.getCurrentSession();
+		String hql = "update Appointment ap set ap.memberReply='取消' where appointmentPkId=:apId";
+		session.createQuery(hql).setParameter("apId", apId).executeUpdate();           
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Appointment getAppointment(Integer appointmentPkId) {
+		Session session = factory.getCurrentSession();
+		String hql = "from Appointment where appointmentPkId=:apId";
+		List <Appointment> i = session.createQuery(hql).setParameter("apId", appointmentPkId).getResultList();
+		return i.get(0);
+	}
+	
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public boolean checkBooked(Integer memberPkId, Integer timeTablePkId, String appointmentDate) {
+//		Session session = factory.getCurrentSession();
+//		String hql = "from Appointment where memberPkId=:mId and timeTablePkId=:tId and appointDate=:apd";
+//		java.sql.Date apDate = java.sql.Date.valueOf(appointmentDate);
+//		List<Appointment> i = session.createQuery(hql).setParameter("mId", memberPkId)
+//				                    .setParameter("tId", timeTablePkId)
+//				                    .setParameter("apd", apDate)
+//				                    .getResultList();
+//		if (i.get(0)!= null) {
+//			return true;
+//		}
+//		return false;
+//	}
+	
 
 }

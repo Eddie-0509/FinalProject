@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import tw.com.uyayi.dao.AppointmentDao;
 import tw.com.uyayi.model.Appointment;
@@ -122,6 +123,7 @@ public class AppointmentController {
 	@PostMapping("/addAp")
 	public String memberAddAppointment(
 			@ModelAttribute("LoginOK") Member member,
+			RedirectAttributes ra,
 	        @ModelAttribute("addAp") Appointment ap) throws java.text.ParseException{
 		
 		
@@ -136,8 +138,13 @@ public class AppointmentController {
 		ap.setPatientName(member.getMemberName());
 		ap.setPatientPhone(member.getMemberPhone());
 		System.out.println(ap);
-		appointmentService.InsertAppointment(ap);
-	    return "redirect:/appointmentRecord";
+		
+//		if (appointmentService.checkBooked(member.getMemberPkId(), ap.getTimetableId(), ap.getAppointdateId()) == true) {
+//			ra.addFlashAttribute("errorMsgSametime", "您已完成預約");
+//		}else {
+//		appointmentService.InsertAppointment(ap);
+//		}
+		return "redirect:/appointmentRecord";
 	}
 	
 }

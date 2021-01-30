@@ -8,6 +8,7 @@ import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
+import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.TimeTable;
 
 public interface AppointmentService {
@@ -31,5 +32,13 @@ public interface AppointmentService {
 	List<Appointment> checkFull(Dentist dentist, String timeTablePkId, String appointmentDate);
 	
 	List<Appointment> showAppointRecord(Integer memberPkId);
+	
+	List<Appointment> showAppointRecordAfterToday(Integer memberPkId);
+	
+	void updateMemberReply(Integer apId);
+	
+	Appointment getAppointment(Integer appointmentPkId);
+	
+//	boolean checkBooked(Integer memberPkId, Integer timeTablePkId, String appointmentDate);
 	
 }

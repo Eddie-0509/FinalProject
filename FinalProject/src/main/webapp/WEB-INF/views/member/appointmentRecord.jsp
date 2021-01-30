@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    		
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -39,7 +41,16 @@
 	<meta name="twitter:image" content="" />
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
-
+	
+	<style>
+	.accordion-button {
+	}
+	</style>
+	
+	
+    <!--下拉式選單 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
 	
@@ -130,7 +141,7 @@
 				<li class="animate-box fh5co-active"><a href="#" class="transition">預約紀錄</a></li>
 				<li class="animate-box"><a href="#" class="transition">會員資料</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
-				<li class="animate-box"><a href="#" class="transition style-logout">登出</a></li>
+				<li class="animate-box"><a href="${pageContext.request.contextPath}/memberLogout" class="transition style-logout">登出</a></li>
 			</ul>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
@@ -140,11 +151,119 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
+			
+<div id="appointmentContainer" class="container" style='width: 1200px;'>
+				<h3><i class="fas fa-tooth"></i>會員:${member.memberName}</h3>
+				<h3><i class="fas fa-tooth"></i>預約紀錄</h3>
+<!-- 				<button type="button" id="searchData" class="btn btn-info">取消預約</button> -->
+			
 
-						<h1>做一個彈窗，當跳轉過來時，您已預約成功！</h1>
+ <div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" >
+        <i class="fas fa-tooth"></i>今日以後的預約
+      </button>
+    </h2>
+    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+     <div class="accordion-body">
+     <table class='table table-bordered' id='showAllAppointmentTable' >
+					<thead>
+						<tr>
+							<th style='width: 150px;'>日期</th>
+							<th style='width: 150px;'>時段</th>
+							<th style='width: 200px;'>診所</th>
+							<th style='width: 150px;'>醫生</th>
+							<th style='width: 150px;'>項目</th>
+							<th style='width: 100px;'>
+							<select name="h_memberReply" id="h_memberReply">
+								<option id ="回覆" value="回覆" selected="selected">回覆狀態</option>
+								<option id ="確認前往" value="True">確認前往</option>
+								<option id ="未回覆" value="False" >未回覆</option>
+								<option id ="取消" value="cancel" >取消</option>
+							</select>
+							</th>
+							<th style='width: 100px;'></th>
+						</tr>
+					</thead>
+					<tbody id="AppointmentBody">
+						<c:forEach var="appointmentAfter" items="${appointmentAfterToDay}" varStatus="vs1">
+							<tr>
+								<td>${appointmentAfter.appointDate}</td>
+								<td>${appointmentAfter.timeTableBean.times}</td>
+								<td>${appointmentAfter.clinicBean.clinicName}</td>
+								<td>${appointmentAfter.dentistBean.dentistName}</td>
+								<td>${appointmentAfter.itemBean.itemName}</td>
+								<td>${appointmentAfter.memberReply}</td>
+								<td>
+								<form action="${pageContext.request.contextPath}/renewAppointment" method="GET" id="cancelform${appointmentAfter.appointmentPkId}">
+								<button type="button" id="cancelbtn${appointmentAfter.appointmentPkId}">取消預約</button>
+								<input type="hidden" name='appointmentPkId' value="${appointmentAfter.appointmentPkId}" id="apid${appointmentAfter.appointmentPkId}">
+								<input type="hidden" name='appointmentMemberReply'value="${appointmentAfter.memberReply}" id="ar${appointmentAfter.appointmentPkId}">
+								</form>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+     
+     </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+        <i class="fas fa-tooth"></i>今日以前的預約
+      </button>
+    </h2>
+    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+       <table class='table table-bordered' id='showAllAppointmentTable' >
+					<thead>
+						<tr>
+							<th style='width: 150px;'>日期</th>
+							<th style='width: 150px;'>時段</th>
+							<th style='width: 200px;'>診所</th>
+							<th style='width: 150px;'>醫生</th>
+							<th style='width: 150px;'>項目</th>
+							<th style='width: 100px;'>到診</th>
+						</tr>
+					</thead>
+					<tbody id="AppointmentBody">
+						<c:forEach var="appointment" items="${appointment}" varStatus="vs2">
+							<tr>
+								<td>${appointment.appointDate}</td>
+								<td>${appointment.timeTableBean.times}</td>
+								<td>${appointment.clinicBean.clinicName}</td>
+								<td>${appointment.dentistBean.dentistName}</td>
+								<td>${appointment.itemBean.itemName}</td>
+								<c:choose>
+								<c:when test="${appointment.arrive == 'true' }">
+									<td>有</td>
+								</c:when>
+								<c:otherwise>
+									<td>無</td>								
+								</c:otherwise>
+								</c:choose>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+           </div>
+         </div>
+       </div>
+     </div> 
+   </div>
+ </div>
+</div>
 
-			</div>
-		</div>
+<!-- 測試用 -->
+<script>
+console.log("${appointment}");
+console.log("${appointmentAfterToDay}");
+</script>
+
+
 
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">
 			<div class="container">
@@ -176,5 +295,21 @@
 	</body>
 	<script>
 	
-	</script>
+	
+	
+	//判斷是否已經回覆，未回覆才可取消，確認前往和取消兩種狀態則不可取消
+	$(function(){
+	<c:forEach var="appointmentAfter" items="${appointmentAfterToDay}" varStatus="vs1">
+	$("#cancelbtn${appointmentAfter.appointmentPkId}").click(function(){
+				if("${appointmentAfter.memberReply}"=="未回覆"){
+			$("#cancelform${appointmentAfter.appointmentPkId}").trigger("submit");
+				}else if("${appointmentAfter.memberReply}"=="確認前往"){
+					window.alert("抱歉！您已確認會前往已無法取消預約！");
+				}else{
+					window.alert("重複取消");
+				}
+			})
+	</c:forEach>
+	});
+    </script>
 </html>

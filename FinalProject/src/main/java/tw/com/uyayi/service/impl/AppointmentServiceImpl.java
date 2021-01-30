@@ -12,6 +12,7 @@ import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Items;
+import tw.com.uyayi.model.Member;
 import tw.com.uyayi.model.TimeTable;
 import tw.com.uyayi.service.AppointmentService;
 @Service
@@ -72,5 +73,30 @@ public class AppointmentServiceImpl implements AppointmentService {
 		
 		return appointmentDao.showAppointRecord(memberPkId);
 	}
+	
+	@Transactional
+	@Override
+	public List<Appointment> showAppointRecordAfterToday(Integer memberPkId) {
+		
+		return appointmentDao.showAppointRecordAfterToday(memberPkId);
+	}
+	
+	@Transactional
+	@Override
+	public void updateMemberReply(Integer apId) {
+		appointmentDao.updateMemberReply(apId);
+	}
+	
+	@Transactional
+	@Override
+	public Appointment getAppointment(Integer appointmentPkId) {
+		return appointmentDao.getAppointment(appointmentPkId);
+	}
+	
+//	@Transactional
+//	@Override
+//	public boolean checkBooked(Integer memberPkId, Integer timeTablePkId, String appointmentDate) {
+//		return appointmentDao.checkBooked(memberPkId, timeTablePkId, appointmentDate);
+//	}
 
 }
