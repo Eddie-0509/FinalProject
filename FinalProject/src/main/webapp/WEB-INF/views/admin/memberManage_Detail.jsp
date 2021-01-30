@@ -202,6 +202,8 @@
 										
 									</tbody>
 								</table>
+								<div id="appointmentSearchResult">
+								</div>
 							</div>
       					</div>
     				</div>
@@ -238,7 +240,8 @@
 										
 									</tbody>
 								</table>
-							
+								<div id="orderSearchResult">
+								</div>
 							</div>
 				    	  </div>
     					</div>
@@ -279,7 +282,7 @@
 		bindRawOrderDetail();
 	});
 	
-	
+	//By會員到診率篩選預約資料
 	$("#h_memberArrive").change(function(){
 		let urlQuery = new URLSearchParams({
 			Arrive :$("#h_memberArrive").val(),
@@ -296,7 +299,7 @@
 			showAppointmentData();
 		});
 	});
-	
+	//模糊搜尋預約資料
 	$("#appointmentSearchData").click(function(){
 		let urlQuery = new URLSearchParams({
 			keyName :$("#appointmentSearchBar").val(),
@@ -311,8 +314,14 @@
 		}).then(function(data) {
 			appointment = data;
 			showAppointmentData();
+			if(appointment==""){
+				$("#appointmentSearchResult").html("查無資料!!!");
+			}else{
+				$("#appointmentSearchResult").html("");
+			}
 		});
 	});
+	//By訂單狀況篩選訂單資料
 	$("#h_orderStatus").change(function(){
 		let urlQuery = new URLSearchParams({
 			orderStatus :$("#h_orderStatus").val(),
@@ -330,6 +339,7 @@
 			bindOrderDetail()
 		});
 	});
+	//模糊搜尋訂單資料
 	$("#orderSearchData").click(function(){
 		let urlQuery = new URLSearchParams({
 			keyName :$("#orderSearchBar").val(),
@@ -345,6 +355,11 @@
 			order = data;
 			showOrderData();
 			bindOrderDetail();
+			if(order==""){
+				$("#orderSearchResult").html("查無資料!!!");
+			}else{
+				$("#orderSearchResult").html("");
+			}
 		});
 	});
 	//顯示預約資料(JSON格式)

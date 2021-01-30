@@ -221,6 +221,7 @@
 				</div>
 				</form:form>	
 				<div class="modal-footer">
+				<span ><a href="javascript:void(0)" id="addCouponDemo">demo</a></span>
 	        	<button type="button" class="btn btn-default contactMember" id="updateCouponButton">確定提交</button>
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        	</div>					
@@ -404,8 +405,10 @@
 			coupon = data;
 			showData();
 			bindUpdateBtn();
-			if(data==""){
+			if(coupon==""){
 				$("#searchResult").html("查無資料!!!");
+			}else{
+				$("#searchResult").html("");
 			}
 		});	
 	});
@@ -415,7 +418,19 @@
 		$("#addCoupon").click(function(){
 			$("#addCouponFormModal").modal("show");
 		});
-	
+		//一鍵輸入新增表單內容
+		$("#addCouponDemo").click(function(){
+			$("#a_couponName").val("新春大禮包全館打8折");
+			$("#a_couponContext").val("0.80");
+			$("#a_couponCode").val("happyNewYear2021");
+			$("#a_couponStartTime").val("2021-02-10");
+			$("#a_couponEndTime").val("2021-02-17");
+			a_flagName=true;
+			a_flagContext=true;
+			a_flagCode=true;
+			a_flagStartTime=true;
+			a_flagEndTime=true;
+		});
 		$("#addCouponButton").click(function(){
 			if(a_flagName && a_flagContext && a_flagCode && a_flagStartTime && a_flagEndTime){				
 			$("#addCouponForm").trigger("submit");

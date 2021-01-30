@@ -248,6 +248,7 @@
 				</div>
 				</form:form>	
 				<div class="modal-footer">
+				<span ><a href="javascript:void(0)" id="addProductDemo">demo</a></span>
 	        	<button type="button" class="btn btn-default contactMember" id="addFormButton">確定提交</button>
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        	</div>					
@@ -606,6 +607,26 @@
 							$("#searchResult").html("查無資料!!!");
 						}
 						});	
+		});
+		//一鍵輸入新增表單內容
+		$("#addProductDemo").click(function(){
+			$("#電動牙刷").attr("selected","selected");
+			$("#a_productName").val("realme 聲波電動牙刷");
+			$("#a_productProfile").val("34,000次/分鐘磁浮聲波馬達");
+			$("#a_productSpec").val("顏色:白、藍<br>聲波馬達:34200 次/分<br>低噪音:60 dB<br>可選模式:4種(輕柔,清潔,美白,拋光)<br>模式記憶:V<br>單次刷牙時長:2分鐘");
+			$("#a_productPrice").val("999");
+			$("#a_productQuantity").val("100");
+			$('input:radio[name=productStatus][0]').checked = true;	
+			a_flagName=true;
+			a_flagProfile=true;
+			a_flagSpec=true;
+			a_flagPrice=true;
+			a_flagQuantity=true;
+			$("#a_checkName").html("");
+			$("#a_checkProfile").html("");
+			$("#a_checkSpec").html("");
+			$("#a_checkPrice").html("");
+			$("#a_checkQuantity").html("");
 		});
 		$("#addProductBtn").click(function(){
 			$("#電動牙刷").attr("selected","selected");

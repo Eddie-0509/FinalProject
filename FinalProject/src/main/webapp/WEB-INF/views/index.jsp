@@ -177,6 +177,7 @@
 								<button type="submit"><strong>登入</strong></button>
 								<div class="container" >
 									<span ><a href="<c:url value='memberForgotPwd'/>" class="link">忘記密碼?</a></span>
+									<span ><a href="javascript:void(0)" id="adminLogin">adminDemo</a></span>
 								</div>
 							</div>
 						</form>
@@ -304,7 +305,10 @@
 			$("#memberModal").modal('show');
 		}
 	})
-	
+	$("#adminLogin").click(function(){
+		$("#uname").val("admin");
+		$("#upsw").val("admin123");
+	});
 	if ("${LoginOK}" !=""){
 			$("#fh5co-nav ul").html(
 					'<li><img src="images/UYAYI_white.png" id="logo" width="200" style="float:left;position: absolute; left: 100px; top: 17.6px;"/></li>'

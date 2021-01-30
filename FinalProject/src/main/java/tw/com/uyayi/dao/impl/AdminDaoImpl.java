@@ -236,7 +236,7 @@ public class AdminDaoImpl implements AdminDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Member> getAllMemberByName(String keyName) {
-		String hql ="From Member where memberName like :mName ";
+		String hql ="From Member where memberName like :mName and memberPkId is not 1";
 		String mName = "%"+keyName + "%";
 		Session session = factory.getCurrentSession();
 		List<Member> list = session.createQuery(hql)

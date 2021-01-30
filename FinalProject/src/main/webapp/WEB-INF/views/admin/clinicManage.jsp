@@ -238,8 +238,10 @@
 			clinic = data;
 			showData();
 			bindBtn();
-			if(data==""){
+			if(clinic==""){
 				$("#searchResult").html("查無資料!!!");
+			}else{
+				$("#searchResult").html("");
 			}
 		});	
 	});
