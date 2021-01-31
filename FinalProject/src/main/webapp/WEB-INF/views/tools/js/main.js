@@ -195,7 +195,7 @@ $(document).ready(function() {
 
 		event.preventDefault();
 		linkLocation = this.href;
-		$("body").fadeOut(1000, redirectPage);		
+		$("body").fadeOut(500, redirectPage);		
 
 	});
 		
