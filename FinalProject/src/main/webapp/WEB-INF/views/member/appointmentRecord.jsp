@@ -154,8 +154,8 @@
 			<div class="container">
 			
 <div id="appointmentContainer" class="container" style='width: 1200px;'>
-				<h3><i class="fas fa-tooth"></i>會員:${member.memberName}</h3>
-				<h3><i class="fas fa-tooth"></i>預約紀錄</h3>
+				<h3>會員:${member.memberName}</h3>
+				<h3>預約紀錄</h3>
 <!-- 				<button type="button" id="searchData" class="btn btn-info">取消預約</button> -->
 			
 
@@ -176,14 +176,7 @@
 							<th style='width: 200px;'>診所</th>
 							<th style='width: 150px;'>醫生</th>
 							<th style='width: 150px;'>項目</th>
-							<th style='width: 100px;'>
-							<select name="h_memberReply" id="h_memberReply">
-								<option id ="回覆" value="回覆" selected="selected">回覆狀態</option>
-								<option id ="確認前往" value="True">確認前往</option>
-								<option id ="未回覆" value="False" >未回覆</option>
-								<option id ="取消" value="cancel" >取消</option>
-							</select>
-							</th>
+							<th style='width: 100px;'>回覆狀態</th>
 							<th style='width: 100px;'></th>
 						</tr>
 					</thead>

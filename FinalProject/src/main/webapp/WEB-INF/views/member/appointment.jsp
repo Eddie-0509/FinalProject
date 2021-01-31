@@ -143,6 +143,7 @@
 <script src="js/hpother.js"></script>
 
 <style>
+
 .ct {
 	color: black;
 }
@@ -184,6 +185,11 @@
 	width: 200px;
 	text-align: right;
 }
+.modalspan{
+    width: 200px;
+
+}
+
 </style>
 <script>
 	
@@ -222,7 +228,7 @@
 								<span> <label for="City"><strong>縣市：</strong></label>
 								</span> <select name="clinicCity" id="city"
 									class="form-control form-control-lg"
-									style="display: inline; width: 35%;">
+									style="display: inline; width: 40%;">
 									<option id="clinicCityDefault" disabled selected>請選擇</option>
 									<c:forEach var="city" items="${cities}" varStatus="vs">
 										<option value="${city.cityPkId}">${city.cityName}</option>
@@ -230,20 +236,20 @@
 								</select><br> <span> <label for="Dist"><strong>鄉鎮區：</strong></label>
 								</span> <select name="clinicDist" id="dist"
 									class="form-control form-control-lg"
-									style="display: inline; width: 35%">
+									style="display: inline; width: 40%">
 									<option id="distDefault" value="0" selected disabled>請選擇</option>
 								</select> <br>
 							</div>
 							<span> <label for="date">您想選擇的日期：</label>
 							</span> <input type="date" id="date" name="appointdate"
-								style="width: 35%"> <span><label for="time"><strong>您想預約的時間：</strong></label></span>
+								style="width: 40%"> <span><label for="time"><strong>您想預約的時間：</strong></label></span>
 							<select name="time" id="time"
 								class="form-control form-control-lg"
-								style="display: inline; width: 35%">
+								style="display: inline; width: 40%">
 								<option id="timedefault" selected disabled>請選擇</option>
 							</select> <span><label for="item"><strong>治療項目：</strong></label></span> <select
 								name="item" id="item" class="form-control form-control-lg"
-								style="display: inline; width: 35%">
+								style="display: inline; width: 40%">
 								<option id="itemdefault" selected disabled>請選擇</option>
 								<c:forEach var="item" items="${items}">
 									<option value="${item.itemPkId}">${item.itemName}</option>
@@ -253,8 +259,6 @@
 					</div>
 					<button type="button" class="btn btn-dark" id="sdentist"
 						style="margin: 10px;">搜尋醫生/診所</button>
-					<button type="button" class="btn btn-dark" onclick="history.back()"
-						style="margin: 10px;">取消預約</button>
 				</form>
 			</div>
 		</div>
@@ -321,8 +325,8 @@
 								style="color: red; text-align: center; display: block;">${errorMsgSametime}</span><br />
 							<span id="errorMsg"
 								style="color: red; text-align: center; display: block;">${errorMsg}</span><br />
-							<label for="uname"><strong>身分證字號</strong></label> <input
-								type="text" placeholder="請輸入身分證字號" name="account" id="uname"
+							<label for="uname"><strong>信 箱</strong></label> <input
+								type="text" placeholder="請輸入信箱" name="account" id="uname"
 								required autofocus> <label for="psw"><strong>密
 									碼</strong></label> <input type="password" placeholder="請輸入密碼" name="pwd"
 								id="upsw" required>
@@ -356,7 +360,7 @@
 								"<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"
 										+ "<li class='animate-box fadeInUp animated fh5co-active'><a href='#' class='transition'>立即預約</a></li>"
-										+ "<li class='animate-box fadeInUp animated'><a data-toggle='modal' data-target='#memberModal' >用戶登入</a></li>"
+										+ "<li class='animate-box fadeInUp animated'><a href data-toggle='modal' data-target='#memberModal' >用戶登入</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>");
 			} else {
 				$("#fh5co-nav ul")
@@ -376,47 +380,37 @@
 		$(function() {
 			$("#city").children("option").eq(0).attr("selected");
 			$(function() {
-				$("#city")
-						.change(
-								function() {
-									let str = "";
-									let urlQuery = new URLSearchParams({
-										cityPkId : $("#city").val(),
-										method : "fetch()",
-										doWhat : "GET"
-									});
+				$("#city").change(function() {
+					let str = "";
+					let urlQuery = new URLSearchParams({
+					cityPkId : $("#city").val(),
+				    method : "fetch()",
+					doWhat : "GET"
+					});
 
-									fetch("getDist?" + urlQuery, {
-										method : "GET"
-									})
-											.then(function(response) {
-												return response.json();
-											})
-											.then(
-													function(data) {
-														// 利用console.log(data)判斷取到何值
-														// console.log(data[0].clinics[0].clinicName);
-														var jsonLength = 0;
-														for ( var item in data) {
-															jsonLength++;
-														}
-														for (var i = 0; i < data.length; i++) {
-															let distName = data[i].distName;
-															str += "<option value='" + data[i].distPkId + "'>"
-																	+ distName
-																	+ "</option>";
-														}
-														$("#dist").html(str);
-													})
-								})
+					fetch("getDist?" + urlQuery, {
+					method : "GET"
+					}).then(function(response) {
+					return response.json();
+					}).then(function(data) {
+					// 利用console.log(data)判斷取到何值
+					// console.log(data[0].clinics[0].clinicName);
+					var jsonLength = 0;
+					for ( var item in data) {
+					jsonLength++;
+					}
+					for (var i = 0; i < data.length; i++) {
+					let distName = data[i].distName;
+					str += "<option value='" + data[i].distPkId + "'>" + distName + "</option>";}
+					$("#dist").html(str);
+					})
+				})
 			})
 		});
 
 		//當使用者選擇日期可自動帶出時段供使用者選擇
 		$(function() {
-			$("#date")
-					.change(
-							function() {
+			$("#date").change(function() {
 								let str = "";
 								let urlQuery = new URLSearchParams({
 									appointDate : $("#date").val(),
@@ -425,28 +419,21 @@
 								});
 								fetch("getTimeTable?" + urlQuery, {
 									method : "GET"
-								})
-										.then(function(response) {
-											return response.json();
-										})
-										.then(
-												function(data) {
-													var jsonLength = 0;
-													for ( var item in data) {
-														jsonLength++;
-													}
-													for (var i = 0; i < data.length; i++) {
-														let times = data[i].times;
-														str += "<option value='" + data[i].timeTablePkId + "'>"
-																+ times
-																+ "</option>";
-														str += "<span id=timetableid style='display:none'>"
-																+ data[i].timeTablePkId
-																+ "</span>";
-													}
-													$("#time").html(str);
-												})
-							});
+								}).then(function(response) {
+								return response.json();
+								}).then(function(data) {
+								var jsonLength = 0;
+								for ( var item in data) {
+								jsonLength++;
+								}
+								for (var i = 0; i < data.length; i++) {
+								let times = data[i].times;
+								str += "<option value='" + data[i].timeTablePkId + "'>" + times + "</option>";
+								str += "<span id=timetableid style='display:none'>" + data[i].timeTablePkId + "</span>";
+								}
+								$("#time").html(str);
+							})
+						});
 		});
 		//查詢醫生和診所的fetch方法
 		$(function() {
@@ -456,8 +443,7 @@
 		});
 		$(function() {
 			var fetchData;
-			$("#sdentist")
-					.click(
+			$("#sdentist").click(
 							function() {
 								let str = "";
 								let str1 = "";
@@ -472,137 +458,67 @@
 								});
 								fetch("searchDoctor?" + urlQuery, {
 									method : "GET"
-								})
-										.then(function(response) {
-											return response.json();
-										})
-										.then(
-												function(data) {
-													console.log(data);
-													fetchData = data;
-													var jsonLength = 0;
-													for ( var item in data) {
-														jsonLength++;
-													}
-													for (var i = 0; i < data.length; i++) {
-														str += "<div><span id=clinicid style='display:none'>"
+								}).then(function(response) {
+								return response.json();
+								}).then(function(data) {
+								console.log(data);
+								fetchData = data;
+								var jsonLength = 0;
+								for ( var item in data) {
+								jsonLength++;
+								}
+								for (var i = 0; i < data.length; i++) {
+														str += "<div><span style='display:none'>"
 																+ data[i].clinicBean.clinicPkId
 																+ "</span>"
-																+ "<span id=dentistid style='display:none'>"
+																+ "<span style='display:none'>"
 																+ data[i].dentistPkId
-																+ "</span>"
+																+ "</span>" + "<span class='modalspan'></span>"
 																+ data[i].dentistName
 																+ "<br>"
 																+ data[i].clinicBean.clinicName
 																+ "<br>"
 																+ data[i].clinicBean.clinicAddress
 																+ "<br>"
-																+ "<button class='aplogin' value='" + data[i].dentistPkId + "'>預約登記</button>"
+																+ "<button class='aplogin' value='" + data[i].dentistPkId + "'>預  約</button>"
 																+ "</div>";
 													}
 													$("#den").html(str);
 													//點下搜尋按鈕會跳出modal彈窗
-													$("#searchresult").modal(
-															'show');
-													str1 = "<div>"
-															+ $("#date").val()
-															+ "/"
-															+ $(
-																	"#city option[value="
-																			+ $(
-																					"#city")
-																					.val()
-																			+ "]")
-																	.text()
-															+ "/"
-															+ $(
-																	"#dist option[value="
-																			+ $(
-																					"#dist")
-																					.val()
-																			+ "]")
-																	.text()
-															+ "/項目:"
-															+ $(
-																	"#item option[value="
-																			+ $(
-																					"#item")
-																					.val()
-																			+ "]")
-																	.text()
-															+ "<div>";
-													$("#searchtitle")
-															.html(str1);
+													$("#searchresult").modal('show');
+													str1 = "<div>" + $("#date").val() + "/" + $("#city option[value=" + $("#city").val()+ "]").text() + "/" + $("#dist option[value=" 
+													+ $("#dist").val()+ "]").text() + "/項目:" + $("#item option[value=" + $("#item").val() + "]").text() + "<div>";
+													$("#searchtitle").html(str1);
 													//如果搜尋結果為空顯示空的文字
 													if (str.length == 0) {
 														$("#empty").show();
 													} else {
 														$("#empty").hide();
+													};
+													$(".aplogin").click(function(event) {
+													event.stopPropagation();
+													goprocess();
+													console.log(goprocess());
+													event.stopImmediatePropagation();
+													//塞值進隱藏欄位
+													$("#mclinic").val($("#apclinic").text());
+													$("#mdentist").val($("#apdentist").text());
+													$("#mappointdate").val($("#date").val());
+													$("#mtimetable").val($("#time").val());
+													$("#mitem").val($("#item").val());
+													//判斷是否已經登入過
+													if ("${LoginOK}" == "") {
+													$("#memberModal").modal('show');
+													} else {
+													//form:form一定要用trigger送出	
+													$("#hiddenForm").trigger("submit");
 													}
-													;
-													$(".aplogin")
-															.click(
-																	function(
-																			event) {
-																		event
-																				.stopPropagation();
-																		goprocess();
-																		console
-																				.log(goprocess());
-																		event
-																				.stopImmediatePropagation();
-																		//塞值進隱藏欄位
-																		$(
-																				"#mclinic")
-																				.val(
-																						$(
-																								"#clinicid")
-																								.text());
-																		$(
-																				"#mdentist")
-																				.val(
-																						$(
-																								"#dentistid")
-																								.text());
-																		$(
-																				"#mappointdate")
-																				.val(
-																						$(
-																								"#date")
-																								.val());
-																		$(
-																				"#mtimetable")
-																				.val(
-																						$(
-																								"#time")
-																								.val());
-																		$(
-																				"#mitem")
-																				.val(
-																						$(
-																								"#item")
-																								.val());
-																		//判斷是否已經登入過
-																		if ("${LoginOK}" == "") {
-																			$(
-																					"#memberModal")
-																					.modal(
-																							'show');
-																		} else {
-																			//form:form一定要用trigger送出	
-																			$(
-																					"#hiddenForm")
-																					.trigger(
-																							"submit");
-																		}
-																	})
 												})
+											})
 							})
 		});
 		//判斷登入帳號密碼是否正確
-		$("#loginbtn")
-				.click(
-						function() {
+		$("#loginbtn").click(function() {
 							let urlQuery = new URLSearchParams({
 								account : $("#uname").val(),
 								pwd : $("#upsw").val(),
@@ -614,21 +530,17 @@
 								method : "POST",
 								body : urlQuery
 
-							})
-									.then(function(response) {
-										return response.json();
-
-									})
-									.then(
-											function(data) {
-												if (data) {
-													window.location.href = "${pageContext.request.contextPath}/appointmentCheckLogin";
-												} else {
-													$("#errorMsg").text(
-															"帳號密碼錯誤");
-												}
-											});
+							}).then(function(response) {
+							return response.json();
+							}).then(function(data) {
+							if (data) {
+							window.location.href = "${pageContext.request.contextPath}/appointmentCheckLogin";
+							} else {
+							$("#errorMsg").text(
+							"帳號密碼錯誤");
+							}
 						});
+					});
 		//塞值方法
 		function goprocess() {
 			$("#apclinic").val($("#clinicid").text());
