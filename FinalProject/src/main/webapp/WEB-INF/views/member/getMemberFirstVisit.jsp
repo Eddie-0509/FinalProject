@@ -115,6 +115,49 @@
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
 	
+	
+	<style>
+		table tr{
+		  border-bottom: solid 2px white;
+		}
+		
+		table tr:last-child{
+		  border-bottom: none;
+		}
+		
+		table th{
+		  position: relative;
+		  width: 30%;
+		  background-color: #7d7d7d;
+		  color: white;
+		  text-align: center;
+		  padding: 10px 0;
+		}
+		
+		table th:after{
+		  display: block;
+		  content: "";
+		  width: 0px;
+		  height: 0px;
+		  position: absolute;
+		  top:calc(50% - 10px);
+		  right:-10px;
+		  border-left: 10px solid #7d7d7d;
+		  border-top: 10px solid transparent;
+		  border-bottom: 10px solid transparent;
+		}
+		
+		table td{
+		  text-align: left;
+		  width: 70%;
+		  text-align: center;
+		  background-color: #D0D0D0;
+		  padding: 10px 0;
+		}
+		#Modal span{
+		display:inline-block;width:200px;text-align:right;
+		}
+	</style>
 	</head>
 
 	<body>
@@ -144,152 +187,104 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 		
-			<div id="container" class="container" style='width: 1350px;'>
-			<div class="container">
-
-     <div class="m-4">
-    <table id="example" class="table" style="width:100%">
-        <thead>
-            <tr>
-        
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-             <td><strong>緊急聯絡人</strong></td>
-                <td><strong>緊急連絡電話</strong></td>
-                <td><strong>關係欄</strong></td>
-            </tr>
-            <tr>
-                <td>${memberDetails.get(0).emergencyContact}</td>
-                <td>${memberDetails.get(0).emergencyNumber}</td>
-                <td>${memberDetails.get(0).emergencyRelationship}</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <table id="example" class="table" style="width:100%">
-     <tbody>
-            <tr>
-                <td><strong>抽菸史</strong></td>
-                <td><strong>檳榔史</strong></td>
-                <td><strong>重大疾病</strong></td>
-                <td><strong>過敏原</strong></td>
-                <td><strong>手術史</strong></td>
-                
-            </tr>
-             <tr>
-                <td>${memberDetails.get(0).smoke}</td> 
-                <td>${memberDetails.get(0).betelNut}</td>  
-                <td>${memberDetails.get(0).diseases}</td> 
-                <td>${memberDetails.get(0).allergy}</td> 
-                <td>${memberDetails.get(0).surgery}</td>
-            </tr>
-        </tbody>
-     </table>
-    
-     <table id="example" class="table" style="width:100%">
-   
-               <div style="text-align:center;">
-                   <a class="link-update" data-toggle="modal" data-target="#Modal">修改</a>
-              </div>
-
-     </table>
-     </div>
-    
-        </div>
+			<div id="container" class="container" >
+			     <div class="m-4">
+			     	<div style="text-align:right">
+			               <button class="btn btn-warning" data-toggle="modal" data-target="#Modal">修改初診資料</button>
+			         </div>
+				    <table id="example" class="table" style="width:60%;margin:0 auto">
+				        <tbody>
+				            <tr>
+					             <th><strong>緊急聯絡人</strong></th>
+					             <td>${memberDetails.get(0).emergencyContact}</td>
+				            </tr>
+				             <tr>
+				                <th><strong>緊急連絡人電話</strong></th>
+				                <td>${memberDetails.get(0).emergencyNumber}</td>
+				             </tr>
+				             <tr>
+				                <th><strong>緊急聯絡人關係</strong></th>
+				                <td>${memberDetails.get(0).emergencyRelationship}</td>
+				             </tr>
+				            <tr>
+				                <th><strong>抽菸</strong></th>
+				                <td>${memberDetails.get(0).smoke}</td> 
+				            </tr>
+				            <tr> 
+				                <th><strong>檳榔</strong></th>
+				                <td>${memberDetails.get(0).betelNut}</td>
+				            </tr>
+				             <tr>
+				                <th><strong>重大疾病</strong></th>
+				                <td>${memberDetails.get(0).diseases}</td>
+				            </tr>
+				             <tr>
+				                <th><strong>過敏原</strong></th>
+				                <td>${memberDetails.get(0).allergy}</td>
+				            </tr>
+				              <tr>
+				                <th><strong>手術史</strong></th>
+								<td>${memberDetails.get(0).surgery}</td>
+				              </tr>	            
+				        </tbody>
+				    </table>
+			     </div>
         </div>
 
-    <!--/sidebar-->
-    <div class="main-wrap">
-
-        <div class="search-wrap">
-            <div class="search-content">
        
-            </div>
-        </div>
-        
-        
         <div id="Modal" class="modal fade" style="color:black">
-	<div class="modal-dialog">
-	    <div class="modal-content">
-	        <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	        <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black"> <div style= "text-align:center;"><strong>修改病歷表 </strong></div></h4>
-	        </div>
-	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
-	        	
-	        	
-
-	        	
-<table border="1" class="table">
-<tbody>
-
-<form:form action ="${pageContext.request.contextPath}/modifyTheCase" method="post" modelAttribute="md" >
-
-<!--      <input placeholder="id"  name="memberPkId" style="display:none"/> -->
-     <strong>緊急聯絡人:<input placeholder="${memberDetails.get(0).emergencyContact}"  name="emergencyContact" /></strong>
-     <BR>
-     <strong>緊急連絡電話:<input placeholder="${memberDetails.get(0).emergencyNumber}" name="emergencyNumber"/></strong>
-     <BR>
-     <strong>關係欄:<input placeholder="${memberDetails.get(0).emergencyRelationship}" name="emergencyRelationship"/></strong>
-     <BR>
-     <strong>抽菸史:<input placeholder="${memberDetails.get(0).smoke}" name="smoke" /></strong>
-     <BR>
-     <strong> 檳榔史:<input placeholder="${memberDetails.get(0).betelNut}" name="betelNut"/></strong>
-     <BR>
-     <strong>重大疾病:<input placeholder="${memberDetails.get(0).diseases}" name="diseases"/></strong>
-     <BR>
-     <strong>過敏原:<input placeholder="${memberDetails.get(0).allergy}" name="allergy"/></strong>
-     <BR>
-     <strong>手術史:<input placeholder="${memberDetails.get(0).surgery}" name="surgery"/></strong>
-
-     <div style="text-align:center;"><input type="submit" value="修改" /></div>
-     
-</form:form>
-
-</tbody>
-
-</table>	
-	        
-	        	
-	        	
-	        	
-	       
-	        	
-	        </div>
-	        <div class="modal-footer">
-	        	
-	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
-	        </div>
-	    </div>
+			<div class="modal-dialog">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+			        	<h4 id="AppointmentModalTitle" class="modal-title"  style="color:black"> 修改初診病歷 </h4>
+			        </div>
+			        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
+        	
+						<table border="1" class="table">
+							<tbody>				
+							<form:form action ="${pageContext.request.contextPath}/modifyTheCase" method="post" modelAttribute="md" id="send">							
+							<!--      <input placeholder="id"  name="memberPkId" style="display:none"/> -->
+							     <span><label>緊急聯絡人：</label></span>
+							     <input value="${memberDetails.get(0).emergencyContact}"  name="emergencyContact" />
+							     <BR>
+							     <span><label>緊急連絡人電話：</label></span>
+							     <input value="${memberDetails.get(0).emergencyNumber}" name="emergencyNumber"/>
+							     <BR>
+							     <span><label>緊急連絡人關係：</label></span>
+							     <input value="${memberDetails.get(0).emergencyRelationship}" name="emergencyRelationship"/>
+							     <BR>
+							     <span><label>抽菸：</label></span>
+							     <input type="radio" value="是" name="smoke" id="sY"/>是
+							     <input type="radio" value="否" name="smoke" id="sN"/>否
+							     <BR>
+							     <span><label>檳榔：</label></span>
+							     <input type="radio" value="是" name="betelNut" id="bY"/>是
+							     <input type="radio" value="否" name="betelNut" id="bN"/>否
+							     <BR>
+							     <span><label>重大疾病：</label></span>
+							     <input value="${memberDetails.get(0).diseases}" name="diseases"/>
+							     <BR>
+							     <span><label>過敏原：</label></span>
+							     <input value="${memberDetails.get(0).allergy}" name="allergy"/>
+							     <BR>
+							     <span><label>手術史：</label></span>
+							     <input value="${memberDetails.get(0).surgery}" name="surgery"/>						
+							</form:form>							
+							</tbody>			
+						</table>	
+	        		</div>
+	        		<div class="modal-footer">
+					     <button class="btn btn-default" id="update">修改</button>	 					     
+	           			 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        		</div>
+		    </div>
+		</div>
 	</div>
-</div>
 
 
     </div>
     
-    
-    
-    <!--/main-->
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			</div>
-		</div>
-
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">
 			<div class="container">
 				<div class="row">
@@ -313,9 +308,23 @@
 				</div>
 			</div>
 		</footer>
-
 	</div>
 
-	
 	</body>
+	<script type="text/javascript">
+		$("#update").click(function(){
+			$("#send").trigger("submit");
+		})
+		
+		if("${memberDetails.get(0).smoke}"=="是"){
+			$("#sY").attr("checked",true)
+		}else{
+			$("#sN").attr("checked",true)
+		}
+		if("${memberDetails.get(0).betelNut}"=="是"){
+			$("#bY").attr("checked",true)
+		}else{
+			$("#bN").attr("checked",true)
+		}
+	</script>
 </html>
