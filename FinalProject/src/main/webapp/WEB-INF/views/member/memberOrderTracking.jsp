@@ -163,13 +163,13 @@
 			<ul>			
 				<!-- 如果你是會員的頁面 -->
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">修改會員</a></li>
-				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">填寫初診</a></li>
-				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
-				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
+				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">會員資料</a></li>
+				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
+			    <li class="animate-box"><a href="<c:url value='/appointment'/>" class="transition">立即預約</a></li>
+				<li class="animate-box"><a href="<c:url value='/appointmentRecord'/>" class="transition">預約紀錄</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='memberOrderTracking'/>" class="transition">訂單查詢</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
-				<li class="animate-box"><a href="<c:url value='index'/>" class="transition style-logout">登出</a></li>
+				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
 			</ul>
 	
 			<!--開關燈-->
@@ -185,19 +185,11 @@
 
 
 
-
-
-
-
-
-
-
     <!--/sidebar-->
     
                 <div class="result-content">
                 <div id="container" class="container" style='width: 1350px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
-				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
+
                     <table class='table table-bordered' width="50%">
                         <tr>
                             <th style='width: 120px;'>訂單編號</th>

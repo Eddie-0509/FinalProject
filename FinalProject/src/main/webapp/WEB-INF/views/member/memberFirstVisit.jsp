@@ -127,13 +127,13 @@
 			<ul>			
 				<!-- 如果你是會員的頁面 -->
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">修改會員</a></li>
+				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">會員資料</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
-				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
-				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
-				<li class="animate-box"><a href="#" class="transition">訂單查詢</a></li>
+			    <li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">立即預約</a></li>
+				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">預約紀錄</a></li>
+				<li class="animate-box"><a href="<c:url value='/memberOrderTracking'/>" class="transition">訂單查詢</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
-				<li class="animate-box"><a href="<c:url value='index'/>" class="transition style-logout">登出</a></li>
+				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
 			</ul>
 	
 			<!--開關燈-->
@@ -201,20 +201,30 @@
      &nbsp;
      <input placeholder="請輸入與緊急聯絡任的關係" name="emergencyRelationship" id="emergencyPhonecPhone"/></strong>
      <br><br>
-        &nbsp;&nbsp;&nbsp;&nbsp; <strong>抽菸史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="請輸入抽菸幾年了?" name="smoke" required autofocus/></strong>
+        &nbsp;&nbsp;&nbsp;&nbsp; <strong>抽菸史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <input placeholder="請輸入抽菸幾年了?" name="smoke" required autofocus/></strong>
      <br><br>
-       &nbsp;&nbsp;&nbsp;&nbsp; <strong> 檳榔史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="請輸入吃檳榔多久了" name="betelNut" required autofocus/></strong>
+       &nbsp;&nbsp;&nbsp;&nbsp; <strong> 檳榔史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+       <input placeholder="請輸入吃檳榔多久了" name="betelNut" required autofocus/></strong>
      <br><br>
-       &nbsp;&nbsp;&nbsp;&nbsp;  <strong>重大疾病:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="是否有重大疾病，請填寫" name="diseases" required autofocus/></strong>
+       &nbsp;&nbsp;&nbsp;&nbsp;  <strong>重大疾病:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+       <input placeholder="是否有重大疾病，請填寫" name="diseases" required autofocus/></strong>
      <br><br>
-         &nbsp;&nbsp;&nbsp;&nbsp;  <strong>過敏原:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="請填寫過敏原" name="allergy" required autofocus/></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;  <strong>過敏原:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         
+         <input placeholder="請填寫過敏原" name="allergy" required autofocus/></strong>
      <br><br>
-         &nbsp;&nbsp;&nbsp;&nbsp;  <strong>手術史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input placeholder="請填寫動過的手術紀錄" name="surgery" required autofocus/></strong>
+         &nbsp;&nbsp;&nbsp;&nbsp;  <strong>手術史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         
+         <input placeholder="請填寫動過的手術紀錄" name="surgery" required autofocus/></strong>
      <br> <br>  
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <br><br>
+
      <input type="submit" value="新增" />
 
 </form:form>
@@ -222,17 +232,10 @@
 </tbody>
 
 </table>	
-	        
-	        	
-	        	
-	        	
-	       
+	             
 	        	
 	        </div>
-	        <div class="modal-footer">
-	        	
-	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
-	        </div>
+
 	    </div>
 	</div>
 </div>

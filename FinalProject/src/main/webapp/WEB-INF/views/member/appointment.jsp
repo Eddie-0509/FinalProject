@@ -365,7 +365,7 @@
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"
 										+ "<li class='animate-box fh5co-active fadeInUp animated'><a href='#' class='transition'>立即預約</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/appointmentRecord' class='transition'>預約紀錄</a></li>"
-										+ "<li class='animate-box fadeInUp animated'><a href='#' class='transition'>會員資料</a></li>"
+										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberModify' class='transition'>會員資料</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberLogout' class='transition'>登出</a></li>");
 			}

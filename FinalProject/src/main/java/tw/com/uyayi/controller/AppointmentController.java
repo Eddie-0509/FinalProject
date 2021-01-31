@@ -32,10 +32,12 @@ import tw.com.uyayi.model.Dentist;
 import tw.com.uyayi.model.Dist;
 import tw.com.uyayi.model.Items;
 import tw.com.uyayi.model.Member;
+import tw.com.uyayi.model.MemberDetails;
 import tw.com.uyayi.model.TimeTable;
 import tw.com.uyayi.service.AppointmentService;
 import tw.com.uyayi.service.ClinicAppointService;
 import tw.com.uyayi.service.ClinicSignUpService;
+import tw.com.uyayi.service.MemberService;
 import tw.com.uyayi.service.MemberSignUpService;
 
 @Controller
@@ -50,16 +52,25 @@ public class AppointmentController {
 	
 	@Autowired
 	MemberSignUpService memberSignUpService;
-
+	
+	@Autowired
+	MemberService memberService;
+	
 	//進入此預約畫面便可直接帶入項目和城市讓使用者選擇
 	@GetMapping(value = "/appointment")
-	public String getAllCity(Model model) {
+	public String getAllCity(Model model,@ModelAttribute("LoginOK") Member mb) {
 		List<City> cities = signUpService.getAllCity();
 		model.addAttribute("cities", cities);
 		List<Items> items = appointmentService.getAllItems();
 		model.addAttribute("items", items);
-		return "member/appointment";
-	}
+		MemberDetails md = memberService.getMemberDetailByPkId(mb.getMemberPkId());
+		if(md==null) {
+			return "member/memberFirstVisit";
+		}else {
+		    return "member/appointment";
+      	}
+	  }
+	
 	
     //讀取使用者選擇的日期，利用weekDay取值
 	@GetMapping(path = "/getTimeTable", produces = "application/json")

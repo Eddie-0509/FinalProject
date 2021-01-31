@@ -120,7 +120,7 @@
 			<ul>
 <li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box"><a data-toggle="modal" data-target="#memberModal" >用戶登入</a></li>
+				<li class="animate-box"><a data-toggle="modal" data-target="#memberModal"  >用戶登入</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicIndex'/>" class="transition">診所專區</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
 			</ul>
@@ -168,7 +168,7 @@
 								<div class="container">
 									<span id="errorMsg" style="color: red; text-align: center; display:block;">${errorMsg}</span><br/>
 									<label for="uname"><strong>信　　　箱</strong></label>
-									<input type="text" placeholder="請輸入身分證字號" name="account" id="uname" required autofocus>
+									<input type="text" placeholder="請輸入信箱" name="account" id="uname" required autofocus>
 					
 									<label for="psw"><strong>密　　　碼</strong></label>
 									<input type="password" placeholder="請輸入密碼" name="pwd" id="upsw" required>
@@ -315,7 +315,7 @@
 					+'<li class="animate-box fh5co-active"><a href="<c:url value="index"/>" class="transition">Home</a></li>'
 					+'<li class="animate-box "><a href="<c:url value="appointment"/>" class="transition">立即預約</a></li>'
 					+'<li class="animate-box"><a href="<c:url value="appointmentRecord"/>" class="transition">預約紀錄</a></li>'
-					+'<li class="animate-box"><a href="<c:url value="/memberManagement"/>" class="transition">會員資料</a></li>'
+					+'<li class="animate-box"><a href="<c:url value="/memberModify"/>" class="transition">會員資料</a></li>'
 					+'<li class="animate-box"><a href="<c:url value="products"/>" class="transition">商城</a></li>'
 					+'<li class="animate-box"><a href="<c:url value="memberLogout"/>"" class="transition style-logout">登出</a></li>'
 					)

@@ -207,7 +207,7 @@ a.oneClick{
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
 				<!-- 如果你是診所的頁面 -->
-				<li class="animate-box "><a href="<c:url value='clinicIndex'/>" class="transition">Home</a></li>
+				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 			</ul>
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">

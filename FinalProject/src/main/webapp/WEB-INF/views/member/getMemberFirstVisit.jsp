@@ -127,13 +127,13 @@
 			<ul>			
 				<!-- 如果你是會員的頁面 -->
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">修改會員</a></li>
+				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">會員資料</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
-				<li class="animate-box"><a href="#" class="transition">立即預約</a></li>
-				<li class="animate-box"><a href="#" class="transition">預約查詢</a></li>
-				<li class="animate-box"><a href="<c:url value='memberOrderTracking'/>" class="transition">訂單查詢</a></li>
+			    <li class="animate-box"><a href="<c:url value='/appointment'/>" class="transition">立即預約</a></li>
+				<li class="animate-box"><a href="<c:url value='/appointmentRecord'/>" class="transition">預約紀錄</a></li>
+				<li class="animate-box"><a href="<c:url value='/memberOrderTracking'/>" class="transition">訂單查詢</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
-				<li class="animate-box"><a href="<c:url value='index'/>" class="transition style-logout">登出</a></li>
+				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
 			</ul>
 	
 			<!--開關燈-->
@@ -147,7 +147,7 @@
 			<div id="container" class="container" style='width: 1350px;'>
 			<div class="container">
 
-     +<div class="m-4">
+     <div class="m-4">
     <table id="example" class="table" style="width:100%">
         <thead>
             <tr>
@@ -220,7 +220,7 @@
 	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
 	        	
 	        	
-	        	
+
 	        	
 <table border="1" class="table">
 <tbody>
@@ -228,23 +228,22 @@
 <form:form action ="${pageContext.request.contextPath}/modifyTheCase" method="post" modelAttribute="md" >
 
 <!--      <input placeholder="id"  name="memberPkId" style="display:none"/> -->
-     <strong>緊急聯絡人:<input placeholder="緊急聯絡人"  name="emergencyContact" /></strong>
+     <strong>緊急聯絡人:<input placeholder="${memberDetails.get(0).emergencyContact}"  name="emergencyContact" /></strong>
      <BR>
-     <strong>緊急連絡電話:<input placeholder="緊急連絡電話" name="emergencyNumber"/></strong>
+     <strong>緊急連絡電話:<input placeholder="${memberDetails.get(0).emergencyNumber}" name="emergencyNumber"/></strong>
      <BR>
-     <strong>關係欄:<input placeholder="關係欄" name="emergencyRelationship"/></strong>
+     <strong>關係欄:<input placeholder="${memberDetails.get(0).emergencyRelationship}" name="emergencyRelationship"/></strong>
      <BR>
-     <strong>抽菸史:<input placeholder="抽菸史" name="smoke" /></strong>
+     <strong>抽菸史:<input placeholder="${memberDetails.get(0).smoke}" name="smoke" /></strong>
      <BR>
-     <strong> 檳榔史:<input placeholder="檳榔史" name="betelNut"/></strong>
+     <strong> 檳榔史:<input placeholder="${memberDetails.get(0).betelNut}" name="betelNut"/></strong>
      <BR>
-     <strong>重大疾病:<input placeholder="重大疾病" name="diseases"/></strong>
+     <strong>重大疾病:<input placeholder="${memberDetails.get(0).diseases}" name="diseases"/></strong>
      <BR>
-     <strong>過敏原:<input placeholder="過敏原" name="allergy"/></strong>
+     <strong>過敏原:<input placeholder="${memberDetails.get(0).allergy}" name="allergy"/></strong>
      <BR>
-     <strong>手術史:<input placeholder="手術史" name="surgery"/></strong>
-   
-   
+     <strong>手術史:<input placeholder="${memberDetails.get(0).surgery}" name="surgery"/></strong>
+
      <div style="text-align:center;"><input type="submit" value="修改" /></div>
      
 </form:form>

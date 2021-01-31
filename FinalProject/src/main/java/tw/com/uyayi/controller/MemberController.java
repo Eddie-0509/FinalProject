@@ -38,7 +38,7 @@ public class MemberController {
 			}else if(mb.getMemberStatus().equals("未開通")){
 				return "redirect:/memberNotYetOpened";//未開通頁面
 			}else {
-				return "redirect:/memberManagement";//一般會員登入後頁面
+				return "redirect:/appointment";//一般會員登入後頁面
 			      }
 		    }else {
 			 ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
@@ -53,10 +53,10 @@ public class MemberController {
 	}
 	
 	
-	@GetMapping("/memberManagement")
-	public String Openaccount() {	
-		return "member/memberManagement";
-	}	
+//	@GetMapping("/memberManagement")
+//	public String Openaccount() {	
+//		return "member/memberManagement";
+//	}	
 	
 	
 	

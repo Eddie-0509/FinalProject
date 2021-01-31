@@ -107,10 +107,14 @@ public class GeneralMemberController {
     //修改會員資料
     @RequestMapping(value="/memberModifySo",method=RequestMethod.POST)
     public String updateUserOne(@ModelAttribute("member") Member member) {
-
     	memberSignUpService.update(member);
-		return "index";
+		return "member/memberModify";
     }
+    
+    
+    
+    
+    
     
     
    //以下是訂單查詢
@@ -133,29 +137,22 @@ public class GeneralMemberController {
     public String preModify(Model model) {
     	MemberDetails m = new MemberDetails();
     	model.addAttribute("md",m);
-    	
     	return "member/getMemberFirstVisit";
     }
 
     
-    
-    
-    
-    
-    //修改病例資料GET
+
+ 
     @RequestMapping(value="/modifyTheCase",method=RequestMethod.POST)
     public String modifyTheCase(@ModelAttribute("md") MemberDetails memberDetails,
     		@ModelAttribute("LoginOK") Member mb) {
     	memberDetails.setMemberPkId(mb.getMemberPkId());
     	memberDetailsService.update(memberDetails);
-		return "index";
+		return "redirect:/memberFirstVisit";
     }
     
-    
-    
-    
-    
 
+    //初診判斷是否填過
     @GetMapping(value = "/memberFirstVisit")
 	public String memberFirstVisitView(Model model,@ModelAttribute("LoginOK") Member mb,@ModelAttribute("LoginOK") Member mb2) {
     	MemberDetails md = memberService.getMemberDetailByPkId(mb.getMemberPkId());
@@ -175,7 +172,7 @@ public class GeneralMemberController {
   	public String memberFirstVisitAddView(Model model) {
     	MemberDetails md = new MemberDetails();
     	model.addAttribute("md",md);
-  		return "member/memberFirstVisit";	
+  		return "member/getMemberFirstVisit";	
   	}
     
     //病歷表填寫
@@ -184,7 +181,7 @@ public class GeneralMemberController {
   	    memberDetails.setMember(mb);
         mb.setMemberStatus("已填寫");
     	memberDetailsService.add(memberDetails,mb);
-		return "index";	
+		return "redirect:/memberFirstVisit";	
 	}
     
 
