@@ -148,7 +148,7 @@
 .modal.right .modal-dialog {
 	position: fixed;
 	margin: auto;
-	width: 425px;
+ 	width: 425px; 
 	height: 50%;
 	-webkit-transform: translate3d(165%, 0, 0);
 	-ms-transform: translate3d(165%, 0, 0);
@@ -182,6 +182,10 @@
 	width: 200px;
 	text-align: right;
 }
+
+#Modal span, #Modalpass span{
+		display:inline-block;width:200px;text-align:right;
+		}
 </style>
 <script>
 	
@@ -197,6 +201,7 @@
 		<nav id="fh5co-nav" role="navigation">
 			<ul>			
 				<!-- 如果你是會員的頁面 -->
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='/memberModify'/>" class="transition">會員資料</a></li>
 				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
@@ -206,7 +211,6 @@
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
 			</ul>
-
 			<!--開關燈-->
 			<a class="style-toggle js-style-toggle" data-style="default" href="#">
 				<span class="fh5co-circle"></span>
@@ -215,156 +219,110 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div class="container">
+                <table class='table table-bordered' >
+                    <tr>
+                        <th style='width: 250px;'>信箱帳號</th>
+                        <th style='width: 100px;'>姓名</th>
+                        <th style='width: 150px;'>身分證字號</th>
+                        <th style='width: 250px;'>通訊地址</th>
+                        <th style='width: 150px;'>電話</th>
+                        <th style='width: 200px;'>修改</th>
+                    </tr>
+                    <tr>                    
+                          <td>${member.memberAccount}</td>
+                          <td>${member.memberName}</td> 
+                          <td>${member.memberIdNumber}</td> 
+                          <td>${member.memberAddress}</td> 
+                          <td>${member.memberPhone}</td> 
+                        <td>
+<!--                             <a class="link-update" data-toggle="modal" data-target="#Modal">資料</a>  -->
+							 <button class="btn btn-warning" data-toggle="modal" data-target="#Modal">修改資料</button>
+							 <button class="btn btn-warning" data-toggle="modal" data-target="#Modalpass">修改密碼</button>
+<!--                              <a class="link-update" data-toggle="modal" data-target="#Modalpass">密碼</a> -->
+                        </td>
+                    </tr>
+     			</table>
 
-
-
-
-
-
-
-
-
-
-
-
-    <!--/sidebar-->
-    <div class="result-content">
-                <div id="container" class="container" style='width: 1350px;'>
-		
-	
-                    <table class='table table-bordered' width="50%">
-                        <tr>
-                            <th style='width: 250px;'>信箱帳號</th>
-                            <th style='width: 100px;'>姓名</th>
-                            <th style='width: 150px;'>身分證號</th>
-                            <th style='width: 250px;'>通訊地址</th>
-                            <th style='width: 150px;'>電話</th>
-                            <th style='width: 200px;'>修改</th>
-                        </tr>
-                        <tr>                    
-                              <td>${member.memberAccount}</td>
-                              <td>${member.memberName}</td> 
-                              <td>${member.memberIdNumber}</td> 
-                              <td>${member.memberAddress}</td> 
-                              <td>${member.memberPhone}</td> 
-                            <td>
-                                <a class="link-update" data-toggle="modal" data-target="#Modal">資料</a> 
-                                 <a class="link-update" data-toggle="modal" data-target="#Modalpass">密碼</a>
-                            </td>
-                        </tr>
-         </table>
-                </div>
-        	</div>
         
 <!--         修改會員資料 -->
         <div id="Modal" class="modal fade" style="color:black">
-	<div class="modal-dialog">
-	    <div class="modal-content">
-	        <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">修改會員資料</h4>
-	        </div>
-	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
-	        
-<table border="1" class="table">
-<tbody>
-
-<form:form action ="${pageContext.request.contextPath}/memberModifySo" method="post" modelAttribute="member" >
-
-     <form:input placeholder="id"  path="memberPkId" style="display:none"/>
-     <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/>
-     <form:input placeholder="請輸入您的密碼" path="memberPwd" style="display:none"/>
-     <strong>姓名:<br><form:input placeholder="請輸入您的姓名" path="memberName"/></strong>
-     <br><br>
-     <form:input placeholder="身分證不能改" path="memberIdNumber" style="display:none"/>
-    <strong> 通訊地址:<br><form:input placeholder="請輸入您的地址" path="memberAddress"/></strong>
-     <br><br>
-     <strong>電話:<br><form:input placeholder="請輸入您的電話" path="memberPhone"/></strong>
-     <br><br>
-     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>
-
-
-    	
-	     
-	 <div  class="modal-footer">
-	           <input type="submit" value="修改" />	            
-	 </div>
- 
- </form:form>
-</tbody>
-</table>   
-       </div>
-	    </div>
-	</div>
-</div>
+			<div class="modal-dialog">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+			            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">修改會員資料</h4>
+			        </div>
+			        <div id="AppointmentModalBody" class="modal-body"  style="color:black">		        
+						<table border="1" class="table" hidden>
+							<tbody>						
+							<form:form action ="${pageContext.request.contextPath}/memberModifySo" method="post" modelAttribute="member" >	
+							     <form:input placeholder="id"  path="memberPkId" style="display:none"/>
+							     <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/>
+							     <form:input placeholder="請輸入您的密碼" path="memberPwd" style="display:none"/>
+							     <span><label>姓名：</label></span>
+							     <form:input placeholder="請輸入您的姓名" path="memberName"/>
+							     <br><br>
+							     <form:input placeholder="身分證字號不能改" path="memberIdNumber" style="display:none"/>
+							     <span><label>通訊地址：</label></span>
+							     <form:input placeholder="請輸入您的地址" path="memberAddress"/>
+							     <br><br>
+							     <span><label>電話：</label></span>
+							     <form:input placeholder="請輸入您的電話" path="memberPhone"/>
+							     <br><br>
+							     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>     
+								 <div  class="modal-footer">
+								           <button class="btn btn-default" id="update">修改</button>	
+								           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>								                       
+								 </div>
+							 </form:form>
+							</tbody>
+						</table>   
+       				</div>
+			    </div>
+			</div>
+		</div>
 
 
 <!--         修改會員密碼 -->
 
         <div id="Modalpass" class="modal fade" style="color:black">
-	<div class="modal-dialog">
-	    <div class="modal-content">
-	        <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modalpass"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-	            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">修改會員資料</h4>
-	        </div>
-	        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
-	        
-<table border="1" class="table">
-<tbody>
-<form:form action ="${pageContext.request.contextPath}/memberModifySo" method="post" modelAttribute="member" >
-
-     <form:input placeholder="id"  path="memberPkId" style="display:none"/>
-     <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/>
-     <strong>密碼:<form:input placeholder="請輸入您的密碼" path="memberPwd" /> </strong>
-     <form:input placeholder="請輸入您的姓名" path="memberName" style="display:none"/>
-     <form:input placeholder="身分證不能改" path="memberIdNumber" style="display:none"/>
-     <form:input placeholder="請輸入您的地址" path="memberAddress" style="display:none"/>
-     <form:input placeholder="請輸入您的電話" path="memberPhone" style="display:none"/>
-     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>
-     <div class="modal-footer">
-	        <input type="submit" value="修改" />
-	 </div>
-</form:form>
-</tbody>
-</table>    
-	        </div>
-	      
-	    </div>
-	</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-    
-    
-    
-    <!--/main-->
-</div>
-
-
-
-
-
+			<div class="modal-dialog">
+			    <div class="modal-content">
+			        <div class="modal-header">
+			            <button type="button" class="close" data-dismiss="modalpass"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+			            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">修改會員資料</h4>
+			        </div>
+			        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
+			        
+						<table border="1" class="table" hidden>
+						<tbody>
+						<form:form action ="${pageContext.request.contextPath}/memberModifySo" method="post" modelAttribute="member" >		
+					     <form:input placeholder="id"  path="memberPkId" style="display:none"/>
+					     <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/>
+					     <label>密碼：</label>
+					     <form:input placeholder="請輸入您的密碼" path="memberPwd" />
+					     <br>
+					     <form:input placeholder="請輸入您的姓名" path="memberName" style="display:none"/>
+					     <form:input placeholder="身分證不能改" path="memberIdNumber" style="display:none"/>
+					     <form:input placeholder="請輸入您的地址" path="memberAddress" style="display:none"/>
+					     <form:input placeholder="請輸入您的電話" path="memberPhone" style="display:none"/>
+					     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>
+					     <br>
+					     <div class="modal-footer">
+						        <button class="btn btn-default" id="update2">修改</button>	
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						 </div>
+						</form:form>
+						</tbody>
+						</table>    
+					</div>	      
+			    </div>
 			</div>
 		</div>
+    
+    </div>    
+</div>
+
 
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">
 			<div class="container">
