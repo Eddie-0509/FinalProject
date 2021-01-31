@@ -44,7 +44,7 @@
 	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="shortcut icon" href="tools/favicon.ico">
 	
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
@@ -162,6 +162,7 @@
 		<nav id="fh5co-nav" role="navigation">
 			<ul>			
 				<!-- 如果你是會員的頁面 -->
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>					
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">會員資料</a></li>
 				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
@@ -179,18 +180,11 @@
 		</nav>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-			<div class="container">
-
-
-
-
-
-    <!--/sidebar-->
-    
+<!-- 			<div class="container"> -->
                 <div class="result-content">
-                <div id="container" class="container" style='width: 1350px;'>
+              	  <div id="container" class="container" style='width: 1350px;'>
 
-                    <table class='table table-bordered' width="50%">
+                    <table class='table table-bordered' >
                         <tr>
                             <th style='width: 120px;'>訂單編號</th>
                             <th style='width: 200px;'>日期</th>
@@ -215,8 +209,9 @@
                             </td>
                            </c:forEach>
                     </table>
-                </div>
-        	</div>
+	                </div>
+	        	</div>
+	        </div>
 
 
 		<footer id="fh5co-footer" class="js-fh5co-waypoint">
@@ -244,6 +239,7 @@
 		</footer>
 
 	</div>
+	
 	<script>
 	$(function(){
 		<c:forEach var="x" items="${orders}"> 

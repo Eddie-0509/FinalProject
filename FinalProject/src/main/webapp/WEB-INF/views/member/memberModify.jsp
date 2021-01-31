@@ -290,7 +290,7 @@
 			    <div class="modal-content">
 			        <div class="modal-header">
 			            <button type="button" class="close" data-dismiss="modalpass"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-			            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">修改會員資料</h4>
+			            <h4 id="AppointmentModalTitle" class="modal-title"  style="color:black">修改密碼</h4>
 			        </div>
 			        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
 			        
