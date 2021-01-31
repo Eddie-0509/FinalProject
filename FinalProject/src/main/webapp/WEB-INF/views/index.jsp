@@ -120,7 +120,7 @@
 			<ul>
 <li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='index'/>" class="transition">Home</a></li>
-				<li class="animate-box"><a data-toggle="modal" data-target="#memberModal"  >用戶登入</a></li>
+				<li class="animate-box"><a  data-toggle="modal" data-target="#memberModal" style="cursor: pointer" >用戶登入</a></li>
 				<li class="animate-box"><a href="<c:url value='clinicIndex'/>" class="transition">診所專區</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
 			</ul>
@@ -300,6 +300,7 @@
 
 	</div>
 	<script>
+	
 	$(document).ready(function(){
 		if(${errorMsg=='帳號密碼錯誤'}){
 			$("#memberModal").modal('show');

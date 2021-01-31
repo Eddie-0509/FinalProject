@@ -266,9 +266,9 @@
 	        	<br>
 	        	緊急聯絡人關係：<span id="emergencyRelationship"></span>
 	        	<br>
-	        	抽菸史：<span id="smoke"></span>
+	        	抽菸：<span id="smoke"></span>
 	        	<br>
-	        	檳榔史：<span id="betelNut"></span>
+	        	檳榔：<span id="betelNut"></span>
 	        	<br>
 	        	重大疾病：<span id="diseases"></span>
 	        	<br>
