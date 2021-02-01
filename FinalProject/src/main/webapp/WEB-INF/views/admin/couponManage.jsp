@@ -113,6 +113,11 @@
 
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
+	<style type="text/css">
+	.spanCheck{
+		color: red;
+	}
+	</style>
 	
 	</head>
 
@@ -149,23 +154,23 @@
 				<div class="formcontainer">
 					<div class="containerF">
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponName"><strong>折扣名稱:</strong></label><span id="a_checkName"></span><br>
+						<label for="couponName"><strong>折扣名稱:</strong></label><span id="a_checkName" class="spanCheck"></span><br>
 						<input type="text" id="a_couponName" name="couponName" placeholder="請輸入折扣名稱" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponContext"><strong>折扣內容:</strong></label><span id="a_checkContext"></span><br>
+						<label for="couponContext"><strong>折扣內容:</strong></label><span id="a_checkContext" class="spanCheck"></span><br>
 						<input type="number" step="0.01" min="0" max="1" id="a_couponContext" name="couponContext" placeholder="ex:0.80" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponCode"><strong>折扣碼:</strong></label><span id="a_checkCode"></span><br>
+						<label for="couponCode"><strong>折扣碼:</strong></label><span id="a_checkCode" class="spanCheck"></span><br>
 						<input type="text" id="a_couponCode" name="couponCode" placeholder="請輸入折扣碼" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponStartTime"><strong>折扣起始時間	:</strong></label><span id="a_checkStartTime"></span><br>
+						<label for="couponStartTime"><strong>折扣起始時間	:</strong></label><span id="a_checkStartTime" class="spanCheck"></span><br>
 						<input type="date" id="a_couponStartTime" name="couponStartTime" placeholder="請輸入折扣起始時間" /><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponEndTime"><strong>折扣結束時間	:</strong></label><span id="a_checkEndTime"></span><br>
+						<label for="couponEndTime"><strong>折扣結束時間	:</strong></label><span id="a_checkEndTime" class="spanCheck"></span><br>
 						<input type="date" id="a_couponEndTime" name="couponEndTime" placeholder="請輸入折扣結束時間" /><br/>						
 						</div>
 						<input type="text"  name="couponStatus" value="true" hidden="hidden">
@@ -173,6 +178,7 @@
 				</div>
 				</form:form>	
 				<div class="modal-footer">
+				<span ><a href="javascript:void(0)" id="addCouponDemo">demo</a></span>
 	        	<button type="button" class="btn btn-default contactMember" id="addCouponButton">確定提交</button>
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        	</div>					
@@ -192,23 +198,23 @@
 				<div class="formcontainer">
 					<div class="containerF">
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponName"><strong>折扣名稱:</strong></label><span id="u_checkName"></span><br>
+						<label for="couponName"><strong>折扣名稱:</strong></label><span id="u_checkName" class="spanCheck"></span><br>
 						<input type="text" id="u_couponName" name="couponName" placeholder="請輸入折扣名稱" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponContext"><strong>折扣內容:</strong></label><span id="u_checkContext"></span><br>
+						<label for="couponContext"><strong>折扣內容:</strong></label><span id="u_checkContext" class="spanCheck"></span><br>
 						<input type="number" step="0.01" min="0" max="1" id="u_couponContext" name="couponContext" placeholder="ex:0.80" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponCode"><strong>折扣碼:</strong></label><span id="u_checkCode"></span><br>
+						<label for="couponCode"><strong>折扣碼:</strong></label><span id="u_checkCode" class="spanCheck"></span><br>
 						<input type="text" id="u_couponCode" name="couponCode" placeholder="請輸入折扣碼" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponStartTime"><strong>折扣起始時間	:</strong></label><span id="u_checkStartTime"></span><br>
+						<label for="couponStartTime"><strong>折扣起始時間	:</strong></label><span id="u_checkStartTime" class="spanCheck"></span><br>
 						<input type="date" id="u_couponStartTime" name="couponStartTime" placeholder="請輸入折扣起始時間" /><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="couponEndTime"><strong>折扣結束時間	:</strong></label><span id="u_checkEndTime"></span><br>
+						<label for="couponEndTime"><strong>折扣結束時間	:</strong></label><span id="u_checkEndTime" class="spanCheck"></span><br>
 						<input type="date" id="u_couponEndTime" name="couponEndTime" placeholder="請輸入折扣結束時間" /><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
@@ -221,7 +227,6 @@
 				</div>
 				</form:form>	
 				<div class="modal-footer">
-				<span ><a href="javascript:void(0)" id="addCouponDemo">demo</a></span>
 	        	<button type="button" class="btn btn-default contactMember" id="updateCouponButton">確定提交</button>
 	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
 	        	</div>					
@@ -232,7 +237,7 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div id="container" class="container" style='width: 1000px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
+				<input id="searchBar" name="keyName" placeholder="請輸入折扣名稱">
 				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
 				<button type="button" id="addCoupon" class="btn btn-success">新增折扣碼</button>
 				<table class='table table-bordered' id='showAllCouponTable' >
@@ -568,7 +573,7 @@
 					if(u_flagName && u_flagContext && u_flagCode && u_flagStartTime && u_flagEndTime){				
 						$("#updateCouponForm").trigger("submit");
 					}else{
-						alert("請正確輸入表格內容!");
+						alert("請重新確認表單內容");
 					}
 				});					
 			});						
@@ -702,7 +707,7 @@
 					if(u_flagName && u_flagContext && u_flagCode && u_flagStartTime && u_flagEndTime){				
 						$("#updateCouponForm").trigger("submit");
 					}else{
-						alert("請正確輸入表格內容!");
+						alert("請重新確認表單內容");
 					}
 				});			
 			});

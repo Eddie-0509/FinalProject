@@ -143,7 +143,7 @@ public class AdminController {
 		return beans;
 	}
 	//會員管理頁面(會員預約及訂單紀錄明細)
-	@GetMapping(value = "/memberManage_Detail")
+	@PostMapping(value = "/memberManage_Detail")
 	public String getMemberDetailFromId(Model model,int memberPkId) {
 		Member member = service.getMemberById(memberPkId);
 		List<Appointment> appointment = service.getMemberAppointmentFromId(memberPkId);
@@ -152,13 +152,6 @@ public class AdminController {
 		model.addAttribute("appointment",appointment);
 		model.addAttribute("orders",orders);
 		return "admin/memberManage_Detail";
-	}
-	//診所管理頁面(初始值為顯示所有診所資料)
-	@GetMapping(value = "/clinicManage")
-	public String getAllClinic(Model model) {
-		List<Clinic> beans = service.getAllClinic();
-		model.addAttribute("clinics",beans);
-		return "admin/clinicManage";
 	}
 	//會員管理頁面(模糊搜尋訂單紀錄)
 	@GetMapping(value ="/getMemberOrderFromIdAndOrderNo", produces = "application/json")
@@ -207,6 +200,13 @@ public class AdminController {
 			beans = service.getMemberAppointmentFromIdAndArrive(memberPkId,Arrive);			
 		}
 		return beans;
+	}
+	//診所管理頁面(初始值為顯示所有診所資料)
+	@GetMapping(value = "/clinicManage")
+	public String getAllClinic(Model model) {
+		List<Clinic> beans = service.getAllClinic();
+		model.addAttribute("clinics",beans);
+		return "admin/clinicManage";
 	}
 	//診所管理頁面(模糊搜尋)
 	@GetMapping(value ="/getAllClinicByName", produces = "application/json")
@@ -260,7 +260,7 @@ public class AdminController {
 		return beans;
 		}
 	//診所管理頁面(診所預約紀錄明細)
-		@GetMapping(value = "/clinicManage_Detail")
+		@PostMapping(value = "/clinicManage_Detail")
 		public String getClinicMemberDetailFromId(Model model,int clinicPkId) {
 			Clinic clinic = service.getClinicById(clinicPkId);
 			List<Appointment> appointment = service.getClinicAppointmentFromId(clinicPkId);

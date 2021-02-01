@@ -124,6 +124,12 @@
 <!--首頁文字輪播、modal js bySCONE-->
 <script src="js/hpother.js"></script>
 
+<style type="text/css">
+	.spanCheck{
+		color: red;
+	}
+</style>
+	
 </head>
 
 <body>
@@ -176,7 +182,7 @@
 				</tbody>
 			</table>
 	       	</div>
-			<div >
+			<div style="text-align: center">
 			<img id="d_showImage" src="" style="width: 350px;height: 350px"/>
 			</div>
 			<div style="padding-left: 5px">
@@ -213,23 +219,23 @@
 							</select>
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productName"><strong>產品名稱:</strong></label><span id="a_checkName"></span><br>
+						<label for="productName"><strong>產品名稱:</strong></label><span id="a_checkName" class="spanCheck"></span><br>
 						<input type="text" id="a_productName" name="productName" placeholder="請輸入產品名稱" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productProfile" ><strong>產品簡介:</strong></label><span id="a_checkProfile"></span><br>
+						<label for="productProfile" ><strong>產品簡介:</strong></label><span id="a_checkProfile" class="spanCheck"></span><br>
 						<textarea id="a_productProfile" name="productProfile" placeholder="請輸入產品簡介" style="width: 90%"></textarea><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productSpec"><strong>產品規格:</strong></label><span id="a_checkSpec"></span><br>
+						<label for="productSpec"><strong>產品規格:</strong></label><span id="a_checkSpec" class="spanCheck"></span><br>
 						<textarea id="a_productSpec" name="productSpec" placeholder="請輸入產品規格" style="width: 90%"></textarea><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productPrice"><strong>產品價格:</strong></label><span id="a_checkPrice"></span><br>
+						<label for="productPrice"><strong>產品價格:</strong></label><span id="a_checkPrice" class="spanCheck"></span><br>
 						<input type="text" id="a_productPrice" name="productPrice" placeholder="請輸入產品價格" style="width: 90%"/><br/>																
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productQuantity"><strong>產品數量:</strong></label><span id="a_checkQuantity"></span><br>
+						<label for="productQuantity"><strong>產品數量:</strong></label><span id="a_checkQuantity" class="spanCheck"></span><br>
 						<input type="text" id="a_productQuantity" name="productQuantity" placeholder="請輸入產品數量" style="width: 90%"/><br/>																
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
@@ -276,23 +282,23 @@
 							</select>
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productName"><strong>產品名稱</strong></label><span id="u_checkName"></span><br/>
+						<label for="productName"><strong>產品名稱</strong></label><span id="u_checkName" class="spanCheck"></span><br/>
 						<input type="text" id="u_productName" name="productName" placeholder="請輸入產品名稱" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productProfile" ><strong>產品簡介</strong></label><span id="u_checkProfile"></span><br/>
+						<label for="productProfile" ><strong>產品簡介</strong></label><span id="u_checkProfile" class="spanCheck"></span><br/>
 						<textarea id="u_productProfile" name="productProfile" placeholder="請輸入產品簡介" style="width: 90%"></textarea><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productSpec"><strong>產品規格</strong></label><span id="u_checkSpec"></span><br/>
+						<label for="productSpec"><strong>產品規格</strong></label><span id="u_checkSpec" class="spanCheck"></span><br/>
 						<textarea id="u_productSpec" name="productSpec" placeholder="請輸入產品規格" style="width: 90%"></textarea><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productPrice"><strong>產品價格</strong></label><span id="u_checkPrice"></span><br/>
+						<label for="productPrice"><strong>產品價格</strong></label><span id="u_checkPrice" class="spanCheck"></span><br/>
 						<input type="text" id="u_productPrice" name="productPrice" placeholder="請輸入產品價格" style="width: 90%"/><br/>																
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productQuantity"><strong>產品數量</strong></label><span id="u_checkQuantity"></span><br/>
+						<label for="productQuantity"><strong>產品數量</strong></label><span id="u_checkQuantity" class="spanCheck"></span><br/>
 						<input type="text" id="u_productQuantity" name="productQuantity" placeholder="請輸入產品數量" style="width: 90%"/><br/>																
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
@@ -322,7 +328,7 @@
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main"
 			data-colorbg="">
 			<div id="container" class="container" style='width: 1250px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray"/>
+				<input id="searchBar" name="keyName" placeholder="請輸入產品名稱" style="color: gray"/>
 				<button type="button" class="btn btn-info" id="searchData">搜尋</button>
 				<button type="button" class="btn btn-success" id="addProductBtn" value="新增產品" >新增產品</button>
 				<table class='table table-bordered' id='showAllProductTable' >
@@ -613,7 +619,8 @@
 			$("#電動牙刷").attr("selected","selected");
 			$("#a_productName").val("realme 聲波電動牙刷");
 			$("#a_productProfile").val("34,000次/分鐘磁浮聲波馬達");
-			$("#a_productSpec").val("顏色:白、藍<br>聲波馬達:34200 次/分<br>低噪音:60 dB<br>可選模式:4種(輕柔,清潔,美白,拋光)<br>模式記憶:V<br>單次刷牙時長:2分鐘");
+			$("#a_productSpec").val("顏色:白、藍");
+// 					<br>聲波馬達:34200 次/分<br>低噪音:60 dB<br>可選模式:4種(輕柔,清潔,美白,拋光)<br>模式記憶:V<br>單次刷牙時長:2分鐘");
 			$("#a_productPrice").val("999");
 			$("#a_productQuantity").val("100");
 			$('input:radio[name=productStatus][0]').checked = true;	

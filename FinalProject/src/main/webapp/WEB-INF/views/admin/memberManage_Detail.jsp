@@ -178,7 +178,7 @@
       					</div>
       					<div id="AppointmentDetail" class="panel-collapse collapse in">
         					<div class="panel-body">
-								<input id="appointmentSearchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/>
+								<input id="appointmentSearchBar" name="keyName" placeholder="請輸入診所名稱" style="color: gray;"/>
 								<button type="button" id="appointmentSearchData" class="btn btn-info">搜尋</button>
 								<table class='table table-bordered' id='showAllAppointmentTable' >
 									<thead>
@@ -215,7 +215,7 @@
       					</div>
 				     	<div id="orderDetail" class="panel-collapse collapse">
 				        	<div class="panel-body">
-								<input id="orderSearchBar" name="keyName" placeholder="請輸入關鍵字" style="color: gray;"/>
+								<input id="orderSearchBar" name="keyName" placeholder="請輸入訂單編號" style="color: gray;"/>
 								<button type="button" id="orderSearchData" class="btn btn-info">搜尋</button>
 								<table class='table table-bordered' id='showAllOrderTable' >
 									<thead>

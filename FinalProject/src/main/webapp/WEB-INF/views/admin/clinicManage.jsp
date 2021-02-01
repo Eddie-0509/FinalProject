@@ -138,7 +138,7 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div id="container" class="container" style='width: 900px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
+				<input id="searchBar" name="keyName" placeholder="請輸入診所名稱">
 				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
 				<table class='table table-bordered' id='showAllClinicTable' >
 					<thead>
@@ -308,7 +308,7 @@
 		</c:choose>
 		str += "<td>${clinic.clinicStatus}</td>"
 		str += "<td><button type='button' id='clinicDetailBtn${clinic.clinicPkId}'>詳細資料</button>"
-		str += "<div style='display:none'><form id='clinicDetail${clinic.clinicPkId}' action='${pageContext.request.contextPath}/clinicManage_Detail' method='get'><input name='clinicPkId' value='${clinic.clinicPkId}'/></form></div></td>";
+		str += "<div style='display:none'><form id='clinicDetail${clinic.clinicPkId}' action='${pageContext.request.contextPath}/clinicManage_Detail' method='POST'><input name='clinicPkId' value='${clinic.clinicPkId}'/></form></div></td>";
 		str += "</tr>"
 		</c:forEach>
 		$("#clinicBody").html(str);
@@ -337,7 +337,7 @@
 		}
 		str += "<td>"+clinic[i].clinicStatus+"</td>"
 		str += "<td><button type='button' id='clinicDetailBtn"+clinic[i].clinicPkId+"'>詳細資料</button>";
-		str += "<div style='display:none'><form id='clinicDetail"+clinic[i].clinicPkId+"' action='${pageContext.request.contextPath}/clinicManage_Detail' method='get'><input name='clinicPkId' value='"+clinic[i].clinicPkId+"'/></form></div></td>"
+		str += "<div style='display:none'><form id='clinicDetail"+clinic[i].clinicPkId+"' action='${pageContext.request.contextPath}/clinicManage_Detail' method='POST'><input name='clinicPkId' value='"+clinic[i].clinicPkId+"'/></form></div></td>"
 		str += "</tr>"
 		}
 		$("#clinicBody").html(str);

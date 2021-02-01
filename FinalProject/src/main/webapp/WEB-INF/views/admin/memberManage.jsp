@@ -139,7 +139,7 @@
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
 			<div id="container" class="container" style='width: 900px;'>
-				<input id="searchBar" name="keyName" placeholder="請輸入關鍵字">
+				<input id="searchBar" name="keyName" placeholder="請輸入會員姓名">
 				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
 				<table class='table table-bordered' id='showAllMemberTable' >
 					<thead>
@@ -275,7 +275,7 @@
 			//會員權限及ID來更改權限
 			str += "<div style='display:none'><form id='update_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/updateMemberStatus' method='post'><input name='memberPkId' value='"+members[i].memberPkId+"'/><input name='memberStatus' value='"+members[i].memberStatus+"'/></form></div>";
 			//查詢會員明細Form表單(隱藏)
-			str += "<div style='display:none'><form id='show_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/memberManage_Detail' method='get'><input name='memberPkId' value='"+members[i].memberPkId+"'/></form></div></td>";
+			str += "<div style='display:none'><form id='show_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/memberManage_Detail' method='POST'><input name='memberPkId' value='"+members[i].memberPkId+"'/></form></div></td>";
 			str += "</tr>";
 		}
 		$("#memberBody").html(str);
