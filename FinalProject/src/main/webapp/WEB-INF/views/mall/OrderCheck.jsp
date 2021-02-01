@@ -144,6 +144,12 @@ tr {
 	margin-right: 30px;
 }
 
+#gtotal {
+	color: red;
+	font-size: 25px;
+	font-weight: 900;
+}
+
 #dist {
 	margin-left: 30px;
 }
@@ -189,7 +195,7 @@ tr {
 }
 
 #discount {
-	color: red;
+	color: blue;
 }
 
 #finfo {
@@ -257,6 +263,7 @@ footer {
 	<input type="text" id="receiverr"><br><br>
 	<label><strong>連絡電話</strong></label><br>
 	<input type="text" id="phone"><br><br>
+	<button type="button" id="ibtn" class="btn btn-secondary">Input Data</button>
 </div>
 </div>
 
@@ -326,6 +333,8 @@ footer {
 		$(".btn-primary").click(checkCoupon);
 
 		$("#submit").click(goProcess);
+
+		$("#ibtn").click(inputData);
 		
 		$("#ucoupon").click(function(){
 			$("#icoupon").show();
@@ -456,12 +465,21 @@ footer {
 		fetch("checkCoupon?" + urlQuery, {
 			method : "POST"
 		}).then(function(response){
-			return response.json();
-		}).then(function(data){
-			if (data == "") {
+			if (response.ok) {
+				$("#cpdis").show();
+				return response.json();
+				
+			} else {
 				$("#cpname").text("優惠碼不存在");
+				$("#cpdis").hide();
 				couponid = "";
 				cpDis = 1;
+				cal();
+			}
+			
+		}).then(function(data){
+			if (data == undefined) {
+				
 			} else {
 			let cpName = data.couponName;
 			couponid = data.couponPkId;
@@ -505,7 +523,15 @@ footer {
 		let re2 = /\<\/span\>\<i class=\"bi bi-plus-square\"\>\<\/i\>/gi;
 		cookiestr = $("#olist").html().replace(re1, '').replace(re2, '');
 		Cookies.set("cart", cookiestr, { expires: 7 });
-		console.log("str = " + cookiestr);
+	}
+
+
+	function inputData(){
+		$("#city").val(1).selected=true;
+		getDist();
+		$("#address").val("信義路三段153號");
+		$("#receiverr").val("王小明");
+		$("#phone").val("0987654321");
 	}
 </script>
 </html>
