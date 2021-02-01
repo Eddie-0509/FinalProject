@@ -312,6 +312,7 @@ footer {
 		<i class="bi bi-house"></i>
 		<i class="bi bi-person-fill"></i>
 		<i class="bi bi-cart4"></i>
+		<i class="bi bi-door-open-fill"></i>
 		</span>
 	</div>
 
@@ -396,13 +397,13 @@ footer {
 					</div>
 							<div id="lchoose">
 								<a href="">登入</a>
-								<a href="">註冊</a>
+								<a href="member">註冊</a>
 							</div>
 								<div id="formcontainer">
 								<div id="lcontainer">
 									<span id="errorMsg" style="color: red; text-align: center; display:block;">${errorMsg}</span><br/>
-									<label for="uname"><strong>身分證字號</strong></label>
-									<input type="text" placeholder="請輸入身分證字號" name="account" id="uname" required autofocus><br><br>
+									<label for="uname"><strong>帳　　　號</strong></label>
+									<input type="text" placeholder="請輸入E-mail" name="account" id="uname" required autofocus><br><br>
 					
 									<label for="upsw"><strong>密　　　碼</strong></label>
 									<input type="password" placeholder="請輸入密碼" name="pwd" id="upsw" required>
@@ -463,8 +464,16 @@ footer {
 					});
 
 					$(".bi-person-fill").click(function(){
-						alert("...");
+						window.location.href="${pageContext.request.contextPath}/memberOrderTracking";
 					});
+
+					$(".bi-door-open-fill").click(function(){
+						window.location.href="${pageContext.request.contextPath}/memberLogout";
+					});
+
+					if ("${LoginOK}" == "") {
+						$(".bi-door-open-fill").hide();
+					}
 					
 					$(".bi-cart4").click(function(){
 						$("#cart").modal("show");

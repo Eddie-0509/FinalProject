@@ -118,6 +118,7 @@ footer {
 		<span class=icon>
 			<i class="bi bi-house"></i>
 			<i class="bi bi-person-fill"></i>
+			<i class="bi bi-door-open-fill"></i>
 		</span>
 	</div>
 
@@ -198,6 +199,14 @@ footer {
 	$(document).ready(function(){
 		$(".bi-house").click(function(){
 			window.location.href="${pageContext.request.contextPath}";
+		});
+
+		$(".bi-person-fill").click(function(){
+			window.location.href="${pageContext.request.contextPath}/memberOrderTracking";
+		});
+
+		$(".bi-door-open-fill").click(function(){
+			window.location.href="${pageContext.request.contextPath}/memberLogout";
 		});
 
 		Cookies.remove("cart");
