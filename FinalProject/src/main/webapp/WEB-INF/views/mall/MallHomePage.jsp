@@ -371,7 +371,7 @@ footer {
             <div class="modal-header">
             <h4 id="ctitle" class="modal-title">購物車</h4></div>
             <div class="modal-body experimentMakeAnOffer">
-            	<p id="empty" style="font-size: 35px; text-align: center;"><br><br><br>購物車是空的 Q_Q</p>
+            	<p id="empty" style="font-size: 35px; text-align: center;"><br><br><br>購物車是空的</p>
             	<div id="ccontent"></div>         
             </div>
             <div class="modal-footer">
