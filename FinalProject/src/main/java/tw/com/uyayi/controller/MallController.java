@@ -153,7 +153,7 @@ public class MallController {
 			detail.setProductBean(pService.getProductsById(Integer.valueOf(allItems[i])));
 			detail.setOrderQuantity(Integer.valueOf(allQty[i]));
 			pService.insertOrderDetail(detail);
-			plist += pService.getProductsById(Integer.valueOf(allItems[i])).getProductName();
+			plist += pService.getProductsById(Integer.valueOf(allItems[i])).getProductName() + "#";
 		}	
 
 		LocalDateTime now = LocalDateTime.now();
@@ -167,11 +167,7 @@ public class MallController {
 		obj.setTotalAmount(Integer.toString(orders.getTotalPayment()));
 		obj.setTradeDesc("test Description");
 		obj.setItemName(plist);
-<<<<<<< Updated upstream
-		obj.setReturnURL("http://743a61a1a04c.ngrok.io/FinalProject/updateOrderStatus");  //這裡放ngrok的網址
-=======
-		obj.setReturnURL("http://bf77f62897f5.ngrok.io/FinalProject/updateOrderStatus");  //這裡放ngrok的網址
->>>>>>> Stashed changes
+		obj.setReturnURL("http://93471c92681a.ngrok.io/FinalProject/updateOrderStatus");  //這裡放ngrok的網址
 		obj.setClientBackURL("http://localhost:9998/FinalProject/orderComplete");   // 這裡放這樣的網址"http://localhost:9998/FinalProject/XXXX" 會生出按鍵刷卡完可以按回我們的網頁
 		obj.setCustomField1(Integer.toString(orders.getOrderPkId()));
 		obj.setNeedExtraPaidInfo("N");

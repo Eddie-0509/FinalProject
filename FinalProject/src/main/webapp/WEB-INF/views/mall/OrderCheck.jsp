@@ -195,7 +195,7 @@ tr {
 }
 
 #discount {
-	color: blue;
+	color: red;
 }
 
 #finfo {
