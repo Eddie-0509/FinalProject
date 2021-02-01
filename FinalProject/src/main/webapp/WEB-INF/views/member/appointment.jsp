@@ -351,21 +351,23 @@
 	</div>
 
 	<script>
+	     $(document).ready(function(){
+		  if(${errorMsg=='帳號密碼錯誤'}){
+		   $("#memberModal").modal('show');}
+		 })
 		//設定是否有登入session時顯示的bar
 		$(function() {
 
 			if ("${LoginOK}" == "") {
-				$("#fh5co-nav ul")
-						.html(
-								"<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
+				$("#fh5co-nav ul").html(
+								        "<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"			
 										+ "<li class='animate-box fadeInUp animated fh5co-active'><a href='#' class='transition'>立即預約</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href data-toggle='modal' data-target='#memberModal' >用戶登入</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>");
 			} else {
-				$("#fh5co-nav ul")
-						.html(
-								"<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
+				$("#fh5co-nav ul").html(
+								        "<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberModify' class='transition'>會員資料</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberFirstVisit' class='transition'>會員初診</a></li>"
@@ -470,10 +472,10 @@
 								jsonLength++;
 								}
 								for (var i = 0; i < data.length; i++) {
-														str += "<div style='margin-left:20px'><span style='display:none'>"
+														str += "<div style='margin-left:20px'><span id='clinicid' style='display:none'>"
 																+ data[i].clinicBean.clinicPkId
 																+ "</span>"
-																+ "<span style='display:none'>"
+																+ "<span id='dentistid' style='display:none'>"
 																+ data[i].dentistPkId
 																+ "</span>"
 																+ data[i].dentistName
@@ -503,8 +505,8 @@
 													console.log(goprocess());
 													event.stopImmediatePropagation();
 													//塞值進隱藏欄位
-													$("#mclinic").val($("#apclinic").text());
-													$("#mdentist").val($("#apdentist").text());
+													$("#mclinic").val($("#clinicid").text());
+													$("#mdentist").val($("#dentistid").text());
 													$("#mappointdate").val($("#date").val());
 													$("#mtimetable").val($("#time").val());
 													$("#mitem").val($("#item").val());
@@ -538,8 +540,7 @@
 							if (data) {
 							window.location.href = "${pageContext.request.contextPath}/appointmentCheckLogin";
 							} else {
-							$("#errorMsg").text(
-							"帳號密碼錯誤");
+							$("#errorMsg").text("帳號密碼錯誤");
 							}
 						});
 					});
