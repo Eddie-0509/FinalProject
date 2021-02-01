@@ -58,18 +58,14 @@ public class AppointmentController {
 	
 	//進入此預約畫面便可直接帶入項目和城市讓使用者選擇
 	@GetMapping(value = "/appointment")
-	public String getAllCity(Model model,@ModelAttribute("LoginOK") Member mb) {
+	public String getAllCity(Model model) {
 		List<City> cities = signUpService.getAllCity();
 		model.addAttribute("cities", cities);
 		List<Items> items = appointmentService.getAllItems();
 		model.addAttribute("items", items);
-		MemberDetails md = memberService.getMemberDetailByPkId(mb.getMemberPkId());
-		if(md==null) {
-			return "member/memberFirstVisit";
-		}else {
 		    return "member/appointment";
       	}
-	  }
+	  
 	
 	
     //讀取使用者選擇的日期，利用weekDay取值

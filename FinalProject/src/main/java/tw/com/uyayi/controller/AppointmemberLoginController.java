@@ -63,13 +63,20 @@ public class AppointmemberLoginController {
 				ap.setPatientIdNumber(mb.getMemberIdNumber());
 				ap.setPatientName(mb.getMemberName());
 				ap.setPatientPhone(mb.getMemberPhone());
+				if(mb.getMemberStatus().equals("未開通")) {
+					return "member/memberNotYetOpened";
+				} else if(mb.getMemberStatus().equals("已開通")){
+					return "member/memberFirstVisit";			
+				}else if(mb.getMemberStatus().equals("已填寫")){
 				appointmentservice.InsertAppointment(ap);  //新增預約紀錄
 				appointmentservice.showAppointRecord(mb.getMemberPkId()); //新增後顯示預約紀錄
 				appointmentservice.showAppointRecordAfterToday(mb.getMemberPkId()); //新增後顯示預約紀錄
 				return "redirect:appointmentRecord";       //返回預約紀錄頁面
-			}else {
+			    }else {
 				ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回預約頁面並重新選填後預約
 				return "redirect:appointment";
+			    }
 			}
-		}
-}
+		  	    return "redirect:appointment";
+	    }
+   }

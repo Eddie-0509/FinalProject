@@ -129,8 +129,8 @@
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">會員資料</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
-			    <li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">立即預約</a></li>
-				<li class="animate-box"><a href="<c:url value='/memberFirstVisit'/>" class="transition">預約紀錄</a></li>
+				<li class="animate-box "><a href="<c:url value='appointment'/>" class="transition">立即預約</a></li>
+				<li class="animate-box fh5co-active"><a href="<c:url value='/appointmentRecord'/>" class="transition">預約紀錄</a></li>
 				<li class="animate-box"><a href="<c:url value='/memberOrderTracking'/>" class="transition">訂單查詢</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
