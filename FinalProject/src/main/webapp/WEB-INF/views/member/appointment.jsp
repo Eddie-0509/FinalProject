@@ -229,7 +229,7 @@
 								</span> <select name="clinicCity" id="city"
 									class="form-control form-control-lg"
 									style="display: inline; width: 40%;">
-									<option id="clinicCityDefault" disabled selected>請選擇</option>
+									<option id="clinicCityDefault" disabled selected value="0">請選擇</option>
 									<c:forEach var="city" items="${cities}" varStatus="vs">
 										<option value="${city.cityPkId}">${city.cityName}</option>
 									</c:forEach>
@@ -237,7 +237,7 @@
 								</span> <select name="clinicDist" id="dist"
 									class="form-control form-control-lg"
 									style="display: inline; width: 40%">
-									<option id="distDefault" value="0" selected disabled>請選擇</option>
+									<option id="distDefault" value="0" selected disabled value="0">請選擇</option>
 								</select> <br>
 							</div>
 							<span> <label for="date">您想選擇的日期：</label>
@@ -246,11 +246,11 @@
 							<select name="time" id="time"
 								class="form-control form-control-lg"
 								style="display: inline; width: 40%">
-								<option id="timedefault" selected disabled>請選擇</option>
+								<option id="timedefault" selected disabled value="0">請選擇</option>
 							</select> <span><label for="item"><strong>治療項目：</strong></label></span> <select
 								name="item" id="item" class="form-control form-control-lg"
 								style="display: inline; width: 40%">
-								<option id="itemdefault" selected disabled>請選擇</option>
+								<option id="itemdefault" selected disabled value="0">請選擇</option>
 								<c:forEach var="item" items="${items}">
 									<option value="${item.itemPkId}">${item.itemName}</option>
 								</c:forEach>
@@ -358,7 +358,7 @@
 				$("#fh5co-nav ul")
 						.html(
 								"<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
-										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"
+										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"			
 										+ "<li class='animate-box fadeInUp animated fh5co-active'><a href='#' class='transition'>立即預約</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href data-toggle='modal' data-target='#memberModal' >用戶登入</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>");
@@ -367,9 +367,11 @@
 						.html(
 								"<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"
+										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberModify' class='transition'>會員資料</a></li>"
+										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberFirstVisit' class='transition'>會員初診</a></li>"
 										+ "<li class='animate-box fh5co-active fadeInUp animated'><a href='#' class='transition'>立即預約</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/appointmentRecord' class='transition'>預約紀錄</a></li>"
-										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberModify' class='transition'>會員資料</a></li>"
+										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberOrderTracking' class='transition'>訂單查詢</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberLogout' class='transition'>登出</a></li>");
 			}
@@ -468,12 +470,12 @@
 								jsonLength++;
 								}
 								for (var i = 0; i < data.length; i++) {
-														str += "<div><span style='display:none'>"
+														str += "<div style='margin-left:20px'><span style='display:none'>"
 																+ data[i].clinicBean.clinicPkId
 																+ "</span>"
 																+ "<span style='display:none'>"
 																+ data[i].dentistPkId
-																+ "</span>" + "<span class='modalspan'></span>"
+																+ "</span>"
 																+ data[i].dentistName
 																+ "<br>"
 																+ data[i].clinicBean.clinicName
@@ -485,7 +487,7 @@
 													}
 													$("#den").html(str);
 													//點下搜尋按鈕會跳出modal彈窗
-													$("#searchresult").modal('show');
+													$("#searchresult").modal('show');                  
 													str1 = "<div>" + $("#date").val() + "/" + $("#city option[value=" + $("#city").val()+ "]").text() + "/" + $("#dist option[value=" 
 													+ $("#dist").val()+ "]").text() + "/項目:" + $("#item option[value=" + $("#item").val() + "]").text() + "<div>";
 													$("#searchtitle").html(str1);
