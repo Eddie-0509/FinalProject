@@ -219,9 +219,9 @@ line-height: 33.600px;
 								type="text" name="clinicAddress" id="clinicAddress">
 							<div>
 							<label for="upload">上傳診所圖片</label><br/>
-  							<input id="upload" type="file" accept="image/*" >
-  							<input type="button" id="imageUpload" value="上傳" style="color : black;">
-							<input type="hidden" id="clinicImage" name="clinicImage" value="defaultImage">
+  							<input id="upload" type="file" accept="image/*" name="clinicFile" >
+<!--   							<input type="button" id="imageUpload" value="上傳" style="color : black;"> -->
+<!-- 							<input type="hidden" id="clinicImage" name="clinicImage" value="defaultImage"> -->
 							</div>
 <!-- 								<input type="hidden"  name="clinicLocation"> -->
 <!-- 								<input type="hidden"  name="clinicStartTime"> -->
@@ -269,7 +269,7 @@ line-height: 33.600px;
 			flagPwd=true
 			flagEmail = true
 			flagPhone = true
-			flagImage = true
+// 			flagImage = true
 			flagClinicPwdCheck = true
 			
 		})
@@ -326,7 +326,7 @@ line-height: 33.600px;
 		var flagEmail = false;
 		var checkEmail = false;
 		var flagPhone = false;
-		var flagImage = true;
+// 		var flagImage = true;
 		var flagClinicPwdCheck=false;
 		$(function() {
 			
@@ -499,56 +499,57 @@ line-height: 33.600px;
 
 							});
 			//  使用imgur API 上傳圖片 取得圖片網址
-			var x="";
-			$("#upload").change(function(e){
-				flagImage=false;
-				 x = e.target.files[0]; // get file object
-				});
+// 			var x="";
+// 			$("#upload").change(function(e){
+// 				flagImage=false;
+// 				 x = e.target.files[0]; // get file object
+// 				 console.log(x);
+// 				});
 				 
 			
-			$("#imageUpload").click(function(){
-				flagImage=false;
-				var form = new FormData();
-				form.append("image", x);   //設定 圖片file值
-				form.append("album", 'gMbwr3Z')  // 設定圖片存到哪一個相簿
+// 			$("#imageUpload").click(function(){
+// 				flagImage=false;
+// 				var form = new FormData();
+// 				form.append("image", x);   //設定 圖片file值
+// 				form.append("album", 'gMbwr3Z')  // 設定圖片存到哪一個相簿
 				
-				var settings = {
-						  "async": true,
-					      "crossDomain": true,
-					      "processData": false,
-					      "contentType": false,
-						  "url": "https://api.imgur.com/3/image",
-						  "method": "POST",
-						  "timeout": 0,
-						  "headers": {
-							"Authorization": 'Bearer ' + "9d5b4a203ea24b781851009260d5138e60b510b9"
-						  },
-						  "processData": false,
-						  "mimeType": "multipart/form-data",
-						  "contentType": false,
-						  "data": form
-						};
-				$.ajax(settings).done(function (response) {  // 使用ajax 取得imgur網址
-					let resJSON = JSON.parse(response);  
-					let imageStr = resJSON.data.link;
-					$("#clinicImage").attr("value", imageStr);
-					flagImage=true;
-// 					window.alert("上傳成功");
-					imageSuccess();
-					$("body > dialog > div > div.simple-modal-button-group").children().remove();
+// 				var settings = {
+// 						  "method":"POST",
+// 						  "url": "https://api.imgur.com/3/image",
+// 						  "headers": {
+// 						  "Authorization": "Bearer 83104ee9305c5df78a74dc0d479e208342f876ad",
+// 						  "Access-Control-Allow-Headers":"Authorization, Content-Type, Accept, X-Mashape-Authorization, IMGURPLATFORM, IMGURUIDJAFO, SESSIONCOUNT, IMGURMWBETA, IMGURMWBETAOPTIN",
+// 						  "Access-Control-Allow-Origin": "*",
+// 						  "Access-Control-Allow-Methods":"GET, PUT, POST, DELETE, OPTIONS",
+// 						  "Access-Control-Allow-Credentials" :"true"
+// 						  },		
+// 						  "processData": false,
+// 						  "mimeType": "multipart/form-data",
+// 						  "contentType": "multipart/form-data",
+// 						  "data": form,
+						  
+// 						};
+// 				$.ajax(settings).done(function (response) {  // 使用ajax 取得imgur網址
+// 					let resJSON = JSON.parse(response);  
+// 					let imageStr = resJSON.data.link;
+// 					$("#clinicImage").attr("value", imageStr);
+// 					flagImage=true;
+// // 					window.alert("上傳成功");
+// 					imageSuccess();
+// 					$("body > dialog > div > div.simple-modal-button-group").children().remove();
 
-					});
-			})
+// 					});
+// 			})
 			
 			// 驗證每一個欄位都填寫正確再送出資料 並且上傳成功
 			$("#formButton").click(function(){
-				if(flagPwd && flagEmail &&flagPhone && flagImage&&flagClinicPwdCheck){
+				if(flagPwd && flagEmail &&flagPhone&&flagClinicPwdCheck){
 // 				  $("#clinicForm").submit();
 					confirmClinic();
-				}else if (flagPwd && flagEmail &&flagPhone &&flagClinicPwdCheck&& (flagImage==false)){
-// 					window.alert("請等候圖片上傳");
-					waitImage();
-					$("body > dialog > div > div.simple-modal-button-group").children().remove();
+// 				}else if (flagPwd && flagEmail &&flagPhone &&flagClinicPwdCheck&& (flagImage==false)){
+// // 					window.alert("請等候圖片上傳");
+// 					waitImage();
+// 					$("body > dialog > div > div.simple-modal-button-group").children().remove();
 
 				}else{
 // 					window.alert("請輸入正確資料再送出");

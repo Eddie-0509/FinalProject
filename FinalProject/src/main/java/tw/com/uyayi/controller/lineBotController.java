@@ -151,7 +151,8 @@ public class lineBotController {
 		String clinicName = clinic.getClinicName();
 		for (int i = 0; i < appointOfClinic.size(); i++) {
 			if(appointOfClinic.get(i).getMemberReply().equals("未回覆")) {
-			System.out.println("MOTHER FUCK"+appointOfClinic.get(i).getMemberReply());	
+				if(appointOfClinic.get(i).getMemberBean()!=null) {
+					
 			String userId = appointOfClinic.get(i).getMemberBean().getMemberLineId();
 //			String urlString = "<a herf='https://f13511948f9a.ngrok.io/FinalProject/checkArrive?fdewdewrgtjk78kt43vd&cid="+clinic.getClinicPkId()+"&vddveeew&mid="+appointOfClinic.get(i).getMemberBean().getMemberPkId()+"&qwerqewgfrhytjd'>請點擊連結來回覆診所是否到診</a>";
 			String dentistName = appointOfClinic.get(i).getDentistBean().getDentistName();
@@ -163,8 +164,8 @@ public class lineBotController {
 					+"時間:"+appointTime+"\n";
 					
 			
-			URI uri1 = new URI("https://743a61a1a04c.ngrok.io/FinalProject/appointmentYes?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
-			URI uri2 = new URI("https://743a61a1a04c.ngrok.io/FinalProject/appointmentNo?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
+			URI uri1 = new URI("https://9689facef272.ngrok.io/FinalProject/appointmentYes?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
+			URI uri2 = new URI("https://9689facef272.ngrok.io/FinalProject/appointmentNo?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
 			AltUri altUri1 = new AltUri(uri1);
 			AltUri altUri2 = new AltUri(uri2);
 			Action a1 =new URIAction("是",uri1,altUri1);
@@ -204,6 +205,7 @@ public class lineBotController {
 			client.pushMessage(pushText);
 			Thread.sleep(300);
 			client.pushMessage(pushMessage);
+				}
 			}
 		}
 	return "OK";

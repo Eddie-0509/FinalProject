@@ -1,15 +1,22 @@
 package tw.com.uyayi.controller;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +24,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutPeriod;
 import javassist.Loader.Simple;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import tw.com.uyayi.dao.impl.Mail;
 import tw.com.uyayi.dao.impl.MailCheck;
 import tw.com.uyayi.model.City;
@@ -30,7 +44,7 @@ import tw.com.uyayi.service.ClinicReviseService;
 import tw.com.uyayi.service.ClinicSignUpService;
 
 @Controller
-@SessionAttributes("loginOK")
+@SessionAttributes({"loginOK","clinicBean"})
 public class ClinicSignUpController {
 	@Autowired
 	ClinicSignUpService signUpService;
@@ -71,7 +85,7 @@ public class ClinicSignUpController {
 	
 	// 接收表單資料用 並寫入資料庫
 	@PostMapping(value ="/signUp")
-	public String processSignUp(@ModelAttribute("clinic") Clinic clinic) {
+	public String processSignUp(@ModelAttribute("clinic") Clinic clinic, @RequestParam(value = "clinicFile",required = false) MultipartFile file) throws IOException {
 		System.out.println(clinic.getClinicCityId());
 		
 		City cityBean = signUpService.getCityBean(clinic.getClinicCityId());
@@ -79,9 +93,33 @@ public class ClinicSignUpController {
 		clinic.setCityBean(cityBean);
 		clinic.setDistBean(distBean);
 		
+		InputStream is = file.getInputStream();
+		
+		String base64 = Base64.getEncoder().encodeToString(is.readAllBytes());
+		
+		OkHttpClient client = new OkHttpClient().newBuilder()
+				  .build();
+		MediaType mediaType = MediaType.parse("text/plain");
+		RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+		  .addFormDataPart("image", base64)
+		  .build();
+		Request request = new Request.Builder()
+		  .url("https://api.imgur.com/3/image")
+		  .method("POST", body)
+		  .addHeader("Authorization", "Bearer 83104ee9305c5df78a74dc0d479e208342f876ad")
+		  .build();
+		try {
+			 String responseString = client.newCall(request).execute().body().string();
+			JSONObject jsonObject = new JSONObject(responseString);
+			clinic.setClinicImage((String) jsonObject.getJSONObject("data").getString("link"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		//設定開始日期
 		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String dStr = sdf.format(d);
 		java.sql.Date sqlDate = java.sql.Date.valueOf(dStr);
 		clinic.setClinicStartTime(sqlDate);
@@ -117,7 +155,7 @@ public class ClinicSignUpController {
 		obj.setTotalAmount("2000");
 		obj.setTradeDesc("test Description");
 		obj.setItemName("TestItem");
-		obj.setReturnURL("http://743a61a1a04c.ngrok.io/FinalProject/behindPayment");
+		obj.setReturnURL("http://9689facef272.ngrok.io/FinalProject/behindPayment");
 //		obj.setOrderResultURL("http://localhost:9998/FinalProject/afterPayment");
 		obj.setClientBackURL("http://localhost:9998/FinalProject/afterPayment");
 		obj.setNeedExtraPaidInfo("N");
@@ -134,14 +172,14 @@ public class ClinicSignUpController {
 	}
 	
 	@PostMapping(value = "/behindPayment")
-	public void getPaymentFeedBack(
+	public @ResponseBody String getPaymentFeedBack(
 			@RequestParam("RtnCode") int rtnCode,
 			@RequestParam("CustomField1") String clinicId,
 			Model model) {
 		if(rtnCode==1) {
 			int clinicPkId = Integer.valueOf(clinicId);
 			Date d = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String dStr = sdf.format(d);
 			java.sql.Date sqlDate = java.sql.Date.valueOf(dStr);
 			Calendar ca = Calendar.getInstance();
@@ -152,10 +190,17 @@ public class ClinicSignUpController {
 			signUpService.changePaymentStatus(clinicPkId, finalDate, sqlDate);
 			model.addAttribute("loginOK",clinicReviseService.getClinicById(clinicPkId));
 		}
+		return "OK";
 	}
 	@GetMapping("/afterPayment")
 	public String afterGetPaid(Model model) {
+		
 		return "redirect:/clinicCalendar";
+	}
+//	@CrossOrigin(origins = "*",  allowedHeaders = "*")
+	@GetMapping("/ajaxTest")
+	public String testAjax() {
+		return "tesyAjax";
 	}
 	
 }

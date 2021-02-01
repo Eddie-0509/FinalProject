@@ -10,6 +10,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -83,5 +84,15 @@ public class WebAppConfig implements WebMvcConfigurer {
 		resolver.setMaxUploadSize(81920000);
 		return resolver;
 	}
+	
+
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**/**").allowedOrigins("*").allowedMethods("POST")
+//                .allowedHeaders("Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method",
+//                        "Access-Control-Request-Headers")
+//                .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
+//                .allowCredentials(true).maxAge(3600).allowedOrigins("https://api.imgur.com");
+//    }
 	
 }

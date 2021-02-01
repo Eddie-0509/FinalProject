@@ -629,6 +629,7 @@
 			a_flagSpec=true;
 			a_flagPrice=true;
 			a_flagQuantity=true;
+			a_flagImage=true;
 			$("#a_checkName").html("");
 			$("#a_checkProfile").html("");
 			$("#a_checkSpec").html("");

@@ -62,6 +62,7 @@ public class ClinicLogInController {
 				return "clinic/clinicNotCheck";
 			}else if(clinic.getClinicStatus().equals("已驗證")) {
 				model.addAttribute("clinicBean",clinic);
+				model.addAttribute("loginOK",clinic);
 				return "clinic/clinicNotPay";
 			}else {
 			   model.addAttribute("loginOK",clinic);
