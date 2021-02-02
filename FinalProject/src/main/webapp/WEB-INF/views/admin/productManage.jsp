@@ -20,6 +20,8 @@
 <meta name="keywords"
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 
 <!-- 
 	//////////////////////////////////////////////////////
@@ -129,7 +131,9 @@
 		color: red;
 	}
 </style>
-	
+	<link rel="stylesheet" href="css/calendar_confirm-modal.css">
+	<script src="js/admin_addProduct.js"></script>
+	<script src="js/admin_updateProduct.js"></script>
 </head>
 
 <body>
@@ -245,10 +249,10 @@
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
 							<label for="upload" >上傳產品圖片</label><span id ="a_checkimage"></span>
-  							<input id="a_upload" type="file" accept="image/*" multiple="multiple" />
-  							<img id="a_preview_productImg" src="#" alt="your image" style="width: 300px" />
-  							<input type="button" id="a_imageUpload" value="上傳"><br/>
-  							<input type='hidden' id='a_hiddenProductImage' name='productImage' value='#'/>
+  							<input name="a_productFile" id="a_upload" type="file" accept="image/*" multiple="multiple" />
+  							<div style="text-align: center;">
+  							<img id="a_blah" src="#" alt="your image" style="width: 300px;" />
+  							</div>
 						</div>
 					</div>
 				</div>
@@ -273,7 +277,7 @@
 				<div class="formcontainer">
 					<div class="containerF">
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productCategory" ><strong>產品類別</strong></label><span id="checkCategory"></span>
+						<label for="productCategory" ><strong>產品類別:</strong></label><span id="checkCategory"></span>
 							<select name="productCategory" id="u_Category">
 							<option id ="u_電動牙刷" value="電動牙刷" selected="selected">電動牙刷</option>
 							<option id ="u_沖牙機" value="沖牙機">沖牙機</option>
@@ -282,38 +286,40 @@
 							</select>
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productName"><strong>產品名稱</strong></label><span id="u_checkName" class="spanCheck"></span><br/>
+						<label for="productName"><strong>產品名稱:</strong></label><span id="u_checkName" class="spanCheck"></span><br/>
 						<input type="text" id="u_productName" name="productName" placeholder="請輸入產品名稱" style="width: 90%"/><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productProfile" ><strong>產品簡介</strong></label><span id="u_checkProfile" class="spanCheck"></span><br/>
+						<label for="productProfile" ><strong>產品簡介:</strong></label><span id="u_checkProfile" class="spanCheck"></span><br/>
 						<textarea id="u_productProfile" name="productProfile" placeholder="請輸入產品簡介" style="width: 90%"></textarea><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productSpec"><strong>產品規格</strong></label><span id="u_checkSpec" class="spanCheck"></span><br/>
+						<label for="productSpec"><strong>產品規格:</strong></label><span id="u_checkSpec" class="spanCheck"></span><br/>
 						<textarea id="u_productSpec" name="productSpec" placeholder="請輸入產品規格" style="width: 90%"></textarea><br/>						
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productPrice"><strong>產品價格</strong></label><span id="u_checkPrice" class="spanCheck"></span><br/>
+						<label for="productPrice"><strong>產品價格:</strong></label><span id="u_checkPrice" class="spanCheck"></span><br/>
 						<input type="text" id="u_productPrice" name="productPrice" placeholder="請輸入產品價格" style="width: 90%"/><br/>																
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productQuantity"><strong>產品數量</strong></label><span id="u_checkQuantity" class="spanCheck"></span><br/>
+						<label for="productQuantity"><strong>產品數量:</strong></label><span id="u_checkQuantity" class="spanCheck"></span><br/>
 						<input type="text" id="u_productQuantity" name="productQuantity" placeholder="請輸入產品數量" style="width: 90%"/><br/>																
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-						<label for="productStutas"><strong>產品狀態</strong></label>
+						<label for="productStutas"><strong>產品狀態:</strong></label>
 						<input type="radio" name="productStatus" value="下架" checked="checked">下架
 						<input type="radio" name="productStatus" value="上架" >上架<br/>
 						</div>
 						<div style="padding-left: 10px;margin-top: 10px">
-							<label for="upload" >上傳產品圖片</label>
-  							<input id="u_upload" type="file" accept="image/*" multiple="multiple" />
-  							<img id="u_preview_productImg" src="#" alt="your image" style="width: 300px" />
-  							<input type="button"  id="u_imageUpload" value="上傳"><br/>
-  							<input type='hidden' id='u_hiddenProductImage' name='productImage' value='#' >
+							<label for="upload" >修改產品圖片</label>
+  							<input name="u_productFile" id="u_upload" type="file" accept="image/*" multiple="multiple" />
+  							<div style="text-align: center;">
+  							<img id="u_blah" src="#" alt="your image" style="width: 300px;" /><br>
+  							<label>目前圖片</label>
+  							</div>
 						</div>
 						<input type="text" id="u_productId" name="productPkId" hidden="hidden"/>
+						<input type="text" id="u_productImage" name="productImage" hidden="hidden"/>
 					</div>
 				</div>
 				</form:form>	
@@ -331,6 +337,7 @@
 				<input id="searchBar" name="keyName" placeholder="請輸入產品名稱" style="color: gray"/>
 				<button type="button" class="btn btn-info" id="searchData">搜尋</button>
 				<button type="button" class="btn btn-success" id="addProductBtn" value="新增產品" >新增產品</button>
+				<span ><a href="javascript:void(0)" id="searchDemo">demo</a></span>
 				<table class='table table-bordered' id='showAllProductTable' >
 					<thead>
 						<tr>
@@ -401,7 +408,33 @@
 	<script>
 	let model = ${products};
 	let products = model.product;
-	
+	function a_readURL(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    
+		    reader.onload = function(e) {
+		      $('#a_blah').attr('src', e.target.result);
+		    }
+		    
+		    reader.readAsDataURL(input.files[0]); // convert to base64 string
+		  }
+		}
+	function u_readURL(input) {
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    
+		    reader.onload = function(e) {
+		      $('#u_blah').attr('src', e.target.result);
+		    }
+		    
+		    reader.readAsDataURL(input.files[0]); // convert to base64 string
+		  }
+		}
+
+		
+		$("#u_upload").change(function(e) {
+			u_readURL(this);
+		});
 	// 	產品清單表格內容生成及新增修改按鈕綁定
 	function showData(){			
 		//顯示產品資料
@@ -422,6 +455,7 @@
 			//綁定修改按鍵
 		for(let i = 0; i < products.length; i++) {
 			$("#updateProductBtn"+products[i].productPkId).click(function(){
+				$(".spanCheck").html("");
 				//修改表單欄位檢查
 				var u_flagName = true;
 				var u_flagProfile =true;
@@ -491,7 +525,7 @@
 						u_flagQuantity = true;
 					}
 				});
-
+				//更改欄位資料填入
 				$("#u_"+products[i].productCategory).attr("selected","selected");
 				$("#u_productName").val(products[i].productName);
 				$("#u_productProfile").val(products[i].productProfile);
@@ -507,14 +541,16 @@
 					$('#updateProduct > div > div > div:nth-child(7) > input[type=radio]:nth-child(2)').prop("checked",false);
 					$('#updateProduct > div > div > div:nth-child(7) > input[type=radio]:nth-child(3)').prop("checked",true);																	
 				}
-				$("#u_preview_productImg").attr("src",products[i].productImage);
-				$("#u_hiddenProductImage").val(products[i].productImage);
+				$("#u_blah").attr("src",products[i].productImage);
+				$("#u_productImage").val(products[i].productImage);
 				$("#updateProductFormModal").modal('show');
+				
 				$("#updateFormButton").click(function(){
 					if(u_flagName && u_flagProfile && u_flagSpec && u_flagPrice && u_flagQuantity){
-						$("#updateProduct").submit();			
+						update_Product();			
 					}else{
-						alert("請重新確認表單內容");
+						u_wrongInput();
+						$("body > dialog > div > div.simple-modal-button-group").children().remove();
 					}
 				});
 				});
@@ -614,13 +650,15 @@
 						}
 						});	
 		});
+		$("#searchDemo").click(function(){
+			$("#searchBar").val("德");
+		});
 		//一鍵輸入新增表單內容
 		$("#addProductDemo").click(function(){
 			$("#電動牙刷").attr("selected","selected");
 			$("#a_productName").val("realme 聲波電動牙刷");
 			$("#a_productProfile").val("34,000次/分鐘磁浮聲波馬達");
-			$("#a_productSpec").val("顏色:白、藍");
-// 					<br>聲波馬達:34200 次/分<br>低噪音:60 dB<br>可選模式:4種(輕柔,清潔,美白,拋光)<br>模式記憶:V<br>單次刷牙時長:2分鐘");
+			$("#a_productSpec").val("聲波馬達:34200次/分");
 			$("#a_productPrice").val("999");
 			$("#a_productQuantity").val("100");
 			$('input:radio[name=productStatus][0]').checked = true;	
@@ -629,7 +667,6 @@
 			a_flagSpec=true;
 			a_flagPrice=true;
 			a_flagQuantity=true;
-			a_flagImage=true;
 			$("#a_checkName").html("");
 			$("#a_checkProfile").html("");
 			$("#a_checkSpec").html("");
@@ -652,11 +689,13 @@
 			$("#addProductFormModal").modal('show');
 			$("#addFormButton").click(function(){
 				if(a_flagName && a_flagProfile && a_flagSpec && a_flagPrice && a_flagQuantity && a_flagImage){
-					$("#addProduct").submit();			
+					addProduct();		
 				}else if(a_flagName && a_flagProfile && a_flagSpec && a_flagPrice && a_flagQuantity && (a_flagImage==false)){
-					alert("請等候圖片上傳");
+					a_inputWithoutImg();
+					$("body > dialog > div > div.simple-modal-button-group").children().remove();
 				}else{
-					alert("請重新確認表單內容");
+					a_wrongInput();
+					$("body > dialog > div > div.simple-modal-button-group").children().remove();
 				}
 			});
 		});
@@ -735,6 +774,10 @@
 		}
 	});
 	var a_flagImage = false;
+	$("#a_upload").change(function(e) {
+		a_readURL(this);
+		a_flagImage = true;
+	});
 
 	
 	//依更新時間排序
@@ -780,81 +823,7 @@
 	
 	
 
-	//新增表單上傳圖片						
-	//圖片上傳Imgur API功能
-	var a_targetImage="";		//Image物件陣列(input內有限制Image檔案類別)
-		$("#a_upload").change(function(e){
-		a_targetImage = e.target.files[0]; 
-		//e.target.files 會是一個陣列，裡面可以取得使用者所有想要上傳的檔案，陣列裡都是該檔案的 Blob 物件，而不是一般的物件。
-		//只有上傳一個檔案，所以使用 e.target.files[0] 即可取得使用者想要上傳的檔案	
-	});
-	$("#a_imageUpload").click(function(){
-		let form = new FormData();
-		form.append("image", a_targetImage);   //設定 圖片file值
-		//Setting內為Imgur Api required dateformat
-		let settings = {
-			"async": true,
-			"crossDomain": true,
-			"processData": false,
-			"contentType": false,
-			"url": "https://api.imgur.com/3/image",
-			"method": "POST","timeout": 0,
-			"headers": {
-				"Authorization": 'Bearer ' + "bccfb85ad1d0f01076103c177dba532354ac9cc2"
-				},//Oath2 Api token
-			"processData": false,
-			"mimeType": "multipart/form-data",
-			"contentType": false,
-			"data": form
-			};
-			$.ajax(settings).done(function (response) {  // 使用ajax 取得imgur網址
-				let resJSON = JSON.parse(response);  
-				let imageStr = resJSON.data.link;
-				console.log(imageStr);
-				$("#a_hiddenProductImage").val(imageStr);
-				$("#a_preview_productImg").attr("src",imageStr);
-				a_flagImage = true;
-				window.alert("上傳成功");
-			});
-	});
 	
-	//修改表單上傳圖片
-	//圖片上傳Imgur API功能
-	var u_targetImage="";		//Image物件陣列(input內有限制Image檔案類別)
-		$("#u_upload").change(function(e){
-		u_targetImage = e.target.files[0]; 
-		//e.target.files 會是一個陣列，裡面可以取得使用者所有想要上傳的檔案，陣列裡都是該檔案的 Blob 物件，而不是一般的物件。
-		//只有上傳一個檔案，所以使用 e.target.files[0] 即可取得使用者想要上傳的檔案	
-	});
-	$("#u_imageUpload").click(function(){
-		let form = new FormData();
-		form.append("image", u_targetImage);   //設定 圖片file值		
-		//Setting內為Imgur Api required dateformat
-		let settings = {
-			"async": true,
-			"crossDomain": true,
-			"processData": false,
-			"contentType": false,
-			"url": "https://api.imgur.com/3/image",
-			"method": "POST","timeout": 0,
-			"headers": {
-				"Authorization": 'Bearer ' + "bccfb85ad1d0f01076103c177dba532354ac9cc2"
-				},//Oath2 Api token
-			"processData": false,
-			"mimeType": "multipart/form-data",
-			"contentType": false,
-			"data": form
-			};
-			$.ajax(settings).done(function (response) {  // 使用ajax 取得imgur網址
-				let resJSON = JSON.parse(response);  
-				let imageStr = resJSON.data.link;
-				console.log(imageStr);
-				$("#u_hiddenProductImage").val(imageStr);
-				$("#u_preview_productImg").attr("src",imageStr);
-				u_flagImage = true;
-				window.alert("上傳成功");
-			});
-	});
 	//JSON轉換時間格式
 	function formatDate(date) {
 	    var d = new Date(date),
@@ -869,6 +838,61 @@
 
 	    return [year, month, day].join('-');
 	}
+	//新增商品確認彈窗
+	async function addProduct() {
+        this.myModal = new addNewProduct("確認", "確認商品資料填寫正確嗎?", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	//新增商品錯誤彈窗
+	async function a_inputWithoutImg() {
+        this.myModal = new addNewProduct("錯誤", "請先上傳圖片再送出", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	//新增商品錯誤彈窗
+	async function a_wrongInput() {
+        this.myModal = new addNewProduct("錯誤", "請輸入正確資料再送出", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	//修改商品確認彈窗
+	async function update_Product() {
+        this.myModal = new updateProduct("確認", "確認商品資料填寫正確嗎?", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	//修改商品錯誤彈窗
+	async function u_wrongInput() {
+        this.myModal = new updateProduct("錯誤", "請輸入正確資料再送出", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
 </script>
 
 </body>

@@ -1,6 +1,9 @@
 package tw.com.uyayi.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
+import java.util.Base64;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -12,7 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import tw.com.uyayi.model.Appointment;
 import tw.com.uyayi.model.Clinic;
 import tw.com.uyayi.model.Coupon;
@@ -77,9 +86,32 @@ public class AdminController {
 	}
 	//商品管理頁面(新增產品功能)
 	@PostMapping(value = "/addProduct")
-	public String addProduct(@ModelAttribute("addProduct") Products product) {
+	public String addProduct(@ModelAttribute("addProduct") Products product,
+			@RequestParam(value = "a_productFile",required = true) MultipartFile file) throws IOException {
 		Date sqldate = service.getToday();
 		product.setProductUpdateDate(sqldate);
+		InputStream is = file.getInputStream();
+		
+		String base64 = Base64.getEncoder().encodeToString(is.readAllBytes());
+		
+		OkHttpClient client = new OkHttpClient().newBuilder().build();
+		MediaType mediaType = MediaType.parse("text/plain");
+		RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+		  .addFormDataPart("image", base64)
+		  .build();
+		Request request = new Request.Builder()
+		  .url("https://api.imgur.com/3/image")
+		  .method("POST", body)
+		  .addHeader("Authorization", "Bearer 83104ee9305c5df78a74dc0d479e208342f876ad")
+		  .build();
+		try {
+			String responseString = client.newCall(request).execute().body().string();
+			JSONObject jsonObject = new JSONObject(responseString);
+			product.setProductImage(jsonObject.getJSONObject("data").getString("link"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		service.insertProduct(product);	
 		return "redirect:/productManage";
 	}
@@ -92,8 +124,31 @@ public class AdminController {
 	}
 	//商品管理頁面(更新產品功能)
 	@PostMapping(value = "/updateProduct")
-	public String updateProduct(@ModelAttribute("updateProduct") Products product) {
+	public String updateProduct(@ModelAttribute("updateProduct") Products product,
+			@RequestParam(value = "u_productFile", required = false) MultipartFile file) throws IOException {
 		Date sqldate = service.getToday();
+		//將前端傳入檔案轉為Base64編碼
+		if(!file.isEmpty()) {
+			InputStream is = file.getInputStream();
+			String base64 = Base64.getEncoder().encodeToString(is.readAllBytes());
+
+			OkHttpClient client = new OkHttpClient().newBuilder().build();
+			MediaType mediaType = MediaType.parse("text/plain");
+			RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("image", base64)
+					.build();
+			Request request = new Request.Builder().url("https://api.imgur.com/3/image").method("POST", body)
+					.addHeader("Authorization", "Bearer 241ee4a48823e975442d6d5249e7ab1e48df2637").build();
+			try {
+				String responseString = client.newCall(request).execute().body().string();
+				JSONObject jsonObject = new JSONObject(responseString);
+				String link = jsonObject.getJSONObject("data").getString("link");
+					product.setProductImage(link);	
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		product.setProductUpdateDate(sqldate);
 		service.updateProduct(product);	
 		return "redirect:/productManage";

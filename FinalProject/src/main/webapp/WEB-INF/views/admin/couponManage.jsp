@@ -113,6 +113,9 @@
 
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
+	<link rel="stylesheet" href="css/calendar_confirm-modal.css">
+	<script src="js/admin_addCoupon.js"></script>
+	<script src="js/admin_updateCoupon.js"></script>
 	<style type="text/css">
 	.spanCheck{
 		color: red;
@@ -236,27 +239,28 @@
 	
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-			<div id="container" class="container" style='width: 1000px;'>
+			<div id="container" class="container" style='width: 1200px;'>
 				<input id="searchBar" name="keyName" placeholder="請輸入折扣名稱">
 				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
 				<button type="button" id="addCoupon" class="btn btn-success">新增折扣碼</button>
+				<span ><a href="javascript:void(0)" id="searchDemo">demo</a></span>
 				<table class='table table-bordered' id='showAllCouponTable' >
 					<thead>
 						<tr>
-							<th style='width: 100px;'>序號</th>
-							<th style='width: 200px;'>折扣名稱</th>
-							<th style='width: 100px;'>折扣碼</th>
-							<th style='width: 100px;'>折扣內容</th>
-							<th style='width: 150px;'>折扣起始時間</th>
-							<th style='width: 150px;'>折扣結束時間</th>
-							<th style='width: 100px;'>
+							<th style='width: 5%;'>序號</th>
+							<th style='width: 20%;'>折扣名稱</th>
+							<th style='width: 19%;'>折扣碼</th>
+							<th style='width: 10%;'>折扣內容</th>
+							<th style='width: 13%;'>折扣起始時間</th>
+							<th style='width: 13%;'>折扣結束時間</th>
+							<th style='width: 10%;'>
 							<select name="h_couponStatus" id="h_couponStatus">
 									<option id ="狀態" value="狀態" selected="selected">狀態</option>
 									<option id ="有效" value="true" >有效</option>
 									<option id ="無效" value="false" >無效</option>
 								</select>
 							</th>
-							<th style='width: 100px;'></th>
+							<th style='width: 10%;'></th>
 						</tr>
 					</thead>
 					<tbody id="couponBody">
@@ -295,7 +299,9 @@
 	</div>
 	<script>
 	//新增表單欄位檢查
-	
+	$("#searchDemo").click(function(){
+		$("#searchBar").val("周年慶");
+	});
 	var a_flagName = false;
 	$("#a_couponName").blur(function(){
 		let nameVal = $("#a_couponName").val();
@@ -438,9 +444,10 @@
 		});
 		$("#addCouponButton").click(function(){
 			if(a_flagName && a_flagContext && a_flagCode && a_flagStartTime && a_flagEndTime){				
-			$("#addCouponForm").trigger("submit");
+				addCoupon();
 			}else{
-				alert("請正確輸入表格內容!");
+				a_wrongInput();
+				$("body > dialog > div > div.simple-modal-button-group").children().remove();
 			}
 		});
 	
@@ -571,9 +578,10 @@
 				$("#updateCouponFormModal").modal("show");
 				$("#updateCouponButton").click(function(){
 					if(u_flagName && u_flagContext && u_flagCode && u_flagStartTime && u_flagEndTime){				
-						$("#updateCouponForm").trigger("submit");
+						update_Coupon();
 					}else{
-						alert("請重新確認表單內容");
+						wrongInput();
+						$("body > dialog > div > div.simple-modal-button-group").children().remove();
 					}
 				});					
 			});						
@@ -705,9 +713,10 @@
 				$("#updateCouponFormModal").modal("show");
 				$("#updateCouponButton").click(function(){
 					if(u_flagName && u_flagContext && u_flagCode && u_flagStartTime && u_flagEndTime){				
-						$("#updateCouponForm").trigger("submit");
+						update_Coupon();
 					}else{
-						alert("請重新確認表單內容");
+						wrongInput();
+						$("body > dialog > div > div.simple-modal-button-group").children().remove();
 					}
 				});			
 			});
@@ -727,6 +736,50 @@
 
 	    return [year, month, day].join('-');
 	}
+	//新增折價券確認彈窗
+	async function addCoupon() {
+        this.myModal = new addNewCoupon("確認", "確認折價券資料填寫正確嗎?", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	//新增折價券錯誤彈窗
+	async function a_wrongInput() {
+        this.myModal = new addNewCoupon("錯誤", "請輸入正確資料再送出", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	//修改折價券確認彈窗
+	async function update_Coupon() {
+        this.myModal = new updateCoupon("確認", "確認折價券資料填寫正確嗎?", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
+	//修改折價券錯誤彈窗
+	async function u_wrongInput() {
+        this.myModal = new updateCoupon("錯誤", "請輸入正確資料再送出", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
 	</script>
 	</body>
 </html>

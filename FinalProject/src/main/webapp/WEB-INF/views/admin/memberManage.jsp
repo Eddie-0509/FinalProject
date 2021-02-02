@@ -7,6 +7,8 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
+	<link rel="stylesheet" href="css/calendar_confirm-modal.css">
+	<script src="js/admin_updateMember.js"></script>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>U YA YI</title>
@@ -112,7 +114,6 @@
 
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
-	
 	</head>
 
 	<body>
@@ -138,16 +139,17 @@
 		</nav>
    
 		<div class="js-fh5co-waypoint fh5co-project-detail" id="fh5co-main" data-colorbg="">
-			<div id="container" class="container" style='width: 900px;'>
+			<div id="container" class="container" style='width: 1000px;'>
 				<input id="searchBar" name="keyName" placeholder="請輸入會員姓名">
 				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
+				<span ><a href="javascript:void(0)" id="searchDemo">demo</a></span>
 				<table class='table table-bordered' id='showAllMemberTable' >
 					<thead>
 						<tr>
-							<th style='width: 100px;'>序號</th>
-							<th style='width: 200px;'>會員帳號</th>
-							<th style='width: 200px;'>姓名</th>
-							<th style='width: 100px;'>
+							<th style='width: 10%;'>序號</th>
+							<th style='width: 40%;'>會員帳號</th>
+							<th style='width: 15%;'>姓名</th>
+							<th style='width: 10%;'>
 							<select name="h_memberStatus" id="h_memberStatus">
 									<option id ="狀態" value="狀態" selected="selected">狀態</option>
 									<option id ="未開通" value="未開通" >未開通</option>
@@ -156,7 +158,7 @@
 									<option id ="停權" value="停權" >停權</option>
 								</select>
 							</th>
-							<th style='width: 300px;'></th>
+							<th style='width: 25%;'></th>
 						</tr>
 					</thead>
 					<tbody id="memberBody">
@@ -197,6 +199,9 @@
 	let model = ${members};
 	let members = model.member;
 	console.log(members);
+	$("#searchDemo").click(function(){
+		$("#searchBar").val("炭治郎");
+	});
 	$(document).ready(function(){
 		showData();
 		//依會員狀態篩選
@@ -266,11 +271,11 @@
 			str += "<td>" + members[i].memberName+ "</td>";
 			str += "<td>" + members[i].memberStatus+ "</td>";
 			if(members[i].memberStatus=="停權"){
-				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>開放</button> "	;	
+				str +="<td><button type ='button' class='btn btn-danger' id='updateBtn"+members[i].memberPkId+"'>開放</button> "	;	
 			}else{
-				str +="<td><button type ='button' id='updateBtn"+members[i].memberPkId+"'>停權</button> "	;	
+				str +="<td><button type ='button' class='btn btn-danger' id='updateBtn"+members[i].memberPkId+"'>停權</button> "	;	
 			}
-			str += "<button type ='button' id='memberDetail"+members[i].memberPkId+"'>歷史紀錄</button>";
+			str += "<button type ='button' class='btn btn-warning' id='memberDetail"+members[i].memberPkId+"'>歷史紀錄</button>";
 			//更新會員狀態Form表單(隱藏)
 			//會員權限及ID來更改權限
 			str += "<div style='display:none'><form id='update_form"+members[i].memberPkId+"' action='${pageContext.request.contextPath}/updateMemberStatus' method='post'><input name='memberPkId' value='"+members[i].memberPkId+"'/><input name='memberStatus' value='"+members[i].memberStatus+"'/></form></div>";
@@ -283,7 +288,8 @@
 			//更改權限功能(先檢查會員權限是否符合再進行修改)
 			$("#updateBtn"+members[i].memberPkId).click(function(){
 				if(members[i].memberStatus=="未開通"||members[i].memberStatus=="已開通"){
-					alert("會員尚未完成註冊，無法變更權限");
+					errStatus();
+					$("body > dialog > div > div.simple-modal-button-group").children().remove();
 				}else{
 					$("#update_form"+members[i].memberPkId).trigger("submit");
 				}
@@ -293,6 +299,17 @@
 			});
 		}
 	}
+	//修改商品確認彈窗
+	async function errStatus() {
+        this.myModal = new updateMember("確認", "會員尚未完成註冊，無法變更權限", "是", "否");
+
+        try {
+          const modalResponse = await myModal.question();
+        } catch(err) {
+          console.log(err);
+        }
+        
+      }
 	
 	</script>
 	</body>
