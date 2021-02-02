@@ -20,13 +20,16 @@ public class ClinicReviseDaoImpl implements ClinicReviseDao {
 				+ " clinicCity=:city,"
 				+ " clinicDist=:dist,"
 				+ " clinicAddress=:address,"
+				+ " clinicPwd = :pwd,"
 				+ " clinicImage=:image where clinicPkId=:id";
-		session.createQuery(hql).setParameter("name", clinic.getClinicName()).setParameter("phone", clinic.getClinicPhone()).setParameter("city", clinic.getCityBean()).setParameter("dist", clinic.getDistBean()).setParameter("address", clinic.getClinicAddress()).setParameter("image", clinic.getClinicImage()).setParameter("id", clinic.getClinicPkId()).executeUpdate();
+		session.createQuery(hql).setParameter("name", clinic.getClinicName()).setParameter("pwd", clinic.getClinicPwd()).setParameter("phone", clinic.getClinicPhone()).setParameter("city", clinic.getCityBean()).setParameter("dist", clinic.getDistBean()).setParameter("address", clinic.getClinicAddress()).setParameter("image", clinic.getClinicImage()).setParameter("id", clinic.getClinicPkId()).executeUpdate();
 	}
 	@Override
 	public Clinic getClinicById(int clinicPkId) {
 		Session session = factory.getCurrentSession();
 		return session.get(Clinic.class, clinicPkId);
 	}
+	
+	
 
 }

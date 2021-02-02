@@ -133,6 +133,7 @@
 <!--首頁文字輪播、modal js bySCONE-->
 <script src="js/hpother.js"></script>
 <script src="js/dentistModal.js"></script>
+<script src="js/clinicPwdChange.js"></script>
 <style>
 .tableWidth{
 width: 120px;
@@ -196,6 +197,43 @@ text-align : center;
 <!-- 	</div> -->
 <!-- </div> -->
 
+
+<div id="clinicPwdChangeModal" class="modal fade" style="color:black">
+	<div class="modal-dialog"  style="width:50%">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+	            <h4 id="clinicDetailModalTitle" class="modal-title"  style="color:black">${clinicBean.clinicName}</h4>
+	        </div>
+	        <div id="clinicPwdChange" class="modal-body"  style="color:black">
+			<form action="<c:url value='clinicChangePwd' />" id="clinicPwdForm" method="Post">
+			<div><span id="oldPwdSpan"></span></div>
+			<div>
+			舊密碼:<input type="password" id="clinicOldPwd" name="clinicOldPwd" placeholder="請輸入舊密碼"/>
+			</div>
+			
+			<div>
+			新密碼:<span id="newPwdSpan"></span><input type="password" id = "clinicNewPwd" name="clinicNewPwd" placeholder="請輸入新密碼"/>
+			</div>
+			
+			<div>
+			確認新密碼:<span id="checkPwdSpan"></span><input type="password" id = "clinicNewPwdCheck" name="clinicNewPwdCheck" placeholder="請再次輸入新密碼"/>
+			</div>
+			
+			</form>
+	       
+	  
+	        </div>
+	        <div class="modal-footer">
+	        	<button type="button" class="btn btn-default contactMember" id="newPwdformButton">確定修改</button>
+	            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+	        </div>
+	    </div>
+	</div>
+</div>
+
+
+
 	
 <!-- 	修改診所資料的modal -->
 <div id="clinicDetailModal" class="modal fade" style="color:black">
@@ -212,7 +250,7 @@ text-align : center;
 	        	</div>
 	        	<br>
 	        	<div>
-	        	診所電話：<input id="clinicPhone" type="text" name="clinicPhone" value="${clinicBean.clinicPhone}" required><span id="checkPhone"></span>
+	        	診所電話：<input id="clinicPhone" type="text" name="clinicPhone" value="${clinicBean.clinicPhone}" placeholder="區碼-xxxxxxx" required><span id="checkPhone"></span>
 	        	</div>
 	        	<br>
 	        	<div>
@@ -234,9 +272,8 @@ text-align : center;
 	        	<button type="button" class="btn btn-default" id="imageBtn">更改圖片</button>
 	        	<br>
 	        	<div id="chageImage" style="display: none;">
-	        	更換圖片：<input type="file" id="upload">
-	        	<button type="button" id="imageUpload" class="btn btn-default">上傳</button>
-				<input type="hidden" id="clinicImage" name="clinicImage" value="${clinicBean.clinicImage}">
+	        	更換圖片：
+	        	<input type="file" id="upload" name="image">
 	        	<br>
 	        	</div>
 	        </form:form>
@@ -279,6 +316,7 @@ text-align : center;
 			<div class="container">
 			<div id="colorsetumeis" class="animate-box">
 	        	    <button type="button" class="btn btn-warning" id="reviseClinic">修改診所資料</button>
+	        	    <button type="button" class="btn btn-danger" id="reviseClinicPwd">修改密碼</button>
 	        	  
 			</div>
 			診所帳號:<span>${clinicBean.clinicAccount}</span><br/>
@@ -289,9 +327,11 @@ text-align : center;
 			診所會籍到期日:<span>${clinicBean.clinicEndTime}</span><br/>
 	   			
 	        </div>
+	        <c:if test="${clinicBean.clinicImage !='defaultImage'}">
 	        <div class="imgDiv animate-box">
 			<img src="${clinicBean.clinicImage}" width="50%" style="margin:auto">
 			</div>
+	        </c:if>
 	  
 	        </div>
 		</div>
@@ -315,6 +355,12 @@ text-align : center;
 		</footer>
 	<script>
 	$(function(){
+		if("${error}"=="原密碼錯誤"){
+			$("#oldPwdSpan").css("color","red");
+			$("#oldPwdSpan").html("原密碼錯誤");
+			$("#clinicPwdChangeModal").modal("show");
+		}
+		
 	 async function openConfirmModal() {
 	        this.myModal = new SimpleModal("確認", "圖片上傳成功", "是", "否");
 
@@ -336,7 +382,7 @@ text-align : center;
 	        
 	      } 
 	 async function waitImage() {
-		        this.myModal = new SimpleModal("確認", "請等待圖片上傳成功", "是", "否");
+		        this.myModal = new SimpleModal("錯誤", "請等待圖片上傳成功", "是", "否");
 
 		        try {
 		          const modalResponse = await myModal.question();
@@ -346,7 +392,7 @@ text-align : center;
 		        
 		      }
 	 async function wrongInput() {
-	        this.myModal = new SimpleModal("確認", "請輸入正確診所資料", "是", "否");
+	        this.myModal = new SimpleModal("錯誤", "請輸入正確診所資料", "是", "否");
 
 	        try {
 	          const modalResponse = await myModal.question();
@@ -355,6 +401,113 @@ text-align : center;
 	        }
 	        
 	      }
+	 async function confirmPwd() {
+	        this.myModal = new confirmNewClinicPwd("確認", "確認更改診所密碼", "是", "否");
+
+	        try {
+	          const modalResponse = await myModal.question();
+	        } catch(err) {
+	          console.log(err);
+	        }
+	        
+	      }
+	 
+	 async function errorPwd() {
+	        this.myModal = new confirmNewClinicPwd("錯誤", "請輸入正確資料", "是", "否");
+
+	        try {
+	          const modalResponse = await myModal.question();
+	        } catch(err) {
+	          console.log(err);
+	        }
+	        
+	      }
+	 var flagPwd = false;
+	 var flagClinicPwdCheck=false;
+
+	 $("#reviseClinicPwd").click(function(){
+		 $("#clinicPwdChangeModal").modal("show");
+	 })
+	 
+	 $("#clinicOldPwd").blur(function(){
+		 if($("#clinicOldPwd").val()==$("#clinicNewPwd").val()){
+		 }
+	 })
+	 
+	  $("#clinicNewPwd").blur(function(){
+		  let flag1 = false, flag2 = false, flag3 = false;
+			 $("#newPwdSpan").css("color", "red");
+			let pwdValue = document.getElementById("clinicNewPwd").value;
+			if (pwdValue == "") {
+				$("#newPwdSpan").html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入密碼");
+				flagPwd = false;
+			} else if (pwdValue.length <= 6) {
+				$("#newPwdSpan").html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>密碼必須大於6");
+				flagPwd = false;
+			} else {
+				for (let i = 0; i < pwdValue.length; i++) {
+					let char1 = pwdValue.charAt(i).toUpperCase();
+					let char2 = pwdValue.charCodeAt(i);
+					if (char1 >= "A" && char1 <= "Z") {
+						flag1 = true;
+					}
+					if (char1 >= 0 && char1 <= 9) {
+						flag2 = true;
+
+					}
+					if ((char2 >= 33 && char2 <= 47)
+							|| (char2 >= 58 && char2 <= 64)
+							|| (char2 >= 91 && char2 <= 96)
+							|| (char2 >= 123 && char2 <= 126)) {
+						flag3 = true;
+					}
+
+					if (flag1 && flag2 && flag3) {
+						$("#newPwdSpan").html("");
+						break;
+					}
+				}
+				if (flag1 && flag2 && flag3) {
+					$("#newPwdSpan").html("");
+					  if($("#clinicOldPwd").val()==$("#clinicNewPwd").val()){
+						 $("#newPwdSpan").html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>不可與舊密碼相同");
+					 }else{
+						 $("#newPwdSpan").html("");
+								flagPwd = true;
+		 				}
+				} else {
+					$("#newPwdSpan").html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確密碼格式");
+					flagPwd = false;
+				}
+			}
+		  
+	 })
+	 
+	 $("#clinicNewPwdCheck").blur(function(){
+		 let span = $("#checkPwdSpan");
+			if($("#clinicNewPwdCheck").val()!=$("#clinicNewPwd").val()){
+				flagClinicPwdCheck=false;
+				span.css("color","red");
+				span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>與新密碼不符");
+			}else {
+				flagClinicPwdCheck=true;
+				span.css("color","green");
+				span.html("&nbsp &nbsp <i class='far fa-check-circle'></i>密碼相符");
+			}
+	 });
+	 
+	 $("#newPwdformButton").click(function(){
+		if(flagClinicPwdCheck&&flagPwd){
+			confirmPwd();
+		}else{
+			errorPwd();
+			$("body > dialog > div > div.simple-modal-button-group").children().remove();
+
+		}
+		 
+	 });
+	 
+	 
 		var flagPhone = true;
 		var flagImage = true;
 			$("#clinicPhone")
@@ -372,11 +525,11 @@ text-align : center;
 									flagPhone = false;
 								} else if (phoneVal.length > 11) {
 									span
-											.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確電話號碼 ex.區碼-xxxxxxx");
+											.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確電話號碼");
 									flagPhone = false;
 								} else if (!a.test(phoneVal)) {
 									span
-											.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確電話號碼 ex.區碼-xxxxxxx");
+											.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確電話號碼");
 									flagPhone = false;
 								} else {
 									span.html("");
@@ -446,44 +599,44 @@ text-align : center;
 
 		});
 		
-	//  使用imgur API 上傳圖片 取得圖片網址
-		var x="";
-		$("#upload").change(function(e){
-			flagImage=false;
-			 x = e.target.files[0]; // get file object
-			});
+// 	//  使用imgur API 上傳圖片 取得圖片網址
+// 		var x="";
+// 		$("#upload").change(function(e){
+// 			flagImage=false;
+// 			 x = e.target.files[0]; // get file object
+// 			});
 		
-		$("#imageUpload").click(function(){
-			flagImage=false;
-			var form = new FormData();
-			form.append("image", x);   //設定 圖片file值
-			form.append("album", 'gMbwr3Z')  // 設定圖片存到哪一個相簿
+// 		$("#imageUpload").click(function(){
+// 			flagImage=false;
+// 			var form = new FormData();
+// 			form.append("image", x);   //設定 圖片file值
+// 			form.append("album", 'gMbwr3Z')  // 設定圖片存到哪一個相簿
 			
-			var settings = {
-					  "async": true,
-				      "crossDomain": true,
-				      "processData": false,
-				      "contentType": false,
-					  "url": "https://api.imgur.com/3/image",
-					  "method": "POST",
-					  "timeout": 0,
-					  "headers": {
-						"Authorization": 'Bearer ' + "9d5b4a203ea24b781851009260d5138e60b510b9"
-					  },
-					  "processData": false,
-					  "mimeType": "multipart/form-data",
-					  "contentType": false,
-					  "data": form
-					};
-			$.ajax(settings).done(function (response) {  // 使用ajax 取得imgur網址
-				let resJSON = JSON.parse(response);  
-				let imageStr = resJSON.data.link;
-				$("#clinicImage").attr("value", imageStr);
-				flagImage=true;
-				openConfirmModal();
-				$("body > dialog > div > div.simple-modal-button-group").children().remove();
-				});
-		})
+// 			var settings = {
+// 					  "async": true,
+// 				      "crossDomain": true,
+// 				      "processData": false,
+// 				      "contentType": false,
+// 					  "url": "https://api.imgur.com/3/image",
+// 					  "method": "POST",
+// 					  "timeout": 0,
+// 					  "headers": {
+// 						"Authorization": 'Bearer ' + "9d5b4a203ea24b781851009260d5138e60b510b9"
+// 					  },
+// 					  "processData": false,
+// 					  "mimeType": "multipart/form-data",
+// 					  "contentType": false,
+// 					  "data": form
+// 					};
+// 			$.ajax(settings).done(function (response) {  // 使用ajax 取得imgur網址
+// 				let resJSON = JSON.parse(response);  
+// 				let imageStr = resJSON.data.link;
+// 				$("#clinicImage").attr("value", imageStr);
+// 				flagImage=true;
+// 				openConfirmModal();
+// 				$("body > dialog > div > div.simple-modal-button-group").children().remove();
+// 				});
+// 		})
 		
 		
 		$("#formButton").click(function(){

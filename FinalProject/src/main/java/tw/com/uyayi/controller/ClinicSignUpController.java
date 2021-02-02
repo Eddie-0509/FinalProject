@@ -86,13 +86,13 @@ public class ClinicSignUpController {
 	// 接收表單資料用 並寫入資料庫
 	@PostMapping(value ="/signUp")
 	public String processSignUp(@ModelAttribute("clinic") Clinic clinic, @RequestParam(value = "clinicFile",required = false) MultipartFile file) throws IOException {
-		System.out.println(clinic.getClinicCityId());
 		
 		City cityBean = signUpService.getCityBean(clinic.getClinicCityId());
 		Dist distBean = signUpService.getDistBean(clinic.getClinicDistId());
 		clinic.setCityBean(cityBean);
 		clinic.setDistBean(distBean);
-		
+		if(!file.isEmpty()) {
+			
 		InputStream is = file.getInputStream();
 		
 		String base64 = Base64.getEncoder().encodeToString(is.readAllBytes());
@@ -115,6 +115,7 @@ public class ClinicSignUpController {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
 		}
 		
 		//設定開始日期
