@@ -90,17 +90,20 @@ public class GeneralMemberController {
     
     @RequestMapping(value="/memberModify",method=RequestMethod.GET)
     public String updateUserOneView(
-    		Model model,@ModelAttribute("LoginOK") Member mb) {
-    	model.addAttribute("member",mb);
+    	Model model) {  	
+    	Member mb = (Member) model.getAttribute("LoginOK");
+    	
+        int mbid = mb.getMemberPkId();
+        Member newmb = memberSignUpService.getone(mbid);
+   	    model.addAttribute("member",newmb);
     	return "member/memberModify";
-  
     }
     
     //修改會員資料
     @RequestMapping(value="/memberModifySo",method=RequestMethod.POST)
     public String updateUserOne(@ModelAttribute("member") Member member) {
     	memberSignUpService.update(member);
-		return "member/memberModify";
+		return "redirect:/memberModify";
     }
     
    //以下是訂單查詢

@@ -190,9 +190,7 @@
 		
 			<div id="container" class="container" >
 			     <div class="m-4">
-			     	<div style="text-align:right">
-			               <button class="btn btn-warning" data-toggle="modal" data-target="#Modal">修改初診資料</button>
-			         </div>
+			     	    <BR>
 				    <table id="example" class="table" style="width:60%;margin:0 auto">
 				        <tbody>
 				            <tr>
@@ -229,6 +227,10 @@
 				              </tr>	            
 				        </tbody>
 				    </table>
+				    <BR>
+				    <div style="text-align:center">
+			               <button class="btn btn-warning" data-toggle="modal" data-target="#Modal">修改初診資料</button>
+			         </div>
 			     </div>
         </div>
 
@@ -237,7 +239,7 @@
 			<div class="modal-dialog">
 			    <div class="modal-content">
 			        <div class="modal-header">
-			            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+			          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
 			        	<h4 id="AppointmentModalTitle" class="modal-title"  style="color:black"> 修改初診病歷 </h4>
 			        </div>
 			        <div id="AppointmentModalBody" class="modal-body"  style="color:black">
@@ -276,8 +278,7 @@
 						</table>	
 	        		</div>
 	        		<div class="modal-footer">
-					     <button class="btn btn-default" id="update">修改</button>	 					     
-	           			 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	            
+					     <button class="btn btn-default" id="update">修改</button>	 					                 
 	        		</div>
 		    </div>
 		</div>
@@ -310,13 +311,11 @@
 			</div>
 		</footer>
 	</div>
-
 	</body>
 	<script type="text/javascript">
 		$("#update").click(function(){
 			$("#send").trigger("submit");
-		})
-		
+		})	
 		if("${memberDetails.get(0).smoke}"=="是"){
 			$("#sY").attr("checked",true)
 		}else{

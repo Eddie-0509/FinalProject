@@ -49,7 +49,7 @@ public class MemberSignUpDaoImpl implements MemberSignUpDao {
 
 	@Override
 	public Member getone(int memberPkId) {
-     return getSession().load(Member.class, memberPkId);
+     return getSession().get(Member.class, memberPkId);
 		
 	}
 

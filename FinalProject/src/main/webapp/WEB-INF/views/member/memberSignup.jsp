@@ -192,7 +192,7 @@ input:invalid+.ok{
 								<i class="fas fa-tooth"></i>會員資料
 							</h3>
 							<br> 
-														<label for="memberAccount"><strong>電子信箱</strong></label><span id="checkEmail"></span> 
+								<label for="memberAccount"><strong>電子信箱</strong></label><span id="checkEmail"></span> 
 								<input type="text" placeholder="請輸入E-mail" name="memberAccount" id="clinicEmail" required autofocus> 
 						
 								<label for="clinicPwd"><strong>會員密碼</strong></label><span id="checkPwd"></span>
