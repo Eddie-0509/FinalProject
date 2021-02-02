@@ -252,8 +252,8 @@
 				doWhat : "GET"
 			},
 			success : function(data) {
-				console.log(data)
-				console.log("TotalStackedBarData"+Object.keys(data).sort())
+// 				console.log(data)
+// 				console.log("TotalStackedBarData"+Object.keys(data).sort())
 				TotalStackedBarLable=Object.keys(data).sort()
 				for(let a=0;a<TotalStackedBarLable.length;a++){
 					TotalStackedBarfromSystem.push(data[TotalStackedBarLable[a]][0])
@@ -335,14 +335,14 @@
 				doWhat : "GET"
 			},
 			success : function(data) {
-				console.log(data)
-				console.log("ItemsPieData"+Object.keys(data))
+// 				console.log(data)
+// 				console.log("ItemsPieData"+Object.keys(data))
 				ItemPieLable=Object.keys(data)
-				console.log(ItemPieLable.length)
+// 				console.log(ItemPieLable.length)
 				for(let a=0;a<ItemPieLable.length;a++){
 					ItemPieData.push(data[ItemPieLable[a]])
 				}
-				console.log(ItemPieData)
+// 				console.log(ItemPieData)
 				var ctx0 = document.getElementById('myItemsPie').getContext('2d');
 				var myDoughnutChart = new Chart(ctx0, {
 				    type: 'pie',
@@ -392,14 +392,14 @@
 				doWhat : "GET"
 			},
 			success : function(data) {
-				console.log(data)
-				console.log("DentistBarLable"+Object.keys(data))
+// 				console.log(data)
+// 				console.log("DentistBarLable"+Object.keys(data))
 				DentistBarLable=Object.keys(data)
-				console.log(DentistBarLable.length)
+// 				console.log(DentistBarLable.length)
 				for(let a=0;a<DentistBarLable.length;a++){
 					DentistBarData.push(data[DentistBarLable[a]])
 				}
-				console.log(DentistBarData)
+// 				console.log(DentistBarData)
 				var ctx1 = document.getElementById('myDentistBar').getContext('2d');
 				var myDentistBar = new Chart(ctx1, {
 				    type: 'bar',
@@ -465,14 +465,14 @@
 				doWhat : "GET"
 			},
 			success : function(data) {
-				console.log(data)
-				console.log("GenderPieData"+Object.keys(data))
+// 				console.log(data)
+// 				console.log("GenderPieData"+Object.keys(data))
 				GenderPieLable=Object.keys(data)
-				console.log(GenderPieLable.length)
+// 				console.log(GenderPieLable.length)
 				for(let a=0;a<GenderPieLable.length;a++){
 					GenderPieData.push(data[GenderPieLable[a]])
 				}
-				console.log(GenderPieData)
+// 				console.log(GenderPieData)
 				var ctx3 = document.getElementById('myGenderPie').getContext('2d');
 				var myGenderPie = new Chart(ctx3, {
 				    type: 'pie',

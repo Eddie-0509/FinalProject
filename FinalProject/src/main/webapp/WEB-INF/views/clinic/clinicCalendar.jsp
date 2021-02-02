@@ -152,7 +152,7 @@
 		</c:forEach>
 	</script>
 	<!-- calendar JS&CSS  BySCONE-->
-	<script src="js/calendar.js"></script>
+	
 	<link rel="stylesheet" href="css/calendar.css"></link>
 <!-- 	確認彈窗 -->
 	<link rel="stylesheet" href="css/calendar_confirm-modal.css"></link>
@@ -166,8 +166,7 @@
 	<body>
 	
 	<!-- Loader -->
-	<div class="fh5co-loader"></div>
-	
+	<div class="fh5co-loader" ></div>
 	<div id="fh5co-page">
 		<nav id="fh5co-nav" role="navigation">
 			<ul>
@@ -207,11 +206,9 @@
 							<div id="weekcalendar" style="display: none;"></div>
 							<div id="listcalendar"  style="display: block;"></div>
 							<div id="doctorcalendar" class="doctorC" style="display: none;">
-								<ul class="nav nav-tabs">				
-								
+								<ul class="nav nav-tabs">												
 								</ul>
-								<div class="tab-content">
-								
+								<div class="tab-content">								
 								</div>
 							</div>
 
@@ -489,7 +486,17 @@
 		  event.preventDefault();
 		  $("#PhoneToQuery").val("0933156223");
 	  })
+	  
+// 	  $( "body" ).loading()
+	  
+// 	  (function ($) {
+// 		    alert('start');
+// 		})(jQuery)
+	  
+// 	  $(document).ready(function(){
+// 		    $(".fh5co-loader").css("display","block");
+// 		});
 	</script>
-	
+	<script src="js/calendar.js"></script>
 	</body>
 </html>

@@ -134,11 +134,11 @@ public class ClinicAppointDaoImpl implements ClinicAppointDao {
 		Session session=factory.getCurrentSession();
 		List<Dentist> thisDen = session.createQuery("From Dentist d where d.clinicBean =:clinic and d.dentistName =:dentist").
 		setParameter("clinic", clinic).setParameter("dentist", dentist).getResultList();
-		System.out.println("醫生："+thisDen.get(0));
+//		System.out.println("醫生："+thisDen.get(0));
 		
 		LinkedHashMap<String, List<String>> appointable=new LinkedHashMap<String, List<String>>();
 
-	   System.out.println("名字："+thisDen.get(0).getDentistName());
+//	   System.out.println("名字："+thisDen.get(0).getDentistName());
 	   
 	   List<TimeTable> interval =new ArrayList<TimeTable>();
 	   //把該醫生該時間段的內容存成MAP

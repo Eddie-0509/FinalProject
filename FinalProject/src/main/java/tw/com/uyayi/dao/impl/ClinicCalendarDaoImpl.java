@@ -116,7 +116,7 @@ public class ClinicCalendarDaoImpl implements ClinicCalendarDao {
 		String hql0 = "from Appointment app where app.appointmentPkId= :appointmentID";
 		
 		List<Appointment> list=session.createQuery(hql0).setParameter("appointmentID", appointmentID).getResultList();
-		System.out.println(list.get(0).getArrive());
+//		System.out.println(list.get(0).getArrive());
 		String msg="";
 		if(list.get(0).getArrive().equals("false")) {
 			msg= "您已回報過此人未到診";

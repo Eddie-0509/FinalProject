@@ -16,7 +16,7 @@ var patientName="";
 	    return year + "-" + month + "-" + date ;
 	}
 
-$(document).ready(function(){
+//$(document).ready(function(){
 //	var dnl="${DentistNameList}"
 	var afterdnl=dnl.substring(1,dnl.length-1);
 	var Doctor=afterdnl.split(", ");
@@ -55,7 +55,7 @@ $(document).ready(function(){
 	for(let i=0;i<title.length;i++){
 		allevents.push({id:id[i],title:title[i],start:start[i],backgroundColor:backgroundColor[i]})
 	}
-	console.log(allevents)
+//	console.log(allevents)
 	
 	for (let dn=0;dn<DocNum;dn++){
 		let DocName=Doctor[dn];
@@ -128,7 +128,7 @@ $(document).ready(function(){
 			            	 				})
 		             	}
 		             }
-	      				 console.log(hisevent)
+//	      				 console.log(hisevent)
 	             }
 	        });
 
@@ -152,7 +152,7 @@ $(document).ready(function(){
 					 $("#AppointmentModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default " data-toggle="modal" data-target="#AppointmentUpdateModal" data-dismiss="modal" onclick="appointmentUpdate()">修改預約</button><button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal" onclick="contactMember()">連絡病患</button>'
 	        	+'<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>')
 					 //if (event.id) {
-				            console.log(event.id);
+//				            console.log(event.id);
 				      //}
 					 $.ajax({
 			             url: 'getAppointmentDetail',    //url位置
@@ -180,7 +180,7 @@ $(document).ready(function(){
 							 memberEmail=result.email;
 							 memberID=result.memberID;
 							 patientName=result.patientName;
-							 console.log("159="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
+//							 console.log("159="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
 							 if(memberEmail==null){
 							 	$("#AppointmentModal > div > div > div.modal-footer > button").eq(1).remove();
 								$("#AppointmentModal > div > div > div.modal-footer > button").eq(1).remove();
@@ -304,7 +304,7 @@ $(document).ready(function(){
 		            	 appointmentId : event.id
 		             },//請求方式
 		             success: function (result) {
-		             	console.log(result.memberID)
+//		             	console.log(result.memberID)
 		             	if(result.memberID == null){
 		             		$("#patientName").text(result.patientName);
 		             	}
@@ -321,7 +321,7 @@ $(document).ready(function(){
 						 appointmentID=event.id;
 						 memberID=result.memberID;
 						 patientName=result.patientName;
-						 console.log("292="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
+//						 console.log("292="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
 		             	 if(memberEmail==null){
 							 $("#AppointmentModal > div > div > div.modal-footer > button").eq(1).remove();
 							 $("#AppointmentModal > div > div > div.modal-footer > button").eq(1).remove();
@@ -332,7 +332,7 @@ $(document).ready(function(){
 			}		             
 		});
 	
-	console.log("298="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
+//	console.log("298="+memberEmail+",APPID:"+appointmentID+",memberID"+memberID+",patientName:"+patientName);
 	
 	
 	$("#queryBut").on("click",function(){
@@ -348,16 +348,8 @@ $(document).ready(function(){
 			   $("#queryAppointment").css("display","inline");
 	})		   
 	
-//	$(".queryClose").on("click",function(){
-//			   $("#qmodalTitle").text("查詢預約紀錄");
-//			   $("#qmodalBody").html("請輸入電話號碼："+'<input type="text" id="PhoneIdNumberToQuery" autofocus ></input>')
-//			   $("#QueryModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default" id="queryAppointment" onclick="queryAppointment()">查詢</button><button type="button" class="btn btn-default queryClose"  data-dismiss="modal">Close</button>')
-//			   $("#QueryModal").modal('hide')
-//	})
-	
-	
 
-});
+//});
 	function appointmentUpdate(){
 		$("#upPatientName").text($("#patientName").text());
 	    $("#upPatientPhone").text($("#patientPhone").text());
@@ -387,7 +379,7 @@ $(document).ready(function(){
 			},
 			success : function(data){
 				for(let i=0;i<data.length;i++){				
-					console.log(data[i])
+//					console.log(data[i])
 					if($("#item").text()==data[i].itemName){
 						$("#upItem select").append("<option value="+data[i].itemName+" selected='selected'>"+data[i].itemName+"</option>")
 					}else{
@@ -418,12 +410,12 @@ function mailMember(){
 				doWhat : "GET"
 			},
 			error:function(){
-				console.log("HI")
+//				console.log("HI")
 			}
 		})
 			$("#ContactModalBody").html('成功');
 			$(".mailMember").remove();
-				console.log("?")
+//				console.log("?")
 	}
 	
 	function queryAppointment(){
@@ -462,7 +454,7 @@ function mailMember(){
 			     $("#qmodalBody").css("display","none")
 				 $("#queryAppointment").css("display","none");
 				 $(".modal-footer span a").css("display","none")
-				 console.log(result)
+//				 console.log(result)
 				 
              },
              error: function(){
@@ -479,7 +471,7 @@ function mailMember(){
 	}
 	
 	function medicalRecordOpen(){		
-		console.log("458："+memberID)
+//		console.log("458："+memberID)
 		 $.ajax({
              url: 'getmedicalRecord',    //url位置
              type: 'post',
@@ -491,7 +483,7 @@ function mailMember(){
 			     doWhat : "POST"
              },//請求方式
              success: function (result) {
-             	console.log()
+//             	console.log()
 				 $("#emergencyContact").text(result.EmergencyContact);
 				 $("#emergencyNumber").text(result.EmergencyNumber);
 				 $("#emergencyRelationship").text(result.EmergencyRelationship);

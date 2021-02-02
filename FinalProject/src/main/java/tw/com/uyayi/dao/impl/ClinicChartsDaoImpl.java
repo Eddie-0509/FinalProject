@@ -127,7 +127,7 @@ public class ClinicChartsDaoImpl implements ClinicChartsDao{
 				}
 			}
 		}
-		System.out.println(TotalData2);
+//		System.out.println(TotalData2);
 		return TotalData2;
 	}
 
@@ -141,9 +141,9 @@ public class ClinicChartsDaoImpl implements ClinicChartsDao{
 		GenderData.put("男",0);
 		GenderData.put("女",0);
 		for (int i=0;i<allAppList.size();i++) {
-			System.out.println(allAppList.get(i).getAppointmentPkId());
+//			System.out.println(allAppList.get(i).getAppointmentPkId());
 			if(allAppList.get(i).getMemberBean()!=null) {
-				System.out.println(allAppList.get(i).getMemberBean().getMemberIdNumber().substring(1,2));
+//				System.out.println(allAppList.get(i).getMemberBean().getMemberIdNumber().substring(1,2));
 				if(allAppList.get(i).getMemberBean().getMemberIdNumber().substring(1,2).equals("1")) {
 					int plus = GenderData.get("男")+1;
 					GenderData.put("男",plus);
@@ -153,7 +153,7 @@ public class ClinicChartsDaoImpl implements ClinicChartsDao{
 					GenderData.put("女",plus);
 				}
 			}else if(allAppList.get(i).getMemberBean()==null && allAppList.get(i).getPatientIdNumber().length()==10) {
-				System.out.println(allAppList.get(i).getPatientIdNumber().substring(1,2));
+//				System.out.println(allAppList.get(i).getPatientIdNumber().substring(1,2));
 
 				if(allAppList.get(i).getPatientIdNumber().substring(1,2).equals("1")) {
 					int plus = GenderData.get("男")+1;

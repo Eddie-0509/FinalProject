@@ -322,7 +322,7 @@
 	}	
 		
 		function getDentist(){
-			console.log($("#item").val())
+// 			console.log($("#item").val())
 			 $.ajax({
 					url : 'getDentist',
 					type : 'POST',		
@@ -332,7 +332,7 @@
 						doWhat : "POST"
 					},
 					success : function(data) {
-						console.log(data.length)
+// 						console.log(data.length)
 						$("#dentist").html("<option value='' >請選擇</option>")
 						for (let i=0;i<data.length;i++){
 							$("#dentist option").eq(0).after("<option value="+data[i].dentistName+">"+data[i].dentistName+"</option>")
@@ -341,7 +341,7 @@
 				})
 		}
 		function getDentistTime(){
-			console.log($("#dentist").val());
+// 			console.log($("#dentist").val());
 			 $.ajax({
 					url : 'getDentistTime',
 					type : 'POST',		
@@ -352,7 +352,7 @@
 						doWhat : "POST"
 					},
 					success : function(data) {
-						console.log(data)
+// 						console.log(data)
 						$("#dentistTimeInterval").html("<option value='' >請選擇</option>")
 						if($.inArray( "上午", data )>-1 && $.inArray( "下午", data )>-1 &&$.inArray( "晚間", data )>-1){
 							$("#dentistTimeInterval option").eq(0).after("<option value='anytime' >不限時段</option><option value='上午'>上午</option><option value='下午'>下午</option><option value='晚間'>晚間</option>")

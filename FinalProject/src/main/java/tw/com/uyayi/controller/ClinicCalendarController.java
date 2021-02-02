@@ -56,8 +56,11 @@ public class ClinicCalendarController {
 
 		List<Appointment> applist = caService.getAllAppointmentByClinic(clinicID);
 		 model.addAttribute("DentistIdList",DentistIdList);
+//		 model.addAttribute("DentistIdList",null);
+//		 model.addAttribute("DentistNameList",null);
 		 model.addAttribute("DentistNameList",DentistNameList);
 		 model.addAttribute("AllAppointmentList",applist);
+//		 model.addAttribute("AllAppointmentList",null);
 		 return "clinic/clinicCalendar";
 	}
 	
@@ -76,7 +79,7 @@ public class ClinicCalendarController {
 			@RequestParam("appointmentId") String appointmentId) {
 		int appointmentId2 = Integer.valueOf(appointmentId);
 		LinkedHashMap<String,String> appdetail = caService.getAppointmentDetail(appointmentId2);
-		System.out.println(appointmentId2+" "+appdetail);
+//		System.out.println(appointmentId2+" "+appdetail);
 		return appdetail;
 	}
 	//周行事曆 卡關了之後再寫ㄅ(還有月行事曆也是)
@@ -96,7 +99,7 @@ public class ClinicCalendarController {
 			@RequestParam("Phone") String Phone) {
 		 	 try {
 			 ArrayList<Appointment> patientallapp = caService.queryAppointmentByPhone(Phone);
-			 System.out.print(Phone);
+//			 System.out.print(Phone);
 			 Collections.sort(patientallapp,new ComparatorDate());
 			 return patientallapp;
 		 	 }catch (NoResultException e) {
@@ -112,7 +115,7 @@ public class ClinicCalendarController {
 			@RequestParam("email") String email , @RequestParam("text") String text) {
 		 	 Mail mail=new Mail();
 		 	 mail.sendMail(email, "【UYAYI】來自"+clinic.getClinicName()+"的通知", text);
-		 	 System.out.println(email+text);
+//		 	 System.out.println(email+text);
 		 	 
 		 	 return null;
 		 			 
@@ -129,9 +132,9 @@ public class ClinicCalendarController {
 			 Mail mail=new Mail();
 			 String text=patientName+" 先生/小姐　您好：\n\n　　診所通知您未前往看診，累積三次未到診您將會被暫停預約功能30日。如有疑問請洽UYAYI客服信箱，謝謝。\n\nUYAYI";
 			 mail.sendMail(memberEmail,"【UYAYI】未到診提醒",text);
-			 System.out.println("controller寄出");
+//			 System.out.println("controller寄出");
 		 }
-		 System.out.println(msg);
+//		 System.out.println(msg);
 		 return msg;
 	}
 	
@@ -150,7 +153,7 @@ public class ClinicCalendarController {
 			@RequestParam("appointmentID") Integer appointmentID,
 			@RequestParam("updateItem") String updateItem,
 			@RequestParam("updateReply") String updateReply) {
-		 System.out.println(updateItem+" "+updateReply);
+//		 System.out.println(updateItem+" "+updateReply);
 		 caService.updateAppointment(Integer.valueOf(appointmentID),updateItem,updateReply);
 		 return "redirect:/clinicCalendar";
 	}
@@ -168,7 +171,7 @@ public class ClinicCalendarController {
 	@PostMapping(path = "/getmedicalRecord", produces = "application/json")
 	public @ResponseBody LinkedHashMap<String,String> getmedicalRecord(
 			@RequestParam("memberID") String memberID) {
-		System.out.println(memberID);
+//		System.out.println(memberID);
 		int memberID2 = Integer.valueOf(memberID);
 		return caService.getmedicalRecord(memberID2);
 	}

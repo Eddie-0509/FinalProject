@@ -49,7 +49,7 @@ ClinicChartsService chaService;
 			@RequestParam("year") String year,
 			@RequestParam("month") String month,
 			Model model) {
-		System.out.println(chaService.getTotalData(clinic,year,month));
+//		System.out.println(chaService.getTotalData(clinic,year,month));
 		return chaService.getTotalData(clinic,year,month);
 	}
 	@GetMapping(path="/clinicGenderPie",produces = "application/json")

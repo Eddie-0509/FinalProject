@@ -30,7 +30,16 @@
 		$(".fh5co-loader").fadeOut("slow");
 	};
 
-
+//	  function showLoading(show){
+//
+//			if(show){
+////			   document.getElementsByClassName('fh5co-loader').style.display = "block";
+//			   document.getElementsByClassName('fh5co-loader').style.display = "none";
+//			}else{
+////				document.getElementsByClassName('fh5co-loader').style.display = "none";
+//			   document.getElementsByClassName('fh5co-loader').style.display = "block";
+//			}
+//		}
 
 	// Scroll Next
 	var ScrollNext = function() {

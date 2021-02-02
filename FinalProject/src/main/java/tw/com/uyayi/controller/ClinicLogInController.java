@@ -25,7 +25,9 @@ import tw.com.uyayi.service.ClinicLogInService;
 import tw.com.uyayi.service.ClinicSignUpService;
 
 @Controller
-@SessionAttributes({"loginOK","DentistIdList","DentistNameList","AllAppointmentList","clinicBean"}) 
+//SC註ㄉ
+//@SessionAttributes({"loginOK","DentistIdList","DentistNameList","AllAppointmentList","clinicBean"}) 
+@SessionAttributes({"loginOK","clinicBean"}) 
 public class ClinicLogInController {
 	@Autowired
 	ClinicLogInService clinicLogInservce;

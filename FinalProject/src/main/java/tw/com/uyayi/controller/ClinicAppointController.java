@@ -93,7 +93,7 @@ public class ClinicAppointController {
 				}
 			}
 		
-			System.out.println("Fianl:"+myJSONObjects.toString());
+//			System.out.println("Fianl:"+myJSONObjects.toString());
 //			return cappService.getAppointable(clinic, item, dentist, timeInterval);
 			return myJSONObjects;
 		}
@@ -111,8 +111,8 @@ public class ClinicAppointController {
 		public  String  goToAppoint(
 				@ModelAttribute("loginOK") Clinic clinic, 
 				@ModelAttribute("newAppoint") Appointment np) {
-			System.out.println("np.getItemName()"+np.getItemName());
-			System.out.println("np.getPatientName()"+np.getPatientName());
+//			System.out.println("np.getItemName()"+np.getItemName());
+//			System.out.println("np.getPatientName()"+np.getPatientName());
 			np.setItemBean(cappService.getItemBean(np.getItemName()));
 			np.setDentistBean(cappService.getDentistBean(np.getDentistName()));
 			np.setTimeTableBean(cappService.getTimeTableBean(np.getAppointDate(),np.getTimes()));
