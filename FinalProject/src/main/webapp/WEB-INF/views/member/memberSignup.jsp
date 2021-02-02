@@ -262,6 +262,7 @@ input:invalid+.ok{
 <!-- 								<input type="hidden" name="clinicStatus"> -->
 						</div>
 						<div>
+						<span ><a href="javascript:void(0)" id="memberDemo">memberDemo</a></span>
 						<button class="btn btn-primary" type="submit" id="formButton">送出</button>
 						</div>
 
@@ -296,6 +297,30 @@ input:invalid+.ok{
 
 
 
+
+
+
+
+$(function(){
+	$("#memberDemo").click(function(){
+		$("#clinicEmail").val("zzz63214780000@gmail.com")
+		$("#clinicPwd").val("a,123123")
+		$("#clinicPwdCheck").val("a,123123")
+		$("#clinicName").val("周君憲")
+		$("#clinicPhone").val("0985329401")
+		$("#idcMember").val("C121601118")
+		$("#membercAddress").val("基隆市安樂區新西街一段66號")
+		flagPwd=true
+		flagEmail = true
+		flagPhone = true
+		flagImage = true
+	    flagId = true
+		flagClinicPwdCheck = true
+		
+	})
+})
+
+
 async function confirmClinic() {
     this.myModal = new confirmNewClinic("確認", "確認診所資料填寫正確嗎?", "是", "否");
 
@@ -317,6 +342,10 @@ async function wrongInput() {
     }
     
   }
+
+
+
+
 
 
 
@@ -569,25 +598,18 @@ async function wrongInput() {
 
 					});
 			
-
+		
 			// 驗證每一個欄位都填寫正確再送出資料 
 			$("#formButton").click(function(){
-				if(flagPwd && flagEmail && flagPhone && flagClinicPwdCheck){
-					confirmClinic();
+				if(flagPwd && flagEmail && flagPhone && flagClinicPwdCheck &&flagId){
+					 $("#membercForm").submit();
 
 				}else {
-					wrongInput();
-					$("body > dialog > div > div.simple-modal-button-group").children().remove();
+					window.alert("請輸入正確資料再送出");;
 				}
 				
 			});
-			
-
-			
-			
-			
-			
-			
+		
 		});
 	</script>
 

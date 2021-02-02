@@ -39,7 +39,7 @@ public class MemberController {
 				return "redirect:/memberNotYetOpened";//未開通頁面
 			}else {
 				return "redirect:/appointment";//一般會員登入後頁面
-			      }
+			     }
 		    }else {
 			 ra.addFlashAttribute("errorMsg", "帳號密碼錯誤");	//傳送單次Session回首頁
 			return "redirect:/";
@@ -53,16 +53,6 @@ public class MemberController {
 	}
 	
 	
-//	@GetMapping("/memberManagement")
-//	public String Openaccount() {	
-//		return "member/memberManagement";
-//	}	
-	
-	
-	
-	
-	
-	
 	@GetMapping("/memberLogout")
 	public String logout(HttpSession session,  Model model, SessionStatus status,
 			RedirectAttributes redirectAtt
@@ -73,11 +63,5 @@ public class MemberController {
 		session.invalidate();		// 此敘述不能省略，令目前 Session 失效		
 		return "redirect:/";	
 	}
-	
-	
-
-	
-	
-	
 	
 }

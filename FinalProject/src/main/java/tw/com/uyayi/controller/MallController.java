@@ -189,8 +189,17 @@ public class MallController {
 		obj.setTotalAmount(Integer.toString(orders.getTotalPayment()));
 		obj.setTradeDesc("test Description");
 		obj.setItemName(plist);
+<<<<<<< Updated upstream
 		obj.setReturnURL("http://9689facef272.ngrok.io/FinalProject/updateOrderStatus");
 		obj.setClientBackURL("http://localhost:9998/FinalProject/orderComplete");
+=======
+
+		obj.setReturnURL("http://743a61a1a04c.ngrok.io/FinalProject/updateOrderStatus");  //這裡放ngrok的網址
+
+		obj.setReturnURL("http://bf77f62897f5.ngrok.io/FinalProject/updateOrderStatus");  //這裡放ngrok的網址
+
+		obj.setClientBackURL("http://localhost:9998/FinalProject/orderComplete");   // 這裡放這樣的網址"http://localhost:9998/FinalProject/XXXX" 會生出按鍵刷卡完可以按回我們的網頁
+>>>>>>> Stashed changes
 		obj.setCustomField1(Integer.toString(orders.getOrderPkId()));
 		obj.setNeedExtraPaidInfo("N");
 		obj.setRedeem("N");

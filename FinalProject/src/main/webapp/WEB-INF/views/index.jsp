@@ -178,6 +178,7 @@
 								<div class="container" >
 									<span ><a href="<c:url value='memberForgotPwd'/>" class="link">忘記密碼?</a></span>
 									<span ><a href="javascript:void(0)" id="adminLogin">adminDemo</a></span>
+									<span ><a href="javascript:void(0)" id="meberLogin">meberDemo</a></span>
 								</div>
 							</div>
 						</form>
@@ -300,7 +301,6 @@
 
 	</div>
 	<script>
-	
 	$(document).ready(function(){
 		if(${errorMsg=='帳號密碼錯誤'}){
 			$("#memberModal").modal('show');
@@ -310,16 +310,24 @@
 		$("#uname").val("admin");
 		$("#upsw").val("admin123");
 	});
+	
+	$("#meberLogin").click(function(){
+		$("#uname").val("zzz63214780000@gmail.com");
+		$("#upsw").val("a,123123");
+	});
+	
 	if ("${LoginOK}" !=""){
 			$("#fh5co-nav ul").html(
-					'<li><img src="images/UYAYI_white.png" id="logo" width="200" style="float:left;position: absolute; left: 100px; top: 17.6px;"/></li>'
-					+'<li class="animate-box fh5co-active"><a href="<c:url value="index"/>" class="transition">Home</a></li>'
-					+'<li class="animate-box "><a href="<c:url value="appointment"/>" class="transition">立即預約</a></li>'
-					+'<li class="animate-box"><a href="<c:url value="appointmentRecord"/>" class="transition">預約紀錄</a></li>'
-					+'<li class="animate-box"><a href="<c:url value="/memberModify"/>" class="transition">會員資料</a></li>'
-					+'<li class="animate-box"><a href="<c:url value="products"/>" class="transition">商城</a></li>'
-					+'<li class="animate-box"><a href="<c:url value="memberLogout"/>"" class="transition style-logout">登出</a></li>'
-					)
+					 "<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
+			          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"
+			          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberModify' class='transition'>會員資料</a></li>"
+			          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberFirstVisit' class='transition'>會員初診</a></li>"
+			          + "<li class='animate-box fh5co-active fadeInUp animated'><a href='#' class='transition'>立即預約</a></li>"
+			          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/appointmentRecord' class='transition'>預約紀錄</a></li>"
+			          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberOrderTracking' class='transition'>訂單查詢</a></li>"
+			          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>"
+			          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberLogout' class='transition'>登出</a></li>"
+			)
 		}
 
 	</script>

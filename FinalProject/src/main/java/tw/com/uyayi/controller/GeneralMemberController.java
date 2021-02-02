@@ -28,6 +28,7 @@ import tw.com.uyayi.service.MemberMedicalRecordLookUpService;
 import tw.com.uyayi.service.MemberOrdersService;
 import tw.com.uyayi.service.MemberService;
 import tw.com.uyayi.service.MemberSignUpService;
+import tw.com.uyayi.service.impl.MemberSignUpServiceImpl;
 
 
 @Controller
@@ -74,7 +75,7 @@ public class GeneralMemberController {
     	memberSignUpService.add(member);
     	String text = "<a href='http://localhost:9998/FinalProject/memberMailCheck?rgewrgerwgw45y4refqereqrfsfeq=5&id="+member.getMemberPkId()+"&ffgsfdgerc=1fdshrt'>請點擊連結開通帳號</a>";
     	MailCheck m = new MailCheck();
-    	m.sendMail(member.getMemberAccount(), "歡迎歡迎測試測試", text);
+    	m.sendMail(member.getMemberAccount(), "歡迎加入【UYAYI會員!】", text);
 		return "index";
     }
     
@@ -112,10 +113,7 @@ public class GeneralMemberController {
     }
     
     
-    
-    
-    
-    
+
     
    //以下是訂單查詢
     @RequestMapping(value="/memberOrderTracking",method=RequestMethod.GET)
@@ -220,6 +218,11 @@ public class GeneralMemberController {
 		memberLogInservce.memberChangePwd(memberId, memberPwd);
 	return "redirect:/memberResetSuccess";
 	}
+	
+	
+	
+	
+	
 	
 
 	@GetMapping("memberResetSuccess")

@@ -259,20 +259,19 @@
 							     <form:input placeholder="id"  path="memberPkId" style="display:none"/>
 							     <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/>
 							     <form:input placeholder="請輸入您的密碼" path="memberPwd" style="display:none"/>
-							     <span><label>姓名：</label></span>
+							     <label>姓名：</label><br>
 							     <form:input placeholder="請輸入您的姓名" path="memberName"/>
-							     <br><br>
+							     <br>
 							     <form:input placeholder="身分證字號不能改" path="memberIdNumber" style="display:none"/>
-							     <span><label>通訊地址：</label></span>
-							     <form:input placeholder="請輸入您的地址" path="memberAddress"/>
-							     <br><br>
-							     <span><label>電話：</label></span>
+							     <label>通訊地址：</label><br>
+							     <form:input placeholder="請輸入您的地址" path="memberAddress" style= "color:black;width:60%"/>
+							     <br>
+							     <label>電話：</label><br>
 							     <form:input placeholder="請輸入您的電話" path="memberPhone"/>
-							     <br><br>
+							     <br>
 							     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>     
 								 <div  class="modal-footer">
-								           <button class="btn btn-default" id="update">修改</button>	
-								           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>								                       
+								           <button class="btn btn-default" id="update">修改</button>	  							                       
 								 </div>
 							 </form:form>
 							</tbody>
@@ -296,11 +295,17 @@
 			        
 						<table border="1" class="table" hidden>
 						<tbody>
-						<form:form action ="${pageContext.request.contextPath}/memberModifySo" method="post" modelAttribute="member" >		
+						<form:form action ="${pageContext.request.contextPath}/memberModifySo" method="post" modelAttribute="member" id="memberRestPwdForm">		
 					     <form:input placeholder="id"  path="memberPkId" style="display:none"/>
 					     <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/>
-					     <label>密碼：</label>
-					     <form:input placeholder="請輸入您的密碼" path="memberPwd" />
+					     <label for="memberPwd">請輸入新密碼:</label>
+					     <span id="spMemberPwd"></span>
+					     <form:input style= "color:black;width:60%"  placeholder="請輸入您的密碼" name="memberPwd" path="memberPwd" id="memberPwd" />
+					     <br>
+					     <label for="memberPwdCheck">請確認密碼:</label>
+			             <span id="spMemberPwdCheck"></span>
+			             <input style= "color:black;width:60%"   name="memberPwdCheck"  id="memberPwdCheck" placeholder="請再次輸入密碼" />
+					     
 					     <br>
 					     <form:input placeholder="請輸入您的姓名" path="memberName" style="display:none"/>
 					     <form:input placeholder="身分證不能改" path="memberIdNumber" style="display:none"/>
@@ -309,8 +314,7 @@
 					     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>
 					     <br>
 					     <div class="modal-footer">
-						        <button class="btn btn-default" id="update2">修改</button>	
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        <button class="btn btn-default" id="update2">修改</button>	  
 						 </div>
 						</form:form>
 						</tbody>
@@ -352,4 +356,100 @@
 
 	
 	</body>
+<script>
+$(function(){
+	var flagPwd = false;
+	var flagMemberPwdCheck=false;
+	document.getElementById("memberPwd").onblur = checkPwd;
+	function checkPwd() {
+		let flag1 = false, flag2 = false, flag3 = false;
+		let span = document.getElementById("spMemberPwd");
+		let pwdValue = document.getElementById("memberPwd").value;
+		document.querySelector("#spMemberPwd").style.color = 'red';
+		if (pwdValue == "") {
+			span.innerHTML = "&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入密碼";
+			flagPwd = false;
+		} else if (pwdValue.length <= 6) {
+			span.innerHTML = "&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>密碼必須大於6";
+			flagPwd = false;
+		} else {
+			for (let i = 0; i < pwdValue.length; i++) {
+				let char1 = pwdValue.charAt(i).toUpperCase();
+				let char2 = pwdValue.charCodeAt(i);
+				if (char1 >= "A" && char1 <= "Z") {
+					flag1 = true;
+				}
+				if (char1 >= 0 && char1 <= 9) {
+					flag2 = true;
+
+				}
+				if ((char2 >= 33 && char2 <= 47)
+						|| (char2 >= 58 && char2 <= 64)
+						|| (char2 >= 91 && char2 <= 96)
+						|| (char2 >= 123 && char2 <= 126)) {
+					flag3 = true;
+				}
+
+				if (flag1 && flag2 && flag3) {
+					span.innerHTML = "";
+					break;
+				}
+			}
+			if (flag1 && flag2 && flag3) {
+				span.innerHTML = "";
+				flagPwd = true;
+			} else {
+				span.innerHTML = "&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確密碼格式";
+				flagPwd = false;
+			}
+		}
+	}
+	
+	$("#memberPwdCheck").blur(function(){
+		let span = $("#spMemberPwdCheck");
+		if($("#memberPwdCheck").val()!=$("#memberPwd").val()){
+			flagMemberPwdCheck=false;
+			span.css("color","red");
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>輸入密碼不同");
+		}else {
+			flagMemberPwdCheck=true;
+			span.css("color","green");
+			span.html("&nbsp &nbsp <i class='far fa-check-circle'></i>密碼相符");
+		}
+	});
+	
+	 async function wrongPwd() {
+	        this.myModal = new SimpleModal("錯誤", "請輸入正確密碼", "是", "否");
+
+	        try {
+	          const modalResponse = await myModal.question();
+	        } catch(err) {
+	          console.log(err);
+	        }
+	        
+	      }
+	 async function confirmChangePwd() {
+	        this.myModal = new SimpleModal("確認", "確認更改密碼?", "是", "否");
+
+	        try {
+	          const modalResponse = await myModal.question();
+	        } catch(err) {
+	          console.log(err);
+	        }
+	        
+	      }
+	$("#memberRestPwdForm > button").click(function(){
+		if(flagPwd&&flagMemberPwdCheck){
+			confirmChangePwd();
+
+		}else{
+			wrongPwd();
+			$("body > dialog > div > div.simple-modal-button-group").children().remove();
+		}
+		
+	});
+});
+
+		
+			</script>
 </html>
