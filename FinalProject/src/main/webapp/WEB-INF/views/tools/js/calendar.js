@@ -17,40 +17,19 @@ var patientName="";
 	}
 
 //$(document).ready(function(){
-//	var dnl="${DentistNameList}"
 	var afterdnl=dnl.substring(1,dnl.length-1);
 	var Doctor=afterdnl.split(", ");
 	var DocNum = Doctor.length;
-//	var dil="${DentistIdList}";
 	var afterdil=dil.substring(1,dil.length-1);
 	var DoctorId=afterdil.split(", ");
-//	let id=[]
-//	let title=[]
-//	let start=[]
-//	let backgroundColor=[]
+
 	let JandayTotal=new Map()
 	let FebdayTotal=new Map()
 	let d=0
 	for (let i=1;i<=31;i++){
 		JandayTotal.set(i,0)
 	};
-//		<c:forEach var="allapplist" items="${AllAppointmentList}" varStatus="vs">
-//			id.push("${allapplist.appointmentPkId}")
-//			title.push("${allapplist.memberBean.memberName}"+"("+"${allapplist.dentistBean.dentistName}"+")")
-//			start.push("${allapplist.appointDate}"+"T"+
-//		 			   ("${allapplist.timeTableBean.times}".substring(0,"${allapplist.timeTableBean.times}".length-6))+":00")		
-//			if("${allapplist.memberReply}"=="未回覆"){
-//		 		backgroundColor.push('#95CACA')
-//			}
-//			if("${allapplist.memberReply}"=="確定前往"){
-//		 		backgroundColor.push('#408080')
-//			}
-//			d="${allapplist.appointDate}".substring(8);
-//			//if()
-//			JandayTotal.set(parseInt(d),JandayTotal.get(parseInt(d))+1);
-//			
-//			//console.log(d+" "+dayTotal.get(parseInt(d)))		
-//		</c:forEach>
+
 
 	for(let i=0;i<title.length;i++){
 		allevents.push({id:id[i],title:title[i],start:start[i],backgroundColor:backgroundColor[i]})
@@ -147,13 +126,10 @@ var patientName="";
 				minTime: '08:00:00', 
 				maxTime: '22:00:00', 
 				events: hisevent,
-				eventClick:function(event){
-					 
+				eventClick:function(event){				 
 					 $("#AppointmentModal > div > div > div.modal-footer").html('<button type="button" class="btn btn-default " data-toggle="modal" data-target="#AppointmentUpdateModal" data-dismiss="modal" onclick="appointmentUpdate()">修改預約</button><button type="button" class="btn btn-default contactMember" data-toggle="modal" data-target="#ContactModal" data-dismiss="modal" onclick="contactMember()">連絡病患</button>'
-	        	+'<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>')
-					 //if (event.id) {
+	        																		+'<button type="button" class="btn btn-default" onclick="openConfirmModal()">未到診回報</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>')
 //				            console.log(event.id);
-				      //}
 					 $.ajax({
 			             url: 'getAppointmentDetail',    //url位置
 			             type: 'get',

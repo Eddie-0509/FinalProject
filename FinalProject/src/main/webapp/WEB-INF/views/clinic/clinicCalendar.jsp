@@ -148,7 +148,6 @@
 					}
 				}
 			}
-// 			d="${allapplist.appointDate}".substring(8);
 		</c:forEach>
 	</script>
 	<!-- calendar JS&CSS  BySCONE-->

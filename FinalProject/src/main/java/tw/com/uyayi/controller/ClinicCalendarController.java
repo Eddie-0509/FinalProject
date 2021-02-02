@@ -53,14 +53,11 @@ public class ClinicCalendarController {
 			DentistNameList.add(dentistBean.getDentistName());
 			DentistIdList.add(dentistBean.getDentistPkId());
 		}
-
+		
 		List<Appointment> applist = caService.getAllAppointmentByClinic(clinicID);
 		 model.addAttribute("DentistIdList",DentistIdList);
-//		 model.addAttribute("DentistIdList",null);
-//		 model.addAttribute("DentistNameList",null);
 		 model.addAttribute("DentistNameList",DentistNameList);
 		 model.addAttribute("AllAppointmentList",applist);
-//		 model.addAttribute("AllAppointmentList",null);
 		 return "clinic/clinicCalendar";
 	}
 	
