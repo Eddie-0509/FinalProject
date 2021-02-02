@@ -222,7 +222,7 @@
 								<span> <label for="City"><strong>縣市：</strong></label>
 								</span> <select name="clinicCity" id="city"
 									class="form-control form-control-lg"
-									style="display: inline; width: 35%;">
+									style="display: inline; width: 40%;">
 									<option id="clinicCityDefault" disabled selected>請選擇</option>
 									<c:forEach var="city" items="${cities}" varStatus="vs">
 										<option value="${city.cityPkId}">${city.cityName}</option>
@@ -230,20 +230,20 @@
 								</select><br> <span> <label for="Dist"><strong>鄉鎮區：</strong></label>
 								</span> <select name="clinicDist" id="dist"
 									class="form-control form-control-lg"
-									style="display: inline; width: 35%">
+									style="display: inline; width: 40%">
 									<option id="distDefault" value="0" selected disabled>請選擇</option>
 								</select> <br>
 							</div>
 							<span> <label for="date">您想選擇的日期：</label>
 							</span> <input type="date" id="date" name="appointdate"
-								style="width: 35%"> <span><label for="time"><strong>您想預約的時間：</strong></label></span>
+								style="width: 40%"> <span><label for="time"><strong>您想預約的時間：</strong></label></span>
 							<select name="time" id="time"
 								class="form-control form-control-lg"
-								style="display: inline; width: 35%">
+								style="display: inline; width: 40%">
 								<option id="timedefault" selected disabled>請選擇</option>
 							</select> <span><label for="item"><strong>治療項目：</strong></label></span> <select
 								name="item" id="item" class="form-control form-control-lg"
-								style="display: inline; width: 35%">
+								style="display: inline; width: 40%">
 								<option id="itemdefault" selected disabled>請選擇</option>
 								<c:forEach var="item" items="${items}">
 									<option value="${item.itemPkId}">${item.itemName}</option>
@@ -253,8 +253,6 @@
 					</div>
 					<button type="button" class="btn btn-dark" id="sdentist"
 						style="margin: 10px;">搜尋醫生/診所</button>
-					<button type="button" class="btn btn-dark" onclick="history.back()"
-						style="margin: 10px;">取消預約</button>
 				</form>
 			</div>
 		</div>
@@ -296,7 +294,43 @@
 		</div>
 	</div>
 
-	<!--一般用戶LOGIN表單-->
+<!--Bar上一般用戶LOGIN表單-->
+	<div class="modal fade" id="barMemberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+					<form class="loginForm" action="checkLogin" method="POST" >
+						<h1>一般會員</h1>
+							<div class="usericon">
+								<i class="fas fa-user-circle"></i>
+							</div>
+							<div class="choose">
+								<a href="javascript:void();" class="login default"><h2>登　入</h2></a>
+								<a href="<c:url value='member'/>"  class="sign"><h2>註　冊</h2></a>
+							</div>
+								<div class="formcontainer">
+								<div class="container">
+									<span id="errorMsg" style="color: red; text-align: center; display:block;">${errorMsg}</span><br/>
+									<label for="uname"><strong>信　　　箱</strong></label>
+									<input type="text" placeholder="請輸入信箱" name="account" id="uname" required autofocus>
+					
+									<label for="psw"><strong>密　　　碼</strong></label>
+									<input type="password" placeholder="請輸入密碼" name="pwd" id="upsw" required>
+				
+								</div>
+								<button type="submit"><strong>登入</strong></button>
+								<div class="container" >
+									<span ><a href="<c:url value='memberForgotPwd'/>" class="link">忘記密碼?</a></span>
+									<span ><a href="javascript:void(0)" id="adminLogin">adminDemo</a></span>
+									<span ><a href="javascript:void(0)" id="meberLogin">meberDemo</a></span>
+								</div>
+							</div>
+						</form>
+			</div>			
+		</div>
+	</div>		
+
+
+	<!--搜尋完後一般用戶未登入LOGIN表單-->
 	<div class="modal fade" id="memberModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -317,13 +351,15 @@
 					</div>
 					<div class="formcontainer">
 						<div class="container">
-							<span id="errorMsgSametime"
-								style="color: red; text-align: center; display: block;">${errorMsgSametime}</span><br />
+<!-- 						    <span id="stopErrorMsg" -->
+<%-- 								style="color: red; text-align: center; display: block;">${stopErrorMsg}</span><br /> --%>
+<!-- 							<span id="errorMsgSametime" -->
+<%-- 								style="color: red; text-align: center; display: block;">${errorMsgSametime}</span><br /> --%>
 							<span id="errorMsg"
 								style="color: red; text-align: center; display: block;">${errorMsg}</span><br />
 							<label for="uname"><strong>信箱</strong></label> <input
 								type="text" placeholder="請輸入信箱" name="account" id="uname"
-								required autofocus> 
+								required autofocus> <br>
 							<label for="psw"><strong>密碼</strong></label> <input type="password" placeholder="請輸入密碼" name="pwd"
 								id="upsw" required>
 							<!--塞入隱藏欄位傳值去後端 -->
@@ -338,6 +374,9 @@
 							<strong>登入</strong>
 						</button>
 						<div class="container">
+						<span ><a href="javascript:void(0)" id="demo">Demo</a></span>
+<!-- 						<span ><a href="javascript:void(0)" id="demoWrong">DemoWrong</a></span> -->
+						<span ><a href="javascript:void(0)" id="demoStopAccount">DemoStopAccount</a></span>	
 							<span><a href="#" class="link">忘記密碼?</a></span>
 						</div>
 					</div>
@@ -347,20 +386,30 @@
 	</div>
 
 	<script>
+	//登入彈窗顯示帳號密碼錯誤訊息
+	$(document).ready(function(){
+		if(${errorMsg=='帳號密碼錯誤'}){
+			$("#memberModal").modal('show');
+		}
+	})
+	//登入彈窗顯示被停權訊息
+	$(document).ready(function(){
+		if(${errorMsg=='您有多次預約未到診紀錄已被停權'}){
+			$("#memberModal").modal('show');
+		}
+	})
 		//設定是否有登入session時顯示的bar
 		$(function() {
 
 			if ("${LoginOK}" == "") {
-				$("#fh5co-nav ul")
-						.html(
+				$("#fh5co-nav ul").html(
 								"<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"
 										+ "<li class='animate-box fadeInUp animated fh5co-active'><a href='#' class='transition'>立即預約</a></li>"
-										+ "<li class='animate-box fadeInUp animated'><a data-toggle='modal' data-target='#memberModal' >用戶登入</a></li>"
+										+ "<li class='animate-box fadeInUp animated'><a href data-toggle='modal' data-target='#barMemberModal' >用戶登入</a></li>"
 										+ "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/products' class='transition'>商城</a></li>");
 			} else {
-				$("#fh5co-nav ul")
-						.html(
+				$("#fh5co-nav ul").html(
 								 "<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;' /></li>"
 						          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/index' class='transition'>Home</a></li>"
 						          + "<li class='animate-box fadeInUp animated'><a href='${pageContext.request.contextPath}/memberModify' class='transition'>會員資料</a></li>"
@@ -378,9 +427,7 @@
 		$(function() {
 			$("#city").children("option").eq(0).attr("selected");
 			$(function() {
-				$("#city")
-						.change(
-								function() {
+				$("#city").change(function() {
 									let str = "";
 									let urlQuery = new URLSearchParams({
 										cityPkId : $("#city").val(),
@@ -390,35 +437,27 @@
 
 									fetch("getDist?" + urlQuery, {
 										method : "GET"
-									})
-											.then(function(response) {
-												return response.json();
-											})
-											.then(
-													function(data) {
+									}).then(function(response) {
+									return response.json();
+									}).then(function(data) {
 														// 利用console.log(data)判斷取到何值
 														// console.log(data[0].clinics[0].clinicName);
-														var jsonLength = 0;
-														for ( var item in data) {
-															jsonLength++;
-														}
-														for (var i = 0; i < data.length; i++) {
-															let distName = data[i].distName;
-															str += "<option value='" + data[i].distPkId + "'>"
-																	+ distName
-																	+ "</option>";
-														}
-														$("#dist").html(str);
-													})
+									var jsonLength = 0;
+									for ( var item in data) {
+									jsonLength++;
+									}
+									for (var i = 0; i < data.length; i++) {
+									let distName = data[i].distName;
+									str += "<option value='" + data[i].distPkId + "'>" + distName + "</option>";}
+									$("#dist").html(str);
+									})
 								})
 			})
 		});
 
 		//當使用者選擇日期可自動帶出時段供使用者選擇
 		$(function() {
-			$("#date")
-					.change(
-							function() {
+			$("#date").change(function() {
 								let str = "";
 								let urlQuery = new URLSearchParams({
 									appointDate : $("#date").val(),
@@ -427,27 +466,20 @@
 								});
 								fetch("getTimeTable?" + urlQuery, {
 									method : "GET"
+								}).then(function(response) {
+								return response.json();
+								}).then(function(data) {
+								var jsonLength = 0;
+								for ( var item in data) {
+								jsonLength++;
+								}
+								for (var i = 0; i < data.length; i++) {
+								let times = data[i].times;
+								str += "<option value='" + data[i].timeTablePkId + "'>" + times + "</option>";
+								str += "<span id=timetableid style='display:none'>" + data[i].timeTablePkId + "</span>";
+								}
+								$("#time").html(str);
 								})
-										.then(function(response) {
-											return response.json();
-										})
-										.then(
-												function(data) {
-													var jsonLength = 0;
-													for ( var item in data) {
-														jsonLength++;
-													}
-													for (var i = 0; i < data.length; i++) {
-														let times = data[i].times;
-														str += "<option value='" + data[i].timeTablePkId + "'>"
-																+ times
-																+ "</option>";
-														str += "<span id=timetableid style='display:none'>"
-																+ data[i].timeTablePkId
-																+ "</span>";
-													}
-													$("#time").html(str);
-												})
 							});
 		});
 		//查詢醫生和診所的fetch方法
@@ -458,9 +490,7 @@
 		});
 		$(function() {
 			var fetchData;
-			$("#sdentist")
-					.click(
-							function() {
+			$("#sdentist").click(function() {
 								let str = "";
 								let str1 = "";
 								let urlQuery = new URLSearchParams({
@@ -474,12 +504,9 @@
 								});
 								fetch("searchDoctor?" + urlQuery, {
 									method : "GET"
-								})
-										.then(function(response) {
-											return response.json();
-										})
-										.then(
-												function(data) {
+								}).then(function(response) {
+								return response.json();
+										}).then(function(data) {
 													console.log(data);
 													fetchData = data;
 													var jsonLength = 0;
@@ -487,7 +514,7 @@
 														jsonLength++;
 													}
 													for (var i = 0; i < data.length; i++) {
-														str += "<div><span id=clinicid style='display:none'>"
+														str += "<div style='margin-left:20px'><span id=clinicid style='display:none'>"
 																+ data[i].clinicBean.clinicPkId
 																+ "</span>"
 																+ "<span id=dentistid style='display:none'>"
@@ -499,42 +526,16 @@
 																+ "<br>"
 																+ data[i].clinicBean.clinicAddress
 																+ "<br>"
-																+ "<button class='aplogin' value='" + data[i].dentistPkId + "'>預約登記</button>"
+																+ "<button class='aplogin' value='" + data[i].dentistPkId + "'>預 約</button>"
 																+ "</div>";
 													}
 													$("#den").html(str);
 													//點下搜尋按鈕會跳出modal彈窗
-													$("#searchresult").modal(
-															'show');
-													str1 = "<div>"
-															+ $("#date").val()
-															+ "/"
-															+ $(
-																	"#city option[value="
-																			+ $(
-																					"#city")
-																					.val()
-																			+ "]")
-																	.text()
-															+ "/"
-															+ $(
-																	"#dist option[value="
-																			+ $(
-																					"#dist")
-																					.val()
-																			+ "]")
-																	.text()
-															+ "/項目:"
-															+ $(
-																	"#item option[value="
-																			+ $(
-																					"#item")
-																					.val()
-																			+ "]")
-																	.text()
-															+ "<div>";
-													$("#searchtitle")
-															.html(str1);
+													$("#searchresult").modal('show');
+													str1 = "<div>" + $("#date").val() + "/" + $("#city option[value=" + $("#city").val() + "]").text()
+															+ "/" + $("#dist option[value=" + $("#dist").val()+ "]").text()
+															+ "/項目:" + $("#item option[value=" + $("#item").val() + "]").text() + "<div>";
+													$("#searchtitle").html(str1);
 													//如果搜尋結果為空顯示空的文字
 													if (str.length == 0) {
 														$("#empty").show();
@@ -542,68 +543,30 @@
 														$("#empty").hide();
 													}
 													;
-													$(".aplogin")
-															.click(
-																	function(
-																			event) {
-																		event
-																				.stopPropagation();
+													$(".aplogin").click(function(event) {
+																		event.stopPropagation();
 																		goprocess();
-																		console
-																				.log(goprocess());
-																		event
-																				.stopImmediatePropagation();
+																		console.log(goprocess());
+																		event.stopImmediatePropagation();
 																		//塞值進隱藏欄位
-																		$(
-																				"#mclinic")
-																				.val(
-																						$(
-																								"#clinicid")
-																								.text());
-																		$(
-																				"#mdentist")
-																				.val(
-																						$(
-																								"#dentistid")
-																								.text());
-																		$(
-																				"#mappointdate")
-																				.val(
-																						$(
-																								"#date")
-																								.val());
-																		$(
-																				"#mtimetable")
-																				.val(
-																						$(
-																								"#time")
-																								.val());
-																		$(
-																				"#mitem")
-																				.val(
-																						$(
-																								"#item")
-																								.val());
+																		$("#mclinic").val($("#clinicid").text());
+																		$("#mdentist").val($("#dentistid").text());
+																		$("#mappointdate").val($("#date").val());
+																		$("#mtimetable").val($("#time").val());
+																		$("#mitem").val($("#item").val());
 																		//判斷是否已經登入過
 																		if ("${LoginOK}" == "") {
-																			$(
-																					"#memberModal")
-																					.modal(
-																							'show');
+																			$("#memberModal").modal('show');
 																		} else {
 																			//form:form一定要用trigger送出	
-																			$(
-																					"#hiddenForm")
-																					.trigger(
-																							"submit");
+																			$("#hiddenForm").trigger("submit");
 																		}
 																	})
 												})
 							})
 		});
 		//判斷登入帳號密碼是否正確
-		$("#loginbtn")
-				.click(
+		$("#loginbtn").click(
 						function() {
 							let urlQuery = new URLSearchParams({
 								account : $("#uname").val(),
@@ -616,20 +579,13 @@
 								method : "POST",
 								body : urlQuery
 
-							})
-									.then(function(response) {
-										return response.json();
-
-									})
-									.then(
-											function(data) {
-												if (data) {
-													window.location.href = "${pageContext.request.contextPath}/appointmentCheckLogin";
-												} else {
-													$("#errorMsg").text(
-															"帳號密碼錯誤");
-												}
-											});
+							}).then(function(response) {
+							   return response.json();
+							}).then(function(data) {
+							if (data) {
+							window.location.href = "${pageContext.request.contextPath}/appointmentCheckLogin";
+							} 
+							});
 						});
 		//塞值方法
 		function goprocess() {
@@ -639,6 +595,31 @@
 			$("#aptimetable").val($("#time").val());
 			$("#apitem").val($("#item").val());
 		};
+		//Demo一鍵輸入
+		$("#demo").click(function(){
+			$("#uname").val("Tanjirou@gmail.com.tw") 
+			$("#upsw").val("P@ssw0rd123")	
+		})
+		//Demo錯誤帳號密碼一鍵輸入
+		$("#demoWrong").click(function(){
+			$("#uname").val("zxcv12345@gmail.com") 
+			$("#upsw").val("P@ssw0rd123")	
+		})
+		//Demo停權帳號一鍵輸入
+		$("#demoStopAccount").click(function(){
+			$("#uname").val("Nezuko@gmail.com.tw") 
+			$("#upsw").val("P@ssw0rd123")	
+		})
+		//未登入狀態的頁面中用戶登入裡的admin一鍵輸入
+		$("#adminLogin").click(function(){
+		    $("#uname").val("admin");
+		    $("#upsw").val("admin123");
+	    });
+		//未登入狀態的頁面中用戶登入裡的會員一鍵輸入
+	    $("#meberLogin").click(function(){
+		    $("#uname").val("zzz63214780000@gmail.com");
+		    $("#upsw").val("a,123123");
+	    });
 	</script>
 
 

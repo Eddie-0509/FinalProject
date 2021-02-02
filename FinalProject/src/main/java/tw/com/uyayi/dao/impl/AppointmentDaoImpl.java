@@ -142,7 +142,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 	@Override
 	public List<Appointment> showAppointRecordAfterToday(Integer memberPkId) {
 		Session session = factory.getCurrentSession();
-		String hql = " From Appointment where memberBean=:mId and appointDate > cast(getdate() as date) ORDER BY appointDate DESC";
+		String hql = " From Appointment where memberBean=:mId and appointDate > cast(getdate() as date) ORDER BY appointDate ASC";
 		Member memberBean = session.get(Member.class, memberPkId);
 		List<Appointment> i = session.createQuery(hql).setParameter("mId", memberBean).getResultList();
 		return i;
