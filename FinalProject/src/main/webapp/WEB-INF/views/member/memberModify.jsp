@@ -259,15 +259,18 @@
 							     <form:input placeholder="id"  path="memberPkId" style="display:none"/>
 							     <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/>
 							     <form:input placeholder="請輸入您的密碼" path="memberPwd" style="display:none"/>
-							     <label>姓名：</label><br>
-							     <form:input placeholder="請輸入您的姓名" path="memberName"/>
+							      <div><label>姓名：</label><br>
+							     <form:input style= "color:black;width:60%" placeholder="請輸入您的姓名" path="memberName" />
+							      </div>
 							     <br>
 							     <form:input placeholder="身分證字號不能改" path="memberIdNumber" style="display:none"/>
-							     <label>通訊地址：</label><br>
-							     <form:input placeholder="請輸入您的地址" path="memberAddress" style= "color:black;width:60%"/>
+							     <div> <label>通訊地址：</label><br>
+							     <form:input style= "color:black;width:60%" placeholder="請輸入您的地址" path="memberAddress" />
+							      </div>
 							     <br>
-							     <label>電話：</label><br>
-							     <form:input placeholder="請輸入您的電話" path="memberPhone"/>
+							      <div><label>電話：</label><br>
+							     <form:input style= "color:black;width:60%" placeholder="請輸入您的電話" path="memberPhone"/>
+							      </div>
 							     <br>
 							     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>     
 								 <div  class="modal-footer">
@@ -298,13 +301,20 @@
 						<form:form action ="${pageContext.request.contextPath}/memberModifySo" method="post" modelAttribute="member" id="memberRestPwdForm">		
 					     <form:input placeholder="id"  path="memberPkId" style="display:none"/>
 					     <form:input placeholder="信箱帳號不能改"  path="memberAccount" style="display:none"/>
-					     <label for="memberPwd">請輸入新密碼:</label>
-					     <span id="spMemberPwd"></span>
-					     <form:input style= "color:black;width:60%"  placeholder="請輸入您的密碼" name="memberPwd" path="memberPwd" id="memberPwd" />
+					     <div>
+			              舊密碼:  <br><form:input style= "color:black;width:60%" type="password" id="clinicOldPwd" name="clinicOldPwd" placeholder="請輸入舊密碼" path=""/>
+			             </div> 
+			             <br>
+					     <div>
+					      請輸入新密碼: <span id="newPwdSpan"></span>
+					     <form:input type="password" style= "color:black;width:60%"  placeholder="請輸入您的密碼" name="memberPwd" path="memberPwd" id = "clinicNewPwd" />
+					     </div>
 					     <br>
-					     <label for="memberPwdCheck">請確認密碼:</label>
+					     <div>
+					      請確認密碼: <span id="checkPwdSpan"></span>
 			             <span id="spMemberPwdCheck"></span>
-			             <input style= "color:black;width:60%"   name="memberPwdCheck"  id="memberPwdCheck" placeholder="請再次輸入密碼" />
+			             <form:input type="password" style= "color:black;width:60%"   name="memberPwdCheck"  id = "clinicNewPwdCheck"  path="" placeholder="請再次輸入密碼" />
+					     </div>
 					     
 					     <br>
 					     <form:input placeholder="請輸入您的姓名" path="memberName" style="display:none"/>
@@ -314,7 +324,7 @@
 					     <form:input placeholder="狀態"  path="memberStatus" style="display:none"/>
 					     <br>
 					     <div class="modal-footer">
-						        <button class="btn btn-default" id="update2">修改</button>	  
+						        <button  class="btn btn-default"  id="newPwdformButton">修改</button>	  
 						 </div>
 						</form:form>
 						</tbody>
@@ -357,20 +367,22 @@
 	
 	</body>
 <script>
-$(function(){
-	var flagPwd = false;
-	var flagMemberPwdCheck=false;
-	document.getElementById("memberPwd").onblur = checkPwd;
-	function checkPwd() {
-		let flag1 = false, flag2 = false, flag3 = false;
-		let span = document.getElementById("spMemberPwd");
-		let pwdValue = document.getElementById("memberPwd").value;
-		document.querySelector("#spMemberPwd").style.color = 'red';
+var flagPwd = false;
+var flagClinicPwdCheck=false;
+
+$("#reviseClinicPwd").click(function(){
+	 $("#clinicPwdChangeModal").modal("show");
+})
+ 
+$("#clinicNewPwd").blur(function(){
+	  let flag1 = false, flag2 = false, flag3 = false;
+		 $("#newPwdSpan").css("color", "red");
+		let pwdValue = document.getElementById("clinicNewPwd").value;
 		if (pwdValue == "") {
-			span.innerHTML = "&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入密碼";
+			$("#newPwdSpan").html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入密碼");
 			flagPwd = false;
 		} else if (pwdValue.length <= 6) {
-			span.innerHTML = "&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>密碼必須大於6";
+			$("#newPwdSpan").html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>密碼必須大於6");
 			flagPwd = false;
 		} else {
 			for (let i = 0; i < pwdValue.length; i++) {
@@ -391,65 +403,72 @@ $(function(){
 				}
 
 				if (flag1 && flag2 && flag3) {
-					span.innerHTML = "";
+					$("#newPwdSpan").html("");
 					break;
 				}
 			}
 			if (flag1 && flag2 && flag3) {
-				span.innerHTML = "";
-				flagPwd = true;
+				$("#newPwdSpan").html("");
+				  if($("#clinicNewPwdCheck").val()==$("#clinicNewPwd").val()){
+					 $("#newPwdSpan").html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>不可與舊密碼相同");
+				 }else{
+					 $("#newPwdSpan").html("");
+							flagPwd = true;
+	 				}
 			} else {
-				span.innerHTML = "&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確密碼格式";
+				$("#newPwdSpan").html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>請輸入正確密碼格式");
 				flagPwd = false;
 			}
 		}
-	}
-	
-	$("#memberPwdCheck").blur(function(){
-		let span = $("#spMemberPwdCheck");
-		if($("#memberPwdCheck").val()!=$("#memberPwd").val()){
-			flagMemberPwdCheck=false;
+	  
+})
+
+$("#clinicNewPwdCheck").blur(function(){
+	 let span = $("#checkPwdSpan");
+		if($("#clinicNewPwdCheck").val()!=$("#clinicNewPwd").val()){
+			flagClinicPwdCheck=false;
 			span.css("color","red");
-			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>輸入密碼不同");
+			span.html("&nbsp &nbsp <i class='fas fa-exclamation-circle'></i>與新密碼不符");
 		}else {
-			flagMemberPwdCheck=true;
+			flagClinicPwdCheck=true;
 			span.css("color","green");
 			span.html("&nbsp &nbsp <i class='far fa-check-circle'></i>密碼相符");
 		}
-	});
-	
-	 async function wrongPwd() {
-	        this.myModal = new SimpleModal("錯誤", "請輸入正確密碼", "是", "否");
-
-	        try {
-	          const modalResponse = await myModal.question();
-	        } catch(err) {
-	          console.log(err);
-	        }
-	        
-	      }
-	 async function confirmChangePwd() {
-	        this.myModal = new SimpleModal("確認", "確認更改密碼?", "是", "否");
-
-	        try {
-	          const modalResponse = await myModal.question();
-	        } catch(err) {
-	          console.log(err);
-	        }
-	        
-	      }
-	$("#memberRestPwdForm > button").click(function(){
-		if(flagPwd&&flagMemberPwdCheck){
-			confirmChangePwd();
-
-		}else{
-			wrongPwd();
-			$("body > dialog > div > div.simple-modal-button-group").children().remove();
-		}
-		
-	});
 });
 
+$("#newPwdformButton").click(function(){
+	if(flagClinicPwdCheck&&flagPwd){
+		confirmPwd();
+	}else{
+		errorPwd();
+		$("body > dialog > div > div.simple-modal-button-group").children().remove();
+
+	}
+	 
+});
+ 
+async function confirmPwd() {
+    this.myModal = new confirmNewClinicPwd("確認", "確認更改診所密碼", "是", "否");
+
+    try {
+      const modalResponse = await myModal.question();
+    } catch(err) {
+      console.log(err);
+    }
+    
+  }
+  
+
+async function errorPwd() {
+       this.myModal = new confirmNewClinicPwd("錯誤", "請輸入正確資料", "是", "否");
+
+       try {
+         const modalResponse = await myModal.question();
+       } catch(err) {
+         console.log(err);
+       }
+       
+     }
 		
 			</script>
 </html>

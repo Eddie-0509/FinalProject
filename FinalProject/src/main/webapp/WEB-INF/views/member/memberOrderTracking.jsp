@@ -183,7 +183,8 @@
 <!-- 			<div class="container"> -->
                 <div class="result-content">
               	  <div id="container" class="container" style='width: 1350px;'>
-
+	            <input id="searchBar" name="keyName" placeholder="請輸入收貨人姓名">
+				<button type="button" id="searchData" class="btn btn-info">搜尋</button>
                     <table class='table table-bordered' >
                         <tr>
                             <th style='width: 120px;'>訂單編號</th>
@@ -205,7 +206,7 @@
                               <td>${orders.totalPayment}</td> 
                               <td>${orders.orderStatus}</td> 
                             <td>
-                                  <button id="btn${orders.orderPkId}" class="btn btn-default">明細</button>
+                      <button id="btn${orders.orderPkId}" class="btn btn-default">明細</button>
                             </td>
                            </c:forEach>
                     </table>
@@ -241,6 +242,12 @@
 	</div>
 	
 	<script>
+	
+	
+
+	
+
+	
 	$(function(){
 		<c:forEach var="x" items="${orders}"> 
 		$("#btn${x.orderPkId}").click(function(){
@@ -255,9 +262,11 @@
 		$("#detailDiv").html(str);
 		$("#Modal").modal("show");
 		})
-
+		
 		</c:forEach>  	
 	})
+	
+	
 	</script>
 	
 	</body>

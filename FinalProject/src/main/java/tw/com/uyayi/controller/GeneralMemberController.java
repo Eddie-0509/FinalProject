@@ -117,6 +117,37 @@ public class GeneralMemberController {
     	return "member/memberOrderTracking";
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//	//會員管理頁面(依會員名稱搜尋會員資料)
+//	@GetMapping(value  = "/getAllMemberByName", produces = "application/json")
+//	public @ResponseBody List<Member> getAllMemberByName(@RequestParam String keyName) {
+//		List<Member> beans= null;
+//		if(keyName.equals("")) {
+//			beans = service.getAllMember();
+//		}else if(keyName.equals("admin")) {
+//			beans= null;
+//		}else {
+//			beans = service.getAllMemberByName(keyName);
+//		}
+//		return beans;
+//	}
+	
+    
+    
+    
+    
+
  
     //修改病例資料GET
     @GetMapping(value = "/modifyTheCase")
