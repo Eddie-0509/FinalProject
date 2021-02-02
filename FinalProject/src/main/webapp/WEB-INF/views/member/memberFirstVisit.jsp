@@ -130,7 +130,7 @@
 				<li class="animate-box "><a href="<c:url value='/memberModify'/>" class="transition">會員資料</a></li>
 				<li class="animate-box fh5co-active"><a href="<c:url value='/memberFirstVisit'/>" class="transition">會員初診</a></li>
 				<li class="animate-box "><a href="<c:url value='appointment'/>" class="transition">立即預約</a></li>
-				<li class="animate-box fh5co-active"><a href="<c:url value='/appointmentRecord'/>" class="transition">預約紀錄</a></li>
+				<li class="animate-box "><a href="<c:url value='/appointmentRecord'/>" class="transition">預約紀錄</a></li>
 				<li class="animate-box"><a href="<c:url value='/memberOrderTracking'/>" class="transition">訂單查詢</a></li>
 				<li class="animate-box"><a href="<c:url value='products'/>" class="transition">商城</a></li>
 				<li class="animate-box"><a href="<c:url value='memberLogout'/>" class="transition style-logout">登出</a></li>
@@ -189,62 +189,69 @@
 <form:form action ="${pageContext.request.contextPath}/memberFirstVisitAddView" method="post" modelAttribute="md" >
 
 
-    <input value="${LoginOK.memberPkId}"  name="mem5berPkId" style="display:none" />
+     <input value="${LoginOK.memberPkId}"  name="mem5berPkId" style="display:none" />
+     
+     <label for="clinicName">
+     <strong>緊急聯絡人:</strong></label> 
+     <input placeholder="請輸入您的緊急聯絡人" id="clinicName" name="emergencyContact" required autofocus/>
+  
+     <br>
+     
+     <label for="clinicPhone"><strong>緊急連絡電話:</strong></label> 
+     <input placeholder="請輸入您的緊急聯絡電話" name="emergencyNumber" id="clinicPhone"required autofocus/><span id="checkPhone"></span>
+     <br>
+     
+     
+     
+     <label for="emergencyRelationshipok"><strong>關係:</strong></label> 
+     <input placeholder="請輸入與緊急聯絡任的關係" name="emergencyRelationship" id="emergencyRelationshipok"required autofocus/>
+     <br>
+     
 
-       &nbsp;&nbsp;&nbsp;&nbsp;<strong>緊急聯絡人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <input placeholder="請輸入您的緊急聯絡人"  name="emergencyContact" required autofocus/></strong>
-     <br><br>
-         &nbsp;&nbsp;&nbsp; <label for="emergencyPhone"><strong>緊急連絡電話:&nbsp;&nbsp;
-    <input placeholder="請輸入您的緊急聯絡電話" name="emergencyNumber" id="emergencyPhone"required autofocus/></strong></label><span id="checkPhone"></span>
-     <br><br>
-       &nbsp;&nbsp;&nbsp;&nbsp; <strong>關係:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     &nbsp;
-     <input placeholder="請輸入與緊急聯絡任的關係" name="emergencyRelationship" id="emergencyPhonecPhone"/></strong>
-     <br><br>
-        &nbsp;&nbsp;&nbsp;&nbsp; <strong>抽菸史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-        <input placeholder="請輸入抽菸幾年了?" name="smoke" required autofocus/></strong>
-     <br><br>
-       &nbsp;&nbsp;&nbsp;&nbsp; <strong> 檳榔史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       
-       <input placeholder="請輸入吃檳榔多久了" name="betelNut" required autofocus/></strong>
-     <br><br>
-       &nbsp;&nbsp;&nbsp;&nbsp;  <strong>重大疾病:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       
-       <input placeholder="是否有重大疾病，請填寫" name="diseases" required autofocus/></strong>
-     <br><br>
-         &nbsp;&nbsp;&nbsp;&nbsp;  <strong>過敏原:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         
-         <input placeholder="請填寫過敏原" name="allergy" required autofocus/></strong>
-     <br><br>
-         &nbsp;&nbsp;&nbsp;&nbsp;  <strong>手術史:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         
-         <input placeholder="請填寫動過的手術紀錄" name="surgery" required autofocus/></strong>
-     <br> <br>  
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-     <input type="submit" value="新增" />
+     <span><label  for="sY">抽菸：</label></span>
+	 <input type="radio" value="是" name="smoke" id="sY" />是
+	 <input type="radio" value="否" name="smoke" id="sN" />否
+     <br>
+     
+     <span><label for="bY">檳榔：</label></span>
+	 <input type="radio" value="是" name="betelNut" id="bY"/>是
+	 <input type="radio" value="否" name="betelNut" id="bN"/>否
+     <br>
+     
+     
+     <label for="diseasesok">
+     <strong>重大疾病:</strong></label> 
+     <input placeholder="是否有重大疾病，請填寫" name="diseases" id="diseasesok" required autofocus/>
+     <br>
+     
+     
+     <label for="allergyok">
+     <strong>重大疾病:</strong></label> 
+     <input placeholder="請填寫過敏原" name="allergy" id="allergyok" required autofocus/>
+     <br>
+     
+     
+     <label for="surgeryok">
+     <strong>手術史:</strong></label> 
+     <input placeholder="請填寫動過的手術紀錄" name="surgery" id="surgeryok" required autofocus/></strong>
+     <br> 
+     
+     
+     <span ><a href="javascript:void(0)" id="memberDemo">memberDemo</a></span>
+     <div style="text-align:center;"><input type="submit" value="新增" />   </div>
+     
 
 </form:form>
 
 </tbody>
 
-</table>	
-	             
-	        	
-	        </div>
-
-	    </div>
-	</div>
+</table>		
+	   </div>
+	 </div>
+  </div>
 </div>
 
-
     </div>
-    
-    
-    
     <!--/main-->
 </div>
 
@@ -292,7 +299,53 @@
 	</body>
 	
 	
+	
+	
+	
+	
+	
+	
+	
 	<script>
+	
+	
+	
+	$(function(){
+		$("#memberDemo").click(function(){
+			$("#clinicEmail").val("zzz63214780000@gmail.com")
+			$("#clinicPwd").val("a,123123")
+			$("#clinicPwdCheck").val("a,123123")
+			$("#clinicName").val("周君憲")
+			$("#clinicPhone").val("0985329401")
+			$("#diseasesok").val("長期插管")
+			$("#allergyok").val("牛奶")
+			$("#emergencyRelationshipok").val("母子")
+			$("#surgeryok").val("大腸直腸癌微創手術")
+			$("#sY").attr("checked",true)
+			$("#bY").attr("checked",true)
+			flagPwd=true
+			flagEmail = true
+			flagPhone = true
+			flagImage = true
+		    flagId = true
+			flagClinicPwdCheck = true
+			
+		})
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		var flagPwd = false;
 		var flagEmail = false;
 		var checkEmail = false;

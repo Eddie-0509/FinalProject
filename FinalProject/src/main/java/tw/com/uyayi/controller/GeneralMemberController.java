@@ -30,7 +30,6 @@ import tw.com.uyayi.service.MemberService;
 import tw.com.uyayi.service.MemberSignUpService;
 import tw.com.uyayi.service.impl.MemberSignUpServiceImpl;
 
-
 @Controller
 @SessionAttributes({"LoginOK","memberDetails"})
 public class GeneralMemberController {
@@ -45,14 +44,11 @@ public class GeneralMemberController {
 	ClinicSignUpService signUpService;
 
 	@Autowired
-	MemberService memberService;
-	
+	MemberService memberService;	
     @Autowired
-    MemberOrdersService memberOrdersService ;
-    
+    MemberOrdersService memberOrdersService ;   
     @Autowired
-	MemberLogInService memberLogInservce;
-    
+	MemberLogInService memberLogInservce;  
     @Autowired
     MemberMedicalRecordLookUpService memberMedicalRecordLookUpService;
 	
@@ -64,7 +60,6 @@ public class GeneralMemberController {
 		return "member/memberSignup";	
 	}
     
-
     @RequestMapping(value = "/member",method=RequestMethod.POST )
     public String addMember(@ModelAttribute("member") Member member) {
     	System.out.println(member.getMemberAccount());
@@ -78,24 +73,20 @@ public class GeneralMemberController {
     	m.sendMail(member.getMemberAccount(), "歡迎加入【UYAYI會員!】", text);
 		return "index";
     }
-    
-    
+       
 	// 使用fetch驗證 帳號是否重複
 	@PostMapping(path= "/memberCheckAccount", produces = "application/json")
 	public @ResponseBody boolean memberCheckAccount(@RequestParam("memberAccount") String memberEmail) {
 		boolean flag = memberSignUpService.checkEmail(memberEmail);
 		return flag;
 	}
-    
-    
+        
   @GetMapping(value="memberMailCheck")
   public String mailCheck(@RequestParam("id") String id) {
   	int memberPkId = Integer.valueOf(id);
   	memberSignUpService.changeStatus(memberPkId);
   	return "member/memberMailCheck";
   }
-    
-
     
     @RequestMapping(value="/memberModify",method=RequestMethod.GET)
     public String updateUserOneView(
@@ -112,9 +103,6 @@ public class GeneralMemberController {
 		return "member/memberModify";
     }
     
-    
-
-    
    //以下是訂單查詢
     @RequestMapping(value="/memberOrderTracking",method=RequestMethod.GET)
     public String OrderTrackingView(
@@ -126,10 +114,7 @@ public class GeneralMemberController {
     	return "member/memberOrderTracking";
     }
     
-    
-    
-    
-    
+ 
     //修改病例資料GET
     @GetMapping(value = "/modifyTheCase")
     public String preModify(Model model) {
@@ -138,9 +123,7 @@ public class GeneralMemberController {
     	return "member/getMemberFirstVisit";
     }
 
-    
 
- 
     @RequestMapping(value="/modifyTheCase",method=RequestMethod.POST)
     public String modifyTheCase(@ModelAttribute("md") MemberDetails memberDetails,
     		@ModelAttribute("LoginOK") Member mb) {

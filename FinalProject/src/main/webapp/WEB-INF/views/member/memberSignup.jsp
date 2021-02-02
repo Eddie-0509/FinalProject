@@ -297,10 +297,6 @@ input:invalid+.ok{
 
 
 
-
-
-
-
 $(function(){
 	$("#memberDemo").click(function(){
 		$("#clinicEmail").val("zzz63214780000@gmail.com")
