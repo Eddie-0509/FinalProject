@@ -195,6 +195,7 @@
 								<button type="submit" id="logInBtn"><strong>登入</strong></button>
 								<div class="container" >
 									<span ><a href="<c:url value='clinicForgotPwd'/>" class="link">忘記密碼?</a></span>
+									<span ><a href="javascript:void();" id="eddieDemo">First demo</a></span>
 									<span ><a href="javascript:void();" id="sconeDemo">Second demo</a></span>
 								</div>
 							</div>
@@ -330,6 +331,11 @@
 	  $("#sconeDemo").on("click",function(){
 		  $("#cname").val("Yorozuya@hotmail.com.tw");
 		  $("#cpsw").val("P@ssw0rd456");
+	  })
+	  
+	  $("#eddieDemo").click(function(){
+		  $("#cname").val("tihtom@gmail.com");
+		  $("#cpsw").val("qq11!!!");
 	  })
 	
 	</script>
