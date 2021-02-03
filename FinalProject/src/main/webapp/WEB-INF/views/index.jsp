@@ -179,6 +179,7 @@
 									<span ><a href="<c:url value='memberForgotPwd'/>" class="link">忘記密碼?</a></span>
 									<span ><a href="javascript:void(0)" id="adminLogin">adminDemo</a></span>
 									<span ><a href="javascript:void(0)" id="meberLogin">meberDemo</a></span>
+									<span ><a href="javascript:void(0)" id="meberOtLogin">meberOtDemo</a></span>
 								</div>
 							</div>
 						</form>
@@ -315,6 +316,13 @@
 		$("#uname").val("zzz63214780000@gmail.com");
 		$("#upsw").val("a,123123");
 	});
+	
+	$("#meberOtLogin").click(function(){
+		$("#uname").val("showyouwant2017@gmail.com");
+		$("#upsw").val("a,123123");
+	});
+	
+	
 	
 	if ("${LoginOK}" !=""){
 			$("#fh5co-nav ul").html(
