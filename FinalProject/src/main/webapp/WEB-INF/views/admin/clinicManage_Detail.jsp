@@ -257,7 +257,7 @@
 				}else{
 					str+= "<td>無</td>";												
 				}
-				if(appointment[i].memberBean.memberPkId != null){
+				if(appointment[i].memberBean != null){
 					str+= "<td>是</td>";					
 				}else{
 					str+= "<td>否</td>";													
@@ -286,7 +286,7 @@
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
-				<c:when test="${appointment.memberBean.memberPkId != null }">
+				<c:when test="${appointment.memberBean != null }">
 					str+= "<td>是</td>";
 				</c:when>
 				<c:otherwise>
