@@ -419,14 +419,15 @@ footer {
 								<div id="lcontainer">
 									<span id="errorMsg" style="color: red; text-align: center; display:block;">${errorMsg}</span><br/>
 									<label for="uname"><strong>帳　　　號</strong></label>
-									<input type="text" placeholder="請輸入E-mail" name="account" id="uname" required autofocus><br><br>
+									<input type="text" placeholder="請輸入E-mail" name="account" id="uname"><br><br>
 					
 									<label for="upsw"><strong>密　　　碼</strong></label>
-									<input type="password" placeholder="請輸入密碼" name="pwd" id="upsw" required>
+									<input type="password" placeholder="請輸入密碼" name="pwd" id="upsw">
 								</div><br>
 								<button type="button" id="loginbtn" class="btn btn-primary submitOffer btn-lg"><strong>登入</strong></button>
 								<div id="lbot">
-									<br><span><a href="#" class="link">忘記密碼?</a></span>
+									<span><a id="input" href="#" class="link">Input Data</a></span>
+									<span><a href="#" class="link">忘記密碼?</a></span>
 								</div>
 							</div>
 				</div>
@@ -543,6 +544,11 @@ footer {
 								$("#errorMsg").text("帳號密碼錯誤");
 							}			
 						});
+					});
+
+					$("#input").click(function(){
+						$("#uname").val("Tanjirou@gmail.com.tw");
+						$("#upsw").val("P@ssw0rd123");
 					});
 
 					beReady();
