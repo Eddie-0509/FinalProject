@@ -212,7 +212,7 @@
 }
 
 #ccal {
- 	margin-right: 25vw;
+ 	margin-right: 20vw;
  	font-weight: 900;
  	font-size: 25px;
 }
@@ -302,6 +302,22 @@ footer {
 #fdiv {
 	text-align: center;
 }
+
+#cartCount {
+	background-color: red;
+	width: 18px;
+	height: 18px;
+	border-radius: 50px;
+	z-index: 2;
+	position: absolute;
+	margin-top: 100px;
+	float: left;
+	color: white;
+	font-size: 15px;
+	font-weight: 900;
+	text-align: center;
+	line-height: 18px;
+}
 </style>
 </head>
 <body> 
@@ -311,7 +327,7 @@ footer {
 		<span class=icon>
 		<i class="bi bi-house"></i>
 		<i class="bi bi-person-fill"></i>
-		<i class="bi bi-cart4"></i>
+		<span><span id="cartCount">3</span><i class="bi bi-cart4" style="z-index: 1;"></i></span>
 		<i class="bi bi-door-open-fill"></i>
 		</span>
 	</div>
@@ -530,6 +546,7 @@ footer {
 					});
 
 					beReady();
+					countCart();
 				});
 
 		$("#left p").click(function() {
@@ -674,7 +691,7 @@ footer {
 				$("#ctotal").text(parseInt($("#ctotal").text()) + parseInt(products[pnum].productPrice, 10) * parseInt(qty, 10));			
 				
 				$("#cart").modal("show");
-				
+				countCart();
 			});
 
 
@@ -729,8 +746,8 @@ footer {
 						$("#ctotal").text(np);
 					});
 
+					countCart();
 					cookiestr = $("#ccontent").html();
-					console.log(cookiestr);
 					Cookies.set("cart", cookiestr, { expires: 7 });	
 				});
 			}
@@ -759,7 +776,15 @@ footer {
 						np += parseInt($(this).text(), 10);
 						$("#ctotal").text(np);
 					});
+
+					countCart();
 				});
+			}
+
+
+			function countCart(){
+				let items = $(".cname").length;
+				$("#cartCount").text(items);
 			}
 	</script>
 </body>
