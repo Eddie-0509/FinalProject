@@ -1,6 +1,6 @@
 "use strict";
 
-class updateMember {
+class updateProduct {
 
   constructor(modalTitle, modalText, acceptText, cancelText) {
     this.modalTitle = modalTitle || "Attention!";

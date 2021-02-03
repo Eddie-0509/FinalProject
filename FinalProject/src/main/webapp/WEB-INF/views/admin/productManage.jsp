@@ -639,10 +639,10 @@
 							$("#h_price").prepend("<option id ='價格' value='價格' selected='selected'>價格</option>");
 						}
 						if($("#h_productCategory option:selected").text()!="產品類別"){
-							$("#h_productCategory").prepend("<option id ='產品類別' value='產品類別' selected='selected'>產品類別</option>");
+							$("#產品類別").prop("selected","selected");
 						}
 						if($("#h_status option:selected").text()!="狀態"){
-							$("#h_status").prepend("<optioin id='狀態' value='狀態' selected='selected'>狀態</option>");
+							$("#狀態").prop("selected","selected");
 						}
 						showData();
 						if(products==""){

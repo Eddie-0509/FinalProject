@@ -427,6 +427,11 @@
 		showRawData();
 		bindRawUpdateBtn();
 		$("#addCoupon").click(function(){
+			$("#a_checkName").html("");
+			$("#a_checkContext").html("");
+			$("#a_checkCode").html("");
+			$("#a_checkStartTime").html("");
+			$("#a_checkEndTime").html("");
 			$("#addCouponFormModal").modal("show");
 		});
 		//一鍵輸入新增表單內容
@@ -478,6 +483,11 @@
 	function bindRawUpdateBtn(){
 		<c:forEach var="coupon" items="${coupon}">
 			$("#updateCouponBtn${coupon.couponPkId}").click(function(){
+				$("#u_checkName").html("");
+				$("#u_checkContext").html("");
+				$("#u_checkCode").html("");
+				$("#u_checkStartTime").html("");
+				$("#u_checkEndTime").html("");
 				//修改表單欄位檢查
 				var u_flagName = true;
 				$("#u_couponName").blur(function(){
@@ -580,7 +590,7 @@
 					if(u_flagName && u_flagContext && u_flagCode && u_flagStartTime && u_flagEndTime){				
 						update_Coupon();
 					}else{
-						wrongInput();
+						u_wrongInput();
 						$("body > dialog > div > div.simple-modal-button-group").children().remove();
 					}
 				});					
@@ -612,6 +622,11 @@
 	function bindUpdateBtn(){;	
 		for(let i = 0; i < coupon.length; i++) {
 			$("#updateCouponBtn"+coupon[i].couponPkId).click(function(){
+				$("#u_checkName").html("");
+				$("#u_checkContext").html("");
+				$("#u_checkCode").html("");
+				$("#u_checkStartTime").html("");
+				$("#u_checkEndTime").html("");
 				//修改表單欄位檢查
 				var u_flagName = true;
 				$("#u_couponName").blur(function(){
@@ -715,7 +730,7 @@
 					if(u_flagName && u_flagContext && u_flagCode && u_flagStartTime && u_flagEndTime){				
 						update_Coupon();
 					}else{
-						wrongInput();
+						u_wrongInput();
 						$("body > dialog > div > div.simple-modal-button-group").children().remove();
 					}
 				});			

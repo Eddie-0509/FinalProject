@@ -27,7 +27,7 @@ class updateCoupon {
       this.acceptButton.focus();
 
       this.acceptButton.addEventListener("click", () => {
-    	  $("#addProduct").submit();
+    	  $("#updateCouponForm").submit();
         resolve(true);
         this._destroyModal();
       });
