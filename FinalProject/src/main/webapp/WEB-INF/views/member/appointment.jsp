@@ -252,7 +252,7 @@
 						</div>
 					</div>
 					<button type="button" class="btn btn-dark" id="sdentist"
-						style="margin: 10px;">搜尋醫生/診所</button>
+						style="margin-left: 150px;">搜尋醫生/診所</button>
 				</form>
 			</div>
 		</div>
