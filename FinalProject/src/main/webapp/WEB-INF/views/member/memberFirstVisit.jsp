@@ -114,6 +114,11 @@
 
 	<!--首頁文字輪播、modal js bySCONE-->	
 	<script src="js/hpother.js"></script>
+	<style>
+		#Modal span{
+		display:inline-block;width:200px;text-align:right;
+		}
+	</style>
 	
 	</head>
 
@@ -187,25 +192,24 @@
 <table border="1" class="table">
 <tbody>
 
-<form:form action ="${pageContext.request.contextPath}/memberFirstVisitAddView" method="post" modelAttribute="md" >
+<form:form action ="${pageContext.request.contextPath}/memberFirstVisitAddView" method="post" modelAttribute="md" id='form'>
 
 
      <input value="${LoginOK.memberPkId}"  name="mem5berPkId" style="display:none" />
      
-     <label for="clinicName">
-     <strong>緊急聯絡人:</strong></label> 
+     <span><label>緊急聯絡人：</label></span>
      <input placeholder="請輸入您的緊急聯絡人" id="clinicName" name="emergencyContact" required autofocus/>
   
      <br>
      
-     <label for="clinicPhone"><strong>緊急連絡電話:</strong></label> 
-     <input placeholder="請輸入您的緊急聯絡電話" name="emergencyNumber" id="clinicPhone"required autofocus/><span id="checkPhone"></span>
+     <span><label>緊急連絡人電話：</label></span>
+     <input placeholder="請輸入緊急聯絡人電話" name="emergencyNumber" id="clinicPhone"required autofocus/>
      <br>
      
      
      
-     <label for="emergencyRelationshipok"><strong>關係:</strong></label> 
-     <input placeholder="請輸入與緊急聯絡任的關係" name="emergencyRelationship" id="emergencyRelationshipok"required autofocus/>
+     <span><label>緊急連絡人關係：</label></span>
+     <input placeholder="請輸入與緊急聯絡人的關係" name="emergencyRelationship" id="emergencyRelationshipok"required autofocus/>
      <br>
      
 
@@ -220,28 +224,27 @@
      <br>
      
      
-     <label for="diseasesok">
-     <strong>重大疾病:</strong></label> 
+     
+     <span><label>重大疾病：</label></span>
      <input placeholder="是否有重大疾病，請填寫" name="diseases" id="diseasesok" required autofocus/>
      <br>
      
      
-     <label for="allergyok">
-     <strong>重大疾病:</strong></label> 
+     
+     <span><label>過敏原：</label></span>
      <input placeholder="請填寫過敏原" name="allergy" id="allergyok" required autofocus/>
      <br>
      
      
-     <label for="surgeryok">
-     <strong>手術史:</strong></label> 
+     <span><label>手術史：</label></span>
      <input placeholder="請填寫動過的手術紀錄" name="surgery" id="surgeryok" required autofocus/></strong>
      <br> 
      
-     
+      <div class="modal-footer">
      <span ><a href="javascript:void(0)" id="memberDemo">memberDemo</a></span>
-     <div style="text-align:center;"><input type="submit" value="新增" />   </div>
-     
-
+    
+		<button class="btn btn-default" id="insert">新增</button>				                 
+	</div>
 </form:form>
 
 </tbody>
@@ -255,18 +258,6 @@
     </div>
     <!--/main-->
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 			</div>
@@ -312,6 +303,10 @@
 	
 	
 	$(function(){
+		$("#insert").click(function(){
+			$("#form").trigger("submit");
+		})
+		
 		$("#memberDemo").click(function(){
 			$("#clinicEmail").val("zzz63214780000@gmail.com")
 			$("#clinicPwd").val("a,123123")
