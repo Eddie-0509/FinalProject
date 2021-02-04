@@ -479,11 +479,11 @@
 	
 	$("#sconeDemo1").on("click",function(event){
 		  event.preventDefault();
-		  $("#PhoneToQuery").val("0911111111");
+		  $("#PhoneToQuery").val("0914693339");
 	  })
 	$("#sconeDemo2").on("click",function(event){
 		  event.preventDefault();
-		  $("#PhoneToQuery").val("0933156223");
+		  $("#PhoneToQuery").val("0923885123");
 	  })
 	  
 // 	  $( "body" ).loading()

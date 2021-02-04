@@ -41,7 +41,7 @@
 	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="shortcut icon" href="favicon.ico">
+<link rel="shortcut icon" href="tools/favicon.ico">
 	
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700italic,700' rel='stylesheet' type='text/css'>
@@ -124,6 +124,7 @@
 		<nav id="fh5co-nav" role="navigation">
 			<ul>			
 				<!-- 如果你是會員的頁面 -->
+				<li><img src='images/UYAYI_white.png' id='logo' width='200' style='float:left;position: absolute; left: 100px; top: 17.6px;'/></li>
 				<li class="animate-box "><a href="<c:url value='index'/>" class="transition">Home</a></li>
 				<li class="animate-box "><a >會員資料</a></li>
 				<li class="animate-box"><a >填寫初診</a></li>

@@ -134,7 +134,7 @@
 		
 
 
-		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes" style="background: url('images/hero-bg.jpg') top center">
+		<header id="fh5co-header" role="banner" class="fh5co-project js-fh5co-waypoint no-border" data-colorbg="#222222" data-next="yes" style="background: url('images/hero-bg.jpg') top center;background-repeat: no-repeat;">
 			<div class="container">
 				<div class="fh5co-text-wrap animate-box" >
 					<div class="fh5co-intro-text" id="memberI">
@@ -309,7 +309,7 @@
 	})
 	$("#adminLogin").click(function(){
 		$("#uname").val("admin");
-		$("#upsw").val("admin123");
+		$("#upsw").val("P@ssw0rd123456");
 	});
 	
 	$("#meberLogin").click(function(){

@@ -191,8 +191,8 @@
 							<th style='width: 100px;'>
 							<select name="h_memberArrive" id="h_memberArrive">
 								<option id ="到診" value="到診" selected="selected">到診</option>
-								<option id ="有" value="True">有</option>
-								<option id ="無" value="False" >無</option>
+								<option id ="有" value="true">有</option>
+								<option id ="無" value="false" >無</option>
 							</select>
 							</th>
 							<th style='width: 100px;'>
@@ -238,6 +238,7 @@
 	</div>
 	<script>
 	var appointment;
+	var clinicID=${clinic.clinicPkId};
 	$(function(){
 		showRawData();
 	})
@@ -300,7 +301,7 @@
 	//依會員資格篩選
 	$("#h_memberArrive").change(function(){
 		let urlQuery = new URLSearchParams({
-			clinicPkId :${clinic.clinicPkId},
+			clinicPkId :clinicID,
 			memberAccount : $("#h_memberAccount option:selected").val(),
 			memberArrive : $("#h_memberArrive option:selected").val(),
 			method : "fetch()",
@@ -319,7 +320,7 @@
 	//依到診率篩選
 	$("#h_memberAccount").change(function(){
 		let urlQuery = new URLSearchParams({
-			clinicPkId :${clinic.clinicPkId},
+			clinicPkId :clinicID,
 			memberAccount : $("#h_memberAccount option:selected").val(),
 			memberArrive : $("#h_memberArrive option:selected").val(),
 			method : "fetch()",

@@ -112,6 +112,7 @@ var patientName="";
 	        });
 
 			$("#doctor"+dn).fullCalendar({
+				timeZone:'local',
 				header: {
 					left: 'prev,next today',
 					center: 'title',
@@ -201,6 +202,7 @@ var patientName="";
 
 		//月行事曆
 		$( "#monthcalendar" ).fullCalendar({
+			timeZone:'local',
 			header: {
 				left: 'prev,next today',
 				center: 'title',
@@ -251,10 +253,12 @@ var patientName="";
 
 		//日清單
 		$("#listcalendar").fullCalendar({
+			timeZone:'local',
 			header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'none'
+				right: 'none',
+				ignoreTimezone: false  
 			},
 			contentHeight: 500,
 			defaultDate: $('#calendar').fullCalendar('today'), // 起始日期

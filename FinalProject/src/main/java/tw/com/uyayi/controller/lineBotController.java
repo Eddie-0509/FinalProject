@@ -90,7 +90,7 @@ public class lineBotController {
 					sendResponseMessages(eventWrap.getEvents().get(0).getReplyToken(), appString);
 					}
 					break;
-				case "預約記錄" :
+				case "預約紀錄" :
 					List<Appointment> allList = lineBotService.getAppointment(userId);
 					int count = 0;
 					String appString ="";
@@ -164,8 +164,8 @@ public class lineBotController {
 					+"時間:"+appointTime+"\n";
 					
 			
-			URI uri1 = new URI("https://9689facef272.ngrok.io/FinalProject/appointmentYes?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
-			URI uri2 = new URI("https://9689facef272.ngrok.io/FinalProject/appointmentNo?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
+			URI uri1 = new URI("https://0a636e1c3d4d.ngrok.io/FinalProject/appointmentYes?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
+			URI uri2 = new URI("https://0a636e1c3d4d.ngrok.io/FinalProject/appointmentNo?dfgergsd&ad="+appointOfClinic.get(i).getAppointmentPkId()+"&sefewtbaerv") ;
 			AltUri altUri1 = new AltUri(uri1);
 			AltUri altUri2 = new AltUri(uri2);
 			Action a1 =new URIAction("是",uri1,altUri1);

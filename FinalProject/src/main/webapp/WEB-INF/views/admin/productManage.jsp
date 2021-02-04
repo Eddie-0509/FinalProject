@@ -250,7 +250,7 @@
 						<div style="padding-left: 10px;margin-top: 10px">
 							<label for="upload" >上傳產品圖片</label><span id ="a_checkimage"></span>
   							<input name="a_productFile" id="a_upload" type="file" accept="image/*" multiple="multiple" />
-  							<div style="text-align: center;">
+  							<div id="a_showImage"style="text-align: center;display: none;">
   							<img id="a_blah" src="#" alt="your image" style="width: 300px;" />
   							</div>
 						</div>
@@ -775,6 +775,7 @@
 	});
 	var a_flagImage = false;
 	$("#a_upload").change(function(e) {
+		$("#a_showImage").css("display","block");
 		a_readURL(this);
 		a_flagImage = true;
 	});

@@ -358,10 +358,10 @@
 							<span id="errorMsg"
 								style="color: red; text-align: center; display: block;">${errorMsg}</span><br />
 							<label for="uname"><strong>信箱</strong></label> <input
-								type="text" placeholder="請輸入信箱" name="account" id="uname"
+								type="text" placeholder="請輸入信箱" name="account" id="uname1"
 								required autofocus> <br>
 							<label for="psw"><strong>密碼</strong></label> <input type="password" placeholder="請輸入密碼" name="pwd"
-								id="upsw" required>
+								id="upsw1" required>
 							<!--塞入隱藏欄位傳值去後端 -->
 							<input type="hidden" name="memberclinic" value="" id="mclinic" />
 							<input type="hidden" name="memberdentist" value="" id="mdentist" />
@@ -377,7 +377,7 @@
 						<span ><a href="javascript:void(0)" id="demo">Demo</a></span>
 <!-- 						<span ><a href="javascript:void(0)" id="demoWrong">DemoWrong</a></span> -->
 						<span ><a href="javascript:void(0)" id="demoStopAccount">DemoStopAccount</a></span>	
-							<span><a href="#" class="link">忘記密碼?</a></span>
+							<span><a href="<c:url value='memberForgotPwd'/>" class="link">忘記密碼?</a></span>
 						</div>
 					</div>
 				</form>
@@ -526,7 +526,7 @@
 																+ "<br>"
 																+ data[i].clinicBean.clinicAddress
 																+ "<br>"
-																+ "<button class='aplogin' value='" + data[i].dentistPkId + "'>預 約</button>"
+																+ "<button class='aplogin btn-info' value='" + data[i].dentistPkId + "'>預 約</button>" + "<hr>"
 																+ "</div>";
 													}
 													$("#den").html(str);
@@ -569,8 +569,8 @@
 		$("#loginbtn").click(
 						function() {
 							let urlQuery = new URLSearchParams({
-								account : $("#uname").val(),
-								pwd : $("#upsw").val(),
+								account : $("#uname1").val(),
+								pwd : $("#upsw1").val(),
 								method : "fetch()",
 								doWhat : "POST"
 							});
@@ -597,18 +597,18 @@
 		};
 		//Demo一鍵輸入
 		$("#demo").click(function(){
-			$("#uname").val("Tanjirou@gmail.com.tw") 
-			$("#upsw").val("P@ssw0rd123")	
+			$("#uname1").val("ssfee@gmail.com"); 
+			$("#upsw1").val("P@ssw0rd123");	
 		})
 		//Demo錯誤帳號密碼一鍵輸入
 		$("#demoWrong").click(function(){
-			$("#uname").val("zxcv12345@gmail.com") 
-			$("#upsw").val("P@ssw0rd123")	
+			$("#uname1").val("zxcv12345@gmail.com");
+			$("#upsw1").val("P@ssw0rd123");	
 		})
 		//Demo停權帳號一鍵輸入
 		$("#demoStopAccount").click(function(){
-			$("#uname").val("Nezuko@gmail.com.tw") 
-			$("#upsw").val("P@ssw0rd123")	
+			$("#uname1").val("zaoan@msn.com.tw"); 
+			$("#upsw1").val("P@ssw0rd123");	
 		})
 		//未登入狀態的頁面中用戶登入裡的admin一鍵輸入
 		$("#adminLogin").click(function(){

@@ -107,7 +107,7 @@ public class AppointmentController {
 		}
 		for (int i = 0; i < dentistMap.size(); i++) {
 			List<Appointment> a = appointmentService.checkFull(dentistMap.get(i),timeTablePkId, appointmentDate);
-			if(a.size()>=2) {
+			if(a.size()>=1) {
 				dentistMap.remove(i);
 			}
 		}
